@@ -1,7 +1,6 @@
 package ru.korchinskiy.dto;
 
 import lombok.Data;
-import ru.korchinskiy.entity.Category;
 
 import java.util.Set;
 
@@ -11,5 +10,8 @@ public class ProductDto {
     private String title;
     private Double cost;
     private Integer amount;
-    private Set<Category> categories;
+    private String description;
+    private String photoMd;
+    private String photoSm;
+    private Set<CategoryDto> categories;
 }

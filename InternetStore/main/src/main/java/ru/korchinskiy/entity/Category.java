@@ -43,4 +43,13 @@ public class Category {
     public int hashCode() {
         return Objects.hash(id, title);
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", parentId=" + parentId +
+                '}';
+    }
 }

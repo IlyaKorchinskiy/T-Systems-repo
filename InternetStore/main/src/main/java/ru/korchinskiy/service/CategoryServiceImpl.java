@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.korchinskiy.dao.CategoryDAO;
 import ru.korchinskiy.dto.CategoryDto;
+import ru.korchinskiy.dto.CategoryWithProductsDto;
 import ru.korchinskiy.entity.Category;
 
 import java.util.HashSet;
@@ -21,8 +22,19 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Set<CategoryDto> getMainCategories() {
-        Set<Category> categories = new HashSet<>(categoryDAO.getMainCategories());
+    public CategoryWithProductsDto getCategoryWithProductsById(Long id) {
+        Category category = categoryDAO.getCategoryWithProductsById(id);
+        return dtoMappingService.convertToCategoryWithProductsDto(category);
+    }
+
+    @Override
+    public Set<CategoryDto> getCategoriesByParentId(Long id) {
+        Set<Category> categories = new HashSet<>(categoryDAO.getCategoriesByParentId(id));
+        if (categories.size() == 0) {
+            Category category = categoryDAO.getCategoryById(id);
+            if (category.getParentId() != 0)
+                categories.addAll(categoryDAO.getCategoriesByParentId(category.getParentId()));
+        }
         return dtoMappingService.convertToCategoryDtoSet(categories);
     }
 

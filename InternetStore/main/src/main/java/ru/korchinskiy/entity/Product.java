@@ -18,6 +18,13 @@ public class Product {
     private String title;
     private Double cost;
     private Integer amount;
+    private String description;
+
+    @Column(name = "md_photo")
+    private String photoMd;
+
+    @Column(name = "sm_photo")
+    private String photoSm;
 
     @ManyToMany(mappedBy = "products")
     private Set<Category> categories = new HashSet<>();

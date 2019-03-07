@@ -24,7 +24,6 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
-
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/" />
         <property name="suffix" value=".jsp" />
@@ -39,12 +38,7 @@
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="annotatedClasses">
-            <list>
-                <value>ru.korchinskiy.entity.Product</value>
-                <value>ru.korchinskiy.entity.Category</value>
-            </list>
-        </property>
+        <property name="packagesToScan" value="ru.korchinskiy.entity"/>
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>

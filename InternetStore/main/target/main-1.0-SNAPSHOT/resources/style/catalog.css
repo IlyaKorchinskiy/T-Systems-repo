@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600&subset=cyrillic');
+
+body {
+    font-family: Montserrat, sans-serif;
+}
+
+.site-padding {
+    padding: 0 5%;
+}
+
+@media (min-width: 1200px) {
+    .site-padding {
+        padding: 0 10%;
+    }
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.header-menu {
+    background-color: #424242;
+}
+
+.header-menu a {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 26px;
+    text-align: center;
+}
+
+.header-menu a:hover {
+    background-color: #6d6d6d;
+}
+
+.header-content {
+    background-color: #f2f2f2;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.logo {
+    text-align: center;
+}
+
+.menu {
+    border: 1px solid #dddddd;
+}
+
+.menu .nav-link {
+    color: #525252;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 32px;
+    border-radius: 0;
+}
+
+.menu .nav-link.disabled {
+    color: #6b6969;
+    font-size: 21px;
+}
+
+.menu > li > .nav-link:hover {
+    color: #ffffff;
+    background-color: #79b260;
+}
+
+.menu .nav-link.active {
+    color: #ffffff;
+    background-color: #79b260;
+}
+
+.subMenu .nav-link {
+    color: #555454;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 27px;
+}
+
+.subMenu .nav-link:hover {
+    color: #525252;
+    font-weight: 600;
+}
+
+.subMenu .nav-link.active {
+    font-weight: 600;
+    text-decoration: underline;
+    background-color: transparent;
+    color: #525252;
+
+}
+
+.products-content {
+    padding: 25px;
+    border: 1px solid #dddddd;
+}
+
+.filter .btn {
+    background-color: #79b260;
+    color: #ffffff;
+}
+
+.filter .btn:hover {
+    background-color: #6d6d6d;
+}
+
+.products .col {
+    flex-grow: 0;
+}
+
+.card {
+    width: 150px;
+    height: 330px;
+    border: none;
+    margin-bottom: 30px;
+}
+
+.card a:hover {
+    outline: 1px solid #d8d8d8;
+    text-decoration: none;
+}
+
+.card-body {
+    padding: 0.5rem 0.25rem;
+}
+
+.card-title {
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #646464;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 18px;
+    text-align: center;
+}
+
+.card-text {
+    color: #f05356;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+}

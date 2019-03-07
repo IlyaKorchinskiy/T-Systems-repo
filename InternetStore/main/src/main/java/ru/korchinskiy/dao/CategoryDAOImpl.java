@@ -21,18 +21,25 @@ public class CategoryDAOImpl implements CategoryDAO {
     @Override
     @Transactional
     public Category getCategoryById(Long id) {
+        return this.sessionFactory.getCurrentSession().get(Category.class, id);
+    }
+
+    @Override
+    @Transactional
+    public Category getCategoryWithProductsById(Long id) {
         Category category = this.sessionFactory.getCurrentSession().get(Category.class, id);
         Hibernate.initialize(category.getProducts());
         return category;
     }
 
     @Override
-    public List<Category> getMainCategories() {
+    @Transactional
+    public List<Category> getCategoriesByParentId(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Category> criteria = builder.createQuery(Category.class);
         Root<Category> root = criteria.from(Category.class);
-        criteria.select(root).where(builder.equal(root.get("parent_id"), null));
+        criteria.select(root).where(builder.equal(root.get("parentId"), id));
         Query<Category> query = session.createQuery(criteria);
         return query.getResultList();
     }

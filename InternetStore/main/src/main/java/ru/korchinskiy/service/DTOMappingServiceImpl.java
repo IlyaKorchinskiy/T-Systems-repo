@@ -2,6 +2,7 @@ package ru.korchinskiy.service;
 
 import org.springframework.stereotype.Service;
 import ru.korchinskiy.dto.CategoryDto;
+import ru.korchinskiy.dto.CategoryWithProductsDto;
 import ru.korchinskiy.dto.ProductDto;
 import ru.korchinskiy.entity.Category;
 import ru.korchinskiy.entity.Product;
@@ -18,7 +19,9 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         productDto.setCost(product.getCost());
         productDto.setTitle(product.getTitle());
         productDto.setAmount(product.getAmount());
-        productDto.setCategories(product.getCategories());
+        productDto.setDescription(product.getDescription());
+        productDto.setPhotoMd(product.getPhotoMd());
+        productDto.setPhotoSm(product.getPhotoSm());
         return productDto;
     }
 
@@ -33,12 +36,22 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
+    public CategoryWithProductsDto convertToCategoryWithProductsDto(Category category) {
+        CategoryWithProductsDto categoryDto = new CategoryWithProductsDto();
+        categoryDto.setId(category.getId());
+        categoryDto.setTitle(category.getTitle());
+        categoryDto.setParentId(category.getParentId());
+        Set<Product> products = category.getProducts();
+        categoryDto.setProducts(convertToProductDtoSet(products));
+        return categoryDto;
+    }
+
+    @Override
     public CategoryDto convertToCategoryDto(Category category) {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(category.getId());
         categoryDto.setTitle(category.getTitle());
         categoryDto.setParentId(category.getParentId());
-        categoryDto.setProducts(category.getProducts());
         return categoryDto;
     }
 
