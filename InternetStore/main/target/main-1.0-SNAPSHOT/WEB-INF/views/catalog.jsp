@@ -6,69 +6,15 @@
     <title>Каталог</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="resources/style/catalog.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="resources/style/catalog.css">
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row header">
-        <div class="col">
-            <div class="row header-menu site-padding">
-                <div class="col">
-                    <ul class="nav justify-content-end">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Вход</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Регистрация</a>
-                        </li>
-
-                    </ul>
-                </div>
-            </div>
-            <div class="row align-items-center header-content site-padding">
-                <div class="col-sm-3 logo">
-                    <a href="#"><img src="resources\img\logo.png" alt="logo"></a>
-                </div>
-                <div class="col-sm-5">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Введите название или автора"
-                               aria-describedby="button-addon2">
-                        <div class="input-group-append">
-                            <button class="btn" type="button" id="button-addon2">Найти</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col"></div>
-            </div>
-        </div>
-    </div>
+    <jsp:include page="header.jsp"/>
     <div class="row content site-padding">
-        <div class="col-sm-3">
-            <ul class="nav nav-pills flex-column menu">
-                <li class="nav-item">
-                    <a class="nav-link disabled">Категории</a>
-                </li>
-                <c:forEach items="${mainCategories}" var="mainCategory">
-                    <li class="nav-item">
-                        <a class="nav-link ${(mainCategory.id == category.id || mainCategory.id == category.parentId) ? 'active' : ''}"
-                           href="catalog?id=${mainCategory.id}">${mainCategory.title}</a>
-                        <c:if test="${mainCategory.id == category.id || mainCategory.id == category.parentId}">
-                            <ul class="nav flex-column subMenu">
-                                <c:forEach items="${subCategories}" var="subCategory">
-                                    <li class="nav-item">
-                                        <a class="nav-link ${subCategory.id == category.id ? 'active' : ''}"
-                                           href="catalog?id=${subCategory.id}">${subCategory.title}</a>
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        </c:if>
-
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
+        <jsp:include page="navigation.jsp"/>
         <div class="col products-content">
             <div class="row filter">
                 <div class="col">

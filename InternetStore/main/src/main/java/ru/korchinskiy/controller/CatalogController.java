@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.korchinskiy.dto.CategoryDto;
-import ru.korchinskiy.dto.CategoryWithProductsDto;
 import ru.korchinskiy.dto.ProductDto;
 import ru.korchinskiy.service.CategoryService;
 import ru.korchinskiy.service.ProductService;

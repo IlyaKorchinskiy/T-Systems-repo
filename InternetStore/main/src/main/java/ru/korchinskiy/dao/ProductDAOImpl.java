@@ -9,7 +9,6 @@ import ru.korchinskiy.entity.Category;
 import ru.korchinskiy.entity.Product;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {

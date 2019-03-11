@@ -1,10 +1,10 @@
 package ru.korchinskiy.service;
 
-import ru.korchinskiy.dto.CategoryDto;
-import ru.korchinskiy.dto.CategoryWithProductsDto;
-import ru.korchinskiy.dto.ProductDto;
+import ru.korchinskiy.dto.*;
 import ru.korchinskiy.entity.Category;
 import ru.korchinskiy.entity.Product;
+import ru.korchinskiy.entity.Role;
+import ru.korchinskiy.entity.User;
 
 import java.util.Set;
 
@@ -18,4 +18,10 @@ public interface DTOMappingService {
     CategoryWithProductsDto convertToCategoryWithProductsDto(Category category);
 
     Set<CategoryDto> convertToCategoryDtoSet(Set<Category> categories);
+
+    UserDto convertToUserDto(User user);
+
+    RoleDto convertToRoleDto(Role role);
+
+    Set<RoleDto> convertToRoleDtoSet(Set<Role> roles);
 }

@@ -1,11 +1,11 @@
 package ru.korchinskiy.service;
 
 import org.springframework.stereotype.Service;
-import ru.korchinskiy.dto.CategoryDto;
-import ru.korchinskiy.dto.CategoryWithProductsDto;
-import ru.korchinskiy.dto.ProductDto;
+import ru.korchinskiy.dto.*;
 import ru.korchinskiy.entity.Category;
 import ru.korchinskiy.entity.Product;
+import ru.korchinskiy.entity.Role;
+import ru.korchinskiy.entity.User;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -41,8 +41,7 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         categoryDto.setId(category.getId());
         categoryDto.setTitle(category.getTitle());
         categoryDto.setParentId(category.getParentId());
-        Set<Product> products = category.getProducts();
-        categoryDto.setProducts(convertToProductDtoSet(products));
+        categoryDto.setProducts(convertToProductDtoSet(category.getProducts()));
         return categoryDto;
     }
 
@@ -63,5 +62,37 @@ public class DTOMappingServiceImpl implements DTOMappingService {
             categoryDtos.add(categoryDto);
         }
         return categoryDtos;
+    }
+
+    @Override
+    public UserDto convertToUserDto(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setId(user.getId());
+        userDto.setName(user.getName());
+        userDto.setLastname(user.getLastname());
+        userDto.setBirthday(user.getBirthday());
+        userDto.setEmail(user.getEmail());
+        userDto.setPassword(user.getPassword());
+        userDto.setPhoneNumber(user.getPhoneNumber());
+        userDto.setRoles(convertToRoleDtoSet(user.getRoles()));
+        return userDto;
+    }
+
+    @Override
+    public RoleDto convertToRoleDto(Role role) {
+        RoleDto roleDto = new RoleDto();
+        roleDto.setId(role.getId());
+        roleDto.setRole(role.getRole());
+        return roleDto;
+    }
+
+    @Override
+    public Set<RoleDto> convertToRoleDtoSet(Set<Role> roles) {
+        Set<RoleDto> roleDtos = new HashSet<>();
+        for (Role role : roles) {
+            RoleDto roleDto = convertToRoleDto(role);
+            roleDtos.add(roleDto);
+        }
+        return roleDtos;
     }
 }

@@ -2,6 +2,7 @@ package ru.korchinskiy.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.korchinskiy.dao.CategoryDAO;
 import ru.korchinskiy.dto.CategoryDto;
 import ru.korchinskiy.dto.CategoryWithProductsDto;
@@ -28,6 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Transactional
     public Set<CategoryDto> getCategoriesByParentId(Long id) {
         Set<Category> categories = new HashSet<>(categoryDAO.getCategoriesByParentId(id));
         if (categories.size() == 0) {

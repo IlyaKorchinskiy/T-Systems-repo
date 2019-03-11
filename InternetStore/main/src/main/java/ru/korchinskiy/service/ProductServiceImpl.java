@@ -6,7 +6,6 @@ import ru.korchinskiy.dao.ProductDAO;
 import ru.korchinskiy.dto.ProductDto;
 import ru.korchinskiy.entity.Product;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -34,8 +33,8 @@ public class ProductServiceImpl implements ProductService {
         Double finalMinCost = minCost;
         Double finalMaxCost = maxCost;
         Set<Product> products = allProducts.stream()
-                    .filter(a -> a.getCost() >= finalMinCost && a.getCost() <= finalMaxCost)
-                    .collect(Collectors.toSet());
+                .filter(a -> a.getCost() >= finalMinCost && a.getCost() <= finalMaxCost)
+                .collect(Collectors.toSet());
         return dtoMappingService.convertToProductDtoSet(products);
     }
 
