@@ -15,7 +15,7 @@
     <jsp:include page="header.jsp"/>
     <div class="row content site-padding">
         <jsp:include page="navigation.jsp"/>
-        <div class="col products-content">
+        <div class="col catalog-content">
             <div class="row filter">
                 <div class="col">
                     <form id="filter" action="catalog" method="get">
@@ -41,7 +41,7 @@
                     </form>
                 </div>
             </div>
-            <div class="row justify-content-start products">
+            <div class="row justify-content-start product-list">
                 <c:forEach items="${products}" var="product">
                     <div class="col">
                         <div class="card">
@@ -59,8 +59,7 @@
 
         </div>
     </div>
-
-
+    <jsp:include page="footer.jsp"/>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

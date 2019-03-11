@@ -5,7 +5,6 @@
 <div class="row header">
     <div class="col">
         <div class="row header-menu site-padding">
-
             <div class="col">
                 <ul class="nav justify-content-end">
                     <sec:authorize access="hasAnyRole('ADMIN', 'SUPER_ADMIN')">

@@ -8,14 +8,14 @@
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="resources/style/catalog.css">
+    <link rel="stylesheet" href="resources/style/main.css">
 </head>
 <body>
 <div class="container-fluid">
     <jsp:include page="header.jsp"/>
     <div class="row content site-padding">
         <jsp:include page="navigation.jsp"/>
-        <div class="col products-content">
+        <div class="col catalog-content">
             <div class="row filter">
                 <div class="col">
                     <form id="filter" action="catalog" method="get">
@@ -40,9 +40,8 @@
                         </div>
                     </form>
                 </div>
-
             </div>
-            <div class="row justify-content-start products">
+            <div class="row justify-content-start product-list">
                 <c:forEach items="${products}" var="product">
                     <div class="col">
                         <div class="card">
@@ -60,8 +59,7 @@
 
         </div>
     </div>
-
-
+    <jsp:include page="footer.jsp"/>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

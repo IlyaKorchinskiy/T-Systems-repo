@@ -52,7 +52,7 @@ public class WebConfig implements WebMvcConfigurer {
     public BasicDataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://192.168.1.106:3306/shop?serverTimezone=UTC");
+        dataSource.setUrl("jdbc:mysql://192.168.0.102:3306/shop?serverTimezone=UTC");
         dataSource.setUsername("root");
         dataSource.setPassword("123123");
         return dataSource;
