@@ -32,6 +32,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Disabled</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
         </ul>
     </div>
     <div class="col">
@@ -61,9 +64,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Disabled</a>
-            </li>
+
         </ul>
     </div>
 </diw>

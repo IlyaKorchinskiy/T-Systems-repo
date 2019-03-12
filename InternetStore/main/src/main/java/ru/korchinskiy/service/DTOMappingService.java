@@ -11,6 +11,8 @@ import java.util.Set;
 public interface DTOMappingService {
     ProductDto convertToProductDto(Product product);
 
+    ProductWithCategoriesDto convertToProductWithCategoriesDto(Product product);
+
     Set<ProductDto> convertToProductDtoSet(Set<Product> products);
 
     CategoryDto convertToCategoryDto(Category category);

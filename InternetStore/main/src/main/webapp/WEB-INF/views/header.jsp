@@ -34,7 +34,7 @@
         </div>
         <div class="row align-items-center header-content site-padding">
             <div class="col-sm-3 logo">
-                <a href="<c:url value="index.jsp"/>"><img src="resources\img\logo.png" alt="logo"></a>
+                <a href="<c:url value="/"/>"><img src="<%=request.getContextPath()%>/resources/img/logo.png" alt="logo"></a>
             </div>
             <div class="col-sm-5">
                 <div class="input-group mb-3">

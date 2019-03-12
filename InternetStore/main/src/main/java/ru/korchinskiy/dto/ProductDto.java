@@ -13,5 +13,4 @@ public class ProductDto {
     private String description;
     private String photoMd;
     private String photoSm;
-    private Set<CategoryDto> categories;
 }

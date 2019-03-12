@@ -4,11 +4,13 @@
 <html>
 <head>
     <title>Каталог</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="resources/style/main.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/style/main.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -45,7 +47,7 @@
                 <c:forEach items="${products}" var="product">
                     <div class="col">
                         <div class="card">
-                            <a href="#">
+                            <a href="catalog/product/${product.id}">
                                 <img src="${product.photoSm}" class="card-img-top" alt="product_photo">
                                 <div class="card-body">
                                     <h5 class="card-title">${product.title}</h5>

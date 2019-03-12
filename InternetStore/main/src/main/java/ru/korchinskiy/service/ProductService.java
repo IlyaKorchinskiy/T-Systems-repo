@@ -1,11 +1,12 @@
 package ru.korchinskiy.service;
 
 import ru.korchinskiy.dto.ProductDto;
+import ru.korchinskiy.dto.ProductWithCategoriesDto;
 
 import java.util.Set;
 
 public interface ProductService {
-    ProductDto getProductById(Long id);
+    ProductWithCategoriesDto getProductById(Long id);
 
     Set<ProductDto> getProductsByCategory(Long categoryId);
 

@@ -15,6 +15,6 @@ public class UserDto {
     private String email;
     private String password;
     private String phoneNumber;
-    private Set<RoleDto> roles = new HashSet<>();
+    private Set<RoleDto> roles;
 
 }

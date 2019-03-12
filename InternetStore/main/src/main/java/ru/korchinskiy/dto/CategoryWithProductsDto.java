@@ -10,5 +10,5 @@ public class CategoryWithProductsDto {
     private Long id;
     private String title;
     private Long parentId;
-    private Set<ProductDto> products = new HashSet<>();
+    private Set<ProductDto> products;
 }
