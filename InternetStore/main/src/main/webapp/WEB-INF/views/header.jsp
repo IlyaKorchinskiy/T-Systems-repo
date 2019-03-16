@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<c:set var="contextPath" value="<%=request.getContextPath()%>"/>
 
 <div class="row header">
     <div class="col">
@@ -9,7 +10,7 @@
                 <ul class="nav justify-content-end">
                     <sec:authorize access="hasAnyRole('ADMIN', 'SUPER_ADMIN')">
                     <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/admin"/>">Админ</a>
+                    <a class="nav-link" href="${contextPath}/admin">Админ</a>
                     </li>
                     </sec:authorize>
                     <sec:authorize access="!isAuthenticated()">
@@ -25,7 +26,7 @@
                             <a class="nav-link" href="#">${sessionScope.get("user")}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<c:url value="/logout"/>">Выход</a>
+                            <a class="nav-link" href="${contextPath}/logout">Выход</a>
                         </li>
                     </sec:authorize>
 
@@ -34,10 +35,10 @@
         </div>
         <div class="row align-items-center header-content site-padding">
             <div class="col-sm-3 logo">
-                <a href="<c:url value="/"/>"><img src="<%=request.getContextPath()%>/resources/img/logo.png" alt="logo"></a>
+                <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.png" alt="logo"></a>
             </div>
-            <div class="col-sm-5">
-                <div class="input-group mb-3">
+            <div class="col search">
+                <div class="input-group">
                     <input type="text" class="form-control" placeholder="Введите название или автора"
                            aria-describedby="button-addon2">
                     <div class="input-group-append">
@@ -45,7 +46,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col"></div>
+            <div class="col-sm-2 cart">
+                <a href="${contextPath}/cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-badge" class="badge badge-primary">${cart.products.size()}</span>
+                    <div id="cart-content" class="cart-content"></div>
+                </a>
+            </div>
         </div>
         <!-- Modal -->
         <div class="modal fade" id="loginModalForm" tabindex="-1" role="dialog" aria-labelledby="loginModalFormTitle"

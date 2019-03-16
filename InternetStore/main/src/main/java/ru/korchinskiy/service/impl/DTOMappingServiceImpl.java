@@ -2,10 +2,7 @@ package ru.korchinskiy.service.impl;
 
 import org.springframework.stereotype.Service;
 import ru.korchinskiy.dto.*;
-import ru.korchinskiy.entity.Category;
-import ru.korchinskiy.entity.Product;
-import ru.korchinskiy.entity.Role;
-import ru.korchinskiy.entity.User;
+import ru.korchinskiy.entity.*;
 import ru.korchinskiy.service.DTOMappingService;
 
 import java.util.HashSet;
@@ -70,6 +67,16 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
+    public CategoryWithProductsDto convertToCategoryWithProductsDto(Category category, Set<ProductDto> products) {
+        CategoryWithProductsDto categoryDto = new CategoryWithProductsDto();
+        categoryDto.setId(category.getId());
+        categoryDto.setTitle(category.getTitle());
+        categoryDto.setParentId(category.getParentId());
+        categoryDto.setProducts(products);
+        return categoryDto;
+    }
+
+    @Override
     public Set<CategoryDto> convertToCategoryDtoSet(Set<Category> categories) {
         Set<CategoryDto> categoryDtos = new HashSet<>();
         for (Category category : categories) {
@@ -109,5 +116,33 @@ public class DTOMappingServiceImpl implements DTOMappingService {
             roleDtos.add(roleDto);
         }
         return roleDtos;
+    }
+
+    @Override
+    public CartDto convertToCartDto(Cart cart) {
+        CartDto cartDto = new CartDto();
+        cartDto.setId(cart.getId());
+        cartDto.setSessionId(cart.getSessionId());
+        return cartDto;
+    }
+
+    @Override
+    public CartProductDto convertToCartProductDto(CartProduct cartProduct) {
+        CartProductDto cartProductDto = new CartProductDto();
+        cartProductDto.setId(cartProduct.getId());
+        cartProductDto.setCart(convertToCartDto(cartProduct.getCart()));
+        cartProductDto.setProduct(convertToProductDto(cartProduct.getProduct()));
+        cartProductDto.setAmount(cartProduct.getAmount());
+        cartProductDto.setSum(cartProductDto.getAmount() * cartProductDto.getProduct().getCost());
+        return cartProductDto;
+    }
+
+    @Override
+    public Set<CartProductDto> convertToCartProductDtoSet(Set<CartProduct> cartProducts) {
+        Set<CartProductDto> cartProductDtos = new HashSet<>();
+        for (CartProduct cartProduct : cartProducts) {
+            cartProductDtos.add(convertToCartProductDto(cartProduct));
+        }
+        return cartProductDtos;
     }
 }

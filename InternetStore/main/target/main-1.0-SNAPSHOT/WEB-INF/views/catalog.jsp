@@ -6,59 +6,63 @@
     <title>Каталог</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/style/main.css">
+    <link rel="stylesheet" href="${contextPath}/resources/style/main.css">
+
 </head>
 <body>
 <div class="container-fluid">
-    <jsp:include page="header.jsp"/>
-    <div class="row content site-padding">
-        <jsp:include page="navigation.jsp"/>
-        <div class="col catalog-content">
-            <div class="row filter">
-                <div class="col">
-                    <form id="filter" action="catalog" method="get">
-                        <div class="form-row">
-                            <div hidden class="form-group col">
-                                <input type="number" class="form-control" id="categoryId" name="id"
-                                       value="${category.id}">
+    <div class="site-content">
+        <jsp:include page="header.jsp"/>
+        <div class="row site-padding">
+            <jsp:include page="navigation.jsp"/>
+            <div class="col catalog-content">
+                <div class="row filter">
+                    <div class="col">
+                        <form id="filter" action="catalog" method="get">
+                            <div class="form-row">
+                                <div hidden class="form-group col">
+                                    <input type="number" class="form-control" id="categoryId" name="id"
+                                           value="${category.id}">
+                                </div>
+                                <div class="form-group col">
+                                    <input type="number" class="form-control" id="minCostInput" name="minCost"
+                                           value="${minCost}" aria-describedby="minCostHelp">
+                                    <small id="minCostHelp" class="form-text text-muted">Минимальная цена</small>
+                                </div>
+                                <div class="form-group col">
+                                    <input type="number" class="form-control" id="maxCostInput" name="maxCost"
+                                           value="${maxCost}" aria-describedby="maxCostHelp">
+                                    <small id="maxCostHelp" class="form-text text-muted">Максимальная цена</small>
+                                </div>
+                                <div class="col">
+                                    <button type="submit" class="btn">Фильтр</button>
+                                </div>
                             </div>
-                            <div class="form-group col">
-                                <input type="number" class="form-control" id="minCostInput" name="minCost"
-                                       value="${minCost}" aria-describedby="minCostHelp">
-                                <small id="minCostHelp" class="form-text text-muted">Минимальная цена</small>
-                            </div>
-                            <div class="form-group col">
-                                <input type="number" class="form-control" id="maxCostInput" name="maxCost"
-                                       value="${maxCost}" aria-describedby="maxCostHelp">
-                                <small id="maxCostHelp" class="form-text text-muted">Максимальная цена</small>
-                            </div>
-                            <div class="col">
-                                <button type="submit" class="btn">Фильтр</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row justify-content-start product-list">
+                    <c:forEach items="${category.products}" var="product">
+                        <div class="col">
+                            <div class="card">
+                                <a href="catalog/product/${product.id}">
+                                    <img src="${contextPath}/${product.photoSm}" class="card-img-top" alt="product_photo">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${product.title}</h5>
+                                        <p class="card-text">${product.cost} <i class="fas fa-ruble-sign"></i></p>
+                                    </div>
+                                </a>
                             </div>
                         </div>
-                    </form>
+                    </c:forEach>
                 </div>
             </div>
-            <div class="row justify-content-start product-list">
-                <c:forEach items="${products}" var="product">
-                    <div class="col">
-                        <div class="card">
-                            <a href="catalog/product/${product.id}">
-                                <img src="${product.photoSm}" class="card-img-top" alt="product_photo">
-                                <div class="card-body">
-                                    <h5 class="card-title">${product.title}</h5>
-                                    <p class="card-text">${product.cost} <i class="fas fa-ruble-sign"></i></p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
-
         </div>
     </div>
     <jsp:include page="footer.jsp"/>
@@ -73,5 +77,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
+<script>var contextPath = '${contextPath}'</script>
+
+<script src="${contextPath}/resources/js/catalog.js"></script>
+<script src="${contextPath}/resources/js/common.js"></script>
 </body>
 </html>

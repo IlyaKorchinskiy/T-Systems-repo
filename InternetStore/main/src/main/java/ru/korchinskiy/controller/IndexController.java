@@ -26,4 +26,5 @@ public class IndexController {
     public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
+
 }

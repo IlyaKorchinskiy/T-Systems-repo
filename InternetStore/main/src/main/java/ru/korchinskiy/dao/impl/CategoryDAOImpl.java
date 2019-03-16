@@ -23,12 +23,6 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     @Override
-    public Category getCategoryWithProductsById(Long id) {
-        Category category = this.sessionFactory.getCurrentSession().get(Category.class, id);
-        return category;
-    }
-
-    @Override
     public List<Category> getCategoriesByParentId(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();

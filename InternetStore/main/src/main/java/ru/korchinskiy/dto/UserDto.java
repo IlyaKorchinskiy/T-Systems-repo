@@ -3,7 +3,6 @@ package ru.korchinskiy.dto;
 import lombok.Data;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data

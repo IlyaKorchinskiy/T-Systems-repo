@@ -11,7 +11,6 @@ import ru.korchinskiy.service.DTOMappingService;
 import ru.korchinskiy.service.ProductService;
 
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -29,20 +28,6 @@ public class ProductServiceImpl implements ProductService {
     @Transactional
     public Set<ProductDto> getProductsByCategory(Long categoryId) {
         Set<Product> products = productDAO.getProductsByCategory(categoryId);
-        return dtoMappingService.convertToProductDtoSet(products);
-    }
-
-    @Override
-    @Transactional
-    public Set<ProductDto> getProductsByCategoryAndCost(Long categoryId, Double minCost, Double maxCost) {
-        Set<Product> allProducts = productDAO.getProductsByCategory(categoryId);
-        if (minCost == null) minCost = 0.0;
-        if (maxCost == null) maxCost = Double.MAX_VALUE;
-        Double finalMinCost = minCost;
-        Double finalMaxCost = maxCost;
-        Set<Product> products = allProducts.stream()
-                .filter(a -> a.getCost() >= finalMinCost && a.getCost() <= finalMaxCost)
-                .collect(Collectors.toSet());
         return dtoMappingService.convertToProductDtoSet(products);
     }
 

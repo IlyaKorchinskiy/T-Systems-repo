@@ -1,26 +1,32 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html>
 <head>
     <title>Интернет магазин</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
           integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" href="resources/style/main.css">
+    <link rel="stylesheet" href="${contextPath}/resources/style/main.css">
 
 </head>
 <body>
 <div class="container-fluid">
-    <jsp:include page="header.jsp"/>
-    <div class="row content site-padding">
-        <jsp:include page="navigation.jsp"/>
-        <div class="col">
+    <div class="site-content">
+        <jsp:include page="header.jsp"/>
+        <div class="row content site-padding">
+            <jsp:include page="navigation.jsp"/>
+            <div class="col">
 
+            </div>
         </div>
     </div>
+
     <jsp:include page="footer.jsp"/>
 </div>
 
@@ -33,5 +39,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
+<script>var contextPath = '${contextPath}'</script>
+<script src="${contextPath}/resources/js/index.js"></script>
+<script src="${contextPath}/resources/js/common.js"></script>
 </body>
 </html>

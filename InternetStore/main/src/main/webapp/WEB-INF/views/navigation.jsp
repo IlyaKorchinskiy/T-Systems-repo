@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<div class="col-sm-3">
+<div class="col-sm-3 navigation">
     <ul class="nav nav-pills flex-column menu">
         <li class="nav-item">
             <a class="nav-link disabled">Категории</a>

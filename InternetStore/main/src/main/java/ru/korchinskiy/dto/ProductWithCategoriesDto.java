@@ -6,6 +6,7 @@ import java.util.Set;
 
 @Data
 public class ProductWithCategoriesDto {
+    Set<CategoryDto> categories;
     private Long id;
     private String title;
     private Double cost;
@@ -13,5 +14,4 @@ public class ProductWithCategoriesDto {
     private String description;
     private String photoMd;
     private String photoSm;
-    Set<CategoryDto> categories;
 }
