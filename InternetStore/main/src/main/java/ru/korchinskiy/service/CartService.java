@@ -2,7 +2,10 @@ package ru.korchinskiy.service;
 
 import ru.korchinskiy.dto.CartDto;
 import ru.korchinskiy.dto.CartProductDto;
+import ru.korchinskiy.dto.DeliveryTypeDto;
+import ru.korchinskiy.dto.PaymentTypeDto;
 
+import java.util.List;
 import java.util.Set;
 
 public interface CartService {
@@ -13,4 +16,8 @@ public interface CartService {
     Set<CartProductDto> getCartProductSetBySessionId(String sessionId);
 
     String addProductToCartBySessionId(String cookie, String sessionId, Long productId);
+
+    List<PaymentTypeDto> getPaymentTypes();
+
+    List<DeliveryTypeDto> getDeliveryTypes();
 }

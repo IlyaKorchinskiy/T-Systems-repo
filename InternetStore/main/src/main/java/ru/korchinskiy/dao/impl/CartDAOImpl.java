@@ -2,7 +2,6 @@ package ru.korchinskiy.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.korchinskiy.dao.CartDAO;
@@ -25,11 +24,10 @@ public class CartDAOImpl implements CartDAO {
     public Cart getCartBySessionId(String sessionId) {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Cart> criteria = builder.createQuery(Cart.class);
-        Root<Cart> root = criteria.from(Cart.class);
-        criteria.select(root).where(builder.equal(root.get("sessionId"), sessionId));
-        Query<Cart> query = session.createQuery(criteria);
-        return query.getSingleResult();
+        CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
+        Root<Cart> root = query.from(Cart.class);
+        query.select(root).where(builder.equal(root.get("sessionId"), sessionId));
+        return session.createQuery(query).getSingleResult();
     }
 
     @Override

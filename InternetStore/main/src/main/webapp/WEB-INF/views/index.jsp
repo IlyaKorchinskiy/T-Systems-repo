@@ -19,7 +19,7 @@
 <div class="container-fluid">
     <div class="site-content">
         <jsp:include page="header.jsp"/>
-        <div class="row content site-padding">
+        <div class="row site-padding">
             <jsp:include page="navigation.jsp"/>
             <div class="col">
 
@@ -40,7 +40,8 @@
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
 <script>var contextPath = '${contextPath}'</script>
-<script src="${contextPath}/resources/js/index.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
+<script src="${contextPath}/resources/js/index.js"></script>
+
 </body>
 </html>

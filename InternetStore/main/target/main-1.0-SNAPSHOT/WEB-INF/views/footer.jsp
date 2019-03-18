@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<diw class="row footer site-padding">
+<div class="row footer site-padding">
     <div class="col">
         <ul class="nav flex-column footer-menu">
             <li class="nav-item">
@@ -67,4 +67,4 @@
 
         </ul>
     </div>
-</diw>
+</div>

@@ -9,6 +9,7 @@ import ru.korchinskiy.dao.OrderDAO;
 public class OrderDAOImpl implements OrderDAO {
     private SessionFactory sessionFactory;
 
+
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

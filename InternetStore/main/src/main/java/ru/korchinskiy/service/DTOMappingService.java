@@ -3,6 +3,7 @@ package ru.korchinskiy.service;
 import ru.korchinskiy.dto.*;
 import ru.korchinskiy.entity.*;
 
+import java.util.List;
 import java.util.Set;
 
 public interface DTOMappingService {
@@ -10,25 +11,33 @@ public interface DTOMappingService {
 
     ProductWithCategoriesDto convertToProductWithCategoriesDto(Product product);
 
-    Set<ProductDto> convertToProductDtoSet(Set<Product> products);
-
     CategoryDto convertToCategoryDto(Category category);
 
     CategoryWithProductsDto convertToCategoryWithProductsDto(Category category);
 
     CategoryWithProductsDto convertToCategoryWithProductsDto(Category category, Set<ProductDto> products);
 
-    Set<CategoryDto> convertToCategoryDtoSet(Set<Category> categories);
-
     UserDto convertToUserDto(User user);
 
     RoleDto convertToRoleDto(Role role);
-
-    Set<RoleDto> convertToRoleDtoSet(Set<Role> roles);
 
     CartDto convertToCartDto(Cart cart);
 
     CartProductDto convertToCartProductDto(CartProduct cartProduct);
 
+    PaymentTypeDto convertToPaymentTypeDto(PaymentType paymentType);
+
+    DeliveryTypeDto convertToDeliverTypeDto(DeliveryType deliveryType);
+
+    Set<ProductDto> convertToProductDtoSet(Set<Product> products);
+
+    Set<CategoryDto> convertToCategoryDtoSet(Set<Category> categories);
+
+    Set<RoleDto> convertToRoleDtoSet(Set<Role> roles);
+
     Set<CartProductDto> convertToCartProductDtoSet(Set<CartProduct> cartProducts);
+
+    List<PaymentTypeDto> convertToPaymentTypeDtoList(List<PaymentType> paymentTypes);
+
+    List<DeliveryTypeDto> convertToDeliveryTypeDtoList(List<DeliveryType> deliveryTypes);
 }

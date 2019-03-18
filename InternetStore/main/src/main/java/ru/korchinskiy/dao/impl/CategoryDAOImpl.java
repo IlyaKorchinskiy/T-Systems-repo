@@ -2,7 +2,6 @@ package ru.korchinskiy.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.korchinskiy.dao.CategoryDAO;
@@ -26,11 +25,10 @@ public class CategoryDAOImpl implements CategoryDAO {
     public List<Category> getCategoriesByParentId(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Category> criteria = builder.createQuery(Category.class);
-        Root<Category> root = criteria.from(Category.class);
-        criteria.select(root).where(builder.equal(root.get("parentId"), id));
-        Query<Category> query = session.createQuery(criteria);
-        return query.getResultList();
+        CriteriaQuery<Category> query = builder.createQuery(Category.class);
+        Root<Category> root = query.from(Category.class);
+        query.select(root).where(builder.equal(root.get("parentId"), id));
+        return session.createQuery(query).getResultList();
     }
 
     @Autowired

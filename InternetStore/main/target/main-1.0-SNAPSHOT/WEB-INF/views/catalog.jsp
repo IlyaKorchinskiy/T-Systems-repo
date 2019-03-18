@@ -21,7 +21,7 @@
         <jsp:include page="header.jsp"/>
         <div class="row site-padding">
             <jsp:include page="navigation.jsp"/>
-            <div class="col catalog-content">
+            <div class="col content">
                 <div class="row filter">
                     <div class="col">
                         <form id="filter" action="catalog" method="get">
@@ -79,7 +79,8 @@
         crossorigin="anonymous"></script>
 <script>var contextPath = '${contextPath}'</script>
 
-<script src="${contextPath}/resources/js/catalog.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
+<script src="${contextPath}/resources/js/catalog.js"></script>
+
 </body>
 </html>

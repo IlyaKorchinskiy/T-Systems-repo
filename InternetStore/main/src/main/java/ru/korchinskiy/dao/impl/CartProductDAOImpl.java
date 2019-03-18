@@ -2,7 +2,6 @@ package ru.korchinskiy.dao.impl;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.korchinskiy.dao.CartProductDAO;
@@ -21,12 +20,11 @@ public class CartProductDAOImpl implements CartProductDAO {
     public CartProduct getCartProductByCartIdAndProductId(Long cartId, Long productId) {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<CartProduct> criteria = builder.createQuery(CartProduct.class);
-        Root<CartProduct> root = criteria.from(CartProduct.class);
-        criteria.select(root).where(builder.equal(root.get("cart").get("id"), cartId),
-                                    builder.equal(root.get("product").get("id"), productId));
-        Query<CartProduct> query = session.createQuery(criteria);
-        List<CartProduct> cartProductList = query.getResultList();
+        CriteriaQuery<CartProduct> query = builder.createQuery(CartProduct.class);
+        Root<CartProduct> root = query.from(CartProduct.class);
+        query.select(root).where(builder.equal(root.get("cart").get("id"), cartId),
+                builder.equal(root.get("product").get("id"), productId));
+        List<CartProduct> cartProductList = session.createQuery(query).getResultList();
         if (cartProductList.size() == 0) return null;
         return cartProductList.get(0);
     }
@@ -35,16 +33,15 @@ public class CartProductDAOImpl implements CartProductDAO {
     public List<CartProduct> getCartProductListByCartId(Long cartId) {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<CartProduct> criteria = builder.createQuery(CartProduct.class);
-        Root<CartProduct> root = criteria.from(CartProduct.class);
-        criteria.select(root).where(builder.equal(root.get("cart").get("id"), cartId));
-        Query<CartProduct> query = session.createQuery(criteria);
-        return query.getResultList();
+        CriteriaQuery<CartProduct> query = builder.createQuery(CartProduct.class);
+        Root<CartProduct> root = query.from(CartProduct.class);
+        query.select(root).where(builder.equal(root.get("cart").get("id"), cartId));
+        return session.createQuery(query).getResultList();
     }
 
     @Override
     public void saveCartProduct(CartProduct cartProduct) {
-        this.sessionFactory.getCurrentSession().persist(cartProduct);
+        this.sessionFactory.getCurrentSession().save(cartProduct);
     }
 
     @Autowired

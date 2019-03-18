@@ -3,19 +3,18 @@ package ru.korchinskiy.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.korchinskiy.dao.CartDAO;
-import ru.korchinskiy.dao.CartProductDAO;
-import ru.korchinskiy.dao.ProductDAO;
+import ru.korchinskiy.dao.*;
 import ru.korchinskiy.dto.CartDto;
 import ru.korchinskiy.dto.CartProductDto;
-import ru.korchinskiy.entity.Cart;
-import ru.korchinskiy.entity.CartProduct;
-import ru.korchinskiy.entity.Product;
+import ru.korchinskiy.dto.DeliveryTypeDto;
+import ru.korchinskiy.dto.PaymentTypeDto;
+import ru.korchinskiy.entity.*;
 import ru.korchinskiy.exception.NotEnoughProductException;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.DTOMappingService;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -23,6 +22,8 @@ public class CartServiceImpl implements CartService {
     private CartDAO cartDAO;
     private ProductDAO productDAO;
     private CartProductDAO cartProductDAO;
+    private PaymentTypeDAO paymentTypeDAO;
+    private DeliveryTypeDAO deliveryTypeDAO;
     private DTOMappingService dtoMappingService;
 
     @Override
@@ -80,6 +81,20 @@ public class CartServiceImpl implements CartService {
         return cart.getSessionId();
     }
 
+    @Override
+    @Transactional
+    public List<PaymentTypeDto> getPaymentTypes() {
+        List<PaymentType> paymentTypes = paymentTypeDAO.getAllPaymentTypes();
+        return dtoMappingService.convertToPaymentTypeDtoList(paymentTypes);
+    }
+
+    @Override
+    @Transactional
+    public List<DeliveryTypeDto> getDeliveryTypes() {
+        List<DeliveryType> deliveryTypes = deliveryTypeDAO.getAllDeliveryTypes();
+        return dtoMappingService.convertToDeliveryTypeDtoList(deliveryTypes);
+    }
+
     @Autowired
     public void setCartDAO(CartDAO cartDAO) {
         this.cartDAO = cartDAO;
@@ -93,6 +108,16 @@ public class CartServiceImpl implements CartService {
     @Autowired
     public void setCartProductDAO(CartProductDAO cartProductDAO) {
         this.cartProductDAO = cartProductDAO;
+    }
+
+    @Autowired
+    public void setPaymentTypeDAO(PaymentTypeDAO paymentTypeDAO) {
+        this.paymentTypeDAO = paymentTypeDAO;
+    }
+
+    @Autowired
+    public void setDeliveryTypeDAO(DeliveryTypeDAO deliveryTypeDAO) {
+        this.deliveryTypeDAO = deliveryTypeDAO;
     }
 
     @Autowired

@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
@@ -43,60 +44,68 @@
                 </table>
             </div>
         </div>
-        <div class="row site-padding order-params">
-            <div class="col">
-                <form id="orderForm" method="post">
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <h6>Способ оплаты</h6>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="paymentType" id="paymentType1"
-                                       value="option1" checked>
-                                <label class="form-check-label" for="paymentType1">Наличные</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="paymentType" id="paymentType2"
-                                       value="option2">
-                                <label class="form-check-label" for="paymentType2">Банковская карта</label>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <h6>Способ доставки</h6>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="deliveryType" id="deliveryType1"
-                                       value="option1" checked onchange="showAddressInput()">
-                                <label class="form-check-label" for="deliveryType1">Доставка</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="deliveryType" id="deliveryType2"
-                                       value="option2" onchange="showAddressInput()">
-                                <label class="form-check-label" for="deliveryType2">Самовывоз</label>
-                            </div>
-                            <div id="addressDiv" class="form-group address-input">
-                                <label for="addressInput">Адрес доставки</label>
-                                <input type="text" class="form-control" id="addressInput" placeholder="Введите">
-                            </div>
-                            <div id="pickupDiv" class="form-group pickup-input hidden">
-                                <label for="pickupInput">Адрес самовывоза</label>
-                                <select id="pickupInput" class="form-control">
-                                    <option selected>Выберите...</option>
-                                    <%--<c:forEach items="${pickupAddresses}" var="address">--%>
-                                        <%--<option>${address.title}</option>--%>
-                                    <%--</c:forEach>--%>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group col-md-4 confirm">
-                            <p class="sum">Итого: <span>${sum} <i class="fas fa-ruble-sign"></i></span></p>
-                            <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
-                        </div>
-                    </div>
-
-                </form>
+        <sec:authorize access="!isAuthenticated()">
+            <div class="row site-padding auth justify-content-center">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModalForm">
+                        Войдите
+                    </button>
+                    чтобы оформить заказ
+                </div>
             </div>
+        </sec:authorize>
+        <sec:authorize access="isAuthenticated()">
+            <div class="row site-padding order-params">
+                <div class="col">
+                    <form id="orderForm" action="${contextPath}/order" method="post" modelAttribute="order">
+                        <div class="form-row">
+                            <div class="form-group col param">
+                                <h6>Способ доставки</h6>
+                                <c:forEach items="${deliveryTypes}" var="deliveryType">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="deliveryType"
+                                               id="deliveryType${deliveryType.id}" value="${deliveryType.id}"
+                                               onchange="showAddressInput()">
+                                        <label class="form-check-label"
+                                               for="deliveryType${deliveryType.id}">${deliveryType.deliveryType}</label>
+                                    </div>
+                                </c:forEach>
+                                <div id="addressDiv" class="form-group address-input">
+                                    <label for="addressInput">Адрес доставки</label>
+                                    <input type="text" class="form-control" id="addressInput" name="address"
+                                           placeholder="Введите">
+                                </div>
+                                <div id="pickupDiv" class="form-group pickup-input hidden">
+                                    <label for="pickupInput">Адрес самовывоза</label>
+                                    <select id="pickupInput" class="form-control" name="pickupAddress">
+                                        <option value="" selected>Выберите...</option>
+                                            <%--<c:forEach items="${pickupAddresses}" var="address">--%>
+                                            <%--<option>${address.title}</option>--%>
+                                            <%--</c:forEach>--%>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col param">
+                                <h6>Способ оплаты</h6>
+                                <c:forEach items="${paymentTypes}" var="paymentType">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="paymentType"
+                                               id="paymentType${paymentType.id}" value="${paymentType.id}">
+                                        <label class="form-check-label"
+                                               for="paymentType${paymentType.id}">${paymentType.paymentType}</label>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                            <div class="form-group col confirm param">
+                                <p class="sum">Итого: <span>${sum} <i class="fas fa-ruble-sign"></i></span></p>
+                                <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+                            </div>
+                        </div>
 
-        </div>
-
+                    </form>
+                </div>
+            </div>
+        </sec:authorize>
     </div>
     <jsp:include page="footer.jsp"/>
 
@@ -111,8 +120,13 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
-<script>var contextPath = '${contextPath}'</script>
+<script>
+    var contextPath = '${contextPath}';
+    var deliveryTypeId = '${deliveryTypes.get(0).id}';
+    var paymentTypeId = '${paymentTypes.get(0).id}';
+</script>
 <script src="${contextPath}/resources/js/cart.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>
+
 </body>
 </html>

@@ -25,6 +25,11 @@ html, body {
     flex: 1;
 }
 
+.content {
+    padding: 25px;
+    border: 1px solid #dddddd;
+}
+
 /*header*/
 
 .header {
@@ -183,11 +188,6 @@ html, body {
 
 /*catalog*/
 
-.catalog-content {
-    padding: 25px;
-    border: 1px solid #dddddd;
-}
-
 .filter .btn {
     background-color: #79b260;
     color: #ffffff;
@@ -310,12 +310,13 @@ html, body {
     margin-top: 30px;
 }
 
-.order-params .col-md-4 {
+.order-params .param {
     outline: 1px solid #dddddd;
     padding: 30px 30px;
+    margin: 10px;
 }
 
-.order-params .col-md-4 .form-group {
+.order-params .param .form-group {
     margin: 20px 0 0 0;
 }
 
