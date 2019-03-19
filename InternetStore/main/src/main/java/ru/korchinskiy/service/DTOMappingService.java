@@ -19,6 +19,8 @@ public interface DTOMappingService {
 
     UserDto convertToUserDto(User user);
 
+    User convertToUser(UserDto userDto);
+
     RoleDto convertToRoleDto(Role role);
 
     CartDto convertToCartDto(Cart cart);

@@ -1,5 +1,6 @@
 package ru.korchinskiy.dao.impl;
 
+import org.hibernate.LockMode;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public Product getProductById(Long id) {
         return sessionFactory.getCurrentSession().get(Product.class, id);
+    }
+
+    @Override
+    public Product getProductForUpdate(Long id) {
+        return sessionFactory.getCurrentSession().get(Product.class, id, LockMode.PESSIMISTIC_WRITE);
     }
 
     @Override

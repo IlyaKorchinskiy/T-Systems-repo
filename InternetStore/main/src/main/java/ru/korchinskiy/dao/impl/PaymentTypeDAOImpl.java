@@ -17,6 +17,11 @@ public class PaymentTypeDAOImpl implements PaymentTypeDAO {
     private SessionFactory sessionFactory;
 
     @Override
+    public PaymentType getPaymentTypeById(Long id) {
+        return this.sessionFactory.getCurrentSession().get(PaymentType.class, id);
+    }
+
+    @Override
     public List<PaymentType> getAllPaymentTypes() {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();

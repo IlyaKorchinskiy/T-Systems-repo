@@ -5,7 +5,7 @@
     <title>Книга ${product.title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <c:set var="contextPath" value="<%=request.getContextPath()%>"/>
+    <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
           integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -33,8 +33,10 @@
                         </li>
                     </c:forEach>
                 </ul>
+                <p>Количесвто на складе: ${product.amount}</p>
                 <div class="row price-buy">
-                    <div class="col-lg-6 price">Цена: <span>${product.cost} <i class="fas fa-ruble-sign"></i></span></div>
+                    <div class="col-lg-6 price">Цена: <span>${product.cost} <i class="fas fa-ruble-sign"></i></span>
+                    </div>
                     <div class="col button">
                         <button id="add-product-btn" type="button" class="btn" data-toggle="modal"
                                 data-target="#addProductModal" onclick="addToCart('${product.id}')">Добавить в корзину

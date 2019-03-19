@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<c:set var="contextPath" value="<%=request.getContextPath()%>"/>
+<c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
 
 <div class="row header">
     <div class="col">

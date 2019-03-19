@@ -10,6 +10,7 @@ import ru.korchinskiy.entity.User;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
@@ -27,7 +28,14 @@ public class UserDAOImpl implements UserDAO {
         CriteriaQuery<User> query = builder.createQuery(User.class);
         Root<User> root = query.from(User.class);
         query.select(root).where(builder.equal(root.get("email"), email));
-        return session.createQuery(query).getSingleResult();
+        List<User> users = session.createQuery(query).getResultList();
+        if (users.size() == 0) return null;
+        return users.get(0);
+    }
+
+    @Override
+    public void saveUser(User user) {
+        this.sessionFactory.getCurrentSession().persist(user);
     }
 
     @Autowired

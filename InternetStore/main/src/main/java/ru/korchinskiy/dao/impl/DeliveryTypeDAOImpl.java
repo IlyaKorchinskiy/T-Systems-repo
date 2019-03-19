@@ -17,6 +17,11 @@ public class DeliveryTypeDAOImpl implements DeliveryTypeDAO {
     private SessionFactory sessionFactory;
 
     @Override
+    public DeliveryType getDeliveryTypeById(Long id) {
+        return this.sessionFactory.getCurrentSession().get(DeliveryType.class, id);
+    }
+
+    @Override
     public List<DeliveryType> getAllDeliveryTypes() {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();

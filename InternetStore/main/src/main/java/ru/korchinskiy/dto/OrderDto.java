@@ -4,11 +4,8 @@ import lombok.Data;
 
 @Data
 public class OrderDto {
-    private String name;
-    private String phoneNumber;
-    private String email;
-    private Long deliveryType;
+    private Long deliveryTypeId;
+    private Long paymentTypeId;
     private String address;
-    private Long paymentType;
     private String pickupAddress;
 }

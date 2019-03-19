@@ -7,8 +7,13 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.korchinskiy.dto.CartProductDto;
 import ru.korchinskiy.dto.OrderDto;
+import ru.korchinskiy.entity.CartProduct;
 import ru.korchinskiy.service.OrderService;
+
+import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/order")
@@ -18,7 +23,8 @@ public class OrderController {
     @PostMapping
     public String saveOrder(Model model,
                             @ModelAttribute("order") OrderDto order,
-                            @CookieValue(value = "sessionId") String sessionCookie) {
+                            @ModelAttribute("cartProducts") List<CartProductDto> cartProducts,
+                            @CookieValue(value = "sessionId") String sessionId) {
         System.out.println(order);
         return "orderSuccess";
     }

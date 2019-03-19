@@ -1,5 +1,7 @@
 package ru.korchinskiy.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.korchinskiy.dto.*;
 import ru.korchinskiy.entity.*;
@@ -12,6 +14,8 @@ import java.util.Set;
 
 @Service
 public class DTOMappingServiceImpl implements DTOMappingService {
+    BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public ProductDto convertToProductDto(Product product) {
         ProductDto productDto = new ProductDto();
@@ -80,6 +84,19 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         userDto.setPhoneNumber(user.getPhoneNumber());
         userDto.setRoles(convertToRoleDtoSet(user.getRoles()));
         return userDto;
+    }
+
+    @Override
+    public User convertToUser(UserDto userDto) {
+        User user = new User();
+        user.setName(userDto.getName());
+        user.setLastname(userDto.getLastname());
+        user.setBirthday(userDto.getBirthday());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        System.out.println(user.getPassword());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        return user;
     }
 
     @Override
@@ -180,5 +197,10 @@ public class DTOMappingServiceImpl implements DTOMappingService {
             deliveryTypeDtos.add(convertToDeliverTypeDto(deliveryType));
         }
         return deliveryTypeDtos;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 }

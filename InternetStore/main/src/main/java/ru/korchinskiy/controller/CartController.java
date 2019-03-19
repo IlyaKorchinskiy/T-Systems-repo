@@ -38,8 +38,8 @@ public class CartController {
 
     @GetMapping("/getCart")
     @ResponseBody
-    public Set<CartProductDto> getCart(@CookieValue(value = "sessionId", required = false) String sessionCookie) {
-        return cartService.getCartProductSetBySessionId(sessionCookie);
+    public Set<CartProductDto> getCart(@CookieValue(value = "sessionId", required = false) String sessionId) {
+        return cartService.getCartProductSetBySessionId(sessionId);
     }
 
     @PostMapping("/addToCart")

@@ -8,6 +8,8 @@ import java.util.Set;
 public interface ProductDAO {
     Product getProductById(Long id);
 
+    Product getProductForUpdate(Long id);
+
     Set<Product> getProductsByCategory(Long categoryId);
 
     List<Product> getProductsByCategoryAndCost(Long categoryId, Double minCost, Double maxCost);

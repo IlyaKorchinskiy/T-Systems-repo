@@ -27,7 +27,6 @@ function addToCart(id) {
             document.cookie = "sessionId=" + cart[0].cart.sessionId + "; path=/; expires=" + date.toUTCString();
 
             renderCart(cart);
-
         }
     }
     xhr.send(body);

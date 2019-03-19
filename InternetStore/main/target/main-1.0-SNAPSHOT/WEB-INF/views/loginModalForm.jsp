@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
 
 <!-- Modal -->
 <div class="modal fade" id="loginModalForm" tabindex="-1" role="dialog" aria-labelledby="loginModalFormTitle"
@@ -16,18 +17,18 @@
             <form action="${checkUrl}" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="loginInput">Логин (e-mail)</label>
-                        <input type="email" class="form-control" id="loginInput" name="j_username"
+                        <label for="modalLoginInput">Логин (e-mail)</label>
+                        <input type="email" class="form-control" id="modalLoginInput" name="j_username"
                                placeholder="E-mail" required autofocus>
                     </div>
                     <div class="form-group">
-                        <label for="passwordInput">Пароль</label>
-                        <input type="password" class="form-control" id="passwordInput" name="j_password"
+                        <label for="modalPasswordInput">Пароль</label>
+                        <input type="password" class="form-control" id="modalPasswordInput" name="j_password"
                                placeholder="Пароль" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    <a type="button" class="btn btn-secondary" href="${contextPath}/register">Регистрация</a>
                     <button type="submit" class="btn btn-primary">Войти</button>
                 </div>
             </form>

@@ -4,8 +4,10 @@ window.onload = function () {
     console.log(document.cookie);
     getCart(contextPath);
 
-    document.getElementById('deliveryType' + deliveryTypeId).checked = true;
-    document.getElementById('paymentType' + paymentTypeId).checked = true;
+    var deliveryType = document.getElementById('deliveryType' + deliveryTypeId);
+    if (deliveryType !== null) deliveryType.checked = true;
+    var paymentType = document.getElementById('paymentType' + paymentTypeId);
+    if (paymentType !== null) paymentType.checked = true;
 }
 
 function showAddressInput() {
