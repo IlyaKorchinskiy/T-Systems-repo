@@ -3,6 +3,7 @@ package ru.korchinskiy.dto;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -14,5 +15,6 @@ public class UserDto {
     private String email;
     private String password;
     private String phoneNumber;
-    private Set<RoleDto> roles;
+    private List<AddressDto> addresses;
+    private List<RoleDto> roles;
 }

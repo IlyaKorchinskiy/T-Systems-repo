@@ -12,7 +12,9 @@ import ru.korchinskiy.dto.RoleDto;
 import ru.korchinskiy.dto.UserDto;
 import ru.korchinskiy.service.UserService;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -24,8 +26,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserDto userDto = userService.getUserByEmail(email);
         if (userDto == null)
             throw new UsernameNotFoundException("Пользователь с почтой" + email + " не найден");
-        Set<RoleDto> roles = userDto.getRoles();
-        Set<GrantedAuthority> grantList = new HashSet<>();
+        List<RoleDto> roles = userDto.getRoles();
+        List<GrantedAuthority> grantList = new ArrayList<>();
         if (roles != null) {
             for (RoleDto role : roles) {
                 grantList.add(new SimpleGrantedAuthority(role.getRole()));

@@ -13,7 +13,6 @@ import ru.korchinskiy.service.UtilsService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/cart")
@@ -24,7 +23,7 @@ public class CartController {
     @GetMapping
     public String showCartPage(@CookieValue(value = "sessionId", required = false) String sessionCookie,
                                Model model) {
-        Set<CartProductDto> cartProducts = cartService.getCartProductSetBySessionId(sessionCookie);
+        List<CartProductDto> cartProducts = cartService.getCartProductsBySessionId(sessionCookie);
         List<PaymentTypeDto> paymentTypes = cartService.getPaymentTypes();
         List<DeliveryTypeDto> deliveryTypes = cartService.getDeliveryTypes();
         Double sum = utilsService.getCartSum(cartProducts);
@@ -38,17 +37,17 @@ public class CartController {
 
     @GetMapping("/getCart")
     @ResponseBody
-    public Set<CartProductDto> getCart(@CookieValue(value = "sessionId", required = false) String sessionId) {
-        return cartService.getCartProductSetBySessionId(sessionId);
+    public List<CartProductDto> getCart(@CookieValue(value = "sessionId", required = false) String sessionId) {
+        return cartService.getCartProductsBySessionId(sessionId);
     }
 
     @PostMapping("/addToCart")
     @ResponseBody
-    public Set<CartProductDto> addToCart(@RequestParam(name = "id") Long productId,
-                                         @CookieValue(value = "sessionId", required = false) String sessionCookie,
-                                         HttpServletRequest request) {
+    public List<CartProductDto> addToCart(@RequestParam(name = "id") Long productId,
+                                          @CookieValue(value = "sessionId", required = false) String sessionCookie,
+                                          HttpServletRequest request) {
         String sessionId = cartService.addProductToCartBySessionId(sessionCookie, request.getSession().getId(), productId);
-        return cartService.getCartProductSetBySessionId(sessionId);
+        return cartService.getCartProductsBySessionId(sessionId);
     }
 
     @Autowired

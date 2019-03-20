@@ -18,10 +18,11 @@
 <div class="container-fluid">
     <div class="site-content">
         <jsp:include page="header.jsp"/>
-        <div class="row site-padding">
-            <jsp:include page="navigation.jsp"/>
-            <div class="col">
-                Заказ успешно оформлен
+        <div class="row site-padding justify-content-center">
+            <div class="col-md-8">
+                <p class="confirm">
+                    ${message.confirms.get(0)}
+                </p>
             </div>
         </div>
 

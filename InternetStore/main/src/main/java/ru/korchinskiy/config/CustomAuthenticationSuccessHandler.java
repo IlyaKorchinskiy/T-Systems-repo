@@ -21,7 +21,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             throws IOException, ServletException {
         String email = auth.getName();
         HttpSession session = request.getSession();
-        session.setAttribute("user", userService.getUserByEmail(email).getName());
+        session.setAttribute("user", userService.getUserByEmail(email));
         if (!request.getHeader("referer").contains("login")) {
             response.sendRedirect(request.getHeader("referer"));
         } else {

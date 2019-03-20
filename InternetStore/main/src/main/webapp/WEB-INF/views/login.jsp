@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Ошибка</title>
+    <title>Логин</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
@@ -58,7 +58,7 @@
         crossorigin="anonymous"></script>
 <script>var contextPath = '${contextPath}'</script>
 <script src="${contextPath}/resources/js/common.js"></script>
-<script src="${contextPath}/resources/js/loginError.js"></script>
+<script src="${contextPath}/resources/js/login.js"></script>
 
 </body>
 </html>

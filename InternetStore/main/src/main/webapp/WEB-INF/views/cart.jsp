@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
@@ -19,8 +19,15 @@
 <div class="container-fluid">
     <div class="site-content">
         <jsp:include page="header.jsp"/>
-        <div class="row cart-products site-padding">
+
+
+        <div class="row cart-products site-padding justify-content-center">
             <div class="col">
+                <c:if test="${message.errors.size() != 0}">
+                    <c:forEach items="${message.errors}" var="error">
+                        <p class="error">${error}</p>
+                    </c:forEach>
+                </c:if>
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
@@ -63,9 +70,9 @@
                                 <h6>Способ доставки</h6>
                                 <c:forEach items="${deliveryTypes}" var="deliveryType">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="deliveryType"
+                                        <input class="form-check-input" type="radio" name="deliveryTypeId"
                                                id="deliveryType${deliveryType.id}" value="${deliveryType.id}"
-                                               onchange="showAddressInput()">
+                                               onchange="showAddressInput()" checked>
                                         <label class="form-check-label"
                                                for="deliveryType${deliveryType.id}">${deliveryType.deliveryType}</label>
                                     </div>
@@ -89,7 +96,7 @@
                                 <h6>Способ оплаты</h6>
                                 <c:forEach items="${paymentTypes}" var="paymentType">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="paymentType"
+                                        <input class="form-check-input" type="radio" name="paymentTypeId"
                                                id="paymentType${paymentType.id}" value="${paymentType.id}">
                                         <label class="form-check-label"
                                                for="paymentType${paymentType.id}">${paymentType.paymentType}</label>
@@ -107,6 +114,7 @@
             </div>
         </sec:authorize>
     </div>
+
     <jsp:include page="footer.jsp"/>
 
 </div>

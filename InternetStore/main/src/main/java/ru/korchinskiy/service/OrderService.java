@@ -1,12 +1,10 @@
 package ru.korchinskiy.service;
 
-import ru.korchinskiy.dto.CartProductDto;
 import ru.korchinskiy.dto.OrderDto;
 import ru.korchinskiy.message.Message;
 
-import java.util.List;
-import java.util.Set;
+import javax.servlet.http.HttpSession;
 
 public interface OrderService {
-    Message saveOrder(OrderDto order, List<CartProductDto> cartProducts, String SessionId);
+    Message saveOrder(OrderDto order, HttpSession session, String cookieSession);
 }

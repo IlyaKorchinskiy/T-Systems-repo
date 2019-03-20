@@ -13,9 +13,7 @@ import ru.korchinskiy.exception.NotEnoughProductException;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.DTOMappingService;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -42,21 +40,20 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public Set<CartProductDto> getCartProductSetBySessionId(String sessionId) {
+    public List<CartProductDto> getCartProductsBySessionId(String sessionId) {
         if (sessionId == null) return null;
         Cart cart = cartDAO.getCartBySessionId(sessionId);
-        Set<CartProduct> cartProducts = new HashSet<>(cartProductDAO.getCartProductListByCartId(cart.getId()));
-        Set<CartProductDto> cartProductDtos = dtoMappingService.convertToCartProductDtoSet(cartProducts);
-        return cartProductDtos;
+        List<CartProduct> cartProducts = cartProductDAO.getCartProductListByCartId(cart.getId());
+        return dtoMappingService.convertToCartProductDtoList(cartProducts);
     }
 
     @Override
     @Transactional
-    public String addProductToCartBySessionId(String cookie, String sessionId, Long productId) {
+    public String addProductToCartBySessionId(String cookieSession, String sessionId, Long productId) {
         Product product = productDAO.getProductById(productId);
         if (product.getAmount() == 0) throw new NotEnoughProductException();
         Cart cart;
-        if (cookie == null) {
+        if (cookieSession == null) {
             cart = new Cart();
             cart.setSessionId(sessionId);
             cartDAO.saveCart(cart);
@@ -66,7 +63,7 @@ public class CartServiceImpl implements CartService {
             cartProduct.setAmount(1);
             cartProductDAO.saveCartProduct(cartProduct);
         } else {
-            cart = cartDAO.getCartBySessionId(cookie);
+            cart = cartDAO.getCartBySessionId(cookieSession);
             CartProduct cartProduct = cartProductDAO.getCartProductByCartIdAndProductId(cart.getId(), productId);
             if (cartProduct != null) {
                 cartProduct.setAmount(cartProduct.getAmount() + 1);
@@ -93,6 +90,16 @@ public class CartServiceImpl implements CartService {
     public List<DeliveryTypeDto> getDeliveryTypes() {
         List<DeliveryType> deliveryTypes = deliveryTypeDAO.getAllDeliveryTypes();
         return dtoMappingService.convertToDeliveryTypeDtoList(deliveryTypes);
+    }
+
+    @Override
+    @Transactional
+    public void cleanCart(String cookieSession) {
+        Cart cart = cartDAO.getCartBySessionId(cookieSession);
+        List<CartProduct> cartProducts = cartProductDAO.getCartProductListByCartId(cart.getId());
+        for (CartProduct cartProduct : cartProducts) {
+            cartProductDAO.removeCartProductById(cartProduct.getId());
+        }
     }
 
     @Autowired

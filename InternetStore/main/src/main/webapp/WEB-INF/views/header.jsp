@@ -23,7 +23,7 @@
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">${sessionScope.get("user")}</a>
+                            <a class="nav-link" href="${contextPath}/profile">${sessionScope.get("user").getName()}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${contextPath}/logout">Выход</a>

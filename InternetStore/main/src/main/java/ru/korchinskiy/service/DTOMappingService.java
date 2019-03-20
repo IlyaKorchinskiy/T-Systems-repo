@@ -21,6 +21,8 @@ public interface DTOMappingService {
 
     User convertToUser(UserDto userDto);
 
+    AddressDto convertToAddressDto(Address address);
+
     RoleDto convertToRoleDto(Role role);
 
     CartDto convertToCartDto(Cart cart);
@@ -35,11 +37,13 @@ public interface DTOMappingService {
 
     Set<CategoryDto> convertToCategoryDtoSet(Set<Category> categories);
 
-    Set<RoleDto> convertToRoleDtoSet(Set<Role> roles);
+    List<RoleDto> convertToRoleDtoList(List<Role> roles);
 
-    Set<CartProductDto> convertToCartProductDtoSet(Set<CartProduct> cartProducts);
+    List<CartProductDto> convertToCartProductDtoList(List<CartProduct> cartProducts);
 
     List<PaymentTypeDto> convertToPaymentTypeDtoList(List<PaymentType> paymentTypes);
 
     List<DeliveryTypeDto> convertToDeliveryTypeDtoList(List<DeliveryType> deliveryTypes);
+
+    List<AddressDto> convertToAddressDtoList(List<Address> addresses);
 }

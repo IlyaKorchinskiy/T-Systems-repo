@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Ошибка</title>
+    <title>Логин</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
@@ -18,8 +18,8 @@
 <div class="container-fluid">
     <div class="site-content">
         <jsp:include page="header.jsp"/>
-        <div class="row site-padding">
-            <div class="col-md-8">
+        <div class="row site-padding justify-content-center">
+            <div class="col-md-8 content">
                 <c:if test="${param.get('error') == true}">
                     <p class="error">
                         Неверный логин или пароль
@@ -58,7 +58,7 @@
         crossorigin="anonymous"></script>
 <script>var contextPath = '${contextPath}'</script>
 <script src="${contextPath}/resources/js/common.js"></script>
-<script src="${contextPath}/resources/js/loginError.js"></script>
+<script src="${contextPath}/resources/js/login.js"></script>
 
 </body>
 </html>

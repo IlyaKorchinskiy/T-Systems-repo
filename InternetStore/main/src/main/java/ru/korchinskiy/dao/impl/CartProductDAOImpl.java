@@ -17,6 +17,11 @@ public class CartProductDAOImpl implements CartProductDAO {
     private SessionFactory sessionFactory;
 
     @Override
+    public CartProduct getCartProductById(Long id) {
+        return this.sessionFactory.getCurrentSession().get(CartProduct.class, id);
+    }
+
+    @Override
     public CartProduct getCartProductByCartIdAndProductId(Long cartId, Long productId) {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -40,8 +45,14 @@ public class CartProductDAOImpl implements CartProductDAO {
     }
 
     @Override
-    public void saveCartProduct(CartProduct cartProduct) {
-        this.sessionFactory.getCurrentSession().persist(cartProduct);
+    public Long saveCartProduct(CartProduct cartProduct) {
+        return (Long) this.sessionFactory.getCurrentSession().save(cartProduct);
+    }
+
+    @Override
+    public void removeCartProductById(Long id) {
+        CartProduct cartProduct = getCartProductById(id);
+        this.sessionFactory.getCurrentSession().delete(cartProduct);
     }
 
     @Autowired

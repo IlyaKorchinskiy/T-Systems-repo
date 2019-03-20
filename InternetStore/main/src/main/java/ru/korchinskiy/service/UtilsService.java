@@ -2,8 +2,8 @@ package ru.korchinskiy.service;
 
 import ru.korchinskiy.dto.CartProductDto;
 
-import java.util.Set;
+import java.util.List;
 
 public interface UtilsService {
-    Double getCartSum(Set<CartProductDto> cartProducts);
+    Double getCartSum(List<CartProductDto> cartProducts);
 }

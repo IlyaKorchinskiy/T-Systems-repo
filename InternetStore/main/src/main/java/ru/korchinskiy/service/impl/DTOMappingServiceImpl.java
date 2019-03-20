@@ -14,7 +14,7 @@ import java.util.Set;
 
 @Service
 public class DTOMappingServiceImpl implements DTOMappingService {
-    BCryptPasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public ProductDto convertToProductDto(Product product) {
@@ -82,7 +82,8 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         userDto.setEmail(user.getEmail());
         userDto.setPassword(user.getPassword());
         userDto.setPhoneNumber(user.getPhoneNumber());
-        userDto.setRoles(convertToRoleDtoSet(user.getRoles()));
+        userDto.setAddresses(convertToAddressDtoList(user.getAddresses()));
+        userDto.setRoles(convertToRoleDtoList(user.getRoles()));
         return userDto;
     }
 
@@ -97,6 +98,15 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         System.out.println(user.getPassword());
         user.setPhoneNumber(userDto.getPhoneNumber());
         return user;
+    }
+
+    @Override
+    public AddressDto convertToAddressDto(Address address) {
+        AddressDto addressDto = new AddressDto();
+        addressDto.setId(address.getId());
+        addressDto.setAddress(address.getAddress());
+        addressDto.setAddressType(address.getAddressType());
+        return addressDto;
     }
 
     @Override
@@ -163,8 +173,8 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
-    public Set<RoleDto> convertToRoleDtoSet(Set<Role> roles) {
-        Set<RoleDto> roleDtos = new HashSet<>();
+    public List<RoleDto> convertToRoleDtoList(List<Role> roles) {
+        List<RoleDto> roleDtos = new ArrayList<>();
         for (Role role : roles) {
             RoleDto roleDto = convertToRoleDto(role);
             roleDtos.add(roleDto);
@@ -173,8 +183,8 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
-    public Set<CartProductDto> convertToCartProductDtoSet(Set<CartProduct> cartProducts) {
-        Set<CartProductDto> cartProductDtos = new HashSet<>();
+    public List<CartProductDto> convertToCartProductDtoList(List<CartProduct> cartProducts) {
+        List<CartProductDto> cartProductDtos = new ArrayList<>();
         for (CartProduct cartProduct : cartProducts) {
             cartProductDtos.add(convertToCartProductDto(cartProduct));
         }
@@ -197,6 +207,15 @@ public class DTOMappingServiceImpl implements DTOMappingService {
             deliveryTypeDtos.add(convertToDeliverTypeDto(deliveryType));
         }
         return deliveryTypeDtos;
+    }
+
+    @Override
+    public List<AddressDto> convertToAddressDtoList(List<Address> addresses) {
+        List<AddressDto> addressDtos = new ArrayList<>();
+        for (Address address : addresses) {
+            addressDtos.add(convertToAddressDto(address));
+        }
+        return addressDtos;
     }
 
     @Autowired

@@ -1,6 +1,7 @@
 package ru.korchinskiy.entity;
 
 import lombok.Data;
+import ru.korchinskiy.enums.AddressType;
 
 import javax.persistence.*;
 
@@ -13,4 +14,8 @@ public class Address {
     private Long id;
 
     private String address;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "address_type")
+    private AddressType addressType;
 }

@@ -6,18 +6,19 @@ import ru.korchinskiy.dto.DeliveryTypeDto;
 import ru.korchinskiy.dto.PaymentTypeDto;
 
 import java.util.List;
-import java.util.Set;
 
 public interface CartService {
     CartDto getCartById(Long id);
 
     CartDto getCartBySessionId(String sessionId);
 
-    Set<CartProductDto> getCartProductSetBySessionId(String sessionId);
+    List<CartProductDto> getCartProductsBySessionId(String sessionId);
 
-    String addProductToCartBySessionId(String cookie, String sessionId, Long productId);
+    String addProductToCartBySessionId(String cookieSession, String sessionId, Long productId);
 
     List<PaymentTypeDto> getPaymentTypes();
 
     List<DeliveryTypeDto> getDeliveryTypes();
+
+    void cleanCart(String cookieSession);
 }

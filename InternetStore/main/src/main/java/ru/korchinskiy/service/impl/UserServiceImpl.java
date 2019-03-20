@@ -12,15 +12,16 @@ import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.DTOMappingService;
 import ru.korchinskiy.service.UserService;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
-    public static final String USER_ALREADY_EXISTS = "Пользователь с таким e-mail уже существует";
-    public static final String DATABASE_EXCEPTION = "База данных не отвечает";
-    public static final String USER_ADD_SUCCESS = "Пользователь успешно зарегистрирован";
-    public static final Long ROLE_CLIENT = 1L;
+    private static final String USER_ALREADY_EXISTS = "Пользователь с таким e-mail уже существует";
+    private static final String USER_ADD_SUCCESS = "Пользователь успешно зарегистрирован";
+    private static final Long ROLE_CLIENT = 1L;
 
     private UserDAO userDAO;
     private DTOMappingService dtoMappingService;
@@ -51,15 +52,11 @@ public class UserServiceImpl implements UserService {
             return message;
         }
         User newUser = dtoMappingService.convertToUser(user);
-        Set<Role> roles = new HashSet<>();
+        List<Role> roles = new ArrayList<>();
         roles.add(roleDAO.getRoleById(ROLE_CLIENT));
         newUser.setRoles(roles);
-        try {
-            userDAO.saveUser(newUser);
-            message.getConfirms().add(USER_ADD_SUCCESS);
-        } catch (Exception e) {
-            message.getErrors().add(DATABASE_EXCEPTION);
-        }
+        userDAO.saveUser(newUser);
+        message.getConfirms().add(USER_ADD_SUCCESS);
         return message;
     }
 
