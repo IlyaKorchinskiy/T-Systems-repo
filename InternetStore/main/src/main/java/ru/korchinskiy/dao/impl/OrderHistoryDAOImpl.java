@@ -11,8 +11,8 @@ public class OrderHistoryDAOImpl implements OrderHistoryDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public Long saveOrderHistory(OrderHistory orderHistory) {
-        return (Long) this.sessionFactory.getCurrentSession().save(orderHistory);
+    public void saveOrderHistory(OrderHistory orderHistory) {
+        this.sessionFactory.getCurrentSession().persist(orderHistory);
     }
 
     @Autowired

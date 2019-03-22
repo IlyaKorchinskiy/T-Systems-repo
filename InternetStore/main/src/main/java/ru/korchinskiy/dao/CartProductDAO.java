@@ -11,7 +11,7 @@ public interface CartProductDAO {
 
     List<CartProduct> getCartProductListByCartId(Long cartId);
 
-    Long saveCartProduct(CartProduct cartProduct);
+    void saveCartProduct(CartProduct cartProduct);
 
     void removeCartProductById(Long id);
 }

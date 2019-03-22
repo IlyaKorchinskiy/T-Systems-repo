@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
 <html>
 <head>
@@ -19,9 +19,80 @@
     <div class="site-content">
         <jsp:include page="header.jsp"/>
         <div class="row site-padding justify-content-center">
-            <div class="col-md-8 content">
+            <div class="col-lg-8 content">
                 <h2>Профиль ${user.name} ${user.lastname}</h2>
-                <p>${user}</p>
+                <h4>Информация</h4>
+                <form action="${contextPath}/profile/editInfo" method="post" modelAttribute="user">
+                    <div class="form-group row">
+                        <label for="nameInput" class="col-sm-3 col-form-label">Имя</label>
+                        <div class="col">
+                            <input type="text" class="form-control" id="nameInput" name="name"
+                                   value="${user.name}" placeholder="Имя" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lastnameInput" class="col-sm-3 col-form-label">Фамилия</label>
+                        <div class="col">
+                            <input type="text" class="form-control" id="lastnameInput" name="lastname"
+                                   value="${user.lastname}" placeholder="Фамилия" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="phoneInput" class="col-sm-3 col-form-label">Телефон</label>
+                        <div class="col">
+                            <input type="text" class="form-control" id="phoneInput" name="phoneNumber"
+                                   value="${user.phoneNumber}" placeholder="+79223556789" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="loginRegInput" class="col-sm-3 col-form-label">Логин (e-mail)</label>
+                        <div class="col">
+                            <input type="email" class="form-control" id="loginRegInput" name="email"
+                                   value="${user.email}" placeholder="E-mail" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="birthInput" class="col-sm-3 col-form-label">День рождения</label>
+                        <div class="col">
+                            <input type="date" class="form-control" id="birthInput" name="birthDay"
+                                   value="${user.birthday}" placeholder="" required readonly>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary">Изменить</button>
+                    <button type="submit" class="btn btn-secondary" disabled>Сохранить</button>
+                </form>
+                <h4>Адреса</h4>
+                <p id="addressMessage" class="confirm" hidden></p>
+                <c:forEach items="${user.addresses}" var="address">
+                    <div id="address${address.id}" class="form-group">
+                        <input type="text" class="form-control" id="addressInput${address.id}" name="address"
+                               value="${address.address}" placeholder="адрес" required disabled>
+                        <button type="button" class="btn address-edit" id="editAddressBtn${address.id}"
+                                onclick="editAddress('${address.id}')">Изменить
+                        </button>
+                        <button type="button" class="btn address-ok" id="updateAddressBtn${address.id}"
+                                onclick="updateAddress('${address.id}')" hidden>Ок
+                        </button>
+                        <button type="button" class="btn address-delete" onclick="deleteAddress('${address.id}')">
+                            Удалить
+                        </button>
+                    </div>
+                </c:forEach>
+
+                <div class="form-group">
+                    <button id="addAddressBtn" type="button" class="btn btn-primary" onclick="showAddressForm()">
+                        Добавить адрес
+                    </button>
+                </div>
+                <form id="addAddressForm" action="${contextPath}/profile/addAddress" method="post" hidden>
+                    <div class="form-group">
+                        <label for="newAddressInput" class="form-label">Новый адрес</label>
+                        <input type="text" class="form-control" id="newAddressInput" name="address"
+                               placeholder="Введите адрес" required autofocus>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+                <h4>Заказы</h4>
 
             </div>
         </div>

@@ -3,10 +3,7 @@ package ru.korchinskiy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.korchinskiy.dto.CategoryDto;
 import ru.korchinskiy.dto.UserDto;
 import ru.korchinskiy.message.Message;
@@ -56,6 +53,30 @@ public class IndexController {
         UserDto user = userService.getUserById(((UserDto) session.getAttribute("user")).getId());
         model.addAttribute("user", user);
         return "profile";
+    }
+
+    @PostMapping("/profile/addAddress")
+    public String addAddress(Model model,
+                             @RequestParam(name = "address") String address,
+                             HttpSession session) {
+        UserDto user = userService.addUserAddress(address, (UserDto) session.getAttribute("user"));
+        model.addAttribute("user", user);
+        return "profile";
+    }
+
+    @PostMapping("/profile/deleteAddress")
+    @ResponseBody
+    public Message deleteAddress(@RequestParam(name = "addressId") Long addressId,
+                                 HttpSession session) {
+        return userService.deleteUserAddress(addressId, (UserDto) session.getAttribute("user"));
+    }
+
+    @PostMapping("/profile/editAddress")
+    @ResponseBody
+    public Message editAddress(@RequestParam(name = "addressId") Long addressId,
+                               @RequestParam(name = "address") String address,
+                               HttpSession session) {
+        return userService.updateUserAddress(addressId, address, (UserDto) session.getAttribute("user"));
     }
 
     @Autowired

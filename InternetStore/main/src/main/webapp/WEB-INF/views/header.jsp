@@ -9,21 +9,22 @@
             <div class="col">
                 <ul class="nav justify-content-end">
                     <sec:authorize access="hasAnyRole('ADMIN', 'SUPER_ADMIN')">
-                    <li class="nav-item">
-                    <a class="nav-link" href="${contextPath}/admin">Админ</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${contextPath}/admin">Админ</a>
+                        </li>
                     </sec:authorize>
                     <sec:authorize access="!isAuthenticated()">
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="modal" data-target="#loginModalForm" href="#">Вход</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${contextPath}/register">Регистрация</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="modal" data-target="#loginModalForm" href="#">Вход</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${contextPath}/register">Регистрация</a>
+                        </li>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <li class="nav-item">
-                            <a class="nav-link" href="${contextPath}/profile">${sessionScope.get("user").getName()}</a>
+                            <a class="nav-link"
+                               href="${contextPath}/profile">Профиль ${sessionScope.get("user").getName()}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="${contextPath}/logout">Выход</a>

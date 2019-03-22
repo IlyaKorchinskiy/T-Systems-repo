@@ -1,7 +1,8 @@
 'use strict';
 
+var xhr = new XMLHttpRequest();
+
 function getCart(contextPath) {
-    var xhr = new XMLHttpRequest();
     xhr.open('GET', contextPath + '/cart/getCart', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     xhr.onreadystatechange = function () {
@@ -41,6 +42,26 @@ function renderCart(cart) {
         productsHtml += '</ul>';
         cartContent.innerHTML = productsHtml;
     }
+}
+
+function sendAjaxRequestPost(url, params, func) {
+    var body = '';
+    for (var key in params) {
+        body += key + '=' + encodeURIComponent(params[key]) + '&';
+    }
+    xhr.open('POST', contextPath + url, true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState !== 4) return;
+        if (xhr.status !== 200) {
+            console.log('Error', xhr.status, xhr.statusText);
+        } else {
+            console.log('Ok', xhr.statusText);
+            console.log(xhr.responseText);
+            func();
+        }
+    }
+    xhr.send(body);
 }
 
 

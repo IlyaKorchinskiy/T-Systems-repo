@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import ru.korchinskiy.service.impl.UserDetailsServiceImpl;
 
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Properties;
 
@@ -65,7 +66,7 @@ public class WebConfig implements WebMvcConfigurer {
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("ru.korchinskiy.entity");
         Properties hibernateProperties = new Properties();
-        hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQLInnoDBDialect");
+        hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         hibernateProperties.put("hibernate.show_sql", "true");
         sessionFactory.setHibernateProperties(hibernateProperties);
         return sessionFactory;

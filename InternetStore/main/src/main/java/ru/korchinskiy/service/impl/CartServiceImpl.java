@@ -33,16 +33,16 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public CartDto getCartBySessionId(String sessionId) {
-        Cart cart = cartDAO.getCartBySessionId(sessionId);
+    public CartDto getCartBySessionId(String cookieSession) {
+        Cart cart = cartDAO.getCartBySessionId(cookieSession);
         return dtoMappingService.convertToCartDto(cart);
     }
 
     @Override
     @Transactional
-    public List<CartProductDto> getCartProductsBySessionId(String sessionId) {
-        if (sessionId == null) return null;
-        Cart cart = cartDAO.getCartBySessionId(sessionId);
+    public List<CartProductDto> getCartProductsBySessionId(String cookieSession) {
+        if (cookieSession == null) return null;
+        Cart cart = cartDAO.getCartBySessionId(cookieSession);
         List<CartProduct> cartProducts = cartProductDAO.getCartProductListByCartId(cart.getId());
         return dtoMappingService.convertToCartProductDtoList(cartProducts);
     }

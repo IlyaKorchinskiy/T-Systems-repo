@@ -11,8 +11,8 @@ public class OrderProductDAOImpl implements OrderProductDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public Long saveOrderProduct(OrderProduct orderProduct) {
-        return (Long) this.sessionFactory.getCurrentSession().save(orderProduct);
+    public void saveOrderProduct(OrderProduct orderProduct) {
+        this.sessionFactory.getCurrentSession().persist(orderProduct);
     }
 
     @Autowired

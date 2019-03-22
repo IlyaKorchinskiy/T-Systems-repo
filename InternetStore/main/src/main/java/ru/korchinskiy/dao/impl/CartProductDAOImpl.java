@@ -45,8 +45,8 @@ public class CartProductDAOImpl implements CartProductDAO {
     }
 
     @Override
-    public Long saveCartProduct(CartProduct cartProduct) {
-        return (Long) this.sessionFactory.getCurrentSession().save(cartProduct);
+    public void saveCartProduct(CartProduct cartProduct) {
+        this.sessionFactory.getCurrentSession().persist(cartProduct);
     }
 
     @Override

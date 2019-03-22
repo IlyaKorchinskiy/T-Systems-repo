@@ -18,4 +18,12 @@ public class Address {
     @Enumerated(EnumType.STRING)
     @Column(name = "address_type")
     private AddressType addressType;
+
+    public Address() {
+    }
+
+    public Address(String address, AddressType addressType) {
+        this.address = address;
+        this.addressType = addressType;
+    }
 }

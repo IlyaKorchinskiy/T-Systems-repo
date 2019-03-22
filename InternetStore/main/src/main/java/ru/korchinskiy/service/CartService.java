@@ -10,9 +10,9 @@ import java.util.List;
 public interface CartService {
     CartDto getCartById(Long id);
 
-    CartDto getCartBySessionId(String sessionId);
+    CartDto getCartBySessionId(String cookieSession);
 
-    List<CartProductDto> getCartProductsBySessionId(String sessionId);
+    List<CartProductDto> getCartProductsBySessionId(String cookieSession);
 
     String addProductToCartBySessionId(String cookieSession, String sessionId, Long productId);
 

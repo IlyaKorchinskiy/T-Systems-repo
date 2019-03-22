@@ -9,4 +9,10 @@ public interface UserService {
     UserDto getUserByEmail(String email);
 
     Message addUser(UserDto user);
+
+    UserDto addUserAddress(String address, UserDto user);
+
+    Message deleteUserAddress(Long addressId, UserDto user);
+
+    Message updateUserAddress(Long addressId, String address, UserDto userDto);
 }

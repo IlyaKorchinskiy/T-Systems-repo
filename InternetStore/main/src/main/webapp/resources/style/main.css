@@ -352,3 +352,33 @@ html, body {
     font-size: 22px;
     font-weight: 600;
 }
+
+/*profile*/
+
+.content .address-edit {
+    color: green;
+}
+
+.content .address-edit:hover {
+    text-decoration: underline;
+}
+
+.content .address-delete {
+    color: red;
+}
+
+.content .address-delete:hover {
+    text-decoration: underline;
+}
+
+.content .address-ok {
+    color: blue;
+}
+
+.content .address-ok:hover {
+    text-decoration: underline;
+}
+
+.content h4 {
+    margin-top: 30px;
+}
