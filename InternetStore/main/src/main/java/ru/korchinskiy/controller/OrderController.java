@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.korchinskiy.dto.CartProductDto;
 import ru.korchinskiy.dto.DeliveryTypeDto;
-import ru.korchinskiy.dto.OrderDto;
+import ru.korchinskiy.dto.NewOrderDto;
 import ru.korchinskiy.dto.PaymentTypeDto;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CartService;
@@ -28,22 +28,25 @@ public class OrderController {
 
     @PostMapping
     public String saveOrder(Model model,
-                            @ModelAttribute("order") OrderDto order,
+                            @ModelAttribute("order") NewOrderDto order,
                             @CookieValue(value = "sessionId") String cookieSession,
                             HttpSession session) {
         Message message = orderService.saveOrder(order, session, cookieSession);
         model.addAttribute("message", message);
-        if (message.getConfirms().size() != 0) return "orderSuccess";
-        List<CartProductDto> cartProducts = cartService.getCartProductsBySessionId(cookieSession);
-        List<PaymentTypeDto> paymentTypes = cartService.getPaymentTypes();
-        List<DeliveryTypeDto> deliveryTypes = cartService.getDeliveryTypes();
-        Double sum = utilsService.getCartSum(cartProducts);
-        model.addAttribute("cartProducts", cartProducts);
-        model.addAttribute("paymentTypes", paymentTypes);
-        model.addAttribute("deliveryTypes", deliveryTypes);
-        model.addAttribute("sum", sum);
-        model.addAttribute("order", order);
-        return "cart";
+        if (message.getConfirms().size() != 0) {
+            return "orderSuccess";
+        } else {
+            List<CartProductDto> cartProducts = cartService.getCartProductsBySessionId(cookieSession);
+            List<PaymentTypeDto> paymentTypes = cartService.getPaymentTypes();
+            List<DeliveryTypeDto> deliveryTypes = cartService.getDeliveryTypes();
+            Double sum = utilsService.getCartSum(cartProducts);
+            model.addAttribute("cartProducts", cartProducts);
+            model.addAttribute("paymentTypes", paymentTypes);
+            model.addAttribute("deliveryTypes", deliveryTypes);
+            model.addAttribute("sum", sum);
+            model.addAttribute("order", order);
+            return "cart";
+        }
     }
 
     @Autowired

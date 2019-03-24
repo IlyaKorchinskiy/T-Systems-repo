@@ -33,7 +33,7 @@
                         </li>
                     </c:forEach>
                 </ul>
-                <p>Количесвто на складе: ${product.amount}</p>
+                <p>Количество на складе: ${product.amount}</p>
                 <div class="row price-buy">
                     <div class="col-lg-6 price">Цена: <span>${product.cost} <i class="fas fa-ruble-sign"></i></span>
                     </div>

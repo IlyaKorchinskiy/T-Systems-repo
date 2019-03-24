@@ -60,6 +60,10 @@ html, body {
     background-color: #6d6d6d;
 }
 
+.header-menu .active {
+    background-color: #6d6d6d;
+}
+
 .header-content {
     background-color: #f2f2f2;
     padding-top: 15px;
@@ -355,30 +359,50 @@ html, body {
 
 /*profile*/
 
-.content .address-edit {
+.profile .address-edit {
     color: green;
 }
 
-.content .address-edit:hover {
+.profile .address-edit:hover {
     text-decoration: underline;
 }
 
-.content .address-delete {
+.profile .address-delete {
     color: red;
 }
 
-.content .address-delete:hover {
+.profile .address-delete:hover {
     text-decoration: underline;
 }
 
-.content .address-ok {
+.profile .address-ok {
     color: blue;
 }
 
-.content .address-ok:hover {
+.profile .address-ok:hover {
     text-decoration: underline;
 }
 
-.content h4 {
+.profile h4 {
     margin-top: 30px;
 }
+
+.profile table {
+    text-align: center;
+}
+
+/*admin*/
+
+.admin .header {
+    margin: 0;
+}
+
+.admin .table {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.admin .title {
+    text-align: left;
+}
+

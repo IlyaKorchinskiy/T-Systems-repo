@@ -20,7 +20,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import ru.korchinskiy.service.impl.UserDetailsServiceImpl;
 
-import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Properties;
 

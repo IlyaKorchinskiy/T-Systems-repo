@@ -19,7 +19,7 @@
     <div class="site-content">
         <jsp:include page="header.jsp"/>
         <div class="row site-padding justify-content-center">
-            <div class="col-md-8 content">
+            <div class="col-lg-9 content">
                 <c:if test="${param.get('error') == true}">
                     <p class="error">
                         Неверный логин или пароль

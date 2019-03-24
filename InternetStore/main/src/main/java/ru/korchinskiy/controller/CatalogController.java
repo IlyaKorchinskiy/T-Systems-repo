@@ -10,7 +10,7 @@ import ru.korchinskiy.dto.CategoryDto;
 import ru.korchinskiy.dto.CategoryWithProductsDto;
 import ru.korchinskiy.service.CategoryService;
 
-import java.util.Set;
+import java.util.List;
 
 @Controller
 @RequestMapping("/catalog")
@@ -23,8 +23,8 @@ public class CatalogController {
                               @RequestParam(name = "maxCost", required = false) Double maxCost,
                               Model model) {
         CategoryWithProductsDto category = categoryService.getCategoryWithProductsByCost(id, minCost, maxCost);
-        Set<CategoryDto> mainCategories = categoryService.getCategoriesByParentId(0L);
-        Set<CategoryDto> subCategories = categoryService.getCategoriesByParentId(id);
+        List<CategoryDto> mainCategories = categoryService.getCategoriesByParentId(0L);
+        List<CategoryDto> subCategories = categoryService.getCategoriesByParentId(id);
         model.addAttribute("category", category);
         model.addAttribute("mainCategories", mainCategories);
         model.addAttribute("subCategories", subCategories);

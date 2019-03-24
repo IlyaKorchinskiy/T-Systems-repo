@@ -1,20 +1,15 @@
 package ru.korchinskiy.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.korchinskiy.dto.*;
 import ru.korchinskiy.entity.*;
 import ru.korchinskiy.service.DTOMappingService;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class DTOMappingServiceImpl implements DTOMappingService {
-    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public ProductDto convertToProductDto(Product product) {
@@ -24,6 +19,7 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         productDto.setTitle(product.getTitle());
         productDto.setAmount(product.getAmount());
         productDto.setDescription(product.getDescription());
+        productDto.setDate(product.getDate());
         productDto.setPhotoMd(product.getPhotoMd());
         productDto.setPhotoSm(product.getPhotoSm());
         return productDto;
@@ -37,10 +33,21 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         productDto.setTitle(product.getTitle());
         productDto.setAmount(product.getAmount());
         productDto.setDescription(product.getDescription());
+        productDto.setDate(product.getDate());
         productDto.setPhotoMd(product.getPhotoMd());
         productDto.setPhotoSm(product.getPhotoSm());
-        productDto.setCategories(convertToCategoryDtoSet(product.getCategories()));
+        productDto.setCategories(convertToCategoryDtoList(product.getCategories()));
         return productDto;
+    }
+
+    @Override
+    public List<ProductDto> convertToProductDtoList(List<Product> products) {
+        List<ProductDto> productDtos = new ArrayList<>();
+        for (Product product : products) {
+            ProductDto productDto = convertToProductDto(product);
+            productDtos.add(productDto);
+        }
+        return productDtos;
     }
 
     @Override
@@ -58,18 +65,28 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         categoryDto.setId(category.getId());
         categoryDto.setTitle(category.getTitle());
         categoryDto.setParentId(category.getParentId());
-        categoryDto.setProducts(convertToProductDtoSet(category.getProducts()));
+        categoryDto.setProducts(convertToProductDtoList(category.getProducts()));
         return categoryDto;
     }
 
     @Override
-    public CategoryWithProductsDto convertToCategoryWithProductsDto(Category category, Set<ProductDto> products) {
+    public CategoryWithProductsDto convertToCategoryWithProductsDto(Category category, List<ProductDto> products) {
         CategoryWithProductsDto categoryDto = new CategoryWithProductsDto();
         categoryDto.setId(category.getId());
         categoryDto.setTitle(category.getTitle());
         categoryDto.setParentId(category.getParentId());
         categoryDto.setProducts(products);
         return categoryDto;
+    }
+
+    @Override
+    public List<CategoryDto> convertToCategoryDtoList(List<Category> categories) {
+        List<CategoryDto> categoryDtos = new ArrayList<>();
+        for (Category category : categories) {
+            CategoryDto categoryDto = convertToCategoryDto(category);
+            categoryDtos.add(categoryDto);
+        }
+        return categoryDtos;
     }
 
     @Override
@@ -94,8 +111,6 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         user.setLastname(userDto.getLastname());
         user.setBirthday(userDto.getBirthday());
         user.setEmail(userDto.getEmail());
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        System.out.println(user.getPassword());
         user.setPhoneNumber(userDto.getPhoneNumber());
         return user;
     }
@@ -110,11 +125,30 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
+    public List<AddressDto> convertToAddressDtoList(List<Address> addresses) {
+        List<AddressDto> addressDtos = new ArrayList<>();
+        for (Address address : addresses) {
+            addressDtos.add(convertToAddressDto(address));
+        }
+        return addressDtos;
+    }
+
+    @Override
     public RoleDto convertToRoleDto(Role role) {
         RoleDto roleDto = new RoleDto();
         roleDto.setId(role.getId());
         roleDto.setRole(role.getRole());
         return roleDto;
+    }
+
+    @Override
+    public List<RoleDto> convertToRoleDtoList(List<Role> roles) {
+        List<RoleDto> roleDtos = new ArrayList<>();
+        for (Role role : roles) {
+            RoleDto roleDto = convertToRoleDto(role);
+            roleDtos.add(roleDto);
+        }
+        return roleDtos;
     }
 
     @Override
@@ -137,58 +171,20 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
-    public PaymentTypeDto convertToPaymentTypeDto(PaymentType paymentType) {
-        PaymentTypeDto paymentTypeDto = new PaymentTypeDto();
-        paymentTypeDto.setId(paymentType.getId());
-        paymentTypeDto.setPaymentType(paymentType.getPaymentType());
-        return paymentTypeDto;
-    }
-
-    @Override
-    public DeliveryTypeDto convertToDeliverTypeDto(DeliveryType deliveryType) {
-        DeliveryTypeDto deliveryTypeDto = new DeliveryTypeDto();
-        deliveryTypeDto.setId(deliveryType.getId());
-        deliveryTypeDto.setDeliveryType(deliveryType.getDeliveryType());
-        return deliveryTypeDto;
-    }
-
-    @Override
-    public Set<ProductDto> convertToProductDtoSet(Set<Product> products) {
-        Set<ProductDto> productDtos = new HashSet<>();
-        for (Product product : products) {
-            ProductDto productDto = convertToProductDto(product);
-            productDtos.add(productDto);
-        }
-        return productDtos;
-    }
-
-    @Override
-    public Set<CategoryDto> convertToCategoryDtoSet(Set<Category> categories) {
-        Set<CategoryDto> categoryDtos = new HashSet<>();
-        for (Category category : categories) {
-            CategoryDto categoryDto = convertToCategoryDto(category);
-            categoryDtos.add(categoryDto);
-        }
-        return categoryDtos;
-    }
-
-    @Override
-    public List<RoleDto> convertToRoleDtoList(List<Role> roles) {
-        List<RoleDto> roleDtos = new ArrayList<>();
-        for (Role role : roles) {
-            RoleDto roleDto = convertToRoleDto(role);
-            roleDtos.add(roleDto);
-        }
-        return roleDtos;
-    }
-
-    @Override
     public List<CartProductDto> convertToCartProductDtoList(List<CartProduct> cartProducts) {
         List<CartProductDto> cartProductDtos = new ArrayList<>();
         for (CartProduct cartProduct : cartProducts) {
             cartProductDtos.add(convertToCartProductDto(cartProduct));
         }
         return cartProductDtos;
+    }
+
+    @Override
+    public PaymentTypeDto convertToPaymentTypeDto(PaymentType paymentType) {
+        PaymentTypeDto paymentTypeDto = new PaymentTypeDto();
+        paymentTypeDto.setId(paymentType.getId());
+        paymentTypeDto.setPaymentType(paymentType.getPaymentType());
+        return paymentTypeDto;
     }
 
     @Override
@@ -201,6 +197,14 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
+    public DeliveryTypeDto convertToDeliverTypeDto(DeliveryType deliveryType) {
+        DeliveryTypeDto deliveryTypeDto = new DeliveryTypeDto();
+        deliveryTypeDto.setId(deliveryType.getId());
+        deliveryTypeDto.setDeliveryType(deliveryType.getDeliveryType());
+        return deliveryTypeDto;
+    }
+
+    @Override
     public List<DeliveryTypeDto> convertToDeliveryTypeDtoList(List<DeliveryType> deliveryTypes) {
         List<DeliveryTypeDto> deliveryTypeDtos = new ArrayList<>();
         for (DeliveryType deliveryType : deliveryTypes) {
@@ -210,16 +214,27 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
-    public List<AddressDto> convertToAddressDtoList(List<Address> addresses) {
-        List<AddressDto> addressDtos = new ArrayList<>();
-        for (Address address : addresses) {
-            addressDtos.add(convertToAddressDto(address));
-        }
-        return addressDtos;
+    public OrderDto convertToOrderDto(Order order) {
+        OrderDto orderDto = new OrderDto();
+        orderDto.setId(order.getId());
+        orderDto.setUser(order.getUser());
+        orderDto.setPaymentType(order.getPaymentType());
+        orderDto.setDeliveryType(order.getDeliveryType());
+        orderDto.setPaymentStatus(order.getPaymentStatus());
+        orderDto.setOrderStatus(order.getOrderStatus());
+        orderDto.setAddress(order.getAddress());
+        orderDto.setSum(order.getSum());
+        orderDto.setDate(order.getDate());
+        return orderDto;
     }
 
-    @Autowired
-    public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
+    @Override
+    public List<OrderDto> convertToOrderDtoList(List<Order> orders) {
+        List<OrderDto> orderDtos = new ArrayList<>();
+        for (Order order : orders) {
+            orderDtos.add(convertToOrderDto(order));
+        }
+        return orderDtos;
     }
+
 }

@@ -38,6 +38,11 @@ public class UserDAOImpl implements UserDAO {
         this.sessionFactory.getCurrentSession().persist(user);
     }
 
+    @Override
+    public void updateUser(User user) {
+        this.sessionFactory.getCurrentSession().update(user);
+    }
+
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

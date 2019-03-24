@@ -5,6 +5,16 @@ window.onload = function () {
     getCart(contextPath);
 }
 
+function editInfo() {
+    var infoInputs = document.getElementById('userInfo').getElementsByTagName('input');
+    for (var i = 0; i < infoInputs.length; i++) {
+        infoInputs[i].disabled = false;
+    }
+    infoInputs[0].focus();
+    document.getElementById('editInfoBtn').disabled = true;
+    document.getElementById('updateInfoBtn').disabled = false;
+}
+
 function showAddressForm() {
     document.getElementById('addAddressForm').hidden = false;
     document.getElementById('addAddressBtn').hidden = true;

@@ -21,7 +21,7 @@
     <div class="site-content">
         <jsp:include page="header.jsp"/>
         <div class="row site-padding justify-content-center">
-            <div class="col-md-8 content">
+            <div class="col-lg-9 content">
                 <h2>Регистрация</h2>
                 <sec:authorize access="isAuthenticated()">
                     <p>Вы уже зарегистрированы. Вам сюда не надо...</p>

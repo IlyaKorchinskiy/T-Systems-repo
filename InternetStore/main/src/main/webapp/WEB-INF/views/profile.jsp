@@ -19,47 +19,53 @@
     <div class="site-content">
         <jsp:include page="header.jsp"/>
         <div class="row site-padding justify-content-center">
-            <div class="col-lg-8 content">
+            <div class="col-lg-9 profile content">
                 <h2>Профиль ${user.name} ${user.lastname}</h2>
                 <h4>Информация</h4>
-                <form action="${contextPath}/profile/editInfo" method="post" modelAttribute="user">
+                <c:if test="${not empty infoMessage && infoMessage.confirms.size() != 0}">
+                    <p id="infoMessage" class="confirm" hidden></p>
+                </c:if>
+                <form id="userInfo" action="${contextPath}/profile/editUserInfo" method="post" modelAttribute="user">
+                    <input type="number" class="form-control" name="id" value="${user.id}" required hidden>
+                    <input type="text" class="form-control" name="password" value="${user.password}" required hidden>
                     <div class="form-group row">
                         <label for="nameInput" class="col-sm-3 col-form-label">Имя</label>
                         <div class="col">
                             <input type="text" class="form-control" id="nameInput" name="name"
-                                   value="${user.name}" placeholder="Имя" required readonly>
+                                   value="${user.name}" placeholder="Имя" required disabled>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="lastnameInput" class="col-sm-3 col-form-label">Фамилия</label>
                         <div class="col">
                             <input type="text" class="form-control" id="lastnameInput" name="lastname"
-                                   value="${user.lastname}" placeholder="Фамилия" required readonly>
+                                   value="${user.lastname}" placeholder="Фамилия" required disabled>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="phoneInput" class="col-sm-3 col-form-label">Телефон</label>
                         <div class="col">
                             <input type="text" class="form-control" id="phoneInput" name="phoneNumber"
-                                   value="${user.phoneNumber}" placeholder="+79223556789" required readonly>
+                                   value="${user.phoneNumber}" placeholder="+79223556789" required disabled>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="loginRegInput" class="col-sm-3 col-form-label">Логин (e-mail)</label>
                         <div class="col">
                             <input type="email" class="form-control" id="loginRegInput" name="email"
-                                   value="${user.email}" placeholder="E-mail" required readonly>
+                                   value="${user.email}" placeholder="E-mail" required disabled>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="birthInput" class="col-sm-3 col-form-label">День рождения</label>
                         <div class="col">
                             <input type="date" class="form-control" id="birthInput" name="birthDay"
-                                   value="${user.birthday}" placeholder="" required readonly>
+                                   value="${user.birthday}" placeholder="" required disabled>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary">Изменить</button>
-                    <button type="submit" class="btn btn-secondary" disabled>Сохранить</button>
+                    <button id="editInfoBtn" type="button" class="btn btn-primary" onclick="editInfo()">Изменить
+                    </button>
+                    <button id="updateInfoBtn" type="submit" class="btn btn-primary" disabled>Сохранить</button>
                 </form>
                 <h4>Адреса</h4>
                 <p id="addressMessage" class="confirm" hidden></p>
@@ -93,7 +99,26 @@
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
                 <h4>Заказы</h4>
-
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">№ заказа</th>
+                        <th scope="col">Сумма</th>
+                        <th scope="col">Статус</th>
+                        <th scope="col">Дата заказа</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${user.orders}" var="order">
+                        <tr>
+                            <td>${order.id}</td>
+                            <td>${order.sum}</td>
+                            <td>${order.orderStatus.orderStatus}</td>
+                            <td>${order.date}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

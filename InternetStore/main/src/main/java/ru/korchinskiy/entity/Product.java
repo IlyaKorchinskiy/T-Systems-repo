@@ -3,9 +3,9 @@ package ru.korchinskiy.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.Date;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -19,6 +19,7 @@ public class Product {
     private Double cost;
     private Integer amount;
     private String description;
+    private Date date;
 
     @Column(name = "md_photo")
     private String photoMd;
@@ -27,7 +28,7 @@ public class Product {
     private String photoSm;
 
     @ManyToMany(mappedBy = "products")
-    private Set<Category> categories = new HashSet<>();
+    private List<Category> categories;
 
     @Override
     public boolean equals(Object o) {

@@ -10,12 +10,8 @@ import ru.korchinskiy.entity.Category;
 import ru.korchinskiy.entity.Product;
 
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.SetJoin;
+import javax.persistence.criteria.*;
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {
@@ -32,7 +28,17 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public Set<Product> getProductsByCategory(Long categoryId) {
+    public List<Product> getAllProducts() {
+        Session session = this.sessionFactory.getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Product> query = builder.createQuery(Product.class);
+        Root<Product> root = query.from(Product.class);
+        query.select(root);
+        return session.createQuery(query).getResultList();
+    }
+
+    @Override
+    public List<Product> getProductsByCategory(Long categoryId) {
         Category category = this.sessionFactory.getCurrentSession().get(Category.class, categoryId);
         return category.getProducts();
     }
@@ -43,7 +49,7 @@ public class ProductDAOImpl implements ProductDAO {
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Product> query = builder.createQuery(Product.class);
         Root<Product> product = query.from(Product.class);
-        SetJoin<Product, Category> categories = product.joinSet("categories");
+        ListJoin<Product, Category> categories = product.joinList("categories");
         query.select(product)
                 .where(builder.equal(categories.get("id"), categoryId),
                         builder.greaterThanOrEqualTo(product.get("cost"), minCost),

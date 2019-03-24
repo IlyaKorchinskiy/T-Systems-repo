@@ -10,7 +10,7 @@ import ru.korchinskiy.entity.Product;
 import ru.korchinskiy.service.DTOMappingService;
 import ru.korchinskiy.service.ProductService;
 
-import java.util.Set;
+import java.util.List;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
@@ -26,9 +26,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Set<ProductDto> getProductsByCategory(Long categoryId) {
-        Set<Product> products = productDAO.getProductsByCategory(categoryId);
-        return dtoMappingService.convertToProductDtoSet(products);
+    public List<ProductDto> getAllProducts() {
+        List<Product> products = productDAO.getAllProducts();
+        return dtoMappingService.convertToProductDtoList(products);
+    }
+
+    @Override
+    @Transactional
+    public List<ProductDto> getProductsByCategory(Long categoryId) {
+        List<Product> products = productDAO.getProductsByCategory(categoryId);
+        return dtoMappingService.convertToProductDtoList(products);
     }
 
     @Autowired

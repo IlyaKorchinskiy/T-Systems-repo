@@ -3,7 +3,6 @@ package ru.korchinskiy.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "address_id")
     )
-    private List<Address> addresses = new ArrayList<>();
+    private List<Address> addresses;
 
     @ManyToMany
     @JoinTable(
@@ -38,7 +37,10 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private List<Role> roles = new ArrayList<>();
+    private List<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders;
 
     @Override
     public String toString() {

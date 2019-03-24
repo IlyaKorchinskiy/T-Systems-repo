@@ -1,11 +1,13 @@
 package ru.korchinskiy.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.korchinskiy.dao.AddressDAO;
 import ru.korchinskiy.dao.RoleDAO;
 import ru.korchinskiy.dao.UserDAO;
+import ru.korchinskiy.dto.OrderDto;
 import ru.korchinskiy.dto.UserDto;
 import ru.korchinskiy.entity.Address;
 import ru.korchinskiy.entity.Role;
@@ -13,8 +15,10 @@ import ru.korchinskiy.entity.User;
 import ru.korchinskiy.enums.AddressType;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.DTOMappingService;
+import ru.korchinskiy.service.OrderService;
 import ru.korchinskiy.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,20 +26,28 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static final String USER_ALREADY_EXISTS = "Пользователь с таким e-mail уже существует";
     private static final String USER_ADD_SUCCESS = "Пользователь успешно зарегистрирован";
+    private static final String USER_UPDATE_SUCCESS = "Информация успешно обновлена";
     private static final Long ROLE_CLIENT = 1L;
     private static final String USER_ADDRESS_DELETE_SUCCESS = "Адрес удален успешно";
     private static final String USER_ADDRESS_UPDATE_SUCCESS = "Адрес изменен успешно";
 
+    private BCryptPasswordEncoder passwordEncoder;
+
     private UserDAO userDAO;
-    private DTOMappingService dtoMappingService;
     private RoleDAO roleDAO;
     private AddressDAO addressDAO;
+
+    private DTOMappingService dtoMappingService;
+    private OrderService orderService;
 
     @Override
     @Transactional
     public UserDto getUserById(Long id) {
         User user = userDAO.getUserById(id);
-        return dtoMappingService.convertToUserDto(user);
+        UserDto userDto = dtoMappingService.convertToUserDto(user);
+        List<OrderDto> orderDtos = orderService.getOrdersByUser(userDto);
+        userDto.setOrders(orderDtos);
+        return userDto;
     }
 
     @Override
@@ -47,20 +59,38 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Message addUser(UserDto user) {
+    public Message addUser(UserDto userDto) {
         Message message = new Message();
-//        Валидация
+//        validation
 
-        if (userDAO.getUserByEmail(user.getEmail()) != null) {
+        if (userDAO.getUserByEmail(userDto.getEmail()) != null) {
             message.getErrors().add(USER_ALREADY_EXISTS);
             return message;
         }
-        User newUser = dtoMappingService.convertToUser(user);
+        User user = dtoMappingService.convertToUser(userDto);
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         List<Role> roles = new ArrayList<>();
         roles.add(roleDAO.getRoleById(ROLE_CLIENT));
-        newUser.setRoles(roles);
-        userDAO.saveUser(newUser);
+        user.setRoles(roles);
+        userDAO.saveUser(user);
         message.getConfirms().add(USER_ADD_SUCCESS);
+        return message;
+    }
+
+    @Override
+    @Transactional
+    public Message updateUser(UserDto userDto, HttpSession session) {
+        Message message = new Message();
+//        validation
+
+        User user = userDAO.getUserById(userDto.getId());
+        user.setName(userDto.getName());
+        user.setLastname(userDto.getLastname());
+        user.setEmail(userDto.getEmail());
+        user.setBirthday(userDto.getBirthday());
+        user.setPhoneNumber(userDto.getPhoneNumber());
+        userDAO.updateUser(user);
+        message.getConfirms().add(USER_UPDATE_SUCCESS);
         return message;
     }
 
@@ -85,7 +115,10 @@ public class UserServiceImpl implements UserService {
         User user = userDAO.getUserById(userDto.getId());
         List<Address> addresses = user.getAddresses();
         for (Address address : addresses) {
-            if (address.getId().equals(addressId)) addresses.remove(address);
+            if (address.getId().equals(addressId)) {
+                addresses.remove(address);
+                break;
+            }
         }
         user.setAddresses(addresses);
         Message message = new Message();
@@ -106,6 +139,7 @@ public class UserServiceImpl implements UserService {
         for (Address address : addresses) {
             if (address.getId().equals(addressId)) {
                 addresses.remove(address);
+                break;
             }
         }
         addresses.add(newAddress);
@@ -121,6 +155,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Autowired
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    @Autowired
     public void setUserDAO(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
@@ -133,5 +172,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     public void setAddressDAO(AddressDAO addressDAO) {
         this.addressDAO = addressDAO;
+    }
+
+    @Autowired
+    public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 }

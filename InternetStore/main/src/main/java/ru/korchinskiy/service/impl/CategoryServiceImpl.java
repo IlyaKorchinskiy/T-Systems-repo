@@ -13,8 +13,7 @@ import ru.korchinskiy.entity.Product;
 import ru.korchinskiy.service.CategoryService;
 import ru.korchinskiy.service.DTOMappingService;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -35,21 +34,21 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryDAO.getCategoryById(id);
         if (minCost == null) minCost = 0.0;
         if (maxCost == null) maxCost = Double.MAX_VALUE;
-        Set<Product> products = new HashSet<>(productDAO.getProductsByCategoryAndCost(id, minCost, maxCost));
-        Set<ProductDto> productDtos = dtoMappingService.convertToProductDtoSet(products);
+        List<Product> products = productDAO.getProductsByCategoryAndCost(id, minCost, maxCost);
+        List<ProductDto> productDtos = dtoMappingService.convertToProductDtoList(products);
         return dtoMappingService.convertToCategoryWithProductsDto(category, productDtos);
     }
 
     @Override
     @Transactional
-    public Set<CategoryDto> getCategoriesByParentId(Long id) {
-        Set<Category> categories = new HashSet<>(categoryDAO.getCategoriesByParentId(id));
+    public List<CategoryDto> getCategoriesByParentId(Long id) {
+        List<Category> categories = categoryDAO.getCategoriesByParentId(id);
         if (categories.size() == 0) {
             Category category = categoryDAO.getCategoryById(id);
             if (category.getParentId() != 0)
                 categories.addAll(categoryDAO.getCategoriesByParentId(category.getParentId()));
         }
-        return dtoMappingService.convertToCategoryDtoSet(categories);
+        return dtoMappingService.convertToCategoryDtoList(categories);
     }
 
     @Autowired

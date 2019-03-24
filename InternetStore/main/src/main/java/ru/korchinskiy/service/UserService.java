@@ -3,16 +3,21 @@ package ru.korchinskiy.service;
 import ru.korchinskiy.dto.UserDto;
 import ru.korchinskiy.message.Message;
 
+import javax.servlet.http.HttpSession;
+
 public interface UserService {
     UserDto getUserById(Long id);
 
     UserDto getUserByEmail(String email);
 
-    Message addUser(UserDto user);
+    Message addUser(UserDto userDto);
 
-    UserDto addUserAddress(String address, UserDto user);
+    Message updateUser(UserDto userDto, HttpSession session);
 
-    Message deleteUserAddress(Long addressId, UserDto user);
+    UserDto addUserAddress(String address, UserDto userDto);
+
+    Message deleteUserAddress(Long addressId, UserDto userDto);
 
     Message updateUserAddress(Long addressId, String address, UserDto userDto);
+
 }

@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.korchinskiy.dto.CartProductDto;
 import ru.korchinskiy.dto.DeliveryTypeDto;
-import ru.korchinskiy.dto.OrderDto;
+import ru.korchinskiy.dto.NewOrderDto;
 import ru.korchinskiy.dto.PaymentTypeDto;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.UtilsService;
@@ -31,7 +31,7 @@ public class CartController {
         model.addAttribute("paymentTypes", paymentTypes);
         model.addAttribute("deliveryTypes", deliveryTypes);
         model.addAttribute("sum", sum);
-        model.addAttribute("order", new OrderDto());
+        model.addAttribute("order", new NewOrderDto());
         return "cart";
     }
 

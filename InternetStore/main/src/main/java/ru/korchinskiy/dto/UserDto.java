@@ -16,4 +16,5 @@ public class UserDto {
     private String phoneNumber;
     private List<AddressDto> addresses;
     private List<RoleDto> roles;
+    private List<OrderDto> orders;
 }

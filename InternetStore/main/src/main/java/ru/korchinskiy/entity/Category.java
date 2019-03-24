@@ -3,9 +3,8 @@ package ru.korchinskiy.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "category")
@@ -26,7 +25,7 @@ public class Category {
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private Set<Product> products = new HashSet<>();
+    private List<Product> products;
 
     @Override
     public boolean equals(Object o) {

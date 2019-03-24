@@ -19,8 +19,6 @@
 <div class="container-fluid">
     <div class="site-content">
         <jsp:include page="header.jsp"/>
-
-
         <div class="row cart-products site-padding justify-content-center">
             <div class="col">
                 <c:if test="${message.errors.size() != 0}">
@@ -49,70 +47,76 @@
 
                     </tbody>
                 </table>
+                <c:if test="${cartProducts.size() == 0}">
+                    <p>Корзина пуста</p>
+                </c:if>
             </div>
         </div>
-        <sec:authorize access="!isAuthenticated()">
-            <div class="row site-padding auth justify-content-center">
-                <div class="col-md-6">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModalForm">
-                        Войдите
-                    </button>
-                    чтобы оформить заказ
+        <c:if test="${cartProducts.size() != 0}">
+            <sec:authorize access="!isAuthenticated()">
+                <div class="row site-padding auth justify-content-center">
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModalForm">
+                            Войдите
+                        </button>
+                        чтобы оформить заказ
+                    </div>
                 </div>
-            </div>
-        </sec:authorize>
-        <sec:authorize access="isAuthenticated()">
-            <div class="row site-padding order-params">
-                <div class="col">
-                    <form id="orderForm" action="${contextPath}/order" method="post" modelAttribute="order">
-                        <div class="form-row">
-                            <div class="form-group col param">
-                                <h6>Способ доставки</h6>
-                                <c:forEach items="${deliveryTypes}" var="deliveryType">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="deliveryTypeId"
-                                               id="deliveryType${deliveryType.id}" value="${deliveryType.id}"
-                                               onchange="showAddressInput()" checked>
-                                        <label class="form-check-label"
-                                               for="deliveryType${deliveryType.id}">${deliveryType.deliveryType}</label>
+            </sec:authorize>
+            <sec:authorize access="isAuthenticated()">
+                <div class="row site-padding order-params">
+                    <div class="col">
+                        <form id="orderForm" action="${contextPath}/order" method="post" modelAttribute="order">
+                            <div class="form-row">
+                                <div class="form-group col param">
+                                    <h6>Способ доставки</h6>
+                                    <c:forEach items="${deliveryTypes}" var="deliveryType">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="deliveryTypeId"
+                                                   id="deliveryType${deliveryType.id}" value="${deliveryType.id}"
+                                                   onchange="showAddressInput()" checked>
+                                            <label class="form-check-label"
+                                                   for="deliveryType${deliveryType.id}">${deliveryType.deliveryType}</label>
+                                        </div>
+                                    </c:forEach>
+                                    <div id="addressDiv" class="form-group address-input">
+                                        <label for="addressInput">Адрес доставки</label>
+                                        <input type="text" class="form-control" id="addressInput" name="address"
+                                               placeholder="Введите">
                                     </div>
-                                </c:forEach>
-                                <div id="addressDiv" class="form-group address-input">
-                                    <label for="addressInput">Адрес доставки</label>
-                                    <input type="text" class="form-control" id="addressInput" name="address"
-                                           placeholder="Введите">
-                                </div>
-                                <div id="pickupDiv" class="form-group pickup-input hidden">
-                                    <label for="pickupInput">Адрес самовывоза</label>
-                                    <select id="pickupInput" class="form-control" name="pickupAddress">
-                                        <option value="" selected>Выберите...</option>
-                                            <%--<c:forEach items="${pickupAddresses}" var="address">--%>
-                                            <%--<option>${address.title}</option>--%>
-                                            <%--</c:forEach>--%>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group col param">
-                                <h6>Способ оплаты</h6>
-                                <c:forEach items="${paymentTypes}" var="paymentType">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="paymentTypeId"
-                                               id="paymentType${paymentType.id}" value="${paymentType.id}">
-                                        <label class="form-check-label"
-                                               for="paymentType${paymentType.id}">${paymentType.paymentType}</label>
+                                    <div id="pickupDiv" class="form-group pickup-input hidden">
+                                        <label for="pickupInput">Адрес самовывоза</label>
+                                        <select id="pickupInput" class="form-control" name="pickupAddress">
+                                            <option value="" selected>Выберите...</option>
+                                                <%--<c:forEach items="${pickupAddresses}" var="address">--%>
+                                                <%--<option>${address.title}</option>--%>
+                                                <%--</c:forEach>--%>
+                                        </select>
                                     </div>
-                                </c:forEach>
+                                </div>
+                                <div class="form-group col param">
+                                    <h6>Способ оплаты</h6>
+                                    <c:forEach items="${paymentTypes}" var="paymentType">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="paymentTypeId"
+                                                   id="paymentType${paymentType.id}" value="${paymentType.id}">
+                                            <label class="form-check-label"
+                                                   for="paymentType${paymentType.id}">${paymentType.paymentType}</label>
+                                        </div>
+                                    </c:forEach>
+                                </div>
+                                <div class="form-group col confirm param">
+                                    <p class="sum">Итого: <span>${sum} <i class="fas fa-ruble-sign"></i></span></p>
+                                    <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+                                </div>
                             </div>
-                            <div class="form-group col confirm param">
-                                <p class="sum">Итого: <span>${sum} <i class="fas fa-ruble-sign"></i></span></p>
-                                <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
-                            </div>
-                        </div>
 
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </sec:authorize>
+            </sec:authorize>
+        </c:if>
+
     </div>
 
     <jsp:include page="footer.jsp"/>
