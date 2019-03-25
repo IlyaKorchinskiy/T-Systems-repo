@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Список заказов</title>
+    <title>Список категорий</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
@@ -20,39 +20,26 @@
         <jsp:include page="header.jsp"/>
         <jsp:include page="adminNav.jsp"/>
         <div class="row">
-            <div class="col">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th scope="col">ID заказа</th>
-                        <th scope="col">Тип оплаты</th>
-                        <th scope="col">Тип доставки</th>
-                        <th scope="col">Статус оплаты</th>
-                        <th scope="col">Статус заказа</th>
-                        <th scope="col">Сумма</th>
-                        <th scope="col">Адрес</th>
-                        <th scope="col">Дата заказа</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach items="${orders}" var="order">
-                        <tr>
-                            <td>${order.id}</td>
-                            <td>${order.paymentType.paymentType}</td>
-                            <td>${order.deliveryType.deliveryType}</td>
-                            <td>${order.paymentStatus.paymentStatus}</td>
-                            <td><span class="badge ${order.orderStatus.id == 1 ? 'badge-danger' : ''}">${order.orderStatus.orderStatus}</span></td>
-                            <td>${order.sum}</td>
-                            <td>${order.address}</td>
-                            <td>${order.date}</td>
-                            <td>
-                                <a href="${contextPath}/admin/orders/${order.id}">Подробнее</a>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+            <div id="categoryTree" class="col content category-tree">
+            </div>
+            <div class="col content">
+                <form action="#" method="post">
+                    <input type="number" class="form-control" id="categoryIdInput" hidden>
+                    <div class="form-group">
+                        <label for="titleInput">Название</label>
+                        <input type="text" class="form-control" id="titleInput" placeholder="Название" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="parentInput">Родительская категория</label>
+                        <select id="parentInput" class="form-control">
+                            <option value="" selected>Выберите...</option>
+                            <c:forEach items="${allCategories}" var="category">
+                                <option value="${category.id}">${category.title}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
             </div>
         </div>
     </div>
@@ -68,6 +55,9 @@
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
 <script>var contextPath = '${contextPath}'</script>
+<script>var categoriesJSON = '${categories}'</script>
 <script src="${contextPath}/resources/js/common.js"></script>
+<script src="${contextPath}/resources/js/adminCategories.js"></script>
+
 </body>
 </html>

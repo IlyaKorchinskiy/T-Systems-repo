@@ -397,12 +397,22 @@ html, body {
     margin: 0;
 }
 
+.admin-nav {
+    margin-bottom: 20px;
+}
+
 .admin .table {
-    margin-top: 20px;
     text-align: center;
 }
 
 .admin .title {
     text-align: left;
+}
+
+.admin .category-tree {
+}
+
+.admin .content {
+    margin: 0 15px;
 }
 

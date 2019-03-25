@@ -7,6 +7,7 @@ import ru.korchinskiy.dao.CategoryDAO;
 import ru.korchinskiy.dao.ProductDAO;
 import ru.korchinskiy.dto.CategoryDto;
 import ru.korchinskiy.dto.CategoryWithProductsDto;
+import ru.korchinskiy.dto.CategoryWithSubcategoriesDto;
 import ru.korchinskiy.dto.ProductDto;
 import ru.korchinskiy.entity.Category;
 import ru.korchinskiy.entity.Product;
@@ -17,6 +18,8 @@ import java.util.List;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
+    public static final Long ROOT_CATEGORY = 0L;
+
     private CategoryDAO categoryDAO;
     private ProductDAO productDAO;
     private DTOMappingService dtoMappingService;
@@ -48,6 +51,20 @@ public class CategoryServiceImpl implements CategoryService {
             if (category.getParentId() != 0)
                 categories.addAll(categoryDAO.getCategoriesByParentId(category.getParentId()));
         }
+        return dtoMappingService.convertToCategoryDtoList(categories);
+    }
+
+    @Override
+    @Transactional
+    public List<CategoryWithSubcategoriesDto> getCategoriesWithSubcategories() {
+        List<Category> categories = categoryDAO.getAllCategories();
+        return dtoMappingService.convertToCategoryWithSubcategoriesDtoList(categories);
+    }
+
+    @Override
+    @Transactional
+    public List<CategoryDto> getAllCategories() {
+        List<Category> categories = categoryDAO.getAllCategories();
         return dtoMappingService.convertToCategoryDtoList(categories);
     }
 

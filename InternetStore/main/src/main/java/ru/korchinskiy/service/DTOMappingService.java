@@ -20,6 +20,10 @@ public interface DTOMappingService {
 
     List<CategoryDto> convertToCategoryDtoList(List<Category> categories);
 
+    CategoryWithSubcategoriesDto convertToCategoryWithSubcategoriesDto(Category category);
+
+    List<CategoryWithSubcategoriesDto> convertToCategoryWithSubcategoriesDtoList(List<Category> categories);
+
     UserDto convertToUserDto(User user);
 
     User convertToUser(UserDto userDto);

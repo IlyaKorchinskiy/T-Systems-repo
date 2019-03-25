@@ -90,6 +90,37 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
+    public CategoryWithSubcategoriesDto convertToCategoryWithSubcategoriesDto(Category category) {
+        CategoryWithSubcategoriesDto categoryDto = new CategoryWithSubcategoriesDto();
+        categoryDto.setId(category.getId());
+        categoryDto.setTitle(category.getTitle());
+        categoryDto.setParentId(category.getParentId());
+        categoryDto.setSubcategories(new ArrayList<>());
+        return categoryDto;
+    }
+
+    @Override
+    public List<CategoryWithSubcategoriesDto> convertToCategoryWithSubcategoriesDtoList(List<Category> categories) {
+        List<CategoryWithSubcategoriesDto> categoryDtos = new ArrayList<>();
+        for (Category category : categories) {
+            CategoryWithSubcategoriesDto categoryDto = convertToCategoryWithSubcategoriesDto(category);
+            categoryDtos.add(categoryDto);
+        }
+        for (int i = 0; i < categoryDtos.size(); i++) {
+            if (!categoryDtos.get(i).getParentId().equals(CategoryServiceImpl.ROOT_CATEGORY)) {
+                for (int j = 0; j < categoryDtos.size(); j++) {
+                    if (categoryDtos.get(i).getParentId().equals(categoryDtos.get(j).getId())) {
+                        categoryDtos.get(j).getSubcategories().add(categoryDtos.get(i));
+                        categoryDtos.remove(i--);
+                        break;
+                    }
+                }
+            }
+        }
+        return categoryDtos;
+    }
+
+    @Override
     public UserDto convertToUserDto(User user) {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());

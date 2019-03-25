@@ -10,12 +10,12 @@
         <div class="row header-menu site-padding">
             <div class="col">
                 <ul class="nav justify-content-end">
-                    <%--<sec:authorize access="hasAnyRole('ADMIN', 'SUPER_ADMIN')">--%>
+                    <sec:authorize access="hasAnyRole('ADMIN', 'SUPER_ADMIN')">
                         <li class="nav-item">
                             <a class="nav-link ${fn:contains(currentPath, 'admin') ? 'active' : ''}"
                                href="${contextPath}/admin/orders">Админ</a>
                         </li>
-                    <%--</sec:authorize>--%>
+                    </sec:authorize>
                     <sec:authorize access="!isAuthenticated()">
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="modal" data-target="#loginModalForm" href="#">Вход</a>

@@ -31,6 +31,16 @@ public class CategoryDAOImpl implements CategoryDAO {
         return session.createQuery(query).getResultList();
     }
 
+    @Override
+    public List<Category> getAllCategories() {
+        Session session = this.sessionFactory.getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Category> query = builder.createQuery(Category.class);
+        Root<Category> root = query.from(Category.class);
+        query.select(root);
+        return session.createQuery(query).getResultList();
+    }
+
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

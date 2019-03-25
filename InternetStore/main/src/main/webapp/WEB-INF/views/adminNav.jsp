@@ -4,7 +4,7 @@
 <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
 <c:set var="currentPath" value="${requestScope['javax.servlet.forward.request_uri']}"/>
 
-<div class="row">
+<div class="row admin-nav">
     <div class="col">
         <ul class="nav nav-tabs">
             <li class="nav-item">

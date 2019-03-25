@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ru.korchinskiy.dto.CategoryDto;
 import ru.korchinskiy.dto.CategoryWithProductsDto;
 import ru.korchinskiy.service.CategoryService;
+import ru.korchinskiy.service.impl.CategoryServiceImpl;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class CatalogController {
                               @RequestParam(name = "maxCost", required = false) Double maxCost,
                               Model model) {
         CategoryWithProductsDto category = categoryService.getCategoryWithProductsByCost(id, minCost, maxCost);
-        List<CategoryDto> mainCategories = categoryService.getCategoriesByParentId(0L);
+        List<CategoryDto> mainCategories = categoryService.getCategoriesByParentId(CategoryServiceImpl.ROOT_CATEGORY);
         List<CategoryDto> subCategories = categoryService.getCategoriesByParentId(id);
         model.addAttribute("category", category);
         model.addAttribute("mainCategories", mainCategories);

@@ -9,4 +9,6 @@ public interface CategoryDAO {
     Category getCategoryById(Long id);
 
     List<Category> getCategoriesByParentId(Long Id);
+
+    List<Category> getAllCategories();
 }

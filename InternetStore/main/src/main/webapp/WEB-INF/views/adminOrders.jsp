@@ -42,7 +42,7 @@
                             <td>${order.paymentType.paymentType}</td>
                             <td>${order.deliveryType.deliveryType}</td>
                             <td>${order.paymentStatus.paymentStatus}</td>
-                            <td>${order.orderStatus.orderStatus}</td>
+                            <td><span class="badge ${order.orderStatus.id == 1 ? 'badge-danger' : ''}">${order.orderStatus.orderStatus}</span></td>
                             <td>${order.sum}</td>
                             <td>${order.address}</td>
                             <td>${order.date}</td>
