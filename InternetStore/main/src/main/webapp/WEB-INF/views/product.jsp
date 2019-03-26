@@ -33,13 +33,13 @@
                         </li>
                     </c:forEach>
                 </ul>
-                <p>Количество на складе: ${product.amount}</p>
+                <p>Stock amount: ${product.amount}</p>
                 <div class="row price-buy">
-                    <div class="col-lg-6 price">Цена: <span>${product.cost} <i class="fas fa-ruble-sign"></i></span>
+                    <div class="col-lg-6 price">Price: <span>${product.cost} <i class="fas fa-ruble-sign"></i></span>
                     </div>
                     <div class="col button">
                         <button id="add-product-btn" type="button" class="btn" data-toggle="modal"
-                                data-target="#addProductModal" onclick="addToCart('${product.id}')">Добавить в корзину
+                                data-target="#addProductModal" onclick="addToCart('${product.id}')">Add to cart
                         </button>
                     </div>
                 </div>
@@ -51,18 +51,17 @@
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addProductModalTitle">Корзина</h5>
+                        <h5 class="modal-title" id="addProductModalTitle">Cart</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Товар успешно добавлен в корзину!</p>
+                        <p>Product added successfully</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Продолжить покупки</button>
-                        <a type="button" class="btn btn-primary" href="${contextPath}/cart" role="button">Перейти в
-                            корзину</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue shopping</button>
+                        <a type="button" class="btn btn-primary" href="${contextPath}/cart" role="button">Go to cart</a>
                     </div>
                 </div>
             </div>

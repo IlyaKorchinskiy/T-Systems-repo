@@ -29,10 +29,10 @@
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Название</th>
-                        <th scope="col">Количество</th>
-                        <th scope="col">Цена</th>
-                        <th scope="col">Сумма</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Sum</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -56,10 +56,11 @@
             <sec:authorize access="!isAuthenticated()">
                 <div class="row site-padding auth justify-content-center">
                     <div class="col-md-6">
+                        Please
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModalForm">
-                            Войдите
+                            Log in
                         </button>
-                        чтобы оформить заказ
+                        to place order
                     </div>
                 </div>
             </sec:authorize>
@@ -69,7 +70,7 @@
                         <form id="orderForm" action="${contextPath}/order" method="post" modelAttribute="order">
                             <div class="form-row">
                                 <div class="form-group col param">
-                                    <h6>Способ доставки</h6>
+                                    <h6>Delivery type</h6>
                                     <c:forEach items="${deliveryTypes}" var="deliveryType">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="deliveryTypeId"
@@ -80,14 +81,14 @@
                                         </div>
                                     </c:forEach>
                                     <div id="addressDiv" class="form-group address-input">
-                                        <label for="addressInput">Адрес доставки</label>
+                                        <label for="addressInput">Delivery address</label>
                                         <input type="text" class="form-control" id="addressInput" name="address"
-                                               placeholder="Введите">
+                                               placeholder="Address">
                                     </div>
                                     <div id="pickupDiv" class="form-group pickup-input hidden">
-                                        <label for="pickupInput">Адрес самовывоза</label>
+                                        <label for="pickupInput">Pickup address</label>
                                         <select id="pickupInput" class="form-control" name="pickupAddress">
-                                            <option value="" selected>Выберите...</option>
+                                            <option value="" selected>Choose...</option>
                                                 <%--<c:forEach items="${pickupAddresses}" var="address">--%>
                                                 <%--<option>${address.title}</option>--%>
                                                 <%--</c:forEach>--%>
@@ -95,7 +96,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col param">
-                                    <h6>Способ оплаты</h6>
+                                    <h6>Payment type</h6>
                                     <c:forEach items="${paymentTypes}" var="paymentType">
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="paymentTypeId"
@@ -106,8 +107,8 @@
                                     </c:forEach>
                                 </div>
                                 <div class="form-group col confirm param">
-                                    <p class="sum">Итого: <span>${sum} <i class="fas fa-ruble-sign"></i></span></p>
-                                    <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+                                    <p class="sum">Total: <span>${sum} <i class="fas fa-ruble-sign"></i></span></p>
+                                    <button type="submit" class="btn btn-primary">Confirm order</button>
                                 </div>
                             </div>
 

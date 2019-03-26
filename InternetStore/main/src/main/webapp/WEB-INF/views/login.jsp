@@ -22,7 +22,7 @@
             <div class="col-lg-9 content">
                 <c:if test="${param.get('error') == true}">
                     <p class="error">
-                        Неверный логин или пароль
+                        Wrong login or password
                     </p>
                 </c:if>
 
@@ -36,10 +36,10 @@
                     <div class="form-group">
                         <label for="passwordInput">Пароль</label>
                         <input type="password" class="form-control" id="passwordInput" name="j_password"
-                               placeholder="Пароль" required>
+                               placeholder="Password" required>
                     </div>
-                    <a type="button" class="btn btn-secondary" href="${contextPath}/register">Регистрация</a>
-                    <button type="submit" class="btn btn-primary">Войти</button>
+                    <a type="button" class="btn btn-secondary" href="${contextPath}/register">Sigh up</a>
+                    <button type="submit" class="btn btn-primary">Log in</button>
                 </form>
             </div>
         </div>

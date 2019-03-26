@@ -23,22 +23,29 @@
             <div id="categoryTree" class="col content category-tree">
             </div>
             <div class="col content">
-                <form action="#" method="post">
-                    <input type="number" class="form-control" id="categoryIdInput" hidden>
+                <form id="categoryForm" action="${contextPath}/admin/categories/edit" method="post"
+                      modelAttribute="category" hidden>
                     <div class="form-group">
-                        <label for="titleInput">Название</label>
-                        <input type="text" class="form-control" id="titleInput" placeholder="Название" required>
+                        <label for="categoryIdInput">Category ID</label>
+                        <input type="number" class="form-control" id="categoryIdInput" required disabled>
                     </div>
                     <div class="form-group">
-                        <label for="parentInput">Родительская категория</label>
-                        <select id="parentInput" class="form-control">
-                            <option value="" selected>Выберите...</option>
+                        <label for="titleInput">Title</label>
+                        <input type="text" class="form-control" id="titleInput" placeholder="Title" required disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="parentInput">Parent category</label>
+                        <select id="parentInput" class="form-control" disabled>
+                            <option value="0">None</option>
                             <c:forEach items="${allCategories}" var="category">
                                 <option value="${category.id}">${category.title}</option>
                             </c:forEach>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <button id="btnEditCat" type="button" class="btn btn-primary" onclick="editCategory()">Edit</button>
+                    <button id="btnSaveCat" type="submit" class="btn btn-primary" hidden>Save</button>
+                    <a href="${contextPath}/admin/categories/${category.id}/delete" type="button"
+                       class="btn btn-danger">Delete</a>
                 </form>
             </div>
         </div>

@@ -24,11 +24,11 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">ID товара</th>
-                        <th scope="col">Название</th>
-                        <th scope="col">Стоимость</th>
-                        <th scope="col">Количество на складе</th>
-                        <th scope="col">Дата поступления</th>
+                        <th scope="col">Product ID</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Stock amount</th>
+                        <th scope="col">Arrival date</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -41,7 +41,7 @@
                             <td>${product.amount}</td>
                             <td>${product.date}</td>
                             <td>
-                                <a href="${contextPath}/admin/products/${product.id}">Подробнее</a>
+                                <a href="${contextPath}/admin/products/${product.id}">More</a>
                             </td>
                         </tr>
                     </c:forEach>

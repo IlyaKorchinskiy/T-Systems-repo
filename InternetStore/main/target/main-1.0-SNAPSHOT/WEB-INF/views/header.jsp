@@ -11,26 +11,28 @@
             <div class="col">
                 <ul class="nav justify-content-end">
                     <%--<sec:authorize access="hasAnyRole('ADMIN', 'SUPER_ADMIN')">--%>
-                        <li class="nav-item">
-                            <a class="nav-link ${fn:contains(currentPath, 'admin') ? 'active' : ''}"
-                               href="${contextPath}/admin/orders">Админ</a>
-                        </li>
+                    <li class="nav-item">
+                        <a class="nav-link ${fn:contains(currentPath, 'admin') ? 'active' : ''}"
+                           href="${contextPath}/admin/orders">Admin</a>
+                    </li>
                     <%--</sec:authorize>--%>
                     <sec:authorize access="!isAuthenticated()">
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="modal" data-target="#loginModalForm" href="#">Вход</a>
+                            <a class="nav-link ${fn:contains(currentPath, 'login') ? 'active' : ''}" data-toggle="modal"
+                               data-target="#loginModalForm" href="#">Log in</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${contextPath}/register">Регистрация</a>
+                            <a class="nav-link ${fn:contains(currentPath, 'register') ? 'active' : ''}"
+                               href="${contextPath}/register">Sign up</a>
                         </li>
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <li class="nav-item">
                             <a class="nav-link ${fn:contains(currentPath, 'profile') ? 'active' : ''}"
-                               href="${contextPath}/profile">Профиль ${sessionScope.get("user").getName()}</a>
+                               href="${contextPath}/profile">Profile ${sessionScope.get("user").getName()}</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${contextPath}/logout">Выход</a>
+                            <a class="nav-link" href="${contextPath}/logout">Log out</a>
                         </li>
                     </sec:authorize>
                 </ul>
@@ -42,10 +44,10 @@
             </div>
             <div class="col search">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Введите название или автора"
+                    <input type="text" class="form-control" placeholder="Enter title or author name"
                            aria-describedby="button-addon2">
                     <div class="input-group-append">
-                        <button class="btn" type="button" id="button-addon2">Найти</button>
+                        <button class="btn" type="button" id="button-addon2">Find</button>
                     </div>
                 </div>
             </div>

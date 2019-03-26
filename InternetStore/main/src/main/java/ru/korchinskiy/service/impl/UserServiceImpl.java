@@ -28,8 +28,9 @@ public class UserServiceImpl implements UserService {
     private static final String USER_ADD_SUCCESS = "Пользователь успешно зарегистрирован";
     private static final String USER_UPDATE_SUCCESS = "Информация успешно обновлена";
     private static final Long ROLE_CLIENT = 1L;
-    private static final String USER_ADDRESS_DELETE_SUCCESS = "Адрес удален успешно";
-    private static final String USER_ADDRESS_UPDATE_SUCCESS = "Адрес изменен успешно";
+    private static final String USER_ADDRESS_DELETE_SUCCESS = "Address deleted successfully";
+    private static final String USER_ADDRESS_UPDATE_SUCCESS = "Address updated successfully";
+    private static final String USER_ADDRESS_ADD_SUCCESS = "Address added successfully";
 
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -96,7 +97,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDto addUserAddress(String addressString, UserDto userDto) {
+    public Message addUserAddress(String addressString, UserDto userDto) {
+        Message message = new Message();
         User user = userDAO.getUserById(userDto.getId());
         Address address = addressDAO.getAddressByNameAndType(addressString, AddressType.CLIENT);
         if (address == null) {
@@ -106,7 +108,8 @@ public class UserServiceImpl implements UserService {
         List<Address> addresses = user.getAddresses();
         addresses.add(address);
         user.setAddresses(addresses);
-        return dtoMappingService.convertToUserDto(user);
+        message.getConfirms().add(USER_ADDRESS_ADD_SUCCESS);
+        return message;
     }
 
     @Override

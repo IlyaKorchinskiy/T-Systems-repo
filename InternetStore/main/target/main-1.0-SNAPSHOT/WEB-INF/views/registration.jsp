@@ -22,9 +22,9 @@
         <jsp:include page="header.jsp"/>
         <div class="row site-padding justify-content-center">
             <div class="col-lg-9 content">
-                <h2>Регистрация</h2>
+                <h2>Signing up</h2>
                 <sec:authorize access="isAuthenticated()">
-                    <p>Вы уже зарегистрированы. Вам сюда не надо...</p>
+                    <p>You already signed up...</p>
                 </sec:authorize>
                 <sec:authorize access="!isAuthenticated()">
                     <c:if test="${message.confirms.size() != 0}">
@@ -40,36 +40,36 @@
                     <c:if test="${empty message || message.confirms.size() == 0}">
                         <form action="${contextPath}/register" method="post" modelAttribute="user">
                             <div class="form-group">
-                                <label for="nameInput">Ваше имя</label>
+                                <label for="nameInput">Your name</label>
                                 <input type="text" class="form-control" id="nameInput" name="name"
-                                       value="${user.name}" placeholder="Имя" required autofocus>
+                                       value="${user.name}" placeholder="Name" required autofocus>
                             </div>
                             <div class="form-group">
-                                <label for="lastnameInput">Фамилия</label>
+                                <label for="lastnameInput">Last name</label>
                                 <input type="text" class="form-control" id="lastnameInput" name="lastname"
-                                       value="${user.lastname}" placeholder="Фамилия" required>
+                                       value="${user.lastname}" placeholder="Last name" required>
                             </div>
                             <div class="form-group">
-                                <label for="phoneInput">Телефон</label>
+                                <label for="phoneInput">Phone number</label>
                                 <input type="text" class="form-control" id="phoneInput" name="phoneNumber"
                                        value="${user.phoneNumber}" placeholder="+79223556789" required>
                             </div>
                             <div class="form-group">
-                                <label for="loginRegInput">Логин (e-mail)</label>
+                                <label for="loginRegInput">Login (e-mail)</label>
                                 <input type="email" class="form-control" id="loginRegInput" name="email"
                                        value="${user.email}" placeholder="E-mail" required>
                             </div>
                             <div class="form-group">
-                                <label for="birthInput">День рождения</label>
+                                <label for="birthInput">Birthday</label>
                                 <input type="date" class="form-control" id="birthInput" name="birthDay"
                                        value="${user.birthday}" placeholder="" required>
                             </div>
                             <div class="form-group">
-                                <label for="passwordRegInput">Пароль</label>
+                                <label for="passwordRegInput">Password</label>
                                 <input type="password" class="form-control" id="passwordRegInput"
-                                       name="password" placeholder="Пароль" required>
+                                       name="password" placeholder="Password" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                            <button type="submit" class="btn btn-primary">Sign up</button>
                         </form>
                     </c:if>
 

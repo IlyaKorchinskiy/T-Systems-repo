@@ -24,14 +24,14 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">ID заказа</th>
-                        <th scope="col">Тип оплаты</th>
-                        <th scope="col">Тип доставки</th>
-                        <th scope="col">Статус оплаты</th>
-                        <th scope="col">Статус заказа</th>
-                        <th scope="col">Сумма</th>
-                        <th scope="col">Адрес</th>
-                        <th scope="col">Дата заказа</th>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Payment type</th>
+                        <th scope="col">Delivery type</th>
+                        <th scope="col">Payment status</th>
+                        <th scope="col">Order status</th>
+                        <th scope="col">Sum</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Order date</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -47,7 +47,7 @@
                             <td>${order.address}</td>
                             <td>${order.date}</td>
                             <td>
-                                <a href="${contextPath}/admin/orders/${order.id}">Подробнее</a>
+                                <a href="${contextPath}/admin/orders/${order.id}">More</a>
                             </td>
                         </tr>
                     </c:forEach>

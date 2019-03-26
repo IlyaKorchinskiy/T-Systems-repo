@@ -33,9 +33,9 @@ function renderCart(cart) {
 
     var cartContent = document.getElementById('cart-content');
     if (cart.length === 0) {
-        cartContent.innerHTML = '<p>Товаров нет</p>';
+        cartContent.innerHTML = '<p>Cart is empty</p>';
     } else {
-        var productsHtml = '<p>Ваши товары:</p><ul>';
+        var productsHtml = '<p>Your products:</p><ul>';
         for (var i = 0; i < cart.length; i++) {
             productsHtml += '<li>' + cart[i].product.title + ' - ' + cart[i].amount + ' шт</li>';
         }
@@ -62,6 +62,13 @@ function sendAjaxRequestPost(url, params, func) {
         }
     }
     xhr.send(body);
+}
+
+function ajaxGetData(url) {
+    return fetch(url)
+        .then(function (response) {
+            return response.json();
+        });
 }
 
 

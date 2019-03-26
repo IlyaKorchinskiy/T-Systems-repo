@@ -281,7 +281,7 @@ html, body {
     text-align: center;
 }
 
-.price-buy col {
+.price-buy .button {
     text-align: center;
 }
 
@@ -296,7 +296,7 @@ html, body {
     color: #ffffff;
     border: 0;
     font-size: 20px;
-    padding: 15px;
+    padding: 15px 30px;
 }
 
 .price-buy button:hover {
@@ -410,6 +410,18 @@ html, body {
 }
 
 .admin .category-tree {
+}
+
+.admin .category-tree .btn {
+    padding: 2px;
+}
+
+.admin .category-tree .btn:hover {
+    text-decoration: underline;
+}
+
+.admin .category-tree .btn.active {
+    text-decoration: underline;
 }
 
 .admin .content {

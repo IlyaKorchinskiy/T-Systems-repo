@@ -9,19 +9,19 @@
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link ${fn:contains(currentPath, 'orders') ? 'active' : ''}"
-                   href="${contextPath}/admin/orders">Заказы</a>
+                   href="${contextPath}/admin/orders">Orders</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link ${fn:contains(currentPath, 'products') ? 'active' : ''}"
-                   href="${contextPath}/admin/products">Товары</a>
+                   href="${contextPath}/admin/products">Products</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link ${fn:contains(currentPath, 'categories') ? 'active' : ''}"
-                   href="${contextPath}/admin/categories">Категории</a>
+                   href="${contextPath}/admin/categories">Categories</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link ${fn:contains(currentPath, 'stats') ? 'active' : ''}"
-                   href="${contextPath}/admin/stats">Статистика</a>
+                   href="${contextPath}/admin/stats">Stats</a>
             </li>
         </ul>
     </div>

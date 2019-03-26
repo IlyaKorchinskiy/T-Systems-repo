@@ -24,12 +24,12 @@
                     <div class="form-group">
                         <label for="modalPasswordInput">Пароль</label>
                         <input type="password" class="form-control" id="modalPasswordInput" name="j_password"
-                               placeholder="Пароль" required>
+                               placeholder="Password" required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a type="button" class="btn btn-secondary" href="${contextPath}/register">Регистрация</a>
-                    <button type="submit" class="btn btn-primary">Войти</button>
+                    <a type="button" class="btn btn-secondary" href="${contextPath}/register">Sign up</a>
+                    <button type="submit" class="btn btn-primary">Log in</button>
                 </div>
             </form>
         </div>

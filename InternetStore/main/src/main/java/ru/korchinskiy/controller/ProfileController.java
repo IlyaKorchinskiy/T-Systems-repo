@@ -38,7 +38,9 @@ public class ProfileController {
     public String addAddress(Model model,
                              @RequestParam(name = "address") String address,
                              HttpSession session) {
-        UserDto user = userService.addUserAddress(address, (UserDto) session.getAttribute("user"));
+        Message message = userService.addUserAddress(address, (UserDto) session.getAttribute("user"));
+        UserDto user = userService.getUserById(((UserDto) session.getAttribute("user")).getId());
+        model.addAttribute("addressMessage", message);
         model.addAttribute("user", user);
         return "profile";
     }

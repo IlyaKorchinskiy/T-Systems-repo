@@ -14,7 +14,7 @@ public interface UserService {
 
     Message updateUser(UserDto userDto, HttpSession session);
 
-    UserDto addUserAddress(String address, UserDto userDto);
+    Message addUserAddress(String address, UserDto userDto);
 
     Message deleteUserAddress(Long addressId, UserDto userDto);
 

@@ -33,15 +33,15 @@
                                 <div class="form-group col">
                                     <input type="number" class="form-control" id="minCostInput" name="minCost"
                                            value="${minCost}" aria-describedby="minCostHelp">
-                                    <small id="minCostHelp" class="form-text text-muted">Минимальная цена</small>
+                                    <small id="minCostHelp" class="form-text text-muted">Min price</small>
                                 </div>
                                 <div class="form-group col">
                                     <input type="number" class="form-control" id="maxCostInput" name="maxCost"
                                            value="${maxCost}" aria-describedby="maxCostHelp">
-                                    <small id="maxCostHelp" class="form-text text-muted">Максимальная цена</small>
+                                    <small id="maxCostHelp" class="form-text text-muted">Max price</small>
                                 </div>
                                 <div class="col">
-                                    <button type="submit" class="btn">Фильтр</button>
+                                    <button type="submit" class="btn">Filter</button>
                                 </div>
                             </div>
                         </form>

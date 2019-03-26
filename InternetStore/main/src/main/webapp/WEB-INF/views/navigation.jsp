@@ -4,7 +4,7 @@
 <div class="col-sm-3 navigation">
     <ul class="nav nav-pills flex-column menu">
         <li class="nav-item">
-            <a class="nav-link disabled">Категории</a>
+            <a class="nav-link disabled">Categories</a>
         </li>
         <c:forEach items="${mainCategories}" var="mainCategory">
             <li class="nav-item">
