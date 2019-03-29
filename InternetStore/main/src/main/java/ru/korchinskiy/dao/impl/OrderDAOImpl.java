@@ -17,6 +17,11 @@ public class OrderDAOImpl implements OrderDAO {
     private SessionFactory sessionFactory;
 
     @Override
+    public Order getOrderById(Long id) {
+        return this.sessionFactory.getCurrentSession().get(Order.class, id);
+    }
+
+    @Override
     public List<Order> getAllOrders() {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -27,7 +32,7 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public List<Order> getOrderByUserId(Long id) {
+    public List<Order> getOrdersByUserId(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Order> query = builder.createQuery(Order.class);

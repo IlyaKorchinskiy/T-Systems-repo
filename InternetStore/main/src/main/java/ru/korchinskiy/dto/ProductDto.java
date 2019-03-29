@@ -8,6 +8,7 @@ import java.util.Date;
 public class ProductDto {
     private Long id;
     private String title;
+    private String author;
     private Double cost;
     private Integer amount;
     private String description;

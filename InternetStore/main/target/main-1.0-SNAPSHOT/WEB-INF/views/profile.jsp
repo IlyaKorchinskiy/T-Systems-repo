@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Личный кабинет</title>
+    <title>Profile</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
@@ -115,7 +115,7 @@
                         <tr>
                             <td>${order.id}</td>
                             <td>${order.sum}</td>
-                            <td>${order.orderStatus.orderStatus}</td>
+                            <td>${order.orderStatus}</td>
                             <td>${order.date}</td>
                         </tr>
                     </c:forEach>

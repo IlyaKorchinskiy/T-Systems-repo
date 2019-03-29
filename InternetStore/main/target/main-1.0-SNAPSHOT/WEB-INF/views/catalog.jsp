@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Каталог</title>
+    <title>Catalog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
@@ -52,7 +52,7 @@
                         <div class="col">
                             <div class="card">
                                 <a href="catalog/product/${product.id}">
-                                    <img src="${contextPath}/${product.photoSm}" class="card-img-top" alt="product_photo">
+                                    <img src="${contextPath}/resources/img/${product.photoSm}" class="card-img-top" alt="product_photo">
                                     <div class="card-body">
                                         <h5 class="card-title">${product.title}</h5>
                                         <p class="card-text">${product.cost} <i class="fas fa-ruble-sign"></i></p>

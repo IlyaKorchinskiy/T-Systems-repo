@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Список категорий</title>
+    <title>Category list</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
@@ -20,22 +20,38 @@
         <jsp:include page="header.jsp"/>
         <jsp:include page="adminNav.jsp"/>
         <div class="row">
-            <div id="categoryTree" class="col content category-tree">
-            </div>
             <div class="col content">
+                <div id="categoryTree" class="category-tree"></div>
+                <div class="add-new-cat">
+                    <button id="btnNewCat" type="button" class="btn btn-primary" onclick="addNewCategory()">Add new
+                        category
+                    </button>
+                </div>
+            </div>
+            <div id="formCol" class="col content">
+                <h2 id="header" hidden></h2>
+                <c:if test="${not empty message && message.confirms.size() != 0}">
+                    <p id="message" class="confirm">${message.confirms.get(0)}</p>
+                </c:if>
+                <c:if test="${not empty message && message.errors.size() != 0}">
+                    <c:forEach items="${message.errors}" var="error">
+                        <p id="message" class="error">${error}</p>
+                    </c:forEach>
+                </c:if>
                 <form id="categoryForm" action="${contextPath}/admin/categories/edit" method="post"
                       modelAttribute="category" hidden>
                     <div class="form-group">
                         <label for="categoryIdInput">Category ID</label>
-                        <input type="number" class="form-control" id="categoryIdInput" required disabled>
+                        <input type="number" class="form-control" id="categoryIdInput" name="id" readonly>
                     </div>
                     <div class="form-group">
                         <label for="titleInput">Title</label>
-                        <input type="text" class="form-control" id="titleInput" placeholder="Title" required disabled>
+                        <input type="text" class="form-control" id="titleInput" name="title" placeholder="Title"
+                               required disabled>
                     </div>
                     <div class="form-group">
                         <label for="parentInput">Parent category</label>
-                        <select id="parentInput" class="form-control" disabled>
+                        <select id="parentInput" name="parentId" class="form-control" disabled>
                             <option value="0">None</option>
                             <c:forEach items="${allCategories}" var="category">
                                 <option value="${category.id}">${category.title}</option>
@@ -44,9 +60,32 @@
                     </div>
                     <button id="btnEditCat" type="button" class="btn btn-primary" onclick="editCategory()">Edit</button>
                     <button id="btnSaveCat" type="submit" class="btn btn-primary" hidden>Save</button>
-                    <a href="${contextPath}/admin/categories/${category.id}/delete" type="button"
-                       class="btn btn-danger">Delete</a>
+                    <button id="btnDeleteCat" type="button" class="btn btn-danger" data-toggle="modal"
+                            data-target="#deleteCatModal">Delete
+                    </button>
                 </form>
+                <!-- Modal -->
+                <div class="modal fade" id="deleteCatModal" tabindex="-1" role="dialog"
+                     aria-labelledby="deleteCatModalTitle"
+                     aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteCatModalTitle">Delete category</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <a id="btnDeleteCatModal" type="button" class="btn btn-primary" href="#" role="button">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -22,6 +22,18 @@ public class CategoryDAOImpl implements CategoryDAO {
     }
 
     @Override
+    public Category getCategoryByTitle(String title) {
+        Session session = this.sessionFactory.getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Category> query = builder.createQuery(Category.class);
+        Root<Category> root = query.from(Category.class);
+        query.select(root).where(builder.equal(root.get("title"), title));
+        List<Category> categories = session.createQuery(query).getResultList();
+        if (categories.size() == 0) return null;
+        return categories.get(0);
+    }
+
+    @Override
     public List<Category> getCategoriesByParentId(Long id) {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -39,6 +51,16 @@ public class CategoryDAOImpl implements CategoryDAO {
         Root<Category> root = query.from(Category.class);
         query.select(root);
         return session.createQuery(query).getResultList();
+    }
+
+    @Override
+    public void saveCategory(Category category) {
+        this.sessionFactory.getCurrentSession().persist(category);
+    }
+
+    @Override
+    public void removeCategory(Category category) {
+        this.sessionFactory.getCurrentSession().delete(category);
     }
 
     @Autowired

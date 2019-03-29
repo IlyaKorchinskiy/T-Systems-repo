@@ -8,10 +8,12 @@ window.onload = function () {
 
 }
 
+var form = document.getElementById('categoryForm');
+var categoryTree = document.getElementById('categoryTree');
+
 function renderCategoryTree(categoriesJSON) {
     var categories = JSON.parse(categoriesJSON);
-    var categoriesUl = '<ul>' + renderCategories(categories) + '</ul>';
-    document.getElementById('categoryTree').innerHTML = categoriesUl;
+    categoryTree.innerHTML = '<ul>' + renderCategories(categories) + '</ul>';
 }
 
 function renderCategories(categories) {
@@ -28,33 +30,75 @@ function renderCategories(categories) {
     return categoryItems;
 }
 
+var categoryIdInput = document.getElementById('categoryIdInput');
+var titleInput = document.getElementById('titleInput');
+var parentInput = document.getElementById('parentInput');
+var parentOptions = parentInput.getElementsByTagName('option');
+var btnEditCat = document.getElementById('btnEditCat');
+var btnSaveCat = document.getElementById('btnSaveCat');
+var btnDeleteCatModal = document.getElementById('btnDeleteCatModal');
+
 function showCategory(categoryId) {
-    var active = document.getElementById('categoryTree').getElementsByClassName('active');
+    var active = categoryTree.getElementsByClassName('active');
     if (active.length !== 0) active[0].classList.remove('active');
     document.getElementById('btnCat' + categoryId).classList.add('active');
+    var message = document.getElementById('message');
+    if (message) message.remove();
     var url = contextPath + '/admin/categories/' + categoryId;
-    ajaxGetData(url)
+    sendAjaxRequest(url, 'GET')
         .then(function (category) {
-            document.getElementById('categoryForm').hidden = false;
-            document.getElementById('categoryIdInput').value = category.id;
-            document.getElementById('titleInput').value = category.title;
-            var parentOptions = document.getElementById('parentInput').getElementsByTagName('option');
+            form.hidden = false;
+            form.setAttribute('action', contextPath + '/admin/categories/edit');
+            categoryIdInput.value = category.id;
+            titleInput.value = category.title;
+            disableFormFields();
             for (var i = 0; i < parentOptions.length; i++) {
                 if (parentOptions[i].value == category.parentId) parentOptions[i].selected = true;
             }
+            btnDeleteCatModal.setAttribute('href', contextPath +
+                '/admin/categories/delete/' + category.id);
+            header2.innerText = 'Current category';
+            header2.hidden = false;
         })
         .catch(function (reason) {
             console.log(reason);
         })
 }
 
+function disableFormFields() {
+    titleInput.disabled = true;
+    parentInput.disabled = true;
+    btnEditCat.hidden = false;
+    btnSaveCat.hidden = true;
+    btnDeleteCatModal.hidden = false;
+}
+
 function editCategory() {
-    document.getElementById('btnEditCat').hidden = true;
-    document.getElementById('btnSaveCat').hidden = false;
-    var titleInput = document.getElementById('titleInput');
+    btnEditCat.hidden = true;
+    btnSaveCat.hidden = false;
     titleInput.disabled = false;
+    parentInput.disabled = false;
     titleInput.focus();
-    document.getElementById('parentInput').disabled = false;
+}
+
+var header2 = document.getElementById('header');
+
+function addNewCategory() {
+    var active = categoryTree.getElementsByClassName('active');
+    if (active.length !== 0) active[0].classList.remove('active');
+    var message = document.getElementById('message');
+    if (message) message.remove();
+    form.hidden = false;
+    form.setAttribute('action', contextPath + '/admin/categories/add');
+    editCategory();
+    btnDeleteCatModal.hidden = true;
+    categoryIdInput.value = '';
+    titleInput.value = '';
+    for (var i = 0; i < parentOptions.length; i++) {
+        if (parentOptions[i].value == 0) parentOptions[i].selected = true;
+    }
+    header2.innerText = 'Add new category';
+    header2.hidden = false;
 }
 
 

@@ -24,7 +24,6 @@ import java.util.List;
 public class OrderController {
     private OrderService orderService;
     private CartService cartService;
-    private UtilsService utilsService;
 
     @PostMapping
     public String saveOrder(Model model,
@@ -39,7 +38,7 @@ public class OrderController {
             List<CartProductDto> cartProducts = cartService.getCartProductsBySessionId(cookieSession);
             List<PaymentTypeDto> paymentTypes = cartService.getPaymentTypes();
             List<DeliveryTypeDto> deliveryTypes = cartService.getDeliveryTypes();
-            Double sum = utilsService.getCartSum(cartProducts);
+            Double sum = UtilsService.getCartSum(cartProducts);
             model.addAttribute("cartProducts", cartProducts);
             model.addAttribute("paymentTypes", paymentTypes);
             model.addAttribute("deliveryTypes", deliveryTypes);
@@ -59,8 +58,4 @@ public class OrderController {
         this.cartService = cartService;
     }
 
-    @Autowired
-    public void setUtilsService(UtilsService utilsService) {
-        this.utilsService = utilsService;
-    }
 }

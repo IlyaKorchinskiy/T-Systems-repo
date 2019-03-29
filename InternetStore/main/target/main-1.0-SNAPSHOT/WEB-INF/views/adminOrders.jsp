@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Список заказов</title>
+    <title>Order list</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
@@ -41,8 +41,8 @@
                             <td>${order.id}</td>
                             <td>${order.paymentType.paymentType}</td>
                             <td>${order.deliveryType.deliveryType}</td>
-                            <td>${order.paymentStatus.paymentStatus}</td>
-                            <td><span class="badge ${order.orderStatus.id == 1 ? 'badge-danger' : ''}">${order.orderStatus.orderStatus}</span></td>
+                            <td>${order.paymentStatus}</td>
+                            <td><span class="badge ${order.orderStatus == 'NEW' ? 'badge-danger' : ''}">${order.orderStatus}</span></td>
                             <td>${order.sum}</td>
                             <td>${order.address}</td>
                             <td>${order.date}</td>
@@ -69,5 +69,7 @@
         crossorigin="anonymous"></script>
 <script>var contextPath = '${contextPath}'</script>
 <script src="${contextPath}/resources/js/common.js"></script>
+<script src="${contextPath}/resources/js/adminOrders.js"></script>
+
 </body>
 </html>

@@ -428,3 +428,19 @@ html, body {
     margin: 0 15px;
 }
 
+.admin .add-new-cat {
+    text-align: center;
+}
+
+.admin .add-product-btn {
+    margin-bottom: 20px;
+}
+
+.admin .product-form .btns{
+    text-align: right;
+}
+
+.admin .stats label{
+    text-align: center;
+}
+

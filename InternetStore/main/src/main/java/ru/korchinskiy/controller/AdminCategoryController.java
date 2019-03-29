@@ -4,12 +4,10 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import ru.korchinskiy.dto.CategoryDto;
-import ru.korchinskiy.dto.CategoryWithSubcategoriesDto;
+import ru.korchinskiy.dto.CategoryTreeDto;
+import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CategoryService;
 
 import java.util.List;
@@ -21,7 +19,7 @@ public class AdminCategoryController {
 
     @GetMapping
     public String categoriesList(Model model) {
-        List<CategoryWithSubcategoriesDto> categories = categoryService.getCategoriesWithSubcategories();
+        List<CategoryTreeDto> categories = categoryService.getCategoriesWithSubcategories();
         List<CategoryDto> allCategories = categoryService.getAllCategories();
         model.addAttribute("categories", new Gson().toJson(categories));
         model.addAttribute("allCategories", allCategories);
@@ -34,6 +32,45 @@ public class AdminCategoryController {
     public CategoryDto getCategory(@PathVariable("id") Long categoryId) {
         CategoryDto category = categoryService.getCategoryById(categoryId);
         return category;
+    }
+
+    @PostMapping("/edit")
+    public String editCategory(@ModelAttribute("category") CategoryDto categoryDto,
+                               Model model) {
+        Message message = categoryService.updateCategory(categoryDto);
+        List<CategoryTreeDto> categories = categoryService.getCategoriesWithSubcategories();
+        List<CategoryDto> allCategories = categoryService.getAllCategories();
+        model.addAttribute("categories", new Gson().toJson(categories));
+        model.addAttribute("allCategories", allCategories);
+        model.addAttribute("category", new CategoryDto());
+        model.addAttribute("message", message);
+        return "adminCategories";
+    }
+
+    @PostMapping("/add")
+    public String addCategory(@ModelAttribute(name = "category") CategoryDto categoryDto,
+                              Model model) {
+        Message message = categoryService.saveCategory(categoryDto);
+        List<CategoryTreeDto> categories = categoryService.getCategoriesWithSubcategories();
+        List<CategoryDto> allCategories = categoryService.getAllCategories();
+        model.addAttribute("categories", new Gson().toJson(categories));
+        model.addAttribute("allCategories", allCategories);
+        model.addAttribute("category", new CategoryDto());
+        model.addAttribute("message", message);
+        return "adminCategories";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteCategory(@PathVariable("id") Long categoryId,
+                                 Model model) {
+        Message message = categoryService.removeCategory(categoryId);
+        List<CategoryTreeDto> categories = categoryService.getCategoriesWithSubcategories();
+        List<CategoryDto> allCategories = categoryService.getAllCategories();
+        model.addAttribute("categories", new Gson().toJson(categories));
+        model.addAttribute("allCategories", allCategories);
+        model.addAttribute("category", new CategoryDto());
+        model.addAttribute("message", message);
+        return "adminCategories";
     }
 
     @Autowired

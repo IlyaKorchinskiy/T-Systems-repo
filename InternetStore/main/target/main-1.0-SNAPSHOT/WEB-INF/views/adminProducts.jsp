@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Список товаров</title>
+    <title>Product list</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
@@ -21,6 +21,15 @@
         <jsp:include page="adminNav.jsp"/>
         <div class="row">
             <div class="col">
+                <c:if test="${not empty message && message.confirms.size() != 0}">
+                    <p id="message" class="confirm">${message.confirms.get(0)}</p>
+                </c:if>
+                <c:if test="${not empty message && message.errors.size() != 0}">
+                    <c:forEach items="${message.errors}" var="error">
+                        <p id="message" class="error">${error}</p>
+                    </c:forEach>
+                </c:if>
+                <a class="btn btn-primary add-product-btn" href="${contextPath}/admin/products/addForm" role="button">Add product</a>
                 <table class="table">
                     <thead>
                     <tr>
@@ -63,5 +72,6 @@
         crossorigin="anonymous"></script>
 <script>var contextPath = '${contextPath}'</script>
 <script src="${contextPath}/resources/js/common.js"></script>
+<script src="${contextPath}/resources/js/adminProducts.js"></script>
 </body>
 </html>

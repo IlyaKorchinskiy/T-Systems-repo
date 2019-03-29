@@ -8,11 +8,15 @@ import java.util.List;
 public interface DTOMappingService {
     ProductDto convertToProductDto(Product product);
 
+    Product convertToProduct(NewProductDto productDto);
+
     ProductWithCategoriesDto convertToProductWithCategoriesDto(Product product);
 
     List<ProductDto> convertToProductDtoList(List<Product> products);
 
     CategoryDto convertToCategoryDto(Category category);
+
+    Category convertToCategory(CategoryDto categoryDto);
 
     CategoryWithProductsDto convertToCategoryWithProductsDto(Category category);
 
@@ -20,9 +24,9 @@ public interface DTOMappingService {
 
     List<CategoryDto> convertToCategoryDtoList(List<Category> categories);
 
-    CategoryWithSubcategoriesDto convertToCategoryWithSubcategoriesDto(Category category);
+    CategoryTreeDto convertToCategoryWithSubcategoriesDto(Category category);
 
-    List<CategoryWithSubcategoriesDto> convertToCategoryWithSubcategoriesDtoList(List<Category> categories);
+    List<CategoryTreeDto> convertToCategoryWithSubcategoriesDtoList(List<Category> categories);
 
     UserDto convertToUserDto(User user);
 
@@ -53,5 +57,17 @@ public interface DTOMappingService {
     OrderDto convertToOrderDto(Order order);
 
     List<OrderDto> convertToOrderDtoList(List<Order> orders);
+
+    OrderProductDto convertToOrderProductDto(OrderProduct orderProduct);
+
+    List<OrderProductDto> convertToOrderProductDtoList(List<OrderProduct> orderProducts);
+
+    OrderHistoryDto convertToOrderHistoryDto(OrderHistory orderHistory);
+
+    List<OrderHistoryDto> convertToOrderHistoryDtoList(List<OrderHistory> orderHistories);
+
+    ProductStatsDto convertToProductStatsDto(ProductStats productStats);
+
+    List<ProductStatsDto> convertToProductStatsDtoList(List<ProductStats> productStatsList);
 
 }

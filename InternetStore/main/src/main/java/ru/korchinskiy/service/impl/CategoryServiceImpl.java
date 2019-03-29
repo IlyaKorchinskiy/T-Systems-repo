@@ -6,11 +6,12 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.korchinskiy.dao.CategoryDAO;
 import ru.korchinskiy.dao.ProductDAO;
 import ru.korchinskiy.dto.CategoryDto;
+import ru.korchinskiy.dto.CategoryTreeDto;
 import ru.korchinskiy.dto.CategoryWithProductsDto;
-import ru.korchinskiy.dto.CategoryWithSubcategoriesDto;
 import ru.korchinskiy.dto.ProductDto;
 import ru.korchinskiy.entity.Category;
 import ru.korchinskiy.entity.Product;
+import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CategoryService;
 import ru.korchinskiy.service.DTOMappingService;
 
@@ -19,6 +20,10 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     public static final Long ROOT_CATEGORY = 0L;
+    private static final String CATEGORY_UPDATE_SUCCESS = "Category successfully updated";
+    private static final String CATEGORY_ALREADY_EXISTS = "Category with the name already exists";
+    private static final String CATEGORY_ADD_SUCCESS = "Category successfully added";
+    private static final String CATEGORY_DELETE_SUCCESS = "Category successfully removed";
 
     private CategoryDAO categoryDAO;
     private ProductDAO productDAO;
@@ -56,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public List<CategoryWithSubcategoriesDto> getCategoriesWithSubcategories() {
+    public List<CategoryTreeDto> getCategoriesWithSubcategories() {
         List<Category> categories = categoryDAO.getAllCategories();
         return dtoMappingService.convertToCategoryWithSubcategoriesDtoList(categories);
     }
@@ -66,6 +71,46 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryDto> getAllCategories() {
         List<Category> categories = categoryDAO.getAllCategories();
         return dtoMappingService.convertToCategoryDtoList(categories);
+    }
+
+    @Override
+    @Transactional
+    public Message updateCategory(CategoryDto categoryDto) {
+        Category category = categoryDAO.getCategoryById(categoryDto.getId());
+        category.setTitle(categoryDto.getTitle());
+        category.setParentId(categoryDto.getParentId());
+        Message message = new Message();
+        message.getConfirms().add(CATEGORY_UPDATE_SUCCESS);
+        return message;
+    }
+
+    @Override
+    @Transactional
+    public Message saveCategory(CategoryDto categoryDto) {
+        Message message = new Message();
+        Category category = categoryDAO.getCategoryByTitle(categoryDto.getTitle());
+        if (category != null) {
+            message.getErrors().add(CATEGORY_ALREADY_EXISTS);
+            return message;
+        }
+        category = dtoMappingService.convertToCategory(categoryDto);
+        categoryDAO.saveCategory(category);
+        message.getConfirms().add(CATEGORY_ADD_SUCCESS);
+        return message;
+    }
+
+    @Override
+    @Transactional
+    public Message removeCategory(Long categoryId) {
+        Category category = categoryDAO.getCategoryById(categoryId);
+        return removeCategory(category);
+    }
+
+    private Message removeCategory(Category category) {
+        Message message = new Message();
+        categoryDAO.removeCategory(category);
+        message.getConfirms().add(CATEGORY_DELETE_SUCCESS);
+        return message;
     }
 
     @Autowired

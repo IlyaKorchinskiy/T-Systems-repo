@@ -16,6 +16,7 @@ public class Product {
     private Long id;
 
     private String title;
+    private String author;
     private Double cost;
     private Integer amount;
     private String description;
@@ -27,7 +28,12 @@ public class Product {
     @Column(name = "sm_photo")
     private String photoSm;
 
-    @ManyToMany(mappedBy = "products")
+    @ManyToMany
+    @JoinTable(
+            name = "product_category",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
     private List<Category> categories;
 
     @Override

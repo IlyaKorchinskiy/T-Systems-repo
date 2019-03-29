@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Книга ${product.title}</title>
+    <title>Product ${product.title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
@@ -21,7 +21,7 @@
         <jsp:include page="header.jsp"/>
         <div class="row site-padding">
             <div class="col-auto product-photo">
-                <a href="#"><img src="${contextPath}/${product.photoMd}" alt="product_photo"></a>
+                <a href="#"><img src="${contextPath}/resources/img/${product.photoMd}" alt="product_photo"></a>
             </div>
             <div class="col product-info">
                 <h2>${product.title}</h2>

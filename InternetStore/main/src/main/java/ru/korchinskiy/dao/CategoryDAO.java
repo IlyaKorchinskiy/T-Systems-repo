@@ -8,7 +8,13 @@ public interface CategoryDAO {
 
     Category getCategoryById(Long id);
 
+    Category getCategoryByTitle(String title);
+
     List<Category> getCategoriesByParentId(Long Id);
 
     List<Category> getAllCategories();
+
+    void saveCategory(Category category);
+
+    void removeCategory(Category category);
 }

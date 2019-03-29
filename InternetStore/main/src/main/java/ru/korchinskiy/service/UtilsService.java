@@ -1,9 +1,18 @@
 package ru.korchinskiy.service;
 
+import org.springframework.stereotype.Service;
 import ru.korchinskiy.dto.CartProductDto;
 
 import java.util.List;
 
-public interface UtilsService {
-    Double getCartSum(List<CartProductDto> cartProducts);
+@Service
+public class UtilsService {
+
+    public static Double getCartSum(List<CartProductDto> cartProducts) {
+        double sum = 0;
+        for (CartProductDto cartProduct : cartProducts) {
+            sum += cartProduct.getSum();
+        }
+        return sum;
+    }
 }

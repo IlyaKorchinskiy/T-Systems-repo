@@ -40,7 +40,7 @@ public class Category {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title);
+        return Objects.hash(id);
     }
 
     @Override

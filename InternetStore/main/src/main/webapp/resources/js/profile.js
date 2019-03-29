@@ -10,7 +10,7 @@ function editInfo() {
     for (var i = 0; i < infoInputs.length; i++) {
         infoInputs[i].disabled = false;
     }
-    infoInputs[2].focus();
+    document.getElementById('nameInput').focus();
     document.getElementById('editInfoBtn').disabled = true;
     document.getElementById('updateInfoBtn').disabled = false;
 }

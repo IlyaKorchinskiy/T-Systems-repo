@@ -1,6 +1,8 @@
 package ru.korchinskiy.entity;
 
 import lombok.Data;
+import ru.korchinskiy.enums.OrderStatus;
+import ru.korchinskiy.enums.PaymentStatus;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,12 +27,12 @@ public class Order {
     @JoinColumn(name = "delivery_type_id", referencedColumnName = "id")
     private DeliveryType deliveryType;
 
-    @ManyToOne
-    @JoinColumn(name = "payment_status_id", referencedColumnName = "id")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status")
     private PaymentStatus paymentStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "order_status_id", referencedColumnName = "id")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_status")
     private OrderStatus orderStatus;
 
     private String address;

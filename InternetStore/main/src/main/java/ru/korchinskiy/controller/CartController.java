@@ -18,7 +18,6 @@ import java.util.List;
 @RequestMapping("/cart")
 public class CartController {
     private CartService cartService;
-    private UtilsService utilsService;
 
     @GetMapping
     public String showCartPage(@CookieValue(value = "sessionId", required = false) String sessionCookie,
@@ -26,7 +25,7 @@ public class CartController {
         List<CartProductDto> cartProducts = cartService.getCartProductsBySessionId(sessionCookie);
         List<PaymentTypeDto> paymentTypes = cartService.getPaymentTypes();
         List<DeliveryTypeDto> deliveryTypes = cartService.getDeliveryTypes();
-        Double sum = utilsService.getCartSum(cartProducts);
+        Double sum = UtilsService.getCartSum(cartProducts);
         model.addAttribute("cartProducts", cartProducts);
         model.addAttribute("paymentTypes", paymentTypes);
         model.addAttribute("deliveryTypes", deliveryTypes);
@@ -55,8 +54,5 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @Autowired
-    public void setUtilsService(UtilsService utilsService) {
-        this.utilsService = utilsService;
-    }
+
 }

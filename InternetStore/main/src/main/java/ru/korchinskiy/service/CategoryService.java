@@ -1,8 +1,9 @@
 package ru.korchinskiy.service;
 
 import ru.korchinskiy.dto.CategoryDto;
+import ru.korchinskiy.dto.CategoryTreeDto;
 import ru.korchinskiy.dto.CategoryWithProductsDto;
-import ru.korchinskiy.dto.CategoryWithSubcategoriesDto;
+import ru.korchinskiy.message.Message;
 
 import java.util.List;
 
@@ -13,8 +14,14 @@ public interface CategoryService {
 
     List<CategoryDto> getCategoriesByParentId(Long id);
 
-    List<CategoryWithSubcategoriesDto> getCategoriesWithSubcategories();
+    List<CategoryTreeDto> getCategoriesWithSubcategories();
 
     List<CategoryDto> getAllCategories();
+
+    Message updateCategory(CategoryDto categoryDto);
+
+    Message saveCategory(CategoryDto categoryDto);
+
+    Message removeCategory(Long categoryId);
 
 }

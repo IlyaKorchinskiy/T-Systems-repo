@@ -1,7 +1,10 @@
 package ru.korchinskiy.service;
 
+import org.springframework.web.multipart.MultipartFile;
+import ru.korchinskiy.dto.NewProductDto;
 import ru.korchinskiy.dto.ProductDto;
 import ru.korchinskiy.dto.ProductWithCategoriesDto;
+import ru.korchinskiy.message.Message;
 
 import java.util.List;
 
@@ -11,5 +14,7 @@ public interface ProductService {
     List<ProductDto> getAllProducts();
 
     List<ProductDto> getProductsByCategory(Long categoryId);
+
+    Message saveProduct(NewProductDto productDto, MultipartFile smPhoto, MultipartFile mdPhoto);
 
 }

@@ -14,6 +14,8 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -89,6 +91,13 @@ public class WebConfig implements WebMvcConfigurer {
         auth.setUserDetailsService(userDetailsService);
         auth.setPasswordEncoder(passwordEncoder());
         return auth;
+    }
+
+    @Bean
+    public MultipartResolver multipartResolver() {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+        multipartResolver.setMaxUploadSize(500000000);
+        return multipartResolver;
     }
 
     @Autowired

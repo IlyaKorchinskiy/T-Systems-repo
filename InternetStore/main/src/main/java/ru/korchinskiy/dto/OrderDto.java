@@ -1,7 +1,9 @@
 package ru.korchinskiy.dto;
 
 import lombok.Data;
-import ru.korchinskiy.entity.*;
+import ru.korchinskiy.entity.User;
+import ru.korchinskiy.enums.OrderStatus;
+import ru.korchinskiy.enums.PaymentStatus;
 
 import java.util.Date;
 
@@ -9,8 +11,8 @@ import java.util.Date;
 public class OrderDto {
     private Long id;
     private User user;
-    private PaymentType paymentType;
-    private DeliveryType deliveryType;
+    private PaymentTypeDto paymentType;
+    private DeliveryTypeDto deliveryType;
     private PaymentStatus paymentStatus;
     private OrderStatus orderStatus;
     private String address;

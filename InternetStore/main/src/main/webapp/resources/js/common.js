@@ -37,7 +37,7 @@ function renderCart(cart) {
     } else {
         var productsHtml = '<p>Your products:</p><ul>';
         for (var i = 0; i < cart.length; i++) {
-            productsHtml += '<li>' + cart[i].product.title + ' - ' + cart[i].amount + ' шт</li>';
+            productsHtml += '<li>' + cart[i].product.title + ' - ' + cart[i].amount + ' items</li>';
         }
         productsHtml += '</ul>';
         cartContent.innerHTML = productsHtml;
@@ -64,8 +64,20 @@ function sendAjaxRequestPost(url, params, func) {
     xhr.send(body);
 }
 
-function ajaxGetData(url) {
-    return fetch(url)
+function sendAjaxRequest(url, method, data) {
+    if (method === 'POST') {
+        var body = '';
+        for (var key in data) {
+            body += key + '=' + encodeURIComponent(data[key]) + '&';
+        }
+    }
+    return fetch(url, {
+        method: method,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: body
+    })
         .then(function (response) {
             return response.json();
         });

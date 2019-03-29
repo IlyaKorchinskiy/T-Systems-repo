@@ -6,6 +6,7 @@ import ru.korchinskiy.entity.*;
 import ru.korchinskiy.service.DTOMappingService;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,12 +18,25 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         productDto.setId(product.getId());
         productDto.setCost(product.getCost());
         productDto.setTitle(product.getTitle());
+        productDto.setAuthor(product.getAuthor());
         productDto.setAmount(product.getAmount());
         productDto.setDescription(product.getDescription());
         productDto.setDate(product.getDate());
         productDto.setPhotoMd(product.getPhotoMd());
         productDto.setPhotoSm(product.getPhotoSm());
         return productDto;
+    }
+
+    @Override
+    public Product convertToProduct(NewProductDto productDto) {
+        Product product = new Product();
+        product.setTitle(productDto.getTitle());
+        product.setAuthor(productDto.getAuthor());
+        product.setDescription(productDto.getDescription());
+        product.setCost(productDto.getCost());
+        product.setAmount(productDto.getAmount());
+        product.setDate(new Date());
+        return product;
     }
 
     @Override
@@ -60,6 +74,14 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
+    public Category convertToCategory(CategoryDto categoryDto) {
+        Category category = new Category();
+        category.setTitle(categoryDto.getTitle());
+        category.setParentId(categoryDto.getParentId());
+        return category;
+    }
+
+    @Override
     public CategoryWithProductsDto convertToCategoryWithProductsDto(Category category) {
         CategoryWithProductsDto categoryDto = new CategoryWithProductsDto();
         categoryDto.setId(category.getId());
@@ -90,8 +112,8 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
-    public CategoryWithSubcategoriesDto convertToCategoryWithSubcategoriesDto(Category category) {
-        CategoryWithSubcategoriesDto categoryDto = new CategoryWithSubcategoriesDto();
+    public CategoryTreeDto convertToCategoryWithSubcategoriesDto(Category category) {
+        CategoryTreeDto categoryDto = new CategoryTreeDto();
         categoryDto.setId(category.getId());
         categoryDto.setTitle(category.getTitle());
         categoryDto.setParentId(category.getParentId());
@@ -100,10 +122,10 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
-    public List<CategoryWithSubcategoriesDto> convertToCategoryWithSubcategoriesDtoList(List<Category> categories) {
-        List<CategoryWithSubcategoriesDto> categoryDtos = new ArrayList<>();
+    public List<CategoryTreeDto> convertToCategoryWithSubcategoriesDtoList(List<Category> categories) {
+        List<CategoryTreeDto> categoryDtos = new ArrayList<>();
         for (Category category : categories) {
-            CategoryWithSubcategoriesDto categoryDto = convertToCategoryWithSubcategoriesDto(category);
+            CategoryTreeDto categoryDto = convertToCategoryWithSubcategoriesDto(category);
             categoryDtos.add(categoryDto);
         }
         for (int i = 0; i < categoryDtos.size(); i++) {
@@ -249,8 +271,8 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         OrderDto orderDto = new OrderDto();
         orderDto.setId(order.getId());
         orderDto.setUser(order.getUser());
-        orderDto.setPaymentType(order.getPaymentType());
-        orderDto.setDeliveryType(order.getDeliveryType());
+        orderDto.setPaymentType(convertToPaymentTypeDto(order.getPaymentType()));
+        orderDto.setDeliveryType(convertToDeliverTypeDto(order.getDeliveryType()));
         orderDto.setPaymentStatus(order.getPaymentStatus());
         orderDto.setOrderStatus(order.getOrderStatus());
         orderDto.setAddress(order.getAddress());
@@ -266,6 +288,69 @@ public class DTOMappingServiceImpl implements DTOMappingService {
             orderDtos.add(convertToOrderDto(order));
         }
         return orderDtos;
+    }
+
+    @Override
+    public OrderProductDto convertToOrderProductDto(OrderProduct orderProduct) {
+        OrderProductDto orderProductDto = new OrderProductDto();
+        orderProductDto.setId(orderProduct.getId());
+        orderProductDto.setProduct(convertToProductDto(orderProduct.getProduct()));
+        orderProductDto.setAmount(orderProduct.getAmount());
+        orderProductDto.setCost(orderProduct.getCost());
+        return orderProductDto;
+    }
+
+    @Override
+    public List<OrderProductDto> convertToOrderProductDtoList(List<OrderProduct> orderProducts) {
+        List<OrderProductDto> orderProductDtos = new ArrayList<>();
+        for (OrderProduct orderProduct : orderProducts) {
+            orderProductDtos.add(convertToOrderProductDto(orderProduct));
+        }
+        return orderProductDtos;
+    }
+
+    @Override
+    public OrderHistoryDto convertToOrderHistoryDto(OrderHistory orderHistory) {
+        OrderHistoryDto orderHistoryDto = new OrderHistoryDto();
+        orderHistoryDto.setId(orderHistory.getId());
+        orderHistoryDto.setPaymentType(convertToPaymentTypeDto(orderHistory.getPaymentType()));
+        orderHistoryDto.setDeliveryType(convertToDeliverTypeDto(orderHistory.getDeliveryType()));
+        orderHistoryDto.setPaymentStatus(orderHistory.getPaymentStatus());
+        orderHistoryDto.setOrderStatus(orderHistory.getOrderStatus());
+        orderHistoryDto.setAddress(orderHistory.getAddress());
+        orderHistoryDto.setSum(orderHistory.getSum());
+        orderHistoryDto.setDate(orderHistory.getDate());
+        return orderHistoryDto;
+    }
+
+    @Override
+    public List<OrderHistoryDto> convertToOrderHistoryDtoList(List<OrderHistory> orderHistories) {
+        List<OrderHistoryDto> orderHistoryDtos = new ArrayList<>();
+        for (OrderHistory orderHistory : orderHistories) {
+            orderHistoryDtos.add(convertToOrderHistoryDto(orderHistory));
+        }
+        return orderHistoryDtos;
+    }
+
+    @Override
+    public ProductStatsDto convertToProductStatsDto(ProductStats productStats) {
+        ProductStatsDto productStatsDto = new ProductStatsDto();
+        productStatsDto.setId(productStats.getId());
+        productStatsDto.setProduct(convertToProductDto(productStats.getProduct()));
+        productStatsDto.setAmount(productStats.getAmount());
+        productStatsDto.setMonth(productStats.getMonth());
+        productStatsDto.setYear(productStats.getYear());
+        return productStatsDto;
+    }
+
+    @Override
+    public List<ProductStatsDto> convertToProductStatsDtoList(List<ProductStats> productStatsList) {
+        List<ProductStatsDto> productStatsDtoList = new ArrayList<>();
+        for (ProductStats productStats : productStatsList) {
+            ProductStatsDto productStatsDto = convertToProductStatsDto(productStats);
+            productStatsDtoList.add(productStatsDto);
+        }
+        return productStatsDtoList;
     }
 
 }
