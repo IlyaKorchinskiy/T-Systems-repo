@@ -74,6 +74,20 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
+    public List<Product> findProductsBySearch(String[] searchWords) {
+        Session session = this.sessionFactory.getCurrentSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Product> query = builder.createQuery(Product.class);
+        Root<Product> root = query.from(Product.class);
+        query.select(root);
+        for (String searchWord : searchWords) {
+            query.where(builder.like(root.get("title"), '%' + searchWord + '%'));
+            query.where(builder.like(root.get("author"), '%' + searchWord + '%'));
+        }
+        return session.createQuery(query).getResultList();
+    }
+
+    @Override
     public void saveProduct(Product product) {
         this.sessionFactory.getCurrentSession().persist(product);
     }

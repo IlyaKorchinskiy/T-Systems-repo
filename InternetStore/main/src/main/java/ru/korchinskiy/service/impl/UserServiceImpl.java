@@ -19,14 +19,17 @@ import ru.korchinskiy.service.OrderService;
 import ru.korchinskiy.service.UserService;
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private static final String USER_ALREADY_EXISTS = "Пользователь с таким e-mail уже существует";
-    private static final String USER_ADD_SUCCESS = "Пользователь успешно зарегистрирован";
-    private static final String USER_UPDATE_SUCCESS = "Информация успешно обновлена";
+    private static final String USER_ALREADY_EXISTS = "User with this e-mail already exists";
+    private static final String USER_ADD_SUCCESS = "User successfully registered";
+    private static final String USER_UPDATE_SUCCESS = "Info successfully updated";
     private static final Long ROLE_CLIENT = 1L;
     private static final String USER_ADDRESS_DELETE_SUCCESS = "Address deleted successfully";
     private static final String USER_ADDRESS_UPDATE_SUCCESS = "Address updated successfully";
@@ -62,8 +65,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Message addUser(UserDto userDto) {
         Message message = new Message();
-//        validation
-
         if (userDAO.getUserByEmail(userDto.getEmail()) != null) {
             message.getErrors().add(USER_ALREADY_EXISTS);
             return message;
@@ -82,14 +83,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Message updateUser(UserDto userDto, HttpSession session) {
         Message message = new Message();
-//        validation
-
         User user = userDAO.getUserById(userDto.getId());
         user.setName(userDto.getName());
         user.setLastname(userDto.getLastname());
         user.setEmail(userDto.getEmail());
         user.setBirthday(userDto.getBirthday());
         user.setPhoneNumber(userDto.getPhoneNumber());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userDAO.updateUser(user);
         message.getConfirms().add(USER_UPDATE_SUCCESS);
         return message;

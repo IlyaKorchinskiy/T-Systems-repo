@@ -10,6 +10,7 @@ import ru.korchinskiy.dto.DeliveryTypeDto;
 import ru.korchinskiy.dto.PaymentTypeDto;
 import ru.korchinskiy.entity.*;
 import ru.korchinskiy.exception.NotEnoughProductException;
+import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.DTOMappingService;
 
@@ -49,9 +50,13 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public String addProductToCartBySessionId(String cookieSession, String sessionId, Long productId) {
+    public Message addProductToCartBySessionId(String cookieSession, String sessionId, Long productId) {
+        Message message = new Message();
         Product product = productDAO.getProductById(productId);
-        if (product.getAmount() == 0) throw new NotEnoughProductException();
+        if (product.getAmount() == 0) {
+            message.getErrors().add(Message.PRODUCT_NOT_ENOUGH);
+            return message;
+        }
         Cart cart;
         if (cookieSession == null) {
             cart = new Cart();
@@ -67,7 +72,7 @@ public class CartServiceImpl implements CartService {
             CartProduct cartProduct = cartProductDAO.getCartProductByCartIdAndProductId(cart.getId(), productId);
             if (cartProduct != null) {
                 cartProduct.setAmount(cartProduct.getAmount() + 1);
-                return cart.getSessionId();
+
             }
             cartProduct = new CartProduct();
             cartProduct.setCart(cart);
@@ -75,7 +80,8 @@ public class CartServiceImpl implements CartService {
             cartProduct.setAmount(1);
             cartProductDAO.saveCartProduct(cartProduct);
         }
-        return cart.getSessionId();
+        message.getConfirms().add(Message.PRODUCT_ADD_SUCCESS);
+        return message;
     }
 
     @Override

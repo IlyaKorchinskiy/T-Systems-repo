@@ -17,6 +17,8 @@ public interface ProductDAO {
 
     List<Product> getProductsByCategoryAndCost(Long categoryId, Double minCost, Double maxCost);
 
+    List<Product> findProductsBySearch(String[] searchWords);
+
     void saveProduct(Product product);
 
 }

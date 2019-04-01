@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.korchinskiy.dto.CategoryDto;
 import ru.korchinskiy.dto.CategoryWithProductsDto;
+import ru.korchinskiy.dto.ProductDto;
 import ru.korchinskiy.service.CategoryService;
+import ru.korchinskiy.service.ProductService;
 import ru.korchinskiy.service.impl.CategoryServiceImpl;
 
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.List;
 @RequestMapping("/catalog")
 public class CatalogController {
     private CategoryService categoryService;
+    private ProductService productService;
 
     @GetMapping
     public String showCatalog(@RequestParam(name = "id") Long id,
@@ -34,9 +37,23 @@ public class CatalogController {
         return "catalog";
     }
 
+    @GetMapping("/search")
+    public String searchProducts(@RequestParam(name = "search") String search,
+                                 Model model) {
+        List<CategoryDto> mainCategories = categoryService.getCategoriesByParentId(CategoryServiceImpl.ROOT_CATEGORY);
+        List<ProductDto> products = productService.findProductsBySearch(search);
+        model.addAttribute("mainCategories", mainCategories);
+        model.addAttribute("products", products);
+        return "catalog";
+    }
+
     @Autowired
     public void setCategoryService(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
+    @Autowired
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
 }

@@ -3,7 +3,9 @@ package ru.korchinskiy.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -16,7 +18,7 @@ public class User {
 
     private String name;
     private String lastname;
-    private Date birthday;
+    private String birthday;
     private String email;
     private String password;
 
@@ -38,9 +40,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
-
-    @OneToMany(mappedBy = "user")
-    private List<Order> orders;
 
     @Override
     public String toString() {

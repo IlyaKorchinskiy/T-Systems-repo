@@ -14,6 +14,7 @@ import ru.korchinskiy.service.DTOMappingService;
 import ru.korchinskiy.service.OrderService;
 
 import javax.servlet.http.HttpSession;
+import java.time.Clock;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,11 +22,6 @@ import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
-    private static final String NOT_ENOUGH_PRODUCT = "Недостаточное количество товара";
-    private static final String ORDER_SAVE_SUCCESS = "Заказ успешно сохранен";
-    private static final String CART_IS_EMPTY = "Корзина пуста";
-    private static final String ORDER_STATUS_UPDATE_SUCCESS = "Order status successfully updated";
-
     private ProductDAO productDAO;
     private OrderDAO orderDAO;
     private DTOMappingService dtoMappingService;
@@ -35,6 +31,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderProductDAO orderProductDAO;
     private OrderHistoryDAO orderHistoryDAO;
     private ProductStatsDAO productStatsDAO;
+    private UserStatsDAO userStatsDAO;
     private CartService cartService;
 
     @Override
@@ -80,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
 //        get cart
         List<CartProductDto> cartProducts = cartService.getCartProductsBySessionId(cookieSession);
         if (cartProducts.size() == 0) {
-            message.getErrors().add(CART_IS_EMPTY);
+            message.getErrors().add(Message.CART_IS_EMPTY);
             return message;
         }
 //        reduce product amounts
@@ -88,7 +85,7 @@ public class OrderServiceImpl implements OrderService {
         for (CartProductDto cartProductDto : cartProducts) {
             Product product = productDAO.getProductForUpdate(cartProductDto.getProduct().getId());
             if (cartProductDto.getAmount() > product.getAmount()) {
-                message.getErrors().add(NOT_ENOUGH_PRODUCT + " " + cartProductDto.getProduct().getTitle());
+                message.getErrors().add(Message.PRODUCT_NOT_ENOUGH + " " + cartProductDto.getProduct().getTitle());
                 return message;
             }
             product.setAmount(product.getAmount() - cartProductDto.getAmount());
@@ -97,11 +94,79 @@ public class OrderServiceImpl implements OrderService {
         Order order = createNewOrder(orderDto, session, cartProducts);
         orderDAO.saveOrder(order);
         saveOrderHistory(order);
-        List<OrderProduct> orderProducts = saveOrderProducts(cartProducts, products, order);
-        saveProductStats(orderProducts);
+        saveOrderProducts(cartProducts, products, order);
         cartService.cleanCart(cookieSession);
-        message.getConfirms().add(ORDER_SAVE_SUCCESS + " ID " + order.getId());
+        message.getConfirms().add(Message.ORDER_SAVE_SUCCESS + " ID " + order.getId());
         return message;
+    }
+
+    private Order createNewOrder(NewOrderDto orderDto, HttpSession session, List<CartProductDto> cartProducts) {
+        Order order = new Order();
+        order.setUser(userDAO.getUserById(((UserDto) session.getAttribute("user")).getId()));
+        order.setPaymentType(paymentTypeDAO.getPaymentTypeById(orderDto.getPaymentTypeId()));
+        order.setDeliveryType(deliveryTypeDAO.getDeliveryTypeById(orderDto.getDeliveryTypeId()));
+        order.setPaymentStatus(PaymentStatus.WAITING_FOR_PAYMENT);
+        order.setOrderStatus(OrderStatus.NEW);
+        order.setAddress((orderDto.getDeliveryTypeId() == 1L) ? orderDto.getAddress() : orderDto.getPickupAddress());
+        order.setDate(Clock.systemUTC().instant());
+        order.setSum(cartProducts.stream().map(CartProductDto::getSum).reduce(0.0, (acc, x) -> acc + x));
+        return order;
+    }
+
+    private void saveOrderProducts(List<CartProductDto> cartProducts, List<Product> products, Order order) {
+        for (int i = 0; i < products.size(); i++) {
+            OrderProduct orderProduct = new OrderProduct();
+            orderProduct.setOrder(order);
+            orderProduct.setProduct(products.get(i));
+            orderProduct.setCost(cartProducts.get(i).getProduct().getCost());
+            orderProduct.setAmount(cartProducts.get(i).getAmount());
+            orderProductDAO.saveOrderProduct(orderProduct);
+        }
+    }
+
+    private void saveOrderHistory(Order order) {
+        OrderHistory orderHistory = new OrderHistory();
+        orderHistory.setOrder(order);
+        orderHistory.setPaymentType(order.getPaymentType());
+        orderHistory.setDeliveryType(order.getDeliveryType());
+        orderHistory.setPaymentStatus(order.getPaymentStatus());
+        orderHistory.setOrderStatus(order.getOrderStatus());
+        orderHistory.setAddress(order.getAddress());
+        orderHistory.setDate(Clock.systemUTC().instant());
+        orderHistory.setSum(order.getSum());
+        orderHistoryDAO.saveOrderHistory(orderHistory);
+    }
+
+    @Override
+    @Transactional
+    public Message updateOrderStatus(Long orderId, OrderStatus orderStatus) {
+        Order order = orderDAO.getOrderById(orderId);
+        order.setOrderStatus(orderStatus);
+        saveOrderHistory(order);
+        if (orderStatus.equals(OrderStatus.DELIVERED)) {
+            List<OrderProduct> orderProducts = orderProductDAO.getOrderProductsByOrderId(orderId);
+            saveProductStats(orderProducts);
+            saveUserStats(order);
+        }
+        Message message = new Message();
+        message.getConfirms().add(Message.ORDER_STATUS_UPDATE_SUCCESS);
+        return message;
+    }
+
+    private void saveUserStats(Order order) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        UserStats userStats = userStatsDAO.getUserStatsByUserIdAndDate(order.getUser().getId(), calendar);
+        if (userStats == null) {
+            userStats = new UserStats();
+            userStats.setUser(order.getUser());
+            userStats.setSum(order.getSum());
+            userStats.setMonth(calendar.get(Calendar.MONTH) + 1);
+            userStats.setYear(calendar.get(Calendar.YEAR));
+            userStatsDAO.saveUserStats(userStats);
+        } else {
+            userStats.setSum(userStats.getSum() + order.getSum());
+        }
     }
 
     private void saveProductStats(List<OrderProduct> orderProducts) {
@@ -120,57 +185,6 @@ public class OrderServiceImpl implements OrderService {
                 productStats.setAmount(productStats.getAmount() + orderProduct.getAmount());
             }
         }
-    }
-
-    private Order createNewOrder(NewOrderDto orderDto, HttpSession session, List<CartProductDto> cartProducts) {
-        Order order = new Order();
-        order.setUser(userDAO.getUserById(((UserDto) session.getAttribute("user")).getId()));
-        order.setPaymentType(paymentTypeDAO.getPaymentTypeById(orderDto.getPaymentTypeId()));
-        order.setDeliveryType(deliveryTypeDAO.getDeliveryTypeById(orderDto.getDeliveryTypeId()));
-        order.setPaymentStatus(PaymentStatus.WAITING_FOR_PAYMENT);
-        order.setOrderStatus(OrderStatus.NEW);
-        order.setAddress((orderDto.getDeliveryTypeId() == 1L) ? orderDto.getAddress() : orderDto.getPickupAddress());
-        order.setDate(new Date());
-        order.setSum(cartProducts.stream().map(CartProductDto::getSum).reduce(0.0, (acc, x) -> acc + x));
-        return order;
-    }
-
-    private List<OrderProduct> saveOrderProducts(List<CartProductDto> cartProducts, List<Product> products, Order order) {
-        List<OrderProduct> orderProducts = new ArrayList<>();
-        for (int i = 0; i < products.size(); i++) {
-            OrderProduct orderProduct = new OrderProduct();
-            orderProduct.setOrder(order);
-            orderProduct.setProduct(products.get(i));
-            orderProduct.setCost(cartProducts.get(i).getProduct().getCost());
-            orderProduct.setAmount(cartProducts.get(i).getAmount());
-            orderProductDAO.saveOrderProduct(orderProduct);
-            orderProducts.add(orderProduct);
-        }
-        return orderProducts;
-    }
-
-    private void saveOrderHistory(Order order) {
-        OrderHistory orderHistory = new OrderHistory();
-        orderHistory.setOrder(order);
-        orderHistory.setPaymentType(order.getPaymentType());
-        orderHistory.setDeliveryType(order.getDeliveryType());
-        orderHistory.setPaymentStatus(order.getPaymentStatus());
-        orderHistory.setOrderStatus(order.getOrderStatus());
-        orderHistory.setAddress(order.getAddress());
-        orderHistory.setDate(new Date());
-        orderHistory.setSum(order.getSum());
-        orderHistoryDAO.saveOrderHistory(orderHistory);
-    }
-
-    @Override
-    @Transactional
-    public Message updateOrderStatus(Long orderId, OrderStatus orderStatus) {
-        Order order = orderDAO.getOrderById(orderId);
-        order.setOrderStatus(orderStatus);
-        saveOrderHistory(order);
-        Message message = new Message();
-        message.getConfirms().add(ORDER_STATUS_UPDATE_SUCCESS);
-        return message;
     }
 
     @Autowired
@@ -216,6 +230,11 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     public void setProductStatsDAO(ProductStatsDAO productStatsDAO) {
         this.productStatsDAO = productStatsDAO;
+    }
+
+    @Autowired
+    public void setUserStatsDAO(UserStatsDAO userStatsDAO) {
+        this.userStatsDAO = userStatsDAO;
     }
 
     @Autowired

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -38,39 +39,52 @@
                         </c:forEach>
                     </c:if>
                     <c:if test="${empty message || message.confirms.size() == 0}">
-                        <form action="${contextPath}/register" method="post" modelAttribute="user">
+                        <form:form action="${contextPath}/register" method="post" modelAttribute="user">
+                            <form:errors path="" cssClass="error"/>
                             <div class="form-group">
                                 <label for="nameInput">Your name</label>
-                                <input type="text" class="form-control" id="nameInput" name="name"
-                                       value="${user.name}" placeholder="Name" required autofocus>
+                                <form:input type="text" class="form-control" id="nameInput" path="name"
+                                            value="${user.name}" placeholder="Name" autofocus="true" required="true"/>
+                                <form:errors path="name" cssClass="error"/>
                             </div>
                             <div class="form-group">
                                 <label for="lastnameInput">Last name</label>
-                                <input type="text" class="form-control" id="lastnameInput" name="lastname"
-                                       value="${user.lastname}" placeholder="Last name" required>
+                                <form:input type="text" class="form-control" id="lastnameInput" path="lastname"
+                                            value="${user.lastname}" placeholder="Last name" required="true"/>
+                                <form:errors path="lastname" cssClass="error"/>
                             </div>
                             <div class="form-group">
                                 <label for="phoneInput">Phone number</label>
-                                <input type="text" class="form-control" id="phoneInput" name="phoneNumber"
-                                       value="${user.phoneNumber}" placeholder="+79223556789" required>
+                                <form:input type="tel" pattern="\+\d{11}" class="form-control"
+                                            id="phoneInput" path="phoneNumber" value="${user.phoneNumber}"
+                                            placeholder="+71234567890"/>
+                                <form:errors path="phoneNumber" cssClass="error"/>
                             </div>
                             <div class="form-group">
                                 <label for="loginRegInput">Login (e-mail)</label>
-                                <input type="email" class="form-control" id="loginRegInput" name="email"
-                                       value="${user.email}" placeholder="E-mail" required>
+                                <form:input type="email" class="form-control" id="loginRegInput" path="email"
+                                            value="${user.email}" placeholder="E-mail" required="true"/>
+                                <form:errors path="email" cssClass="error"/>
                             </div>
                             <div class="form-group">
-                                <label for="birthInput">Birthday</label>
-                                <input type="date" class="form-control" id="birthInput" name="birthDay"
-                                       value="${user.birthday}" placeholder="" required>
+                            <label for="birthInput">Birthday</label>
+                            <form:input type="date" class="form-control" id="birthInput" path="birthday"
+                            value="${user.birthday}" required="true"/>
                             </div>
                             <div class="form-group">
                                 <label for="passwordRegInput">Password</label>
-                                <input type="password" class="form-control" id="passwordRegInput"
-                                       name="password" placeholder="Password" required>
+                                <form:input type="password" class="form-control" id="passwordRegInput"
+                                            path="password" placeholder="Password" required="true"/>
+                                <form:errors path="password" cssClass="error"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="repeatPasswordInput">Repeat password</label>
+                                <form:input type="password" class="form-control" id="repeatPasswordInput"
+                                            path="matchingPassword" placeholder="Password" required="true"/>
+                                <form:errors path="matchingPassword" cssClass="error"/>
                             </div>
                             <button type="submit" class="btn btn-primary">Sign up</button>
-                        </form>
+                        </form:form>
                     </c:if>
 
                 </sec:authorize>

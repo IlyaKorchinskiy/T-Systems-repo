@@ -4,6 +4,7 @@ import lombok.Data;
 import ru.korchinskiy.enums.OrderStatus;
 import ru.korchinskiy.enums.PaymentStatus;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Data
@@ -15,5 +16,5 @@ public class OrderHistoryDto {
     private OrderStatus orderStatus;
     private String address;
     private Double sum;
-    private Date date;
+    private Instant date;
 }

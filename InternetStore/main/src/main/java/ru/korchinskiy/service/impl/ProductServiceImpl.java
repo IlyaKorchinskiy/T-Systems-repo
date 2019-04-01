@@ -54,11 +54,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
+    public List<ProductDto> findProductsBySearch(String search) {
+        String[] searchWords = search.split("\\s");
+        List<Product> products = productDAO.findProductsBySearch(searchWords);
+        return dtoMappingService.convertToProductDtoList(products);
+    }
+
+    @Override
+    @Transactional
     public Message saveProduct(NewProductDto productDto, MultipartFile smPhoto, MultipartFile mdPhoto) {
         Message message = new Message();
-
-//        validation
-
         Product product = productDAO.getProductByTitle(productDto.getTitle());
         if (product != null) {
             message.getErrors().add(PRODUCT_ALREADY_EXISTS);

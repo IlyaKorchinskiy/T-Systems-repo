@@ -9,6 +9,7 @@ import java.util.List;
 public class ProductWithCategoriesDto {
     private Long id;
     private String title;
+    private String author;
     private Double cost;
     private Integer amount;
     private String description;

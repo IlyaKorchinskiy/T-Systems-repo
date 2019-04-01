@@ -40,7 +40,9 @@ public class ProductStatsDAOImpl implements ProductStatsDAO {
         query.select(root).where(builder.equal(root.get("month"), month),
                 builder.equal(root.get("year"), year));
         query.orderBy(builder.desc(root.get("amount")));
-        return session.createQuery(query).getResultList();
+        List<ProductStats> productStatsList = session.createQuery(query).getResultList();
+        if (productStatsList.size() > 9) productStatsList = productStatsList.subList(0, 11);
+        return productStatsList;
     }
 
     @Override

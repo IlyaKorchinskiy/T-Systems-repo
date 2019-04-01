@@ -25,6 +25,7 @@
                     <thead>
                     <tr>
                         <th scope="col">Order ID</th>
+                        <th scope="col">User ID</th>
                         <th scope="col">Payment type</th>
                         <th scope="col">Delivery type</th>
                         <th scope="col">Payment status</th>
@@ -39,6 +40,7 @@
                     <c:forEach items="${orders}" var="order">
                         <tr>
                             <td>${order.id}</td>
+                            <td>${order.user.id}</td>
                             <td>${order.paymentType.paymentType}</td>
                             <td>${order.deliveryType.deliveryType}</td>
                             <td>${order.paymentStatus}</td>

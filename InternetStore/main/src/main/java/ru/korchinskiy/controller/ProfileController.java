@@ -3,12 +3,14 @@ package ru.korchinskiy.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.korchinskiy.dto.UserDto;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.UserService;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/profile")
@@ -24,9 +26,11 @@ public class ProfileController {
     }
 
     @PostMapping("/editUserInfo")
-    public String editUserInfo(@ModelAttribute("user") UserDto userDto,
+    public String editUserInfo(@Valid @ModelAttribute("user") UserDto userDto,
+                               BindingResult result,
                                Model model,
                                HttpSession session) {
+        if (result.hasErrors()) return "profile";
         Message message = userService.updateUser(userDto, session);
         UserDto user = userService.getUserById(userDto.getId());
         model.addAttribute("infoMessage", message);

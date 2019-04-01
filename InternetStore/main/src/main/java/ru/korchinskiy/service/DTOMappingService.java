@@ -70,4 +70,8 @@ public interface DTOMappingService {
 
     List<ProductStatsDto> convertToProductStatsDtoList(List<ProductStats> productStatsList);
 
+    UserStatsDto convertToUserStatsDto(UserStats userStats);
+
+    List<UserStatsDto> convertToUserStatsDtoList(List<UserStats> userStatsList);
+
 }

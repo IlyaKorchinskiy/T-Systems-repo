@@ -5,6 +5,7 @@ import ru.korchinskiy.entity.User;
 import ru.korchinskiy.enums.OrderStatus;
 import ru.korchinskiy.enums.PaymentStatus;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Data
@@ -17,5 +18,5 @@ public class OrderDto {
     private OrderStatus orderStatus;
     private String address;
     private Double sum;
-    private Date date;
+    private Instant date;
 }

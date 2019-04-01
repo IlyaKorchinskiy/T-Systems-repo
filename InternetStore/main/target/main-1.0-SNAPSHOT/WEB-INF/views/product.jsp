@@ -26,13 +26,15 @@
             <div class="col product-info">
                 <h2>${product.title}</h2>
                 <p class="description">${product.description}</p>
-                <ul class="nav">
+                <span>Genres:</span>
+                <ul class="nav genres">
                     <c:forEach items="${product.categories}" var="category">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">${category.title}</a>
+                            <a class="nav-link" href="${contextPath}/catalog?id=${category.id}">${category.title}</a>
                         </li>
                     </c:forEach>
                 </ul>
+                <p>Author: ${product.author}</p>
                 <p>Stock amount: ${product.amount}</p>
                 <div class="row price-buy">
                     <div class="col-lg-6 price">Price: <span>${product.cost} <i class="fas fa-ruble-sign"></i></span>
@@ -57,7 +59,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Product added successfully</p>
+                        <p id="addProductMessage"></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue shopping</button>
@@ -81,8 +83,9 @@
         integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
         crossorigin="anonymous"></script>
 <script>var contextPath = '${contextPath}'</script>
-<script src="<%=request.getContextPath()%>/resources/js/product.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/common.js"></script>
+<script>var sessionId = '${pageContext.session.getId()}'</script>
+<script src="${contextPath}/resources/js/product.js"></script>
+<script src="${contextPath}/resources/js/common.js"></script>
 
 </body>
 </html>

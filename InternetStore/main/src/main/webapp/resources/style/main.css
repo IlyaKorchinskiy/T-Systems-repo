@@ -74,6 +74,15 @@ html, body {
     text-align: center;
 }
 
+.header-content .search .btn{
+    background-color: #79b260;
+    color: #ffffff;
+}
+
+.header-content .search .btn:hover{
+    background-color: #6d6d6d;
+}
+
 .header-content .cart {
     text-align: center;
 }
@@ -267,6 +276,10 @@ html, body {
     text-align: left;
 }
 
+.product-info .genres {
+    margin-bottom: 20px;
+}
+
 .product-info .price-buy {
     margin: 20px 0 0 0;
     padding: 25px;
@@ -425,7 +438,7 @@ html, body {
 }
 
 .admin .content {
-    margin: 0 15px;
+    margin: 0 15px 30px 15px;
 }
 
 .admin .add-new-cat {

@@ -24,24 +24,24 @@
             <div class="col content stats">
                 <h4>Product TOP-10 sale</h4>
                 <div class="form-group row">
-                    <label for="monthInput" class="col-sm-3 col-form-label">Month</label>
+                    <label for="productsMonthInput" class="col-sm-3 col-form-label">Month</label>
                     <div class="col-sm-3">
-                        <select id="monthInput" class="form-control" onchange="changeMonth()">
+                        <select id="productsMonthInput" class="form-control" onchange="changePeriod('products')">
                             <c:forEach items="${months}" var="month">
                                 <option value="${month.id}">${month}</option>
                             </c:forEach>
                         </select>
                     </div>
-                    <label for="yearInput" class="col-sm-3 col-form-label">Year</label>
+                    <label for="productsYearInput" class="col-sm-3 col-form-label">Year</label>
                     <div class="col-sm-3">
-                        <select id="yearInput" class="form-control">
+                        <select id="productsYearInput" class="form-control" onchange="changePeriod('products')">
                             <c:forEach items="${years}" var="year">
                                 <option value="${year}">${year}</option>
                             </c:forEach>
                         </select>
                     </div>
                 </div>
-                <table id="productsTopTable" class="table">
+                <table id="productsTable" class="table">
                     <thead>
                     <tr>
                         <th scope="col">ID</th>
@@ -60,9 +60,87 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col content">
-
+            <div class="col content stats">
+                <h4>User TOP-10 sale</h4>
+                <div class="form-group row">
+                    <label for="usersMonthInput" class="col-sm-3 col-form-label">Month</label>
+                    <div class="col-sm-3">
+                        <select id="usersMonthInput" class="form-control" onchange="changePeriod('users')">
+                            <c:forEach items="${months}" var="month">
+                                <option value="${month.id}">${month}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <label for="usersYearInput" class="col-sm-3 col-form-label">Year</label>
+                    <div class="col-sm-3">
+                        <select id="usersYearInput" class="form-control" onchange="changePeriod('users')">
+                            <c:forEach items="${years}" var="year">
+                                <option value="${year}">${year}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+                <table id="usersTable" class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">User name</th>
+                        <th scope="col">Sum</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${userStatsList}" var="userStats">
+                        <tr>
+                            <td>${userStats.user.id}</td>
+                            <td class="title">${userStats.user.name} ${userStats.user.lastname}</td>
+                            <td>${userStats.sum}</td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col content stats">
+            <h4>Total</h4>
+            <div class="form-group row">
+                <label for="productsMonthInput" class="col-sm-3 col-form-label">Month</label>
+                <div class="col-sm-3">
+                    <select id="totalMonthInput" class="form-control" onchange="changePeriod('total')">
+                        <c:forEach items="${months}" var="month">
+                            <option value="${month.id}">${month}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+                <label for="productsYearInput" class="col-sm-3 col-form-label">Year</label>
+                <div class="col-sm-3">
+                    <select id="totalYearInput" class="form-control" onchange="changePeriod('total')">
+                        <c:forEach items="${years}" var="year">
+                            <option value="${year}">${year}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+            <table id="totalTable" class="table">
+                <thead>
+                <tr>
+                    <th scope="col">Indicator</th>
+                    <th scope="col">Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${indicators}" var="indicator">
+                    <tr>
+                        <td class="title">${indicator.name}</td>
+                        <td>${indicator.value}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="col content stats">
+
         </div>
     </div>
     <jsp:include page="footer.jsp"/>

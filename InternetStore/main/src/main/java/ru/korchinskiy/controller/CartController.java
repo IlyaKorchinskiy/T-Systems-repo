@@ -8,6 +8,7 @@ import ru.korchinskiy.dto.CartProductDto;
 import ru.korchinskiy.dto.DeliveryTypeDto;
 import ru.korchinskiy.dto.NewOrderDto;
 import ru.korchinskiy.dto.PaymentTypeDto;
+import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.UtilsService;
 
@@ -42,11 +43,11 @@ public class CartController {
 
     @PostMapping("/addToCart")
     @ResponseBody
-    public List<CartProductDto> addToCart(@RequestParam(name = "id") Long productId,
+    public Message addToCart(@RequestParam(name = "id") Long productId,
                                           @CookieValue(value = "sessionId", required = false) String sessionCookie,
                                           HttpServletRequest request) {
-        String sessionId = cartService.addProductToCartBySessionId(sessionCookie, request.getSession().getId(), productId);
-        return cartService.getCartProductsBySessionId(sessionId);
+        Message message = cartService.addProductToCartBySessionId(sessionCookie, request.getSession().getId(), productId);
+        return message;
     }
 
     @Autowired

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 
 <html>
@@ -23,50 +24,76 @@
                 <h2>Profile ${user.name} ${user.lastname}</h2>
                 <h4>Info</h4>
                 <c:if test="${not empty infoMessage && infoMessage.confirms.size() != 0}">
-                    <p id="infoMessage" class="confirm" hidden></p>
+                    <p id="infoMessage" class="confirm">${infoMessage.confirms.get(0)}</p>
                 </c:if>
-                <form id="userInfo" action="${contextPath}/profile/editUserInfo" method="post" modelAttribute="user">
-                    <input type="number" class="form-control" name="id" value="${user.id}" required hidden>
-                    <input type="text" class="form-control" name="password" value="${user.password}" required hidden>
+                <form:form id="userInfo" action="${contextPath}/profile/editUserInfo" method="post"
+                           modelAttribute="user">
+                    <form:errors cssClass="error"/>
+                    <form:input type="number" class="form-control" path="id" value="${user.id}" hidden="true"/>
                     <div class="form-group row">
                         <label for="nameInput" class="col-sm-3 col-form-label">Name</label>
                         <div class="col">
-                            <input type="text" class="form-control" id="nameInput" name="name"
-                                   value="${user.name}" placeholder="Name" required disabled>
+                            <form:input type="text" class="form-control" id="nameInput" path="name"
+                                        value="${user.name}" placeholder="Name" required="true" disabled="true"/>
+                            <form:errors path="name" cssClass="error"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="lastnameInput" class="col-sm-3 col-form-label">Last name</label>
                         <div class="col">
-                            <input type="text" class="form-control" id="lastnameInput" name="lastname"
-                                   value="${user.lastname}" placeholder="Last name" required disabled>
+                            <form:input type="text" class="form-control" id="lastnameInput" path="lastname"
+                                        value="${user.lastname}" placeholder="Last name" required="true"
+                                        disabled="true"/>
+                            <form:errors path="lastname" cssClass="error"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="phoneInput" class="col-sm-3 col-form-label">Phone number</label>
                         <div class="col">
-                            <input type="text" class="form-control" id="phoneInput" name="phoneNumber"
-                                   value="${user.phoneNumber}" placeholder="+79223556789" required disabled>
+                            <form:input type="tel" pattern="\+\d{11}" class="form-control" id="phoneInput"
+                                        path="phoneNumber" value="${user.phoneNumber}" placeholder="+79223556789"
+                                        disabled="true"/>
+                            <form:errors path="phoneNumber" cssClass="error"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="loginRegInput" class="col-sm-3 col-form-label">Login (e-mail)</label>
                         <div class="col">
-                            <input type="email" class="form-control" id="loginRegInput" name="email"
-                                   value="${user.email}" placeholder="E-mail" required disabled>
+                            <form:input type="email" class="form-control" id="loginRegInput" path="email"
+                                        value="${user.email}" placeholder="E-mail" disabled="true"/>
+                            <form:errors path="email" cssClass="error"/>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="birthInput" class="col-sm-3 col-form-label">Birthday</label>
                         <div class="col">
-                            <input type="date" class="form-control" id="birthInput" name="birthDay"
-                                   value="${user.birthday}" placeholder="" required disabled>
+                            <form:input type="date" class="form-control" id="birthInput" path="birthday"
+                                        value="${user.birthday}" required="true" disabled="true"/>
+                            <form:errors path="birthday" cssClass="error"/>
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="passwordInput" class="col-sm-3 col-form-label">Password</label>
+                        <div class="col">
+                            <form:input type="password" class="form-control" id="passwordInput" path="password"
+                                        value="${user.password}" required="true" disabled="true"/>
+                            <form:errors path="password" cssClass="error"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="matchingPasswordInput" class="col-sm-3 col-form-label">Repeat password</label>
+                        <div class="col">
+                            <form:input type="password" class="form-control" id="matchingPasswordInput"
+                                        path="matchingPassword" value="${user.password}" required="true"
+                                        disabled="true"/>
+                            <form:errors path="matchingPassword" cssClass="error"/>
+                        </div>
+                    </div>
+
                     <button id="editInfoBtn" type="button" class="btn btn-primary" onclick="editInfo()">Edit
                     </button>
                     <button id="updateInfoBtn" type="submit" class="btn btn-primary" disabled>Save</button>
-                </form>
+                </form:form>
                 <h4>Addresses</h4>
                 <c:if test="${not empty addressMessage && addressMessage.confirms.size() != 0}">
                     <p id="addressMessage" class="confirm">${addressMessage.confirms.get(0)}</p>

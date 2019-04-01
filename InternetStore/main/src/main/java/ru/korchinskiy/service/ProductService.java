@@ -15,6 +15,8 @@ public interface ProductService {
 
     List<ProductDto> getProductsByCategory(Long categoryId);
 
+    List<ProductDto> findProductsBySearch(String search);
+
     Message saveProduct(NewProductDto productDto, MultipartFile smPhoto, MultipartFile mdPhoto);
 
 }

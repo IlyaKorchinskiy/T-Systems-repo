@@ -5,6 +5,7 @@ import ru.korchinskiy.dto.*;
 import ru.korchinskiy.entity.*;
 import ru.korchinskiy.service.DTOMappingService;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +46,7 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         productDto.setId(product.getId());
         productDto.setCost(product.getCost());
         productDto.setTitle(product.getTitle());
+        productDto.setAuthor(product.getAuthor());
         productDto.setAmount(product.getAmount());
         productDto.setDescription(product.getDescription());
         productDto.setDate(product.getDate());
@@ -347,10 +349,29 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     public List<ProductStatsDto> convertToProductStatsDtoList(List<ProductStats> productStatsList) {
         List<ProductStatsDto> productStatsDtoList = new ArrayList<>();
         for (ProductStats productStats : productStatsList) {
-            ProductStatsDto productStatsDto = convertToProductStatsDto(productStats);
-            productStatsDtoList.add(productStatsDto);
+            productStatsDtoList.add(convertToProductStatsDto(productStats));
         }
         return productStatsDtoList;
+    }
+
+    @Override
+    public UserStatsDto convertToUserStatsDto(UserStats userStats) {
+        UserStatsDto userStatsDto = new UserStatsDto();
+        userStatsDto.setId(userStats.getId());
+        userStatsDto.setUser(convertToUserDto(userStats.getUser()));
+        userStatsDto.setSum(userStats.getSum());
+        userStatsDto.setMonth(userStats.getMonth());
+        userStatsDto.setYear(userStats.getYear());
+        return userStatsDto;
+    }
+
+    @Override
+    public List<UserStatsDto> convertToUserStatsDtoList(List<UserStats> userStatsList) {
+        List<UserStatsDto> userStatsDtoList = new ArrayList<>();
+        for (UserStats userStats : userStatsList) {
+            userStatsDtoList.add(convertToUserStatsDto(userStats));
+        }
+        return userStatsDtoList;
     }
 
 }

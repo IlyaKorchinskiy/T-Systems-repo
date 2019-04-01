@@ -5,6 +5,7 @@ import ru.korchinskiy.enums.OrderStatus;
 import ru.korchinskiy.enums.PaymentStatus;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.Date;
 
 @Entity
@@ -39,6 +40,6 @@ public class OrderHistory {
 
     private Double sum;
 
-    private Date date;
+    private Instant date;
 
 }

@@ -48,19 +48,36 @@
                     </div>
                 </div>
                 <div class="row justify-content-start product-list">
-                    <c:forEach items="${category.products}" var="product">
-                        <div class="col">
-                            <div class="card">
-                                <a href="catalog/product/${product.id}">
-                                    <img src="${contextPath}/resources/img/${product.photoSm}" class="card-img-top" alt="product_photo">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${product.title}</h5>
-                                        <p class="card-text">${product.cost} <i class="fas fa-ruble-sign"></i></p>
-                                    </div>
-                                </a>
+                    <c:if test="${empty category}">
+                        <c:forEach items="${products}" var="product">
+                            <div class="col">
+                                <div class="card">
+                                    <a href="catalog/product/${product.id}">
+                                        <img src="${contextPath}/resources/img/${product.photoSm}" class="card-img-top" alt="product_photo">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${product.title}</h5>
+                                            <p class="card-text">${product.cost} <i class="fas fa-ruble-sign"></i></p>
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    </c:forEach>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${not empty category}">
+                        <c:forEach items="${category.products}" var="product">
+                            <div class="col">
+                                <div class="card">
+                                    <a href="catalog/product/${product.id}">
+                                        <img src="${contextPath}/resources/img/${product.photoSm}" class="card-img-top" alt="product_photo">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${product.title}</h5>
+                                            <p class="card-text">${product.cost} <i class="fas fa-ruble-sign"></i></p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </c:if>
                 </div>
             </div>
         </div>
