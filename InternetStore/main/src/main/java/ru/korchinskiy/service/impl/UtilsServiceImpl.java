@@ -4,12 +4,12 @@ import org.springframework.stereotype.Service;
 import ru.korchinskiy.dto.CartProductDto;
 import ru.korchinskiy.service.UtilsService;
 
-import java.util.List;
+import java.util.Set;
 
 @Service
 public class UtilsServiceImpl implements UtilsService {
     @Override
-    public Double getCartSum(List<CartProductDto> cartProducts) {
+    public Double getCartSum(Set<CartProductDto> cartProducts) {
         double sum = 0;
         for (CartProductDto cartProduct : cartProducts) {
             sum += cartProduct.getSum();

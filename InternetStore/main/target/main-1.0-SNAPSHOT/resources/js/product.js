@@ -19,13 +19,15 @@ function addToCart(id) {
             }
         } else {
             messageP.innerText = message.confirms[0];
+            
+            var date = new Date();
+            date.setDate(date.getDate() + 30);
+            document.cookie = "sessionId=" + sessionId + "; path=/; expires=" + date.toUTCString();
+
+            getCart(contextPath);
         }
 
-        var date = new Date();
-        date.setDate(date.getDate() + 30);
-        document.cookie = "sessionId=" + sessionId + "; path=/; expires=" + date.toUTCString();
 
-        getCart(contextPath);
     });
 }
 
