@@ -7,9 +7,6 @@ import ru.korchinskiy.validation.PhoneNumber;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Date;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
 
 @Data

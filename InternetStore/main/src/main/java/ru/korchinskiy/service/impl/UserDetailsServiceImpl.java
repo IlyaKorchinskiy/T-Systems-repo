@@ -22,8 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserDto userDto = userService.getUserByEmail(email);
-        if (userDto == null)
-            throw new UsernameNotFoundException("Пользователь с почтой" + email + " не найден");
         List<RoleDto> roles = userDto.getRoles();
         List<GrantedAuthority> grantList = new ArrayList<>();
         if (roles != null) {

@@ -1,11 +1,13 @@
 package ru.korchinskiy.service.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.korchinskiy.dao.*;
 import ru.korchinskiy.dto.*;
 import ru.korchinskiy.entity.*;
+import ru.korchinskiy.enums.DeliveryType;
 import ru.korchinskiy.enums.OrderStatus;
 import ru.korchinskiy.enums.PaymentStatus;
 import ru.korchinskiy.message.Message;
@@ -22,11 +24,11 @@ import java.util.List;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+    private static Logger logger = Logger.getLogger(OrderServiceImpl.class);
+
     private ProductDAO productDAO;
     private OrderDAO orderDAO;
     private DTOMappingService dtoMappingService;
-    private PaymentTypeDAO paymentTypeDAO;
-    private DeliveryTypeDAO deliveryTypeDAO;
     private UserDAO userDAO;
     private OrderProductDAO orderProductDAO;
     private OrderHistoryDAO orderHistoryDAO;
@@ -74,57 +76,74 @@ public class OrderServiceImpl implements OrderService {
     public Message saveOrder(NewOrderDto orderDto, HttpSession session,
                              String cookieSession) {
         Message message = new Message();
-//        get cart
         List<CartProductDto> cartProducts = cartService.getCartProductsBySessionId(cookieSession);
         if (cartProducts.size() == 0) {
             message.getErrors().add(Message.CART_IS_EMPTY);
+            logger.info(Message.CART_IS_EMPTY);
             return message;
         }
-//        reduce product amounts
         List<Product> products = new ArrayList<>();
         for (CartProductDto cartProductDto : cartProducts) {
             Product product = productDAO.getProductForUpdate(cartProductDto.getProduct().getId());
-            if (cartProductDto.getAmount() > product.getAmount()) {
-                message.getErrors().add(Message.PRODUCT_NOT_ENOUGH + " " + cartProductDto.getProduct().getTitle());
-                return message;
-            }
-            product.setAmount(product.getAmount() - cartProductDto.getAmount());
             products.add(product);
         }
-        Order order = createNewOrder(orderDto, session, cartProducts);
+        if (!checkForAmounts(cartProducts, products)) {
+            message.getErrors().add(Message.PRODUCT_NOT_ENOUGH);
+            logger.info(Message.PRODUCT_NOT_ENOUGH);
+            return message;
+        }
+        reduceProductAmounts(cartProducts, products);
+        User user = userDAO.getUserById(((UserDto) session.getAttribute("user")).getId());
+        Order order = createNewOrder(orderDto, user);
         orderDAO.saveOrder(order);
-        saveOrderHistory(order);
-        saveOrderProducts(cartProducts, products, order);
+        OrderHistory orderHistory = createOrderHistory(order);
+        orderHistoryDAO.saveOrderHistory(orderHistory);
+        for (int i = 0; i < cartProducts.size(); i++) {
+            OrderProduct orderProduct = createOrderProduct(cartProducts.get(i), products.get(i), order);
+            orderProductDAO.saveOrderProduct(orderProduct);
+        }
         cartService.cleanCart(cookieSession);
         message.getConfirms().add(Message.ORDER_SAVE_SUCCESS + " ID " + order.getId());
+        logger.info(Message.ORDER_SAVE_SUCCESS);
         return message;
     }
 
-    private Order createNewOrder(NewOrderDto orderDto, HttpSession session, List<CartProductDto> cartProducts) {
-        Order order = new Order();
-        order.setUser(userDAO.getUserById(((UserDto) session.getAttribute("user")).getId()));
-        order.setPaymentType(paymentTypeDAO.getPaymentTypeById(orderDto.getPaymentTypeId()));
-        order.setDeliveryType(deliveryTypeDAO.getDeliveryTypeById(orderDto.getDeliveryTypeId()));
-        order.setPaymentStatus(PaymentStatus.WAITING_FOR_PAYMENT);
-        order.setOrderStatus(OrderStatus.NEW);
-        order.setAddress((orderDto.getDeliveryTypeId() == 1L) ? orderDto.getAddress() : orderDto.getPickupAddress());
-        order.setDate(Clock.systemUTC().instant());
-        order.setSum(cartProducts.stream().map(CartProductDto::getSum).reduce(0.0, (acc, x) -> acc + x));
-        return order;
-    }
-
-    private void saveOrderProducts(List<CartProductDto> cartProducts, List<Product> products, Order order) {
-        for (int i = 0; i < products.size(); i++) {
-            OrderProduct orderProduct = new OrderProduct();
-            orderProduct.setOrder(order);
-            orderProduct.setProduct(products.get(i));
-            orderProduct.setCost(cartProducts.get(i).getProduct().getCost());
-            orderProduct.setAmount(cartProducts.get(i).getAmount());
-            orderProductDAO.saveOrderProduct(orderProduct);
+    private void reduceProductAmounts(List<CartProductDto> cartProducts, List<Product> products) {
+        for (int i = 0; i < cartProducts.size(); i++) {
+            products.get(i).setAmount(products.get(i).getAmount() - cartProducts.get(i).getAmount());
         }
     }
 
-    private void saveOrderHistory(Order order) {
+    public boolean checkForAmounts(List<CartProductDto> cartProducts, List<Product> products) {
+        for (int i = 0; i < cartProducts.size(); i++) {
+            if (cartProducts.get(i).getAmount() > products.get(i).getAmount()) return false;
+        }
+        return true;
+    }
+
+    public Order createNewOrder(NewOrderDto orderDto, User user) {
+        Order order = new Order();
+        order.setUser(user);
+        order.setPaymentType(orderDto.getPaymentType());
+        order.setDeliveryType(orderDto.getDeliveryType());
+        order.setPaymentStatus(PaymentStatus.WAITING_FOR_PAYMENT);
+        order.setOrderStatus(OrderStatus.NEW);
+        order.setAddress((orderDto.getDeliveryType() == DeliveryType.DELIVERY) ? orderDto.getAddress() : orderDto.getPickupAddress());
+        order.setDate(Clock.systemUTC().instant());
+        order.setSum(orderDto.getSum());
+        return order;
+    }
+
+    public OrderProduct createOrderProduct(CartProductDto cartProduct, Product product, Order order) {
+        OrderProduct orderProduct = new OrderProduct();
+        orderProduct.setOrder(order);
+        orderProduct.setProduct(product);
+        orderProduct.setCost(cartProduct.getProduct().getCost());
+        orderProduct.setAmount(cartProduct.getAmount());
+        return orderProduct;
+    }
+
+    public OrderHistory createOrderHistory(Order order) {
         OrderHistory orderHistory = new OrderHistory();
         orderHistory.setOrder(order);
         orderHistory.setPaymentType(order.getPaymentType());
@@ -134,7 +153,7 @@ public class OrderServiceImpl implements OrderService {
         orderHistory.setAddress(order.getAddress());
         orderHistory.setDate(Clock.systemUTC().instant());
         orderHistory.setSum(order.getSum());
-        orderHistoryDAO.saveOrderHistory(orderHistory);
+        return orderHistory;
     }
 
     @Override
@@ -142,7 +161,8 @@ public class OrderServiceImpl implements OrderService {
     public Message updateOrderStatus(Long orderId, OrderStatus orderStatus) {
         Order order = orderDAO.getOrderById(orderId);
         order.setOrderStatus(orderStatus);
-        saveOrderHistory(order);
+        OrderHistory orderHistory = createOrderHistory(order);
+        orderHistoryDAO.saveOrderHistory(orderHistory);
         if (orderStatus.equals(OrderStatus.DELIVERED)) {
             List<OrderProduct> orderProducts = orderProductDAO.getOrderProductsByOrderId(orderId);
             saveProductStats(orderProducts);
@@ -150,6 +170,7 @@ public class OrderServiceImpl implements OrderService {
         }
         Message message = new Message();
         message.getConfirms().add(Message.ORDER_STATUS_UPDATE_SUCCESS);
+        logger.info(Message.ORDER_STATUS_UPDATE_SUCCESS);
         return message;
     }
 
@@ -200,16 +221,6 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     public void setDtoMappingService(DTOMappingService dtoMappingService) {
         this.dtoMappingService = dtoMappingService;
-    }
-
-    @Autowired
-    public void setPaymentTypeDAO(PaymentTypeDAO paymentTypeDAO) {
-        this.paymentTypeDAO = paymentTypeDAO;
-    }
-
-    @Autowired
-    public void setDeliveryTypeDAO(DeliveryTypeDAO deliveryTypeDAO) {
-        this.deliveryTypeDAO = deliveryTypeDAO;
     }
 
     @Autowired

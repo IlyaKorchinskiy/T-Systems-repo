@@ -1,16 +1,15 @@
 package ru.korchinskiy.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "user")
 @Data
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +39,18 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private List<Role> roles;
+
+    public User(Long id, String name, String lastname, String birthday, String email, String password, String phoneNumber, List<Address> addresses, List<Role> roles) {
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.birthday = birthday;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.addresses = addresses;
+        this.roles = roles;
+    }
 
     @Override
     public String toString() {

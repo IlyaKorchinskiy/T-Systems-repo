@@ -1,5 +1,6 @@
 package ru.korchinskiy.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,8 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/profile")
 public class ProfileController {
+    private static final Logger logger = Logger.getLogger(ProfileController.class);
+
     private UserService userService;
 
     @GetMapping
@@ -30,7 +33,10 @@ public class ProfileController {
                                BindingResult result,
                                Model model,
                                HttpSession session) {
-        if (result.hasErrors()) return "profile";
+        if (result.hasErrors()) {
+            logger.info(Message.VALIDATION_EDIT_USER_FAIL);
+            return "profile";
+        }
         Message message = userService.updateUser(userDto, session);
         UserDto user = userService.getUserById(userDto.getId());
         model.addAttribute("infoMessage", message);

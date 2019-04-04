@@ -5,7 +5,6 @@ import ru.korchinskiy.dto.*;
 import ru.korchinskiy.entity.*;
 import ru.korchinskiy.service.DTOMappingService;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -114,7 +113,7 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
-    public CategoryTreeDto convertToCategoryWithSubcategoriesDto(Category category) {
+    public CategoryTreeDto convertToCategoryTreeDto(Category category) {
         CategoryTreeDto categoryDto = new CategoryTreeDto();
         categoryDto.setId(category.getId());
         categoryDto.setTitle(category.getTitle());
@@ -124,22 +123,11 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
-    public List<CategoryTreeDto> convertToCategoryWithSubcategoriesDtoList(List<Category> categories) {
+    public List<CategoryTreeDto> convertToCategoryTreeDtoList(List<Category> categories) {
         List<CategoryTreeDto> categoryDtos = new ArrayList<>();
         for (Category category : categories) {
-            CategoryTreeDto categoryDto = convertToCategoryWithSubcategoriesDto(category);
+            CategoryTreeDto categoryDto = convertToCategoryTreeDto(category);
             categoryDtos.add(categoryDto);
-        }
-        for (int i = 0; i < categoryDtos.size(); i++) {
-            if (!categoryDtos.get(i).getParentId().equals(CategoryServiceImpl.ROOT_CATEGORY)) {
-                for (int j = 0; j < categoryDtos.size(); j++) {
-                    if (categoryDtos.get(i).getParentId().equals(categoryDtos.get(j).getId())) {
-                        categoryDtos.get(j).getSubcategories().add(categoryDtos.get(i));
-                        categoryDtos.remove(i--);
-                        break;
-                    }
-                }
-            }
         }
         return categoryDtos;
     }
@@ -235,46 +223,12 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     }
 
     @Override
-    public PaymentTypeDto convertToPaymentTypeDto(PaymentType paymentType) {
-        PaymentTypeDto paymentTypeDto = new PaymentTypeDto();
-        paymentTypeDto.setId(paymentType.getId());
-        paymentTypeDto.setPaymentType(paymentType.getPaymentType());
-        return paymentTypeDto;
-    }
-
-    @Override
-    public List<PaymentTypeDto> convertToPaymentTypeDtoList(List<PaymentType> paymentTypes) {
-        List<PaymentTypeDto> paymentTypeDtos = new ArrayList<>();
-        for (PaymentType paymentType : paymentTypes) {
-            paymentTypeDtos.add(convertToPaymentTypeDto(paymentType));
-        }
-        return paymentTypeDtos;
-    }
-
-    @Override
-    public DeliveryTypeDto convertToDeliverTypeDto(DeliveryType deliveryType) {
-        DeliveryTypeDto deliveryTypeDto = new DeliveryTypeDto();
-        deliveryTypeDto.setId(deliveryType.getId());
-        deliveryTypeDto.setDeliveryType(deliveryType.getDeliveryType());
-        return deliveryTypeDto;
-    }
-
-    @Override
-    public List<DeliveryTypeDto> convertToDeliveryTypeDtoList(List<DeliveryType> deliveryTypes) {
-        List<DeliveryTypeDto> deliveryTypeDtos = new ArrayList<>();
-        for (DeliveryType deliveryType : deliveryTypes) {
-            deliveryTypeDtos.add(convertToDeliverTypeDto(deliveryType));
-        }
-        return deliveryTypeDtos;
-    }
-
-    @Override
     public OrderDto convertToOrderDto(Order order) {
         OrderDto orderDto = new OrderDto();
         orderDto.setId(order.getId());
-        orderDto.setUser(order.getUser());
-        orderDto.setPaymentType(convertToPaymentTypeDto(order.getPaymentType()));
-        orderDto.setDeliveryType(convertToDeliverTypeDto(order.getDeliveryType()));
+        orderDto.setUser(convertToUserDto(order.getUser()));
+        orderDto.setPaymentType(order.getPaymentType());
+        orderDto.setDeliveryType(order.getDeliveryType());
         orderDto.setPaymentStatus(order.getPaymentStatus());
         orderDto.setOrderStatus(order.getOrderStatus());
         orderDto.setAddress(order.getAddress());
@@ -315,8 +269,8 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     public OrderHistoryDto convertToOrderHistoryDto(OrderHistory orderHistory) {
         OrderHistoryDto orderHistoryDto = new OrderHistoryDto();
         orderHistoryDto.setId(orderHistory.getId());
-        orderHistoryDto.setPaymentType(convertToPaymentTypeDto(orderHistory.getPaymentType()));
-        orderHistoryDto.setDeliveryType(convertToDeliverTypeDto(orderHistory.getDeliveryType()));
+        orderHistoryDto.setPaymentType(orderHistory.getPaymentType());
+        orderHistoryDto.setDeliveryType(orderHistory.getDeliveryType());
         orderHistoryDto.setPaymentStatus(orderHistory.getPaymentStatus());
         orderHistoryDto.setOrderStatus(orderHistory.getOrderStatus());
         orderHistoryDto.setAddress(orderHistory.getAddress());

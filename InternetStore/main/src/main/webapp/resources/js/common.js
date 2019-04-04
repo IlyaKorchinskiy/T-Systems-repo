@@ -2,6 +2,8 @@
 
 var xhr = new XMLHttpRequest();
 
+var cartContent = document.getElementById('cart-content');
+
 function getCart(contextPath) {
     xhr.open('GET', contextPath + '/cart/getCart', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -11,10 +13,11 @@ function getCart(contextPath) {
             console.log('Error', xhr.status, xhr.statusText);
         } else {
             console.log('Ok', xhr.statusText);
-
-            if (xhr.responseText === '') return;
+            if (xhr.responseText === '') {
+                cartContent.innerHTML = '<p>Cart is empty</p>';
+                return;
+            }
             var cart = JSON.parse(xhr.responseText);
-
             renderCart(cart);
         }
     }
@@ -30,8 +33,6 @@ function renderCart(cart) {
         }
         badge.innerText = amount;
     }
-
-    var cartContent = document.getElementById('cart-content');
     if (cart.length === 0) {
         cartContent.innerHTML = '<p>Cart is empty</p>';
     } else {

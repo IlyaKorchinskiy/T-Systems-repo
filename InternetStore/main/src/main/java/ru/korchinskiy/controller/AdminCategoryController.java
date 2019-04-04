@@ -19,7 +19,7 @@ public class AdminCategoryController {
 
     @GetMapping
     public String categoriesList(Model model) {
-        List<CategoryTreeDto> categories = categoryService.getCategoriesWithSubcategories();
+        List<CategoryTreeDto> categories = categoryService.getCategoryTree();
         List<CategoryDto> allCategories = categoryService.getAllCategories();
         model.addAttribute("categories", new Gson().toJson(categories));
         model.addAttribute("allCategories", allCategories);
@@ -38,7 +38,7 @@ public class AdminCategoryController {
     public String editCategory(@ModelAttribute("category") CategoryDto categoryDto,
                                Model model) {
         Message message = categoryService.updateCategory(categoryDto);
-        List<CategoryTreeDto> categories = categoryService.getCategoriesWithSubcategories();
+        List<CategoryTreeDto> categories = categoryService.getCategoryTree();
         List<CategoryDto> allCategories = categoryService.getAllCategories();
         model.addAttribute("categories", new Gson().toJson(categories));
         model.addAttribute("allCategories", allCategories);
@@ -51,7 +51,7 @@ public class AdminCategoryController {
     public String addCategory(@ModelAttribute(name = "category") CategoryDto categoryDto,
                               Model model) {
         Message message = categoryService.saveCategory(categoryDto);
-        List<CategoryTreeDto> categories = categoryService.getCategoriesWithSubcategories();
+        List<CategoryTreeDto> categories = categoryService.getCategoryTree();
         List<CategoryDto> allCategories = categoryService.getAllCategories();
         model.addAttribute("categories", new Gson().toJson(categories));
         model.addAttribute("allCategories", allCategories);
@@ -64,7 +64,7 @@ public class AdminCategoryController {
     public String deleteCategory(@PathVariable("id") Long categoryId,
                                  Model model) {
         Message message = categoryService.removeCategory(categoryId);
-        List<CategoryTreeDto> categories = categoryService.getCategoriesWithSubcategories();
+        List<CategoryTreeDto> categories = categoryService.getCategoryTree();
         List<CategoryDto> allCategories = categoryService.getAllCategories();
         model.addAttribute("categories", new Gson().toJson(categories));
         model.addAttribute("allCategories", allCategories);

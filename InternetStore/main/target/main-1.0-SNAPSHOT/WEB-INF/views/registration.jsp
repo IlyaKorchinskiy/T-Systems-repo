@@ -67,9 +67,9 @@
                                 <form:errors path="email" cssClass="error"/>
                             </div>
                             <div class="form-group">
-                            <label for="birthInput">Birthday</label>
-                            <form:input type="date" class="form-control" id="birthInput" path="birthday"
-                            value="${user.birthday}" required="true"/>
+                                <label for="birthInput">Birthday</label>
+                                <form:input type="date" class="form-control" id="birthInput" path="birthday"
+                                            value="${user.birthday}" required="true"/>
                             </div>
                             <div class="form-group">
                                 <label for="passwordRegInput">Password</label>

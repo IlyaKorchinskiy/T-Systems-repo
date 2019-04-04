@@ -1,15 +1,17 @@
 package ru.korchinskiy.service.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.korchinskiy.dao.*;
+import ru.korchinskiy.dao.CartDAO;
+import ru.korchinskiy.dao.CartProductDAO;
+import ru.korchinskiy.dao.ProductDAO;
 import ru.korchinskiy.dto.CartDto;
 import ru.korchinskiy.dto.CartProductDto;
-import ru.korchinskiy.dto.DeliveryTypeDto;
-import ru.korchinskiy.dto.PaymentTypeDto;
-import ru.korchinskiy.entity.*;
-import ru.korchinskiy.exception.NotEnoughProductException;
+import ru.korchinskiy.entity.Cart;
+import ru.korchinskiy.entity.CartProduct;
+import ru.korchinskiy.entity.Product;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.DTOMappingService;
@@ -18,11 +20,11 @@ import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
+    private static Logger logger = Logger.getLogger(CartServiceImpl.class);
+
     private CartDAO cartDAO;
     private ProductDAO productDAO;
     private CartProductDAO cartProductDAO;
-    private PaymentTypeDAO paymentTypeDAO;
-    private DeliveryTypeDAO deliveryTypeDAO;
     private DTOMappingService dtoMappingService;
 
     @Override
@@ -50,11 +52,12 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public Message addProductToCartBySessionId(String cookieSession, String sessionId, Long productId) {
+    public Message addProductToCart(String cookieSession, String sessionId, Long productId) {
         Message message = new Message();
         Product product = productDAO.getProductById(productId);
         if (product.getAmount() == 0) {
             message.getErrors().add(Message.PRODUCT_NOT_ENOUGH);
+            logger.info(Message.PRODUCT_NOT_ENOUGH);
             return message;
         }
         Cart cart;
@@ -72,30 +75,17 @@ public class CartServiceImpl implements CartService {
             CartProduct cartProduct = cartProductDAO.getCartProductByCartIdAndProductId(cart.getId(), productId);
             if (cartProduct != null) {
                 cartProduct.setAmount(cartProduct.getAmount() + 1);
-
+            } else {
+                cartProduct = new CartProduct();
+                cartProduct.setCart(cart);
+                cartProduct.setProduct(product);
+                cartProduct.setAmount(1);
+                cartProductDAO.saveCartProduct(cartProduct);
             }
-            cartProduct = new CartProduct();
-            cartProduct.setCart(cart);
-            cartProduct.setProduct(product);
-            cartProduct.setAmount(1);
-            cartProductDAO.saveCartProduct(cartProduct);
         }
-        message.getConfirms().add(Message.PRODUCT_ADD_SUCCESS);
+        message.getConfirms().add(Message.PRODUCT_ADD_TO_CART_SUCCESS);
+        logger.info(Message.PRODUCT_ADD_TO_CART_SUCCESS);
         return message;
-    }
-
-    @Override
-    @Transactional
-    public List<PaymentTypeDto> getPaymentTypes() {
-        List<PaymentType> paymentTypes = paymentTypeDAO.getAllPaymentTypes();
-        return dtoMappingService.convertToPaymentTypeDtoList(paymentTypes);
-    }
-
-    @Override
-    @Transactional
-    public List<DeliveryTypeDto> getDeliveryTypes() {
-        List<DeliveryType> deliveryTypes = deliveryTypeDAO.getAllDeliveryTypes();
-        return dtoMappingService.convertToDeliveryTypeDtoList(deliveryTypes);
     }
 
     @Override
@@ -121,16 +111,6 @@ public class CartServiceImpl implements CartService {
     @Autowired
     public void setCartProductDAO(CartProductDAO cartProductDAO) {
         this.cartProductDAO = cartProductDAO;
-    }
-
-    @Autowired
-    public void setPaymentTypeDAO(PaymentTypeDAO paymentTypeDAO) {
-        this.paymentTypeDAO = paymentTypeDAO;
-    }
-
-    @Autowired
-    public void setDeliveryTypeDAO(DeliveryTypeDAO deliveryTypeDAO) {
-        this.deliveryTypeDAO = deliveryTypeDAO;
     }
 
     @Autowired

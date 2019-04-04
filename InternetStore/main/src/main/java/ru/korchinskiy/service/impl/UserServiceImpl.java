@@ -1,5 +1,6 @@
 package ru.korchinskiy.service.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,22 +20,13 @@ import ru.korchinskiy.service.OrderService;
 import ru.korchinskiy.service.UserService;
 
 import javax.servlet.http.HttpSession;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private static final String USER_ALREADY_EXISTS = "User with this e-mail already exists";
-    private static final String USER_ADD_SUCCESS = "User successfully registered";
-    private static final String USER_UPDATE_SUCCESS = "Info successfully updated";
     private static final Long ROLE_CLIENT = 1L;
-    private static final String USER_ADDRESS_DELETE_SUCCESS = "Address deleted successfully";
-    private static final String USER_ADDRESS_UPDATE_SUCCESS = "Address updated successfully";
-    private static final String USER_ADDRESS_ADD_SUCCESS = "Address added successfully";
-
+    private static Logger logger = Logger.getLogger(UserServiceImpl.class);
     private BCryptPasswordEncoder passwordEncoder;
 
     private UserDAO userDAO;
@@ -66,7 +58,8 @@ public class UserServiceImpl implements UserService {
     public Message addUser(UserDto userDto) {
         Message message = new Message();
         if (userDAO.getUserByEmail(userDto.getEmail()) != null) {
-            message.getErrors().add(USER_ALREADY_EXISTS);
+            message.getErrors().add(Message.USER_ALREADY_EXISTS);
+            logger.info(Message.USER_ALREADY_EXISTS);
             return message;
         }
         User user = dtoMappingService.convertToUser(userDto);
@@ -75,7 +68,8 @@ public class UserServiceImpl implements UserService {
         roles.add(roleDAO.getRoleById(ROLE_CLIENT));
         user.setRoles(roles);
         userDAO.saveUser(user);
-        message.getConfirms().add(USER_ADD_SUCCESS);
+        message.getConfirms().add(Message.USER_ADD_SUCCESS);
+        logger.info(Message.USER_ADD_SUCCESS);
         return message;
     }
 
@@ -90,8 +84,8 @@ public class UserServiceImpl implements UserService {
         user.setBirthday(userDto.getBirthday());
         user.setPhoneNumber(userDto.getPhoneNumber());
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
-        userDAO.updateUser(user);
-        message.getConfirms().add(USER_UPDATE_SUCCESS);
+        message.getConfirms().add(Message.USER_UPDATE_SUCCESS);
+        logger.info(Message.USER_UPDATE_SUCCESS);
         return message;
     }
 
@@ -108,7 +102,8 @@ public class UserServiceImpl implements UserService {
         List<Address> addresses = user.getAddresses();
         addresses.add(address);
         user.setAddresses(addresses);
-        message.getConfirms().add(USER_ADDRESS_ADD_SUCCESS);
+        message.getConfirms().add(Message.USER_ADDRESS_ADD_SUCCESS);
+        logger.info(Message.USER_ADDRESS_ADD_SUCCESS);
         return message;
     }
 
@@ -125,7 +120,8 @@ public class UserServiceImpl implements UserService {
         }
         user.setAddresses(addresses);
         Message message = new Message();
-        message.getConfirms().add(USER_ADDRESS_DELETE_SUCCESS);
+        message.getConfirms().add(Message.USER_ADDRESS_DELETE_SUCCESS);
+        logger.info(Message.USER_ADDRESS_DELETE_SUCCESS);
         return message;
     }
 
@@ -148,7 +144,8 @@ public class UserServiceImpl implements UserService {
         addresses.add(newAddress);
         user.setAddresses(addresses);
         Message message = new Message();
-        message.getConfirms().add(USER_ADDRESS_UPDATE_SUCCESS);
+        message.getConfirms().add(Message.USER_ADDRESS_UPDATE_SUCCESS);
+        logger.info(Message.USER_ADDRESS_UPDATE_SUCCESS);
         return message;
     }
 

@@ -5,9 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.korchinskiy.dto.CartProductDto;
-import ru.korchinskiy.dto.DeliveryTypeDto;
 import ru.korchinskiy.dto.NewOrderDto;
-import ru.korchinskiy.dto.PaymentTypeDto;
+import ru.korchinskiy.enums.DeliveryType;
+import ru.korchinskiy.enums.PaymentType;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.UtilsService;
@@ -24,13 +24,10 @@ public class CartController {
     public String showCartPage(@CookieValue(value = "sessionId", required = false) String sessionCookie,
                                Model model) {
         List<CartProductDto> cartProducts = cartService.getCartProductsBySessionId(sessionCookie);
-        List<PaymentTypeDto> paymentTypes = cartService.getPaymentTypes();
-        List<DeliveryTypeDto> deliveryTypes = cartService.getDeliveryTypes();
-        Double sum = UtilsService.getCartSum(cartProducts);
         model.addAttribute("cartProducts", cartProducts);
-        model.addAttribute("paymentTypes", paymentTypes);
-        model.addAttribute("deliveryTypes", deliveryTypes);
-        model.addAttribute("sum", sum);
+        model.addAttribute("paymentTypes", PaymentType.values());
+        model.addAttribute("deliveryTypes", DeliveryType.values());
+        model.addAttribute("sum", UtilsService.getCartSum(cartProducts));
         model.addAttribute("order", new NewOrderDto());
         return "cart";
     }
@@ -44,9 +41,9 @@ public class CartController {
     @PostMapping("/addToCart")
     @ResponseBody
     public Message addToCart(@RequestParam(name = "id") Long productId,
-                                          @CookieValue(value = "sessionId", required = false) String sessionCookie,
-                                          HttpServletRequest request) {
-        Message message = cartService.addProductToCartBySessionId(sessionCookie, request.getSession().getId(), productId);
+                             @CookieValue(value = "sessionId", required = false) String sessionCookie,
+                             HttpServletRequest request) {
+        Message message = cartService.addProductToCart(sessionCookie, request.getSession().getId(), productId);
         return message;
     }
 

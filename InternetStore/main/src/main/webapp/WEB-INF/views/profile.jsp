@@ -95,9 +95,7 @@
                     <button id="updateInfoBtn" type="submit" class="btn btn-primary" disabled>Save</button>
                 </form:form>
                 <h4>Addresses</h4>
-                <c:if test="${not empty addressMessage && addressMessage.confirms.size() != 0}">
-                    <p id="addressMessage" class="confirm">${addressMessage.confirms.get(0)}</p>
-                </c:if>
+                <p id="addressMessage" class="confirm" hidden>${addressMessage.confirms.get(0)}</p>
                 <c:forEach items="${user.addresses}" var="address">
                     <div id="address${address.id}" class="form-group">
                         <input type="text" class="form-control" id="addressInput${address.id}" name="address"
