@@ -44,6 +44,7 @@ public class CatalogController {
         List<ProductDto> products = productService.findProductsBySearch(search);
         model.addAttribute("mainCategories", mainCategories);
         model.addAttribute("products", products);
+        model.addAttribute("search", search);
         return "catalog";
     }
 

@@ -4,10 +4,10 @@ window.onload = function () {
     console.log(document.cookie);
     getCart(contextPath);
 
-    var deliveryType = document.getElementById('deliveryType' + deliveryTypeId);
-    if (deliveryType !== null) deliveryType.checked = true;
-    var paymentType = document.getElementById('paymentType' + paymentTypeId);
-    if (paymentType !== null) paymentType.checked = true;
+    var deliveryTypeInput = document.getElementById('deliveryType-' + deliveryType);
+    if (deliveryTypeInput !== null) deliveryTypeInput.checked = true;
+    var paymentTypeInput = document.getElementById('paymentType-' + paymentType);
+    if (paymentTypeInput !== null) paymentTypeInput.checked = true;
 }
 
 function showAddressInput() {

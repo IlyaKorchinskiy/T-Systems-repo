@@ -44,13 +44,13 @@
                             <div class="form-group">
                                 <label for="nameInput">Your name</label>
                                 <form:input type="text" class="form-control" id="nameInput" path="name"
-                                            value="${user.name}" placeholder="Name" autofocus="true" required="true"/>
+                                            value="${user.name}" placeholder="Name" autofocus="true"/>
                                 <form:errors path="name" cssClass="error"/>
                             </div>
                             <div class="form-group">
                                 <label for="lastnameInput">Last name</label>
                                 <form:input type="text" class="form-control" id="lastnameInput" path="lastname"
-                                            value="${user.lastname}" placeholder="Last name" required="true"/>
+                                            value="${user.lastname}" placeholder="Last name"/>
                                 <form:errors path="lastname" cssClass="error"/>
                             </div>
                             <div class="form-group">
@@ -63,24 +63,25 @@
                             <div class="form-group">
                                 <label for="loginRegInput">Login (e-mail)</label>
                                 <form:input type="email" class="form-control" id="loginRegInput" path="email"
-                                            value="${user.email}" placeholder="E-mail" required="true"/>
+                                            value="${user.email}" placeholder="E-mail"/>
                                 <form:errors path="email" cssClass="error"/>
                             </div>
                             <div class="form-group">
-                            <label for="birthInput">Birthday</label>
-                            <form:input type="date" class="form-control" id="birthInput" path="birthday"
-                            value="${user.birthday}" required="true"/>
+                                <label for="birthInput">Birthday</label>
+                                <form:input type="date" class="form-control" id="birthInput" path="birthday"
+                                            value="${user.birthday}"/>
+                                <form:errors path="birthday" cssClass="error"/>
                             </div>
                             <div class="form-group">
                                 <label for="passwordRegInput">Password</label>
                                 <form:input type="password" class="form-control" id="passwordRegInput"
-                                            path="password" placeholder="Password" required="true"/>
+                                            path="password" placeholder="Password"/>
                                 <form:errors path="password" cssClass="error"/>
                             </div>
                             <div class="form-group">
                                 <label for="repeatPasswordInput">Repeat password</label>
                                 <form:input type="password" class="form-control" id="repeatPasswordInput"
-                                            path="matchingPassword" placeholder="Password" required="true"/>
+                                            path="matchingPassword" placeholder="Password"/>
                                 <form:errors path="matchingPassword" cssClass="error"/>
                             </div>
                             <button type="submit" class="btn btn-primary">Sign up</button>

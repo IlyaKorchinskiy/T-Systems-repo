@@ -1,10 +1,14 @@
 package ru.korchinskiy.service;
 
 import ru.korchinskiy.dto.*;
+import ru.korchinskiy.entity.*;
 import ru.korchinskiy.enums.OrderStatus;
 import ru.korchinskiy.message.Message;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 public interface OrderService {
@@ -18,7 +22,15 @@ public interface OrderService {
 
     List<OrderHistoryDto> getOrderHistoriesByOrderId(Long id);
 
-    Message saveOrder(NewOrderDto order, HttpSession session, String cookieSession);
+    Message saveOrder(NewOrderDto order, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException;
 
     Message updateOrderStatus(Long orderId, OrderStatus orderStatus);
+
+    Order createNewOrder(NewOrderDto newOrderDto, User user);
+
+    boolean checkForAmounts(List<CartProductDto> cartProducts, List<Product> products);
+
+    OrderHistory createOrderHistory(Order order);
+
+    OrderProduct createOrderProduct(CartProductDto cartProductDto, Product product, Order order);
 }

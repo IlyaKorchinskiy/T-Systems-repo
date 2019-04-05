@@ -3,6 +3,7 @@ package ru.korchinskiy.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "cart")
@@ -12,7 +13,19 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "session_id")
-    private String sessionId;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
+    @OneToMany(mappedBy = "cart")
+    List<CartProduct> cartProducts;
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", user=" + user +
+                ", cartProducts=" + cartProducts +
+                '}';
+    }
 }

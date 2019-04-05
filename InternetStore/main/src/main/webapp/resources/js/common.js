@@ -2,6 +2,8 @@
 
 var xhr = new XMLHttpRequest();
 
+var cartContent = document.getElementById('cart-content');
+
 function getCart(contextPath) {
     xhr.open('GET', contextPath + '/cart/getCart', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -11,10 +13,11 @@ function getCart(contextPath) {
             console.log('Error', xhr.status, xhr.statusText);
         } else {
             console.log('Ok', xhr.statusText);
-
-            if (xhr.responseText === '') return;
+            if (xhr.responseText === '') {
+                cartContent.innerHTML = '<p>Cart is empty</p>';
+                return;
+            }
             var cart = JSON.parse(xhr.responseText);
-
             renderCart(cart);
         }
     }
@@ -23,24 +26,20 @@ function getCart(contextPath) {
 
 function renderCart(cart) {
     var badge = document.getElementById('cart-badge');
-    if (cart.length !== 0) {
+    if (cart.cartProducts.length !== 0) {
         var amount = 0;
-        for (var i = 0; i < cart.length; i++) {
-            amount += cart[i].amount;
+        for (var i = 0; i < cart.cartProducts.length; i++) {
+            amount += cart.cartProducts[i].amount;
         }
         badge.innerText = amount;
-    }
-
-    var cartContent = document.getElementById('cart-content');
-    if (cart.length === 0) {
-        cartContent.innerHTML = '<p>Cart is empty</p>';
-    } else {
         var productsHtml = '<p>Your products:</p><ul>';
-        for (var i = 0; i < cart.length; i++) {
-            productsHtml += '<li>' + cart[i].product.title + ' - ' + cart[i].amount + ' items</li>';
+        for (var i = 0; i < cart.cartProducts.length; i++) {
+            productsHtml += '<li>' + cart.cartProducts[i].product.title + ' - ' + cart.cartProducts[i].amount + ' items</li>';
         }
         productsHtml += '</ul>';
         cartContent.innerHTML = productsHtml;
+    } else {
+        cartContent.innerHTML = '<p>Cart is empty</p>';
     }
 }
 

@@ -8,6 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import ru.korchinskiy.config.WebConfig;
+import ru.korchinskiy.dto.CartDto;
 import ru.korchinskiy.dto.CartProductDto;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.List;
 @WebAppConfiguration
 public class UtilsServiceTest {
 
+    private static CartDto cartDto;
     private static List<CartProductDto> cartProducts;
     private static CartProductDto cartProductDto1;
     private static CartProductDto cartProductDto2;
@@ -25,6 +27,7 @@ public class UtilsServiceTest {
 
     @BeforeClass
     public static void setUp() {
+        cartDto = new CartDto();
         cartProducts = new ArrayList<>();
         cartProductDto1 = new CartProductDto();
         cartProductDto2 = new CartProductDto();
@@ -35,7 +38,8 @@ public class UtilsServiceTest {
     public void getCartSum1() {
         cartProductDto1.setSum(429.0);
         cartProducts.add(cartProductDto1);
-        double expectedSum = UtilsService.getCartSum(cartProducts);
+        cartDto.setCartProducts(cartProducts);
+        double expectedSum = UtilsService.getCartSum(cartDto);
         Assert.assertEquals(expectedSum, 429.0, 0.0000001);
     }
 
@@ -46,14 +50,15 @@ public class UtilsServiceTest {
         cartProductDto2.setSum(449.0);
         cartProducts.add(cartProductDto1);
         cartProducts.add(cartProductDto2);
-        double expectedSum = UtilsService.getCartSum(cartProducts);
+        cartDto.setCartProducts(cartProducts);
+        double expectedSum = UtilsService.getCartSum(cartDto);
         Assert.assertEquals(expectedSum, 878.0, 0.0000001);
     }
 
     @Test
     public void getCartSum3() {
-        cartProducts = null;
-        Double expectedSum = UtilsService.getCartSum(cartProducts);
+        cartDto = null;
+        Double expectedSum = UtilsService.getCartSum(cartDto);
         Assert.assertNull(expectedSum);
     }
 }

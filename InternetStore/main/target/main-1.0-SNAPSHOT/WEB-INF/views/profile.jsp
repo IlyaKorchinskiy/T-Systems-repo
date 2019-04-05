@@ -34,7 +34,7 @@
                         <label for="nameInput" class="col-sm-3 col-form-label">Name</label>
                         <div class="col">
                             <form:input type="text" class="form-control" id="nameInput" path="name"
-                                        value="${user.name}" placeholder="Name" required="true" disabled="true"/>
+                                        value="${user.name}" placeholder="Name" disabled="true"/>
                             <form:errors path="name" cssClass="error"/>
                         </div>
                     </div>
@@ -42,8 +42,7 @@
                         <label for="lastnameInput" class="col-sm-3 col-form-label">Last name</label>
                         <div class="col">
                             <form:input type="text" class="form-control" id="lastnameInput" path="lastname"
-                                        value="${user.lastname}" placeholder="Last name" required="true"
-                                        disabled="true"/>
+                                        value="${user.lastname}" placeholder="Last name" disabled="true"/>
                             <form:errors path="lastname" cssClass="error"/>
                         </div>
                     </div>
@@ -68,7 +67,7 @@
                         <label for="birthInput" class="col-sm-3 col-form-label">Birthday</label>
                         <div class="col">
                             <form:input type="date" class="form-control" id="birthInput" path="birthday"
-                                        value="${user.birthday}" required="true" disabled="true"/>
+                                        value="${user.birthday}" disabled="true"/>
                             <form:errors path="birthday" cssClass="error"/>
                         </div>
                     </div>
@@ -76,7 +75,7 @@
                         <label for="passwordInput" class="col-sm-3 col-form-label">Password</label>
                         <div class="col">
                             <form:input type="password" class="form-control" id="passwordInput" path="password"
-                                        value="${user.password}" required="true" disabled="true"/>
+                                        value="${user.password}" disabled="true"/>
                             <form:errors path="password" cssClass="error"/>
                         </div>
                     </div>
@@ -84,8 +83,7 @@
                         <label for="matchingPasswordInput" class="col-sm-3 col-form-label">Repeat password</label>
                         <div class="col">
                             <form:input type="password" class="form-control" id="matchingPasswordInput"
-                                        path="matchingPassword" value="${user.password}" required="true"
-                                        disabled="true"/>
+                                        path="matchingPassword" value="${user.password}" disabled="true"/>
                             <form:errors path="matchingPassword" cssClass="error"/>
                         </div>
                     </div>
@@ -95,9 +93,7 @@
                     <button id="updateInfoBtn" type="submit" class="btn btn-primary" disabled>Save</button>
                 </form:form>
                 <h4>Addresses</h4>
-                <c:if test="${not empty addressMessage && addressMessage.confirms.size() != 0}">
-                    <p id="addressMessage" class="confirm">${addressMessage.confirms.get(0)}</p>
-                </c:if>
+                <p id="addressMessage" class="confirm" hidden>${addressMessage.confirms.get(0)}</p>
                 <c:forEach items="${user.addresses}" var="address">
                     <div id="address${address.id}" class="form-group">
                         <input type="text" class="form-control" id="addressInput${address.id}" name="address"

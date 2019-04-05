@@ -42,7 +42,7 @@ public class UserStatsDAOImpl implements UserStatsDAO {
                 builder.equal(root.get("year"), year));
         query.orderBy(builder.desc(root.get("sum")));
         List<UserStats> userStatsList = session.createQuery(query).getResultList();
-        if (userStatsList.size() > 9) userStatsList = userStatsList.subList(0, 11);
+        if (userStatsList.size() > 9) userStatsList = userStatsList.subList(0, 10);
         return userStatsList;
     }
 

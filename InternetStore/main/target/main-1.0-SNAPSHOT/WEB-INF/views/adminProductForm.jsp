@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -25,61 +26,69 @@
         </c:if>
         <div class="row">
             <div class="col content">
-                <form id="productForm" class="product-form" action="${contextPath}/admin/products/addProduct"
-                      method="post" modelAttribute="product" enctype="multipart/form-data">
+                <form:form id="productForm" class="product-form" action="${contextPath}/admin/products/addProduct"
+                           method="post" modelAttribute="product" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
                                 <label for="idInput">Product ID</label>
-                                <input type="number" class="form-control" id="idInput" name="id" readonly>
+                                <form:input type="number" class="form-control" id="idInput" path="id" readonly="true"/>
                             </div>
                             <div class="form-group">
                                 <label for="titleInput">Product title</label>
-                                <input type="text" class="form-control" id="titleInput" name="title" placeholder="Title"
-                                       required disabled>
+                                <form:input type="text" class="form-control" id="titleInput" path="title"
+                                            placeholder="Title" disabled="true"/>
+                                <form:errors path="title" cssClass="error"/>
                             </div>
                             <div class="form-group">
                                 <label for="authorInput">Author</label>
-                                <input type="text" class="form-control" id="authorInput" name="author"
-                                       placeholder="Author" required disabled>
+                                <form:input type="text" class="form-control" id="authorInput" path="author"
+                                            placeholder="Author" disabled="true"/>
+                                <form:errors path="author" cssClass="error"/>
                             </div>
                             <div class="form-group">
                                 <label for="costInput">Cost</label>
-                                <input type="number" class="form-control" id="costInput" name="cost" placeholder=""
-                                       required disabled>
+                                <form:input type="number" class="form-control" id="costInput" path="cost"
+                                            disabled="true"/>
+                                <form:errors path="cost" cssClass="error"/>
                             </div>
                             <div class="form-group">
                                 <label for="amountInput">Stock amount</label>
-                                <input type="number" class="form-control" id="amountInput" name="amount" placeholder=""
-                                       required disabled>
+                                <form:input type="number" class="form-control" id="amountInput" path="amount"
+                                            disabled="true"/>
+                                <form:errors path="amount" cssClass="error"/>
                             </div>
                             <div class="form-group">
                                 <label for="descriptionInput">Description</label>
-                                <textarea class="form-control" id="descriptionInput" name="description"
-                                          placeholder="Description" rows="4" required disabled></textarea>
+                                <form:textarea class="form-control" id="descriptionInput" path="description"
+                                               placeholder="Description" rows="4" disabled="true"/>
+                                <form:errors path="description" cssClass="error"/>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
                                 <label for="categoryInput">Category</label>
-                                <select id="categoryInput" name="categoryId" class="form-control" required disabled>
+                                <form:select id="categoryInput" path="categoryId" class="form-control"
+                                             disabled="true">
                                     <option value="0">Choose...</option>
                                     <c:forEach items="${allCategories}" var="category">
                                         <option value="${category.id}">${category.title}</option>
                                     </c:forEach>
-                                </select>
+                                </form:select>
+                                <form:errors path="categoryId" cssClass="error"/>
                             </div>
                             <div class="form-group">
                                 <label for="smPhotoInput">Upload small photo</label>
-                                <input type="file" class="form-control-file" id="smPhotoInput" name="smPhotoFile"
-                                       required disabled>
+                                <form:input type="file" class="form-control-file" id="smPhotoInput" path="smPhotoFile"
+                                            disabled="true"/>
+                                <form:errors path="smPhotoFile" cssClass="error"/>
                             </div>
                             <div class="form-group">
                                 <label for="mdPhotoInput">Upload medium photo</label>
-                                <input type="file" class="form-control-file" id="mdPhotoInput" name="mdPhotoFile"
-                                       required disabled>
+                                <form:input type="file" class="form-control-file" id="mdPhotoInput" path="mdPhotoFile"
+                                            disabled="true"/>
+                                <form:errors path="mdPhotoFile" cssClass="error"/>
                             </div>
-
                         </div>
                     </div>
                     <div class="row">
@@ -88,7 +97,7 @@
                             <button id="btnEdit" type="button" class="btn btn-primary">Edit</button>
                         </div>
                     </div>
-                </form>
+                </form:form>
 
             </div>
 

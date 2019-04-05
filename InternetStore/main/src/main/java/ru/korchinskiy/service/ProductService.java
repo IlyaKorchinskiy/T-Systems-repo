@@ -17,6 +17,6 @@ public interface ProductService {
 
     List<ProductDto> findProductsBySearch(String search);
 
-    Message saveProduct(NewProductDto productDto, MultipartFile smPhoto, MultipartFile mdPhoto);
+    Message saveProduct(NewProductDto productDto);
 
 }

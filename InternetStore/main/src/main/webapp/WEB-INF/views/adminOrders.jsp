@@ -41,10 +41,12 @@
                         <tr>
                             <td>${order.id}</td>
                             <td>${order.user.id}</td>
-                            <td>${order.paymentType.paymentType}</td>
-                            <td>${order.deliveryType.deliveryType}</td>
+                            <td>${order.paymentType}</td>
+                            <td>${order.deliveryType}</td>
                             <td>${order.paymentStatus}</td>
-                            <td><span class="badge ${order.orderStatus == 'NEW' ? 'badge-danger' : ''}">${order.orderStatus}</span></td>
+                            <td><span
+                                    class="badge ${order.orderStatus == 'NEW' ? 'badge-danger' : ''}">${order.orderStatus}</span>
+                            </td>
                             <td>${order.sum}</td>
                             <td>${order.address}</td>
                             <td>${order.date}</td>

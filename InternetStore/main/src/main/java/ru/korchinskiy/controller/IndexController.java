@@ -1,5 +1,6 @@
 package ru.korchinskiy.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class IndexController {
+    private static Logger logger = Logger.getLogger(IndexController.class);
+
     private CategoryService categoryService;
     private UserService userService;
 
@@ -45,7 +48,10 @@ public class IndexController {
     public String addUser(@Valid @ModelAttribute("user") UserDto user,
                           BindingResult result,
                           Model model) {
-        if (result.hasErrors()) return "registration";
+        if (result.hasErrors()) {
+            logger.info(Message.VALIDATION_REGISTER_FAIL);
+            return "registration";
+        }
         Message message = userService.addUser(user);
         model.addAttribute("message", message);
         model.addAttribute("user", user);

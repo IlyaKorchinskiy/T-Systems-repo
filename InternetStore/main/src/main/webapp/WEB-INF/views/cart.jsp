@@ -36,7 +36,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${cartProducts}" var="cartProduct">
+                    <c:forEach items="${cart.cartProducts}" var="cartProduct">
                         <tr>
                             <td class="title">${cartProduct.product.title}</td>
                             <td>${cartProduct.amount}</td>
@@ -47,12 +47,12 @@
 
                     </tbody>
                 </table>
-                <c:if test="${cartProducts.size() == 0}">
-                    <p>Корзина пуста</p>
+                <c:if test="${cart.cartProducts.size() == 0 || empty cart}">
+                    <p>Cart is empty</p>
                 </c:if>
             </div>
         </div>
-        <c:if test="${cartProducts.size() != 0}">
+        <c:if test="${cart.cartProducts.size() != 0}">
             <sec:authorize access="!isAuthenticated()">
                 <div class="row site-padding auth justify-content-center">
                     <div class="col-md-6">
@@ -65,56 +65,59 @@
                 </div>
             </sec:authorize>
             <sec:authorize access="isAuthenticated()">
-                <div class="row site-padding order-params">
-                    <div class="col">
-                        <form id="orderForm" action="${contextPath}/order" method="post" modelAttribute="order">
-                            <div class="form-row">
-                                <div class="form-group col param">
-                                    <h6>Delivery type</h6>
-                                    <c:forEach items="${deliveryTypes}" var="deliveryType">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="deliveryTypeId"
-                                                   id="deliveryType${deliveryType.id}" value="${deliveryType.id}"
-                                                   onchange="showAddressInput()" checked>
-                                            <label class="form-check-label"
-                                                   for="deliveryType${deliveryType.id}">${deliveryType.deliveryType}</label>
+                <c:if test="${cart.cartProducts.size() != 0 && not empty cart}">
+                    <div class="row site-padding order-params">
+                        <div class="col">
+                            <form id="orderForm" action="${contextPath}/order" method="post" modelAttribute="order">
+                                <div class="form-row">
+                                    <div class="form-group col param">
+                                        <h6>Delivery type</h6>
+                                        <c:forEach items="${deliveryTypes}" var="deliveryType">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="deliveryType"
+                                                       id="deliveryType-${deliveryType}" value="${deliveryType}"
+                                                       onchange="showAddressInput()">
+                                                <label class="form-check-label"
+                                                       for="deliveryType-${deliveryType}">${deliveryType}</label>
+                                            </div>
+                                        </c:forEach>
+                                        <div id="addressDiv" class="form-group address-input">
+                                            <label for="addressInput">Delivery address</label>
+                                            <input type="text" class="form-control" id="addressInput" name="address"
+                                                   placeholder="Address">
                                         </div>
-                                    </c:forEach>
-                                    <div id="addressDiv" class="form-group address-input">
-                                        <label for="addressInput">Delivery address</label>
-                                        <input type="text" class="form-control" id="addressInput" name="address"
-                                               placeholder="Address">
-                                    </div>
-                                    <div id="pickupDiv" class="form-group pickup-input hidden">
-                                        <label for="pickupInput">Pickup address</label>
-                                        <select id="pickupInput" class="form-control" name="pickupAddress">
-                                            <option value="" selected>Choose...</option>
-                                                <%--<c:forEach items="${pickupAddresses}" var="address">--%>
-                                                <%--<option>${address.title}</option>--%>
-                                                <%--</c:forEach>--%>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group col param">
-                                    <h6>Payment type</h6>
-                                    <c:forEach items="${paymentTypes}" var="paymentType">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="paymentTypeId"
-                                                   id="paymentType${paymentType.id}" value="${paymentType.id}">
-                                            <label class="form-check-label"
-                                                   for="paymentType${paymentType.id}">${paymentType.paymentType}</label>
+                                        <div id="pickupDiv" class="form-group pickup-input hidden">
+                                            <label for="pickupInput">Pickup address</label>
+                                            <select id="pickupInput" class="form-control" name="pickupAddress">
+                                                <option value="" selected>Choose...</option>
+                                                    <%--<c:forEach items="${pickupAddresses}" var="address">--%>
+                                                    <%--<option>${address.title}</option>--%>
+                                                    <%--</c:forEach>--%>
+                                            </select>
                                         </div>
-                                    </c:forEach>
+                                    </div>
+                                    <div class="form-group col param">
+                                        <h6>Payment type</h6>
+                                        <c:forEach items="${paymentTypes}" var="paymentType">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="paymentType"
+                                                       id="paymentType-${paymentType}" value="${paymentType}">
+                                                <label class="form-check-label"
+                                                       for="paymentType-${paymentType}">${paymentType}</label>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                    <div class="form-group col confirm param">
+                                        <p class="sum">Total: <span>${sum} <i class="fas fa-ruble-sign"></i></span></p>
+                                        <input type="number" name="sum" value="${sum}" hidden>
+                                        <button type="submit" class="btn btn-primary">Confirm order</button>
+                                    </div>
                                 </div>
-                                <div class="form-group col confirm param">
-                                    <p class="sum">Total: <span>${sum} <i class="fas fa-ruble-sign"></i></span></p>
-                                    <button type="submit" class="btn btn-primary">Confirm order</button>
-                                </div>
-                            </div>
 
-                        </form>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                </c:if>
             </sec:authorize>
         </c:if>
 
@@ -135,8 +138,8 @@
         crossorigin="anonymous"></script>
 <script>
     var contextPath = '${contextPath}';
-    var deliveryTypeId = '${deliveryTypes.get(0).id}';
-    var paymentTypeId = '${paymentTypes.get(0).id}';
+    var deliveryType = '${deliveryTypes[0]}';
+    var paymentType = '${paymentTypes[0]}';
 </script>
 <script src="${contextPath}/resources/js/cart.js"></script>
 <script src="${contextPath}/resources/js/common.js"></script>

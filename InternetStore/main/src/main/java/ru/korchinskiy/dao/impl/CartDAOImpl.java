@@ -21,12 +21,12 @@ public class CartDAOImpl implements CartDAO {
     }
 
     @Override
-    public Cart getCartBySessionId(String sessionId) {
+    public Cart getCartByUserId(Long userId) {
         Session session = this.sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<Cart> query = builder.createQuery(Cart.class);
         Root<Cart> root = query.from(Cart.class);
-        query.select(root).where(builder.equal(root.get("sessionId"), sessionId));
+        query.select(root).where(builder.equal(root.get("user").get("id"), userId));
         return session.createQuery(query).getSingleResult();
     }
 

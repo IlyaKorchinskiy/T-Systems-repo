@@ -59,10 +59,10 @@ public class OrderServiceImplTest {
                 OrderStatus.NEW, "Saint-Petersburg", 1299.0, null);
         product = new Product("title", "authorName", 429.0, 5,
                 "description", null, "photo1", "photo2");
-        cartDto = new CartDto(1L, "sessionId");
+        cartDto = new CartDto(1L, null);
         productDto = new ProductDto(1L, "title", "authorName", 429.0, 5,
                 "description", null, "photo1", "photo2");
-        cartProductDto = new CartProductDto(1L, cartDto, productDto, 2, 858.0);
+        cartProductDto = new CartProductDto(1L, productDto, 2, 858.0);
         orderProduct = new OrderProduct(order, product, 429.0, 2);
 
         cartProducts = new ArrayList<>();

@@ -10,12 +10,12 @@
         <div class="row header-menu site-padding">
             <div class="col">
                 <ul class="nav justify-content-end">
-                    <%--<sec:authorize access="hasAnyRole('ADMIN', 'SUPER_ADMIN')">--%>
+                    <sec:authorize access="hasAnyRole('ADMIN', 'SUPER_ADMIN')">
                     <li class="nav-item">
                         <a class="nav-link ${fn:contains(currentPath, 'admin') ? 'active' : ''}"
                            href="${contextPath}/admin/orders">Admin</a>
                     </li>
-                    <%--</sec:authorize>--%>
+                    </sec:authorize>
                     <sec:authorize access="!isAuthenticated()">
                         <li class="nav-item">
                             <a class="nav-link ${fn:contains(currentPath, 'login') ? 'active' : ''}" data-toggle="modal"
@@ -46,7 +46,7 @@
                 <form action="${contextPath}/catalog/search" method="get">
                     <div class="input-group">
                         <input type="text" class="form-control" name="search" placeholder="Book or author"
-                               aria-describedby="button-addon2">
+                               value="${search}" aria-describedby="button-addon2">
                         <div class="input-group-append">
                             <button class="btn" type="submit" id="button-addon2">Find</button>
                         </div>
@@ -57,7 +57,7 @@
             <div class="col-sm-2 cart">
                 <a href="${contextPath}/cart">
                     <i class="fas fa-shopping-cart"></i>
-                    <span id="cart-badge" class="badge badge-primary">${cart.products.size()}</span>
+                    <span id="cart-badge" class="badge badge-primary"></span>
                     <div id="cart-content" class="cart-content"></div>
                 </a>
             </div>

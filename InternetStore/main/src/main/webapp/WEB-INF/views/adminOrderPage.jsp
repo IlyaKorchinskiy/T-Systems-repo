@@ -45,12 +45,12 @@
                                 <select id="paymentTypeInput" class="form-control" required disabled>
                                     <c:forEach items="${paymentTypes}" var="paymentType">
                                         <c:choose>
-                                            <c:when test="${paymentType.id == order.paymentType.id}">
-                                                <option value="${paymentType.id}"
-                                                        selected>${paymentType.paymentType}</option>
+                                            <c:when test="${paymentType == order.paymentType}">
+                                                <option value="${paymentType}"
+                                                        selected>${paymentType}</option>
                                             </c:when>
                                             <c:otherwise>
-                                                <option value="${paymentType.id}">${paymentType.paymentType}</option>
+                                                <option value="${paymentType}">${paymentType}</option>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
@@ -68,12 +68,11 @@
                                 <select id="deliveryTypeInput" class="form-control" required disabled>
                                     <c:forEach items="${deliveryTypes}" var="deliveryType">
                                         <c:choose>
-                                            <c:when test="${deliveryType.id == order.deliveryType.id}">
-                                                <option value="${deliveryType.id}"
-                                                        selected>${deliveryType.deliveryType}</option>
+                                            <c:when test="${deliveryType == order.deliveryType}">
+                                                <option value="${deliveryType}" selected>${deliveryType}</option>
                                             </c:when>
                                             <c:otherwise>
-                                                <option value="${deliveryType.id}">${deliveryType.deliveryType}</option>
+                                                <option value="${deliveryType}">${deliveryType}</option>
                                             </c:otherwise>
                                         </c:choose>
                                     </c:forEach>
@@ -186,8 +185,8 @@
                             <c:forEach items="${orderHistories}" var="orderHistory">
                                 <tr>
                                     <td>${orderHistory.id}</td>
-                                    <td>${orderHistory.paymentType.paymentType}</td>
-                                    <td>${orderHistory.deliveryType.deliveryType}</td>
+                                    <td>${orderHistory.paymentType}</td>
+                                    <td>${orderHistory.deliveryType}</td>
                                     <td>${orderHistory.paymentStatus}</td>
                                     <td>${orderHistory.orderStatus}</td>
                                     <td>${orderHistory.sum}</td>

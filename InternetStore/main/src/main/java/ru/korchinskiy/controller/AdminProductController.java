@@ -1,8 +1,10 @@
 package ru.korchinskiy.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.korchinskiy.dto.CategoryDto;
@@ -12,11 +14,15 @@ import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CategoryService;
 import ru.korchinskiy.service.ProductService;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Controller
 @RequestMapping("/admin/products")
 public class AdminProductController {
+    private static Logger logger = Logger.getLogger(AdminProductController.class);
+
     private ProductService productService;
     private CategoryService categoryService;
 
@@ -36,11 +42,16 @@ public class AdminProductController {
     }
 
     @PostMapping("/addProduct")
-    public String addProduct(@ModelAttribute("product") NewProductDto productDto,
-                             @RequestParam("smPhotoFile") MultipartFile smPhotoFile,
-                             @RequestParam("mdPhotoFile") MultipartFile mdPhotoFile,
+    public String addProduct(@Valid @ModelAttribute("product") NewProductDto productDto,
+                             BindingResult result,
                              Model model) {
-        Message message = productService.saveProduct(productDto, smPhotoFile, mdPhotoFile);
+        if (result.hasErrors()) {
+            logger.info(Message.VALIDATION_ADD_PRODUCT_FAIL);
+            List<CategoryDto> categories = categoryService.getAllCategories();
+            model.addAttribute("allCategories", categories);
+            return "adminProductForm";
+        }
+        Message message = productService.saveProduct(productDto);
         List<ProductDto> products = productService.getAllProducts();
         model.addAttribute("products", products);
         model.addAttribute("message", message);

@@ -7,16 +7,22 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.util.WebUtils;
+import ru.korchinskiy.dto.CartDto;
 import ru.korchinskiy.dto.CartProductDto;
-import ru.korchinskiy.dto.DeliveryTypeDto;
 import ru.korchinskiy.dto.NewOrderDto;
-import ru.korchinskiy.dto.PaymentTypeDto;
+import ru.korchinskiy.enums.DeliveryType;
+import ru.korchinskiy.enums.PaymentType;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.OrderService;
 import ru.korchinskiy.service.UtilsService;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 @Controller
@@ -28,21 +34,19 @@ public class OrderController {
     @PostMapping
     public String saveOrder(Model model,
                             @ModelAttribute("order") NewOrderDto order,
-                            @CookieValue(value = "sessionId") String cookieSession,
-                            HttpSession session) {
-        Message message = orderService.saveOrder(order, session, cookieSession);
+                            HttpServletRequest request,
+                            HttpServletResponse response) throws UnsupportedEncodingException {
+        Message message = orderService.saveOrder(order, request, response);
         model.addAttribute("message", message);
         if (message.getConfirms().size() != 0) {
             return "orderSuccess";
         } else {
-            List<CartProductDto> cartProducts = cartService.getCartProductsBySessionId(cookieSession);
-            List<PaymentTypeDto> paymentTypes = cartService.getPaymentTypes();
-            List<DeliveryTypeDto> deliveryTypes = cartService.getDeliveryTypes();
-            Double sum = UtilsService.getCartSum(cartProducts);
-            model.addAttribute("cartProducts", cartProducts);
-            model.addAttribute("paymentTypes", paymentTypes);
-            model.addAttribute("deliveryTypes", deliveryTypes);
-            model.addAttribute("sum", sum);
+            Cookie cookieCart = WebUtils.getCookie(request, "cart");
+            CartDto cart = cartService.getCookieCart(cookieCart);
+            model.addAttribute("cart", cart);
+            model.addAttribute("paymentTypes", PaymentType.values());
+            model.addAttribute("deliveryTypes", DeliveryType.values());
+            model.addAttribute("sum", UtilsService.getCartSum(cart));
             model.addAttribute("order", order);
             return "cart";
         }
