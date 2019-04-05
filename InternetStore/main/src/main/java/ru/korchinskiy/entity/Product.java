@@ -1,7 +1,6 @@
 package ru.korchinskiy.entity;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,7 +10,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "product")
 @Data
-@NoArgsConstructor
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,17 +35,6 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private List<Category> categories;
-
-    public Product(String title, String author, Double cost, Integer amount, String description, Date date, String photoMd, String photoSm) {
-        this.title = title;
-        this.author = author;
-        this.cost = cost;
-        this.amount = amount;
-        this.description = description;
-        this.date = date;
-        this.photoMd = photoMd;
-        this.photoSm = photoSm;
-    }
 
     @Override
     public boolean equals(Object o) {

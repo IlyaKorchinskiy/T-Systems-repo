@@ -14,7 +14,7 @@ public interface CategoryService {
 
     List<CategoryDto> getCategoriesByParentId(Long id);
 
-    List<CategoryTreeDto> getCategoryTree();
+    List<CategoryTreeDto> getCategoriesWithSubcategories();
 
     List<CategoryDto> getAllCategories();
 
@@ -24,5 +24,4 @@ public interface CategoryService {
 
     Message removeCategory(Long categoryId);
 
-    List<CategoryTreeDto> buildCategoryTree(List<CategoryTreeDto> categoryTreeDtoList);
 }

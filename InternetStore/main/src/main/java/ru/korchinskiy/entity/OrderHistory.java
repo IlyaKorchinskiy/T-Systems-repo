@@ -1,19 +1,16 @@
 package ru.korchinskiy.entity;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import ru.korchinskiy.enums.DeliveryType;
 import ru.korchinskiy.enums.OrderStatus;
 import ru.korchinskiy.enums.PaymentStatus;
-import ru.korchinskiy.enums.PaymentType;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.Date;
 
 @Entity
 @Table(name = "order_history")
 @Data
-@NoArgsConstructor
 public class OrderHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +20,12 @@ public class OrderHistory {
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "payment_type")
+    @ManyToOne
+    @JoinColumn(name = "payment_type_id", referencedColumnName = "id")
     private PaymentType paymentType;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "delivery_type")
+    @ManyToOne
+    @JoinColumn(name = "delivery_type_id", referencedColumnName = "id")
     private DeliveryType deliveryType;
 
     @Enumerated(EnumType.STRING)
@@ -45,14 +42,4 @@ public class OrderHistory {
 
     private Instant date;
 
-    public OrderHistory(Order order, PaymentType paymentType, DeliveryType deliveryType, PaymentStatus paymentStatus, OrderStatus orderStatus, String address, Double sum, Instant date) {
-        this.order = order;
-        this.paymentType = paymentType;
-        this.deliveryType = deliveryType;
-        this.paymentStatus = paymentStatus;
-        this.orderStatus = orderStatus;
-        this.address = address;
-        this.sum = sum;
-        this.date = date;
-    }
 }

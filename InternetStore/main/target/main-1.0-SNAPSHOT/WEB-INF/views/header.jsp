@@ -46,7 +46,7 @@
                 <form action="${contextPath}/catalog/search" method="get">
                     <div class="input-group">
                         <input type="text" class="form-control" name="search" placeholder="Book or author"
-                               value="${search}" aria-describedby="button-addon2">
+                               aria-describedby="button-addon2">
                         <div class="input-group-append">
                             <button class="btn" type="submit" id="button-addon2">Find</button>
                         </div>

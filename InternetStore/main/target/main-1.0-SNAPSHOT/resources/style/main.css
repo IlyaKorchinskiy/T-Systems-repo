@@ -74,12 +74,12 @@ html, body {
     text-align: center;
 }
 
-.header-content .search .btn {
+.header-content .search .btn{
     background-color: #79b260;
     color: #ffffff;
 }
 
-.header-content .search .btn:hover {
+.header-content .search .btn:hover{
     background-color: #6d6d6d;
 }
 
@@ -449,11 +449,11 @@ html, body {
     margin-bottom: 20px;
 }
 
-.admin .product-form .btns {
+.admin .product-form .btns{
     text-align: right;
 }
 
-.admin .stats label {
+.admin .stats label{
     text-align: center;
 }
 

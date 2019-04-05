@@ -24,9 +24,9 @@ public interface DTOMappingService {
 
     List<CategoryDto> convertToCategoryDtoList(List<Category> categories);
 
-    CategoryTreeDto convertToCategoryTreeDto(Category category);
+    CategoryTreeDto convertToCategoryWithSubcategoriesDto(Category category);
 
-    List<CategoryTreeDto> convertToCategoryTreeDtoList(List<Category> categories);
+    List<CategoryTreeDto> convertToCategoryWithSubcategoriesDtoList(List<Category> categories);
 
     UserDto convertToUserDto(User user);
 
@@ -45,6 +45,14 @@ public interface DTOMappingService {
     CartProductDto convertToCartProductDto(CartProduct cartProduct);
 
     List<CartProductDto> convertToCartProductDtoList(List<CartProduct> cartProducts);
+
+    PaymentTypeDto convertToPaymentTypeDto(PaymentType paymentType);
+
+    List<PaymentTypeDto> convertToPaymentTypeDtoList(List<PaymentType> paymentTypes);
+
+    DeliveryTypeDto convertToDeliverTypeDto(DeliveryType deliveryType);
+
+    List<DeliveryTypeDto> convertToDeliveryTypeDtoList(List<DeliveryType> deliveryTypes);
 
     OrderDto convertToOrderDto(Order order);
 

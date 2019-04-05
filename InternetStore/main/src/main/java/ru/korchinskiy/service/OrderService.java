@@ -1,7 +1,6 @@
 package ru.korchinskiy.service;
 
 import ru.korchinskiy.dto.*;
-import ru.korchinskiy.entity.*;
 import ru.korchinskiy.enums.OrderStatus;
 import ru.korchinskiy.message.Message;
 
@@ -22,12 +21,4 @@ public interface OrderService {
     Message saveOrder(NewOrderDto order, HttpSession session, String cookieSession);
 
     Message updateOrderStatus(Long orderId, OrderStatus orderStatus);
-
-    Order createNewOrder(NewOrderDto newOrderDto, User user);
-
-    boolean checkForAmounts(List<CartProductDto> cartProducts, List<Product> products);
-
-    OrderHistory createOrderHistory(Order order);
-
-    OrderProduct createOrderProduct(CartProductDto cartProductDto, Product product, Order order);
 }

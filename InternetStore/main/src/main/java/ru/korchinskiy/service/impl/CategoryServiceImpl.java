@@ -1,6 +1,5 @@
 package ru.korchinskiy.service.impl;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +20,11 @@ import java.util.List;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     public static final Long ROOT_CATEGORY = 0L;
-    private static Logger logger = Logger.getLogger(CategoryServiceImpl.class);
+    private static final String CATEGORY_UPDATE_SUCCESS = "Category successfully updated";
+    private static final String CATEGORY_ALREADY_EXISTS = "Category with the name already exists";
+    private static final String CATEGORY_ADD_SUCCESS = "Category successfully added";
+    private static final String CATEGORY_DELETE_SUCCESS = "Category successfully removed";
+
     private CategoryDAO categoryDAO;
     private ProductDAO productDAO;
     private DTOMappingService dtoMappingService;
@@ -50,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
         List<Category> categories = categoryDAO.getCategoriesByParentId(id);
         if (categories.size() == 0) {
             Category category = categoryDAO.getCategoryById(id);
-            if (!category.getParentId().equals(ROOT_CATEGORY))
+            if (category.getParentId() != 0)
                 categories.addAll(categoryDAO.getCategoriesByParentId(category.getParentId()));
         }
         return dtoMappingService.convertToCategoryDtoList(categories);
@@ -58,27 +61,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public List<CategoryTreeDto> getCategoryTree() {
+    public List<CategoryTreeDto> getCategoriesWithSubcategories() {
         List<Category> categories = categoryDAO.getAllCategories();
-        List<CategoryTreeDto> categoryTreeDtoList = dtoMappingService.convertToCategoryTreeDtoList(categories);
-        return buildCategoryTree(categoryTreeDtoList);
-    }
-
-    public List<CategoryTreeDto> buildCategoryTree(List<CategoryTreeDto> categoryDtos) {
-        for (int i = 0; i < categoryDtos.size(); i++) {
-            if (!categoryDtos.get(i).getParentId().equals(ROOT_CATEGORY)) {
-                for (int j = 0; j < categoryDtos.size(); j++) {
-                    if (categoryDtos.get(i).getParentId().equals(categoryDtos.get(j).getId())) {
-                        categoryDtos.get(j).getSubcategories().add(categoryDtos.get(i));
-                        break;
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < categoryDtos.size(); i++) {
-            if (!categoryDtos.get(i).getParentId().equals(ROOT_CATEGORY)) categoryDtos.remove(i--);
-        }
-        return categoryDtos;
+        return dtoMappingService.convertToCategoryWithSubcategoriesDtoList(categories);
     }
 
     @Override
@@ -95,8 +80,7 @@ public class CategoryServiceImpl implements CategoryService {
         category.setTitle(categoryDto.getTitle());
         category.setParentId(categoryDto.getParentId());
         Message message = new Message();
-        message.getConfirms().add(Message.CATEGORY_UPDATE_SUCCESS);
-        logger.info(Message.CATEGORY_UPDATE_SUCCESS);
+        message.getConfirms().add(CATEGORY_UPDATE_SUCCESS);
         return message;
     }
 
@@ -106,14 +90,12 @@ public class CategoryServiceImpl implements CategoryService {
         Message message = new Message();
         Category category = categoryDAO.getCategoryByTitle(categoryDto.getTitle());
         if (category != null) {
-            message.getErrors().add(Message.CATEGORY_ALREADY_EXISTS);
-            logger.info(Message.CATEGORY_ALREADY_EXISTS);
+            message.getErrors().add(CATEGORY_ALREADY_EXISTS);
             return message;
         }
         category = dtoMappingService.convertToCategory(categoryDto);
         categoryDAO.saveCategory(category);
-        message.getConfirms().add(Message.CATEGORY_ADD_SUCCESS);
-        logger.info(Message.CATEGORY_ADD_SUCCESS);
+        message.getConfirms().add(CATEGORY_ADD_SUCCESS);
         return message;
     }
 
@@ -127,8 +109,7 @@ public class CategoryServiceImpl implements CategoryService {
     private Message removeCategory(Category category) {
         Message message = new Message();
         categoryDAO.removeCategory(category);
-        message.getConfirms().add(Message.CATEGORY_DELETE_SUCCESS);
-        logger.info(Message.CATEGORY_DELETE_SUCCESS);
+        message.getConfirms().add(CATEGORY_DELETE_SUCCESS);
         return message;
     }
 

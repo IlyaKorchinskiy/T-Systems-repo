@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.korchinskiy.dto.CartProductDto;
+import ru.korchinskiy.dto.DeliveryTypeDto;
 import ru.korchinskiy.dto.NewOrderDto;
-import ru.korchinskiy.enums.DeliveryType;
-import ru.korchinskiy.enums.PaymentType;
+import ru.korchinskiy.dto.PaymentTypeDto;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.OrderService;
@@ -36,10 +36,13 @@ public class OrderController {
             return "orderSuccess";
         } else {
             List<CartProductDto> cartProducts = cartService.getCartProductsBySessionId(cookieSession);
+            List<PaymentTypeDto> paymentTypes = cartService.getPaymentTypes();
+            List<DeliveryTypeDto> deliveryTypes = cartService.getDeliveryTypes();
+            Double sum = UtilsService.getCartSum(cartProducts);
             model.addAttribute("cartProducts", cartProducts);
-            model.addAttribute("paymentTypes", PaymentType.values());
-            model.addAttribute("deliveryTypes", DeliveryType.values());
-            model.addAttribute("sum", UtilsService.getCartSum(cartProducts));
+            model.addAttribute("paymentTypes", paymentTypes);
+            model.addAttribute("deliveryTypes", deliveryTypes);
+            model.addAttribute("sum", sum);
             model.addAttribute("order", order);
             return "cart";
         }

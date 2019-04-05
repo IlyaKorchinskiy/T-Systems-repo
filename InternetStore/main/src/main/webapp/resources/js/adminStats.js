@@ -55,7 +55,7 @@ function changePeriod(object) {
                         '<td class="title">' + statsList[i].user.name + ' ' + statsList[i].user.lastname + '</td>' +
                         '<td>' + statsList[i].sum + '</td></tr>';
                 }
-                if (object === 'total') {
+                if(object === 'total') {
                     tbody.innerHTML += '<tr><td class="title">' + statsList[i].name + '</td>' +
                         '<td>' + statsList[i].value + '</td></tr>';
                 }

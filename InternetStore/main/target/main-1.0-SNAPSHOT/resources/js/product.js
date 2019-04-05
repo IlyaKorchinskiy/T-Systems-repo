@@ -19,27 +19,16 @@ function addToCart(id) {
             }
         } else {
             messageP.innerText = message.confirms[0];
-
+            
             var date = new Date();
             date.setDate(date.getDate() + 30);
-            var cookie = getCookie('sessionId');
-            if (cookie === undefined) {
-                document.cookie = "sessionId=" + sessionId + "; path=/; expires=" + date.toUTCString();
-            } else {
-                document.cookie = "sessionId=" + cookie + "; path=/; expires=" + date.toUTCString();
-            }
+            document.cookie = "sessionId=" + sessionId + "; path=/; expires=" + date.toUTCString();
+
             getCart(contextPath);
         }
 
 
     });
-}
-
-function getCookie(name) {
-    var matches = document.cookie.match(new RegExp(
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-    ));
-    return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
 

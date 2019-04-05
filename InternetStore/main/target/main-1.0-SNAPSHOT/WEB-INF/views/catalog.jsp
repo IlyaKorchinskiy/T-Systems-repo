@@ -52,9 +52,8 @@
                         <c:forEach items="${products}" var="product">
                             <div class="col">
                                 <div class="card">
-                                    <a href="${contextPath}/catalog/product/${product.id}">
-                                        <img src="${contextPath}/resources/img/${product.photoSm}" class="card-img-top"
-                                             alt="product_photo">
+                                    <a href="catalog/product/${product.id}">
+                                        <img src="${contextPath}/resources/img/${product.photoSm}" class="card-img-top" alt="product_photo">
                                         <div class="card-body">
                                             <h5 class="card-title">${product.title}</h5>
                                             <p class="card-text">${product.cost} <i class="fas fa-ruble-sign"></i></p>
@@ -68,9 +67,8 @@
                         <c:forEach items="${category.products}" var="product">
                             <div class="col">
                                 <div class="card">
-                                    <a href="${contextPath}/catalog/product/${product.id}">
-                                        <img src="${contextPath}/resources/img/${product.photoSm}" class="card-img-top"
-                                             alt="product_photo">
+                                    <a href="catalog/product/${product.id}">
+                                        <img src="${contextPath}/resources/img/${product.photoSm}" class="card-img-top" alt="product_photo">
                                         <div class="card-body">
                                             <h5 class="card-title">${product.title}</h5>
                                             <p class="card-text">${product.cost} <i class="fas fa-ruble-sign"></i></p>

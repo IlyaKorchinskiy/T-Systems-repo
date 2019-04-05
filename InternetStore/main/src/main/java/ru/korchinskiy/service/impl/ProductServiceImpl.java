@@ -1,6 +1,5 @@
 package ru.korchinskiy.service.impl;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,13 +18,13 @@ import ru.korchinskiy.service.ProductService;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service("productService")
 public class ProductServiceImpl implements ProductService {
-    private static Logger logger = Logger.getLogger(ProductServiceImpl.class);
+    private static final String PRODUCT_ALREADY_EXISTS = "Product with this title already exists";
+    private static final String PRODUCT_ADD_SUCCESS = "Product successfully added";
+    private static final String COULD_NOT_SAVE_FILE = "Couldn't save file";
 
     private ProductDAO productDAO;
     private DTOMappingService dtoMappingService;
@@ -56,14 +55,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional
     public List<ProductDto> findProductsBySearch(String search) {
-        Set<Product> products = new HashSet<>(productDAO.findProductsBySearch(search));
         String[] searchWords = search.split("\\s");
-        if (searchWords.length != 1) {
-            for (String word : searchWords) {
-                products.addAll(productDAO.findProductsBySearch(word));
-            }
-        }
-        return dtoMappingService.convertToProductDtoList(new ArrayList<>(products));
+        List<Product> products = productDAO.findProductsBySearch(searchWords);
+        return dtoMappingService.convertToProductDtoList(products);
     }
 
     @Override
@@ -72,17 +66,15 @@ public class ProductServiceImpl implements ProductService {
         Message message = new Message();
         Product product = productDAO.getProductByTitle(productDto.getTitle());
         if (product != null) {
-            message.getErrors().add(Message.PRODUCT_ALREADY_EXISTS);
-            logger.info(Message.PRODUCT_ALREADY_EXISTS);
+            message.getErrors().add(PRODUCT_ALREADY_EXISTS);
             return message;
         }
         product = dtoMappingService.convertToProduct(productDto);
         try {
             product.setPhotoMd(imageService.saveFile(mdPhoto));
             product.setPhotoSm(imageService.saveFile(smPhoto));
-        } catch (IOException ex) {
-            message.getErrors().add(Message.FILE_SAVE_FAIL);
-            logger.error(Message.FILE_SAVE_FAIL, ex);
+        } catch (IOException e) {
+            message.getErrors().add(COULD_NOT_SAVE_FILE);
             return message;
         }
         productDAO.saveProduct(product);
@@ -94,8 +86,7 @@ public class ProductServiceImpl implements ProductService {
             categories.add(category);
         }
         product.setCategories(categories);
-        message.getConfirms().add(Message.PRODUCT_ADD_SUCCESS);
-        logger.info(Message.PRODUCT_ADD_SUCCESS);
+        message.getConfirms().add(PRODUCT_ADD_SUCCESS);
         return message;
     }
 

@@ -29,8 +29,7 @@
                         <p id="message" class="error">${error}</p>
                     </c:forEach>
                 </c:if>
-                <a class="btn btn-primary add-product-btn" href="${contextPath}/admin/products/addForm" role="button">Add
-                    product</a>
+                <a class="btn btn-primary add-product-btn" href="${contextPath}/admin/products/addForm" role="button">Add product</a>
                 <table class="table">
                     <thead>
                     <tr>
