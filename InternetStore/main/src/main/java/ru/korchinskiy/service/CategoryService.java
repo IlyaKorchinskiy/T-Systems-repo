@@ -10,6 +10,7 @@ import java.util.List;
 public interface CategoryService {
     /**
      * Returns category by id
+     *
      * @param id Long
      * @return CategoryDto object
      */
@@ -17,7 +18,8 @@ public interface CategoryService {
 
     /**
      * Returns category with list of products filtered by cost
-     * @param id Long category id
+     *
+     * @param id      Long category id
      * @param minCost Double
      * @param maxCost Double
      * @return CategoryWithProductsDto object
@@ -27,6 +29,7 @@ public interface CategoryService {
     /**
      * Returns List of subcategories by parent category id
      * if parent category doesn't have subcategories returns parent of parent subcategories
+     *
      * @param id Long parent id
      * @return List<CategoryDto> list of CategoryDto objects
      */
@@ -35,12 +38,14 @@ public interface CategoryService {
     /**
      * Returns category tree form all categories
      * Every CategoryTreeDto can have subcategories of CategoryTreeDto
+     *
      * @return List<CategoryTreeDto> list of CaegoryTreeDto objects
      */
     List<CategoryTreeDto> getCategoryTree();
 
     /**
      * Returns all existing categories
+     *
      * @return List<CategoryDto> list of CaegoryDto objects
      */
     List<CategoryDto> getAllCategories();
@@ -48,6 +53,7 @@ public interface CategoryService {
     /**
      * Updates category entity with categoryDto data
      * returns confirm message if success or error message if fail
+     *
      * @param categoryDto CategoryDto
      * @return Message object with 3 lists of confirms, warnings and errors
      */
@@ -56,6 +62,7 @@ public interface CategoryService {
     /**
      * Saves new category entity to database
      * returns confirm message if success or error message if fail
+     *
      * @param categoryDto CategoryDto
      * @return Message object with 3 lists of confirms, warnings and errors
      */
@@ -63,6 +70,7 @@ public interface CategoryService {
 
     /**
      * Removes category from database
+     *
      * @param categoryId Long
      * @return Message object with 3 lists of confirms, warnings and errors
      */
@@ -71,6 +79,7 @@ public interface CategoryService {
     /**
      * Builds category tree from list of categories
      * Every CategoryTreeDto can have subcategories of CategoryTreeDto
+     *
      * @param categoryTreeDtoList List<CategoryTreeDto>
      * @return List<CategoryTreeDto> list of categories
      */

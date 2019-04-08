@@ -1,22 +1,20 @@
 package ru.korchinskiy.dao.impl;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.korchinskiy.dao.RoleDAO;
 import ru.korchinskiy.entity.Role;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Repository
 public class RoleDAOImpl implements RoleDAO {
-    private SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public Role getRoleById(Long id) {
-        return this.sessionFactory.getCurrentSession().get(Role.class, id);
+        return this.entityManager.find(Role.class, id);
     }
 
-    @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 }

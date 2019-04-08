@@ -9,16 +9,14 @@ import java.util.List;
 @Table(name = "cart")
 @Data
 public class Cart {
+    @OneToMany(mappedBy = "cart")
+    List<CartProduct> cartProducts;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    @OneToMany(mappedBy = "cart")
-    List<CartProduct> cartProducts;
 
     @Override
     public String toString() {

@@ -4,8 +4,6 @@ import org.springframework.stereotype.Service;
 import ru.korchinskiy.dto.CartDto;
 import ru.korchinskiy.dto.CartProductDto;
 
-import java.util.List;
-
 @Service
 public class UtilsService {
 

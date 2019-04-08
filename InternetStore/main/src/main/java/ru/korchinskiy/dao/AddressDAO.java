@@ -8,7 +8,7 @@ public interface AddressDAO {
 
     Address getAddressByNameAndType(String address, AddressType type);
 
-    Long saveAddress(Address address);
+    void saveAddress(Address address);
 
     void removeAddress(Address address);
 }

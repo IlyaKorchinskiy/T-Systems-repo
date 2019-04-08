@@ -1,6 +1,5 @@
 package ru.korchinskiy.service;
 
-import org.springframework.web.multipart.MultipartFile;
 import ru.korchinskiy.dto.NewProductDto;
 import ru.korchinskiy.dto.ProductDto;
 import ru.korchinskiy.dto.ProductWithCategoriesDto;

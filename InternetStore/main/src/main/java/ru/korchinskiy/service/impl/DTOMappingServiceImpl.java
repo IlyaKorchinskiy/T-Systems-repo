@@ -1,6 +1,7 @@
 package ru.korchinskiy.service.impl;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.korchinskiy.dto.*;
 import ru.korchinskiy.entity.*;
 import ru.korchinskiy.service.DTOMappingService;

@@ -134,8 +134,8 @@ public class UserServiceImpl implements UserService {
     public Message updateUserAddress(Long addressId, String newAddressString, UserDto userDto) {
         Address newAddress = addressDAO.getAddressByNameAndType(newAddressString, AddressType.CLIENT);
         if (newAddress == null) {
-            Long newAddressID = addressDAO.saveAddress(new Address(newAddressString, AddressType.CLIENT));
-            newAddress = addressDAO.getAddressById(newAddressID);
+            newAddress = new Address(newAddressString, AddressType.CLIENT);
+            addressDAO.saveAddress(newAddress);
         }
         User user = userDAO.getUserById(userDto.getId());
         List<Address> addresses = user.getAddresses();

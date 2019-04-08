@@ -1,12 +1,10 @@
 package ru.korchinskiy.dto;
 
 import lombok.Data;
-import org.springframework.format.annotation.NumberFormat;
 import org.springframework.web.multipart.MultipartFile;
 import ru.korchinskiy.validation.File;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -21,6 +19,7 @@ public class NewProductDto {
     private String author;
 
     @NotNull(message = "should be not empty")
+    @Min(value = 1, message = "price can't be negative")
     private Double cost;
 
     @NotNull(message = "should be not empty")

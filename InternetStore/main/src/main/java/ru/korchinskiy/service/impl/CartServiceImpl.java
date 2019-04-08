@@ -16,7 +16,6 @@ import ru.korchinskiy.dto.UserDto;
 import ru.korchinskiy.entity.Cart;
 import ru.korchinskiy.entity.CartProduct;
 import ru.korchinskiy.entity.Product;
-import ru.korchinskiy.entity.User;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.DTOMappingService;
@@ -31,10 +30,8 @@ import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService {
-    private static Logger logger = Logger.getLogger(CartServiceImpl.class);
-
     private static final int COOKIE_MAX_AGE = 24 * 60 * 60;
-
+    private static Logger logger = Logger.getLogger(CartServiceImpl.class);
     private CartDAO cartDAO;
     private ProductDAO productDAO;
     private CartProductDAO cartProductDAO;
