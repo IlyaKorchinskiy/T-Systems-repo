@@ -16,6 +16,7 @@ import ru.korchinskiy.service.DTOMappingService;
 import ru.korchinskiy.service.ImageService;
 import ru.korchinskiy.service.ProductService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -67,7 +68,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Message saveProduct(NewProductDto productDto) {
+    public Message saveProduct(NewProductDto productDto, HttpServletRequest request) {
         Message message = new Message();
         Product product = productDAO.getProductByTitle(productDto.getTitle());
         if (product != null) {
@@ -77,8 +78,9 @@ public class ProductServiceImpl implements ProductService {
         }
         product = dtoMappingService.convertToProduct(productDto);
         try {
-            product.setPhotoMd(imageService.saveFile(productDto.getMdPhotoFile()));
-            product.setPhotoSm(imageService.saveFile(productDto.getSmPhotoFile()));
+            product.setPhotoMd(imageService.saveFile(productDto.getMdPhotoFile(), request));
+            product.setPhotoSm(imageService.saveFile(productDto.getSmPhotoFile(), request
+            ));
         } catch (IOException ex) {
             message.getErrors().add(Message.FILE_SAVE_FAIL);
             logger.error(Message.FILE_SAVE_FAIL, ex);

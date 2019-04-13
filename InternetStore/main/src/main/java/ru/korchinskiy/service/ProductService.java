@@ -5,6 +5,7 @@ import ru.korchinskiy.dto.ProductDto;
 import ru.korchinskiy.dto.ProductWithCategoriesDto;
 import ru.korchinskiy.message.Message;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface ProductService {
@@ -16,6 +17,6 @@ public interface ProductService {
 
     List<ProductDto> findProductsBySearch(String search);
 
-    Message saveProduct(NewProductDto productDto);
+    Message saveProduct(NewProductDto productDto, HttpServletRequest request);
 
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.korchinskiy.dto.UserDto;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.UserService;
@@ -27,7 +28,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         HttpSession session = request.getSession();
         UserDto userDto = userService.getUserByEmail(email);
         session.setAttribute("user", userDto);
-        Cookie[] cookies = request.getCookies();
         cartService.mergeCarts(request, response, userDto);
         if (!request.getHeader("referer").contains("login")) {
             response.sendRedirect(request.getHeader("referer"));

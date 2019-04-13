@@ -94,6 +94,7 @@ C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchin
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\dto\OrderDto.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\dto\RoleDto.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\dao\RoleDAO.java
+C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\config\PersistenceJpaConfig.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\service\impl\OrderServiceImpl.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\service\impl\CategoryServiceImpl.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\service\ImageService.java
