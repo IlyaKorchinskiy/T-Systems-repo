@@ -45,7 +45,7 @@ public class CartController {
     public Message addToCart(@RequestParam(name = "id") Long productId,
                              HttpServletRequest request,
                              HttpServletResponse response) throws UnsupportedEncodingException {
-        return cartService.addProductToCart(request, response, productId);
+        return cartService.addProductToCart(request, response, productId, 1);
     }
 
     @Autowired

@@ -60,7 +60,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public Message addProductToCart(HttpServletRequest request, HttpServletResponse response, Long productId) throws UnsupportedEncodingException {
+    public Message addProductToCart(HttpServletRequest request, HttpServletResponse response, Long productId, int amount) throws UnsupportedEncodingException {
         Message message = new Message();
         Product product = productDAO.getProductById(productId);
         if (product.getAmount() == 0) {
@@ -86,7 +86,7 @@ public class CartServiceImpl implements CartService {
         UserDto userDto = (UserDto) request.getSession().getAttribute("user");
         if (userDto != null) {
             Cart cart = cartDAO.getCartByUserId(userDto.getId());
-            addProductToDbCart(cart, product);
+            addProductToDbCart(cart, product, amount);
         }
         message.getConfirms().add(Message.PRODUCT_ADD_TO_CART_SUCCESS);
         logger.info(Message.PRODUCT_ADD_TO_CART_SUCCESS);
@@ -110,15 +110,15 @@ public class CartServiceImpl implements CartService {
         return cartDto;
     }
 
-    private void addProductToDbCart(Cart cart, Product product) {
+    private void addProductToDbCart(Cart cart, Product product, int amount) {
         CartProduct cartProduct = cartProductDAO.getCartProductByCartIdAndProductId(cart.getId(), product.getId());
         if (cartProduct != null) {
-            cartProduct.setAmount(cartProduct.getAmount() + 1);
+            cartProduct.setAmount(cartProduct.getAmount() + amount);
         } else {
             cartProduct = new CartProduct();
             cartProduct.setCart(cart);
             cartProduct.setProduct(product);
-            cartProduct.setAmount(1);
+            cartProduct.setAmount(amount);
             cartProductDAO.saveCartProduct(cartProduct);
         }
         logger.info(Message.PRODUCT_ADD_TO_DB_CART_SUCCESS);
@@ -137,7 +137,7 @@ public class CartServiceImpl implements CartService {
             CartDto cartFromCookie = gson.fromJson(URLDecoder.decode(cookieCart.getValue(), "UTF-8"), CartDto.class);
             for (CartProductDto cartProductDto : cartFromCookie.getCartProducts()) {
                 Product product = productDAO.getProductById(cartProductDto.getProduct().getId());
-                addProductToDbCart(cart, product);
+                addProductToDbCart(cart, product, cartProductDto.getAmount());
             }
         }
         mergeCart = dtoMappingService.convertToCartDto(cart);

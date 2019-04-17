@@ -26,8 +26,7 @@
                     </p>
                 </c:if>
 
-                <c:url value="/j_spring_security_check" var="checkUrl"/>
-                <form action="${checkUrl}" method="post">
+                <form action="${contextPath}/j_spring_security_check" method="post">
                     <div class="form-group">
                         <label for="loginInput">Логин (e-mail)</label>
                         <input type="email" class="form-control" id="loginInput" name="j_username"

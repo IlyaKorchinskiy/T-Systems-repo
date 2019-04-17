@@ -30,6 +30,8 @@ public class Message {
     public static final String VALIDATION_REGISTER_FAIL = "Registration validation failed";
     public static final String VALIDATION_EDIT_USER_FAIL = "Edit user validation failed";
     public static final String VALIDATION_ADD_PRODUCT_FAIL = "Add product validation failed";
+    public static final String UPDATE = "Update";
+
 
     List<String> errors;
     List<String> warnings;

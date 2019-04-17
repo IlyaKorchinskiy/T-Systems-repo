@@ -12,6 +12,7 @@ import ru.korchinskiy.entity.*;
 import ru.korchinskiy.enums.DeliveryType;
 import ru.korchinskiy.enums.OrderStatus;
 import ru.korchinskiy.enums.PaymentStatus;
+import ru.korchinskiy.jms.MessageSender;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.DTOMappingService;
@@ -41,6 +42,7 @@ public class OrderServiceImpl implements OrderService {
     private ProductStatsDAO productStatsDAO;
     private UserStatsDAO userStatsDAO;
     private CartService cartService;
+    private MessageSender messageSender;
 
     @Override
     @Transactional
@@ -175,6 +177,7 @@ public class OrderServiceImpl implements OrderService {
             List<OrderProduct> orderProducts = orderProductDAO.getOrderProductsByOrderId(orderId);
             saveProductStats(orderProducts);
             saveUserStats(order);
+            messageSender.sendMessage(Message.UPDATE);
         }
         Message message = new Message();
         message.getConfirms().add(Message.ORDER_STATUS_UPDATE_SUCCESS);
@@ -261,5 +264,8 @@ public class OrderServiceImpl implements OrderService {
         this.cartService = cartService;
     }
 
-
+    @Autowired
+    public void setMessageSender(MessageSender messageSender) {
+        this.messageSender = messageSender;
+    }
 }

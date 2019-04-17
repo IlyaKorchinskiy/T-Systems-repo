@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="glasscase:war">
+    <output-path>$PROJECT_DIR$/glasscase/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>glasscase</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="glasscase.war">
+      <element id="artifact" artifact-name="glasscase:war exploded" />
+    </root>
+  </artifact>
+</component>

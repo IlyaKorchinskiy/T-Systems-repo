@@ -33,7 +33,7 @@ public interface CartService {
      * @return Message object wich contains 3 lists of errors, warnings and confirms
      * @throws UnsupportedEncodingException
      */
-    Message addProductToCart(HttpServletRequest request, HttpServletResponse response, Long productId) throws UnsupportedEncodingException;
+    Message addProductToCart(HttpServletRequest request, HttpServletResponse response, Long productId, int amount) throws UnsupportedEncodingException;
 
     /**
      * Merges cookie cart and database cart of the user.
@@ -42,6 +42,7 @@ public interface CartService {
      * @param request  HttpServletRequest
      * @param response HttpServletResponse
      * @param userDto  UserDto of the user
+     * @param amount
      * @throws UnsupportedEncodingException
      */
     void mergeCarts(HttpServletRequest request, HttpServletResponse response, UserDto userDto) throws UnsupportedEncodingException;

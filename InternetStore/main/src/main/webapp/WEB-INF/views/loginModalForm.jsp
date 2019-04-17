@@ -13,8 +13,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <c:url value="/j_spring_security_check" var="checkUrl"/>
-            <form action="${checkUrl}" method="post">
+            <form action="${contextPath}/j_spring_security_check" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="modalLoginInput">Логин (e-mail)</label>

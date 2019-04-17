@@ -1,5 +1,6 @@
 package ru.korchinskiy.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,8 @@ public class ProductDto {
     private Double cost;
     private Integer amount;
     private String description;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date date;
     private String photoMd;
     private String photoSm;
