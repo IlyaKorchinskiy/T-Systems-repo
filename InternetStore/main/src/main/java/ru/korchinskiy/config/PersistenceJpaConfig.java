@@ -20,8 +20,8 @@ public class PersistenceJpaConfig {
     public BasicDataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/shop?serverTimezone=UTC");
-        dataSource.setUsername("root");
+        dataSource.setUrl("jdbc:mysql://db:3306/shop?serverTimezone=UTC");
+        dataSource.setUsername("user");
         dataSource.setPassword("123123");
         return dataSource;
     }

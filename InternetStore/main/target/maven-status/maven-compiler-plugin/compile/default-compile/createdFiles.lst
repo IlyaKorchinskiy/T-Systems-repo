@@ -6,6 +6,7 @@ ru\korchinskiy\validation\PasswordMatches.class
 ru\korchinskiy\dto\NewOrderDto.class
 ru\korchinskiy\service\UserService.class
 ru\korchinskiy\enums\Month.class
+ru\korchinskiy\config\MessageConfig.class
 ru\korchinskiy\validation\PhoneNumberValidator.class
 ru\korchinskiy\entity\CartProduct.class
 ru\korchinskiy\service\DTOMappingService.class
@@ -13,6 +14,7 @@ ru\korchinskiy\dao\impl\UserDAOImpl.class
 ru\korchinskiy\service\ImageService.class
 ru\korchinskiy\config\SecurityConfig.class
 ru\korchinskiy\dao\CartDAO.class
+ru\korchinskiy\jms\MessageSender.class
 ru\korchinskiy\entity\Product.class
 ru\korchinskiy\controller\ProductRestController.class
 ru\korchinskiy\entity\Order.class

@@ -1,0 +1,38 @@
+version: "3.6"
+
+services:
+  shop:
+    container_name: "shop"
+    build:
+      context: ./main
+      dockerfile: Dockerfile
+    environment:
+      - DB_NAME=shop
+      - DB_USER=user
+      - DB_PASS=123123
+      - DB_URI=db:3306
+    depends_on:
+      - db
+    ports:
+      - "8189:8080"
+      - "8000:8000"
+
+  db:
+    container_name: "db"
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+
+  glasscase:
+    container_name: "glasscase"
+    build:
+      context: ./glasscase
+      dockerfile: Dockerfile
+    depends_on:
+      - shop
+    ports:
+      - "8080:8080" # application
+      - "9990:9990" # admin console
+      - "61616:61616" # mq

@@ -15,7 +15,7 @@ import java.util.List;
 
 @Stateless(name = "productEJB")
 public class ProductEJBImpl implements ProductEJB {
-    private static final String PRODUCT_URL = "http://localhost:8189/store/products/top";
+    private static final String PRODUCT_URL = "http://shop:8080/store/products/top";
     private static Logger logger = Logger.getLogger(ProductEJBImpl.class);
 
     @Override

@@ -78,6 +78,7 @@ function sendAjaxRequest(url, method, data) {
         body: body
     })
         .then(function (response) {
+            console.log(response);
             return response.json();
         });
 }

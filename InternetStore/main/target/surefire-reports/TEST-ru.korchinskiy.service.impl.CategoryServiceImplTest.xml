@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="ru.korchinskiy.service.impl.CategoryServiceImplTest" time="0.023" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="ru.korchinskiy.service.impl.CategoryServiceImplTest" time="0.008" errors="0" skipped="0">
   <properties>
     <property name="idea.version" value="2018.3.4"/>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
@@ -30,7 +30,7 @@
     <property name="os.name" value="Windows 7"/>
     <property name="classworlds.conf" value="C:\Program Files\JetBrains\IntelliJ IDEA 2018.2.4\plugins\maven\lib\maven3\bin\m2.conf"/>
     <property name="sun.jnu.encoding" value="Cp1251"/>
-    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_171\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Brackets\command;C:\Program Files\PuTTY\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Goodwin\Soft\maven\bin;C:\Users\Goodwin\AppData\Roaming\npm;."/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.8.0_171\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Brackets\command;C:\Program Files\PuTTY\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Goodwin\Soft\maven\bin;C:\Users\Goodwin\AppData\Roaming\npm;C:\Program Files\Docker Toolbox;."/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
@@ -62,8 +62,8 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="ru.korchinskiy.service.impl.CategoryServiceImplTest" name="buildCategoryTree1" time="0.017"/>
-  <testcase classname="ru.korchinskiy.service.impl.CategoryServiceImplTest" name="buildCategoryTree2" time="0.006"/>
+  <testcase classname="ru.korchinskiy.service.impl.CategoryServiceImplTest" name="buildCategoryTree1" time="0.008"/>
+  <testcase classname="ru.korchinskiy.service.impl.CategoryServiceImplTest" name="buildCategoryTree2" time="0"/>
   <testcase classname="ru.korchinskiy.service.impl.CategoryServiceImplTest" name="buildCategoryTree3" time="0"/>
   <testcase classname="ru.korchinskiy.service.impl.CategoryServiceImplTest" name="buildCategoryTree4" time="0"/>
 </testsuite>

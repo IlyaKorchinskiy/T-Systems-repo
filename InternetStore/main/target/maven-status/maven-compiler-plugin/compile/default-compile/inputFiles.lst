@@ -31,12 +31,14 @@ C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchin
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\validation\File.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\validation\FileValidator.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\enums\DeliveryType.java
+C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\config\MessageConfig.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\handler\CustomAuthenticationSuccessHandler.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\validation\PhoneNumberValidator.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\config\SecurityInitializer.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\entity\ProductCategory.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\service\CartService.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\controller\ProductController.java
+C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\jms\MessageSender.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\dao\impl\ProductStatsDAOImpl.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\dao\OrderHistoryDAO.java
 C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\java\ru\korchinskiy\dto\OrderProductDto.java

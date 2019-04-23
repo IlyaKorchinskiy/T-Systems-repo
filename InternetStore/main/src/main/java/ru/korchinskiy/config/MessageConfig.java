@@ -11,7 +11,7 @@ import java.util.Arrays;
 
 @Configuration
 public class MessageConfig {
-    private static final String DEFAULT_BROKER_URL = "tcp://localhost:61616";
+    private static final String DEFAULT_BROKER_URL = "tcp://glasscase:61616";
     private static final String PRODUCT_QUEUE = "jms.queue.ProductQueue";
 
     @Bean
