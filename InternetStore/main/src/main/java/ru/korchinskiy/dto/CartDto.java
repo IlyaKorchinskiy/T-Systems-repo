@@ -10,6 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CartDto {
     private Long id;
+    private UserDto user;
     private List<CartProductDto> cartProducts = new ArrayList<>();
 
     public CartDto(Long id, List<CartProductDto> cartProducts) {

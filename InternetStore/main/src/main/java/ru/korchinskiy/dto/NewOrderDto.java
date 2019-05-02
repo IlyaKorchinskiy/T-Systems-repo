@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import ru.korchinskiy.enums.DeliveryType;
 import ru.korchinskiy.enums.PaymentType;
 
+import javax.validation.constraints.Size;
+
 @Data
 @NoArgsConstructor
 public class NewOrderDto {

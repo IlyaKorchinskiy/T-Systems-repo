@@ -40,6 +40,23 @@
                                            value="${maxCost}" aria-describedby="maxCostHelp">
                                     <small id="maxCostHelp" class="form-text text-muted">Max price</small>
                                 </div>
+                                <div class="form-group col">
+                                    <select class="form-control" id="yearInput" name="year"
+                                            aria-describedby="yearHelp">
+                                        <option>...</option>
+                                        <c:forEach items="${years}" var="year">
+                                            <c:choose>
+                                                <c:when test="${year == chosenYear}">
+                                                    <option value="${year}" selected>${year}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${year}">${year}</option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </select>
+                                    <small id="yearHelp" class="form-text text-muted">Published</small>
+                                </div>
                                 <div class="col">
                                     <button type="submit" class="btn">Filter</button>
                                 </div>
@@ -48,38 +65,72 @@
                     </div>
                 </div>
                 <div class="row justify-content-start product-list">
-                    <c:if test="${empty category}">
-                        <c:forEach items="${products}" var="product">
-                            <div class="col">
-                                <div class="card">
-                                    <a href="${contextPath}/catalog/product/${product.id}">
-                                        <img src="${contextPath}/resources/img/${product.photoSm}" class="card-img-top"
-                                             alt="product_photo">
-                                        <div class="card-body">
-                                            <h5 class="card-title">${product.title}</h5>
-                                            <p class="card-text">${product.cost} <i class="fas fa-ruble-sign"></i></p>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </c:if>
+                    <%--<c:if test="${empty category}">--%>
+                    <%--<c:forEach items="${products}" var="product">--%>
+                    <%--<div class="col items">--%>
+                    <%--<div class="card">--%>
+                    <%--<a href="${contextPath}/catalog/product/${product.id}">--%>
+                    <%--<img src="http://192.168.99.100:8190/${product.photoSm}" class="card-img-top"--%>
+                    <%--alt="product_photo">--%>
+                    <%--<div class="card-body">--%>
+                    <%--<h5 class="card-title">${product.title}</h5>--%>
+                    <%--<p class="card-text">${product.cost} <i class="fas fa-ruble-sign"></i></p>--%>
+                    <%--</div>--%>
+                    <%--</a>--%>
+                    <%--</div>--%>
+                    <%--</div>--%>
+                    <%--</c:forEach>--%>
+                    <%--</c:if>--%>
                     <c:if test="${not empty category}">
                         <c:forEach items="${category.products}" var="product">
-                            <div class="col">
+                            <div class="col items">
                                 <div class="card">
                                     <a href="${contextPath}/catalog/product/${product.id}">
-                                        <img src="${contextPath}/resources/img/${product.photoSm}" class="card-img-top"
+                                        <img src="http://192.168.99.100:8190/${product.photoSm}" class="card-img-top"
                                              alt="product_photo">
                                         <div class="card-body">
                                             <h5 class="card-title">${product.title}</h5>
-                                            <p class="card-text">${product.cost} <i class="fas fa-ruble-sign"></i></p>
+
                                         </div>
                                     </a>
+                                    <div class="row">
+                                        <div class="col price">
+                                            <p class="card-text">${product.cost}
+                                                <i class="fas fa-ruble-sign"></i></p>
+                                        </div>
+                                        <div class="col add-product-div">
+                                            <button id="add-product-btn" type="button" class="btn"
+                                                    data-toggle="modal" data-target="#addProductModal"
+                                                    onclick="addToCart('${product.id}')">
+                                                <i class="fas fa-cart-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </c:forEach>
                     </c:if>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalTitle"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addProductModalTitle">Cart</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="addProductMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue shopping</button>
+                        <a type="button" class="btn btn-primary" href="${contextPath}/cart" role="button">Go to cart</a>
+                    </div>
                 </div>
             </div>
         </div>

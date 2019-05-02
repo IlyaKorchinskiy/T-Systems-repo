@@ -1,21 +1,24 @@
 version: "3.6"
 
 services:
-  shop:
-    container_name: "shop"
-    build:
-      context: ./main
-      dockerfile: Dockerfile
-    environment:
-      - DB_NAME=shop
-      - DB_USER=user
-      - DB_PASS=123123
-      - DB_URI=db:3306
-    depends_on:
-      - db
-    ports:
-      - "8189:8080"
-      - "8000:8000"
+#  shop:
+#    container_name: "shop"
+#    build:
+#      context: ./main
+#      dockerfile: Dockerfile
+#    environment:
+#      - DB_NAME=shop
+#      - DB_USER=user
+#      - DB_PASS=123123
+#      - DB_URI=db:3306
+#    depends_on:
+#      - static
+#      - db
+#    ports:
+#      - "8189:8080"
+#      - "8000:8000"
+#    volumes:
+#      - image-vol:/usr/local/tomcat/webapps/images
 
   db:
     container_name: "db"
@@ -24,15 +27,31 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
 
-  glasscase:
-    container_name: "glasscase"
+#  glasscase:
+#    container_name: "glasscase"
+#    build:
+#      context: ./glasscase
+#      dockerfile: Dockerfile
+#    depends_on:
+#      - shop
+#    ports:
+#      - "8080:8080" # application
+#      - "9990:9990" # admin console
+#      - "61616:61616" # mq
+
+  static:
+    container_name: "static"
     build:
-      context: ./glasscase
+      context: ./static
       dockerfile: Dockerfile
-    depends_on:
-      - shop
     ports:
-      - "8080:8080" # application
-      - "9990:9990" # admin console
-      - "61616:61616" # mq
+      - "8190:8080"
+    volumes:
+      - image-vol:/home/node/app/img
+
+volumes:
+  mysql-data:
+  image-vol:

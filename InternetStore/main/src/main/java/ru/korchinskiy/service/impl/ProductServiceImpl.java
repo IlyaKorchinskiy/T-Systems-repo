@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import ru.korchinskiy.dao.CategoryDAO;
 import ru.korchinskiy.dao.ProductDAO;
 import ru.korchinskiy.dto.NewProductDto;
@@ -68,6 +69,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
+    public List<Integer> getProductYears() {
+        return productDAO.getProductYears();
+    }
+
+    @Override
+    @Transactional
     public Message saveProduct(NewProductDto productDto, HttpServletRequest request) {
         Message message = new Message();
         Product product = productDAO.getProductByTitle(productDto.getTitle());
@@ -78,9 +85,8 @@ public class ProductServiceImpl implements ProductService {
         }
         product = dtoMappingService.convertToProduct(productDto);
         try {
-            product.setPhotoMd(imageService.saveFile(productDto.getMdPhotoFile(), request));
-            product.setPhotoSm(imageService.saveFile(productDto.getSmPhotoFile(), request
-            ));
+            product.setPhotoMd(imageService.saveFile(productDto.getPhotoMd()));
+            product.setPhotoSm(imageService.saveFile(productDto.getPhotoSm()));
         } catch (IOException ex) {
             message.getErrors().add(Message.FILE_SAVE_FAIL);
             logger.error(Message.FILE_SAVE_FAIL, ex);
@@ -88,15 +94,111 @@ public class ProductServiceImpl implements ProductService {
         }
         productDAO.saveProduct(product);
         List<Category> categories = new ArrayList<>();
-        Category category = categoryDAO.getCategoryById(productDto.getCategoryId());
-        categories.add(category);
-        while (!category.getParentId().equals(CategoryServiceImpl.ROOT_CATEGORY)) {
-            category = categoryDAO.getCategoryById(category.getParentId());
-            categories.add(category);
+        for (Long categoryId : productDto.getCategories()) {
+            categories.add(categoryDAO.getCategoryById(categoryId));
         }
         product.setCategories(categories);
         message.getConfirms().add(Message.PRODUCT_ADD_SUCCESS);
         logger.info(Message.PRODUCT_ADD_SUCCESS);
+        return message;
+    }
+
+    @Override
+    @Transactional
+    public Message updateProductTitle(String title, Long productId) {
+        Message message = new Message();
+        Product product = productDAO.getProductByTitle(title);
+        if (product != null) {
+            message.getErrors().add(Message.PRODUCT_ALREADY_EXISTS);
+            logger.info(Message.PRODUCT_ALREADY_EXISTS);
+            return message;
+        }
+        product = productDAO.getProductById(productId);
+        product.setTitle(title);
+        message.getConfirms().add(Message.PRODUCT_UPDATE_TITLE_SUCCESS);
+        logger.info(Message.PRODUCT_UPDATE_TITLE_SUCCESS);
+        return message;
+    }
+
+    @Override
+    @Transactional
+    public Message updateProductAuthor(String author, Long productId) {
+        Message message = new Message();
+        Product product = productDAO.getProductById(productId);
+        product.setAuthor(author);
+        message.getConfirms().add(Message.PRODUCT_UPDATE_AUTHOR_SUCCESS);
+        logger.info(Message.PRODUCT_UPDATE_AUTHOR_SUCCESS);
+        return message;
+    }
+
+    @Override
+    @Transactional
+    public Message updateProductYear(Integer year, Long productId) {
+        Message message = new Message();
+        Product product = productDAO.getProductById(productId);
+        product.setYear(year.toString());
+        message.getConfirms().add(Message.PRODUCT_UPDATE_YEAR_SUCCESS);
+        logger.info(Message.PRODUCT_UPDATE_YEAR_SUCCESS);
+        return message;
+    }
+
+    @Override
+    @Transactional
+    public Message updateProductDescription(String description, Long productId) {
+        Message message = new Message();
+        Product product = productDAO.getProductById(productId);
+        product.setDescription(description);
+        message.getConfirms().add(Message.PRODUCT_UPDATE_DESCRIPTION_SUCCESS);
+        logger.info(Message.PRODUCT_UPDATE_DESCRIPTION_SUCCESS);
+        return message;
+    }
+
+    @Override
+    @Transactional
+    public Message updateProductCategories(List<Long> ids, Long productId) {
+        Message message = new Message();
+        Product product = productDAO.getProductById(productId);
+        List<Category> categories = new ArrayList<>();
+        for (Long id : ids) {
+            categories.add(categoryDAO.getCategoryById(id));
+        }
+        product.setCategories(categories);
+        message.getConfirms().add(Message.PRODUCT_UPDATE_CATEGORIES_SUCCESS);
+        logger.info(Message.PRODUCT_UPDATE_CATEGORIES_SUCCESS);
+        return message;
+    }
+
+    @Override
+    @Transactional
+    public Message updateProductPhotoMd(MultipartFile photoMd, Long productId) {
+        Message message = new Message();
+        Product product = productDAO.getProductById(productId);
+        try {
+            product.setPhotoMd(imageService.saveFile(photoMd));
+        } catch (IOException ex) {
+            message.getErrors().add(Message.FILE_SAVE_FAIL);
+            logger.error(Message.FILE_SAVE_FAIL, ex);
+            return message;
+        }
+        message.getConfirms().add(Message.FILE_SAVE_SUCCESS);
+        logger.info(Message.FILE_SAVE_SUCCESS);
+        return message;
+    }
+
+    @Override
+    @Transactional
+    public Message updateProductPhotoSm(MultipartFile photoSm, Long productId) {
+        Message message = new Message();
+        Product product = productDAO.getProductById(productId);
+        try {
+            product.setPhotoSm(imageService.saveFile(photoSm));
+        } catch (IOException ex) {
+            message.getErrors().add(Message.FILE_SAVE_FAIL);
+            logger.error(Message.FILE_SAVE_FAIL, ex);
+            return message;
+        }
+        message.getConfirms().add(Message.FILE_SAVE_SUCCESS);
+        logger.info(Message.FILE_SAVE_SUCCESS);
         return message;
     }
 

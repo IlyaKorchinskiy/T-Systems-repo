@@ -1,5 +1,6 @@
 package ru.korchinskiy.service;
 
+import org.springframework.web.multipart.MultipartFile;
 import ru.korchinskiy.dto.NewProductDto;
 import ru.korchinskiy.dto.ProductDto;
 import ru.korchinskiy.dto.ProductWithCategoriesDto;
@@ -17,6 +18,22 @@ public interface ProductService {
 
     List<ProductDto> findProductsBySearch(String search);
 
+    List<Integer> getProductYears();
+
     Message saveProduct(NewProductDto productDto, HttpServletRequest request);
+
+    Message updateProductTitle(String title, Long productId);
+
+    Message updateProductAuthor(String author, Long productId);
+
+    Message updateProductYear(Integer year, Long productId);
+
+    Message updateProductDescription(String description, Long productId);
+
+    Message updateProductCategories(List<Long> ids, Long productId);
+
+    Message updateProductPhotoMd(MultipartFile photoMd, Long productId);
+
+    Message updateProductPhotoSm(MultipartFile photoSm, Long productId);
 
 }

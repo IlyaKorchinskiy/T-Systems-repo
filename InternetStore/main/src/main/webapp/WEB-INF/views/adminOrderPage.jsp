@@ -21,7 +21,6 @@
         <jsp:include page="header.jsp"/>
         <jsp:include page="adminNav.jsp"/>
         <h2>Order ${order.id}</h2>
-        <p id="message" class="confirm"></p>
         <div class="row">
             <div class="col content">
                 <div class="row">
@@ -108,9 +107,9 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="inputOrderStatus" class="col-sm-4 col-form-label">Order status</label>
+                            <label for="orderStatusInput" class="col-sm-4 col-form-label">Order status</label>
                             <div class="input-group col">
-                                <select id="inputOrderStatus" class="form-control" required disabled>
+                                <select id="orderStatusInput" class="form-control" required disabled>
                                     <c:forEach items="${orderStatuses}" var="orderStatus">
                                         <c:choose>
                                             <c:when test="${orderStatus == order.orderStatus}">
@@ -123,17 +122,18 @@
                                     </c:forEach>
                                 </select>
                                 <div class="input-group-append">
-                                    <button id="btnSaveOrderStatus" type="button" class="btn btn-primary"
-                                            onclick="saveField('OrderStatus')" hidden>
+                                    <button id="orderStatusBtnSave" type="button" class="btn btn-primary"
+                                            onclick="saveField('orderStatus')" hidden>
                                         <i class="fas fa-check"></i>
                                     </button>
-                                    <button id="btnEditOrderStatus" type="button" class="btn btn-secondary"
-                                            onclick="editField('OrderStatus')">
+                                    <button id="orderStatusBtnEdit" type="button" class="btn btn-secondary"
+                                            onclick="editField('orderStatus')">
                                         <i class="far fa-edit"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
+                        <p id="orderStatusMessage" class="confirm"></p>
                         <div class="form-group">
                             <label for="addressInput">Address</label>
                             <input type="number" class="form-control" id="addressInput" required disabled>
@@ -221,6 +221,7 @@
 <script>var productId = '${product.id}'</script>
 <script src="${contextPath}/resources/js/common.js"></script>
 <script src="${contextPath}/resources/js/adminOrderPage.js"></script>
+<script src="${contextPath}/resources/js/admin.js"></script>
 </body>
 </html>
 

@@ -5,7 +5,7 @@
 
 <html>
 <head>
-    <title>Product ${product.title}</title>
+    <title>Add product</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
@@ -24,9 +24,12 @@
         <c:if test="${empty product.id}">
             <h2>Add new product</h2>
         </c:if>
+        <c:if test="${not empty product.id}">
+            <h2>Product ${product.id}</h2>
+        </c:if>
         <div class="row">
             <div class="col content">
-                <form:form id="productForm" class="product-form" action="${contextPath}/admin/products/addProduct"
+                <form:form id="productForm" class="product-form" action="${contextPath}/admin/products/add"
                            method="post" modelAttribute="product" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col">
@@ -35,72 +38,76 @@
                                 <form:input type="number" class="form-control" id="idInput" path="id" readonly="true"/>
                             </div>
                             <div class="form-group">
-                                <label for="titleInput">Product title</label>
-                                <form:input type="text" class="form-control" id="titleInput" path="title"
-                                            placeholder="Title" disabled="true"/>
+                                <label for="inputTitle">Product title</label>
+                                <form:input type="text" class="form-control" id="inputTitle" path="title"
+                                            placeholder="Title"/>
                                 <form:errors path="title" cssClass="error"/>
                             </div>
                             <div class="form-group">
-                                <label for="authorInput">Author</label>
-                                <form:input type="text" class="form-control" id="authorInput" path="author"
-                                            placeholder="Author" disabled="true"/>
+                                <label for="inputAuthor">Author</label>
+                                <form:input type="text" class="form-control" id="inputAuthor" path="author"
+                                            placeholder="Author"/>
                                 <form:errors path="author" cssClass="error"/>
                             </div>
                             <div class="form-group">
-                                <label for="costInput">Cost</label>
-                                <form:input type="number" class="form-control" id="costInput" path="cost"
-                                            disabled="true"/>
+                                <label for="inputYear">Published</label>
+                                <form:input type="text" class="form-control" id="inputYear" path="year"
+                                            placeholder="Year"/>
+                                <form:errors path="year" cssClass="error"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputCost">Cost</label>
+                                <form:input type="number" class="form-control" id="inputCost" path="cost"/>
                                 <form:errors path="cost" cssClass="error"/>
                             </div>
                             <div class="form-group">
-                                <label for="amountInput">Stock amount</label>
-                                <form:input type="number" class="form-control" id="amountInput" path="amount"
-                                            disabled="true"/>
+                                <label for="inputAmount">Stock amount</label>
+                                <form:input type="number" class="form-control" id="inputAmount" path="amount"/>
                                 <form:errors path="amount" cssClass="error"/>
                             </div>
                             <div class="form-group">
-                                <label for="descriptionInput">Description</label>
-                                <form:textarea class="form-control" id="descriptionInput" path="description"
-                                               placeholder="Description" rows="4" disabled="true"/>
+                                <label for="inputDescription">Description</label>
+                                <form:textarea class="form-control" id="inputDescription" path="description"
+                                               placeholder="Description" rows="13"/>
                                 <form:errors path="description" cssClass="error"/>
                             </div>
                         </div>
                         <div class="col">
                             <div class="form-group">
-                                <label for="categoryInput">Category</label>
-                                <form:select id="categoryInput" path="categoryId" class="form-control"
-                                             disabled="true">
-                                    <option value="0">Choose...</option>
-                                    <c:forEach items="${allCategories}" var="category">
-                                        <option value="${category.id}">${category.title}</option>
-                                    </c:forEach>
-                                </form:select>
-                                <form:errors path="categoryId" cssClass="error"/>
+                                <label for="inputCategories">Categories</label>
+                                <form:select id="inputCategories" path="categories" items="${allCategories}"
+                                             multiple="true" class="form-control" itemLabel="title" itemValue="id"
+                                             size="20"/>
+                                <form:errors path="categories" cssClass="error"/>
                             </div>
-                            <div class="form-group">
-                                <label for="smPhotoInput">Upload small photo</label>
-                                <form:input type="file" class="form-control-file" id="smPhotoInput" path="smPhotoFile"
-                                            disabled="true"/>
-                                <form:errors path="smPhotoFile" cssClass="error"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="mdPhotoInput">Upload medium photo</label>
-                                <form:input type="file" class="form-control-file" id="mdPhotoInput" path="mdPhotoFile"
-                                            disabled="true"/>
-                                <form:errors path="mdPhotoFile" cssClass="error"/>
+                            <div class="row align-items-end">
+                                <div class="col">
+                                    <div class="form-group photo-input">
+                                        <label for="inputPhotoMd">Medium photo</label>
+                                        <form:input type="file" class="form-control-file" id="inputPhotoMd"
+                                                    path="photoMd"/>
+                                        <form:errors path="photoMd" cssClass="error"/>
+                                    </div>
+                                </div>
+                                <div class="col">
+
+                                    <div class="form-group photo-input">
+                                        <label for="inputPhotoSm">Small photo</label>
+                                        <form:input type="file" class="form-control-file" id="inputPhotoSm"
+                                                    path="photoSm"/>
+                                        <form:errors path="photoSm" cssClass="error"/>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col btns">
-                            <button id="btnSave" type="submit" class="btn btn-primary" hidden>Save</button>
-                            <button id="btnEdit" type="button" class="btn btn-primary">Edit</button>
+                            <button id="btnSave" type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </form:form>
-
             </div>
-
         </div>
     </div>
     <jsp:include page="footer.jsp"/>

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -33,6 +34,7 @@
                         <th scope="col">Amount</th>
                         <th scope="col">Price</th>
                         <th scope="col">Sum</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,6 +44,11 @@
                             <td>${cartProduct.amount}</td>
                             <td>${cartProduct.product.cost}</td>
                             <td>${cartProduct.sum}</td>
+                            <td>
+                                <a href="${contextPath}/cart/removeFromCart?id=${cartProduct.product.id}"
+                                   class="remove-product-link"><i class="far fa-times-circle"></i>
+                                </a>
+                            </td>
                         </tr>
                     </c:forEach>
 
@@ -69,51 +76,82 @@
                     <div class="row site-padding order-params">
                         <div class="col">
                             <form id="orderForm" action="${contextPath}/order" method="post" modelAttribute="order">
-                                <div class="form-row">
-                                    <div class="form-group col param">
-                                        <h6>Delivery type</h6>
-                                        <c:forEach items="${deliveryTypes}" var="deliveryType">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="deliveryType"
-                                                       id="deliveryType-${deliveryType}" value="${deliveryType}"
-                                                       onchange="showAddressInput()">
-                                                <label class="form-check-label"
-                                                       for="deliveryType-${deliveryType}">${deliveryType}</label>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group param delivery">
+                                            <div class="form-group">
+                                                <legend class="col-form-label">Delivery type</legend>
+                                                <c:forEach items="${deliveryTypes}" var="deliveryType">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="deliveryType"
+                                                               id="deliveryType-${deliveryType}" value="${deliveryType}"
+                                                               onchange="showAddressInput()">
+                                                        <label class="form-check-label"
+                                                               for="deliveryType-${deliveryType}">${deliveryType}</label>
+                                                    </div>
+                                                </c:forEach>
                                             </div>
-                                        </c:forEach>
-                                        <div id="addressDiv" class="form-group address-input">
-                                            <label for="addressInput">Delivery address</label>
-                                            <input type="text" class="form-control" id="addressInput" name="address"
-                                                   placeholder="Address">
-                                        </div>
-                                        <div id="pickupDiv" class="form-group pickup-input hidden">
-                                            <label for="pickupInput">Pickup address</label>
-                                            <select id="pickupInput" class="form-control" name="pickupAddress">
-                                                <option value="" selected>Choose...</option>
-                                                    <%--<c:forEach items="${pickupAddresses}" var="address">--%>
-                                                    <%--<option>${address.title}</option>--%>
-                                                    <%--</c:forEach>--%>
-                                            </select>
+                                            <div id="addressDiv" class="form-group">
+                                                <legend class="col-form-label">Your addresses:</legend>
+                                                <c:forEach items="${userAddresses}" var="address">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="address"
+                                                               id="addressInput${address.id}" value="${address.address}"
+                                                               required>
+                                                        <label class="form-check-label" for="addressInput${address.id}">
+                                                                ${address.address}
+                                                        </label>
+                                                    </div>
+                                                </c:forEach>
+                                                <c:if test="${empty userAddresses}">
+                                                    <p class="error">You don't have any addresses</p>
+                                                    <button id="addAddressBtn" type="button" class="btn btn-primary"
+                                                            onclick="showAddressForm()">
+                                                        Add new address
+                                                    </button>
+                                                </c:if>
+                                            </div>
+                                            <div id="pickupDiv" class="form-group pickup-input hidden">
+                                                <label for="pickupInput">Pickup address</label>
+                                                <select id="pickupInput" class="form-control" name="pickupAddress">
+                                                    <option value="" selected>Choose...</option>
+                                                    <c:forEach items="${pickupAddresses}" var="address">
+                                                        <option>${address.address}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="form-group col param">
-                                        <h6>Payment type</h6>
-                                        <c:forEach items="${paymentTypes}" var="paymentType">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="paymentType"
-                                                       id="paymentType-${paymentType}" value="${paymentType}">
-                                                <label class="form-check-label"
-                                                       for="paymentType-${paymentType}">${paymentType}</label>
-                                            </div>
-                                        </c:forEach>
-                                    </div>
-                                    <div class="form-group col confirm param">
-                                        <p class="sum">Total: <span>${sum} <i class="fas fa-ruble-sign"></i></span></p>
-                                        <input type="number" name="sum" value="${sum}" hidden>
-                                        <button type="submit" class="btn btn-primary">Confirm order</button>
+                                    <div class="col">
+                                        <div class="form-group param">
+                                            <legend class="col-form-label">Payment type</legend>
+                                            <c:forEach items="${paymentTypes}" var="paymentType">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="paymentType"
+                                                           id="paymentType-${paymentType}" value="${paymentType}">
+                                                    <label class="form-check-label"
+                                                           for="paymentType-${paymentType}">${paymentType}</label>
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                        <div class="form-group confirm param">
+                                            <p class="sum">Total: <span>${sum} <i class="fas fa-ruble-sign"></i></span>
+                                            </p>
+                                            <input type="number" name="sum" value="${sum}" hidden>
+                                            <button type="submit" class="btn btn-primary">Confirm order</button>
+                                        </div>
                                     </div>
                                 </div>
-
+                            </form>
+                            <form id="addAddressForm" action="${contextPath}/profile/addAddress" method="post" hidden>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label for="newAddressInput" class="form-label">New address</label>
+                                        <input type="text" class="form-control" id="newAddressInput" name="address"
+                                               placeholder="Address" required autofocus>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </form>
                         </div>
                     </div>

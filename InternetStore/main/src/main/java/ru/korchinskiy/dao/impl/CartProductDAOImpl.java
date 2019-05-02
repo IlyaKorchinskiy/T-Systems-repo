@@ -53,4 +53,10 @@ public class CartProductDAOImpl implements CartProductDAO {
         this.entityManager.remove(cartProduct);
     }
 
+    @Override
+    public void removerCartProductByCartIdAndProductId(Long cartId, Long productId) {
+        CartProduct cartProduct = getCartProductByCartIdAndProductId(cartId, productId);
+        this.entityManager.remove(cartProduct);
+    }
+
 }

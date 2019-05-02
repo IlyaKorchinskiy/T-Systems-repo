@@ -57,7 +57,7 @@ public class ProductDAOImpl implements ProductDAO {
     }
 
     @Override
-    public List<Product> getProductsByCategoryAndCost(Long categoryId, Double minCost, Double maxCost) {
+    public List<Product> getProductsByCategoryAndParams(Long categoryId, Double minCost, Double maxCost, String year) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Product> query = builder.createQuery(Product.class);
         Root<Product> product = query.from(Product.class);
@@ -65,7 +65,8 @@ public class ProductDAOImpl implements ProductDAO {
         query.select(product)
                 .where(builder.equal(categories.get("id"), categoryId),
                         builder.greaterThanOrEqualTo(product.get("cost"), minCost),
-                        builder.lessThanOrEqualTo(product.get("cost"), maxCost));
+                        builder.lessThanOrEqualTo(product.get("cost"), maxCost),
+                        builder.like(product.get("year"), year));
         TypedQuery<Product> typedQuery = entityManager.createQuery(query);
         return typedQuery.getResultList();
     }
@@ -78,6 +79,15 @@ public class ProductDAOImpl implements ProductDAO {
         query.select(root).where(builder.or(
                 builder.like(root.get("title"), '%' + search + '%'),
                 builder.like(root.get("author"), '%' + search + '%')));
+        return entityManager.createQuery(query).getResultList();
+    }
+
+    @Override
+    public List<Integer> getProductYears() {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Integer> query = builder.createQuery(Integer.class);
+        Root<Product> root = query.from(Product.class);
+        query.select(root.get("year"));
         return entityManager.createQuery(query).getResultList();
     }
 

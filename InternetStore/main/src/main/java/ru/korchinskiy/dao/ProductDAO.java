@@ -15,9 +15,11 @@ public interface ProductDAO {
 
     List<Product> getProductsByCategory(Long categoryId);
 
-    List<Product> getProductsByCategoryAndCost(Long categoryId, Double minCost, Double maxCost);
+    List<Product> getProductsByCategoryAndParams(Long categoryId, Double minCost, Double maxCost, String year);
 
     List<Product> findProductsBySearch(String search);
+
+    List<Integer> getProductYears();
 
     void saveProduct(Product product);
 

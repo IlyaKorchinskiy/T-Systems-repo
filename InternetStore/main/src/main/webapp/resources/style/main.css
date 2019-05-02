@@ -83,6 +83,10 @@ html, body {
     background-color: #6d6d6d;
 }
 
+.header-content .search form {
+    margin: 0;
+}
+
 .header-content .cart {
     text-align: center;
 }
@@ -218,20 +222,18 @@ html, body {
     background-color: #6d6d6d;
 }
 
-.product-list .col {
+.product-list .items {
     flex-grow: 0;
 }
 
 .card {
-    width: 150px;
-    height: 330px;
+    width: 200px;
     border: none;
     margin-bottom: 30px;
 }
 
-.card a:hover {
+.card:hover {
     outline: 1px solid #d8d8d8;
-    text-decoration: none;
 }
 
 .card-body {
@@ -239,7 +241,6 @@ html, body {
 }
 
 .card-title {
-    height: 40px;
     overflow: hidden;
     text-overflow: ellipsis;
     color: #646464;
@@ -252,8 +253,40 @@ html, body {
 .card-text {
     color: #f05356;
     font-size: 20px;
-    line-height: 20px;
+    line-height: 34px;
     text-align: center;
+}
+
+.card .add-product-div {
+    display: none;
+}
+
+.card:hover .add-product-div {
+    display: block;
+    text-align: center;
+}
+
+.card .price {
+    margin-bottom: 10px;
+}
+
+.card:hover .price {
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+}
+
+.card a:hover {
+    text-decoration: none;
+}
+
+.card .add-product-div button {
+    font-size: 20px;
+    color: #79b260;
+}
+
+.card .add-product-div button:hover {
+    background-color: #79b260;
+    color: #ffffff;
 }
 
 /*product*/
@@ -314,6 +347,7 @@ html, body {
 
 .price-buy button:hover {
     background-color: #a2a2a2;
+    color: #ffffff;
 }
 
 /*cart*/
@@ -331,6 +365,10 @@ html, body {
     text-align: left;
 }
 
+.cart-products table .remove-product-link {
+    color: red;
+}
+
 .order-params {
     margin-top: 30px;
 }
@@ -338,11 +376,10 @@ html, body {
 .order-params .param {
     outline: 1px solid #dddddd;
     padding: 30px 30px;
-    margin: 10px;
 }
 
-.order-params .param .form-group {
-    margin: 20px 0 0 0;
+.order-params .param.delivery {
+    min-height: 309px;
 }
 
 .order-params .hidden {
@@ -447,6 +484,14 @@ html, body {
 
 .admin .add-product-btn {
     margin-bottom: 20px;
+}
+
+.admin .form-group .edit {
+    margin-top: 10px;
+}
+
+.admin .photo {
+    margin-bottom: 15px;
 }
 
 .admin .product-form .btns {

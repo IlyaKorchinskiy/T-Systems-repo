@@ -1,7 +1,6 @@
 package ru.korchinskiy.service.impl;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import ru.korchinskiy.dto.*;
 import ru.korchinskiy.entity.*;
 import ru.korchinskiy.service.DTOMappingService;
@@ -20,6 +19,7 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         productDto.setCost(product.getCost());
         productDto.setTitle(product.getTitle());
         productDto.setAuthor(product.getAuthor());
+        productDto.setYear(product.getYear());
         productDto.setAmount(product.getAmount());
         productDto.setDescription(product.getDescription());
         productDto.setDate(product.getDate());
@@ -33,6 +33,7 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         Product product = new Product();
         product.setTitle(productDto.getTitle());
         product.setAuthor(productDto.getAuthor());
+        product.setYear(productDto.getYear().toString());
         product.setDescription(productDto.getDescription());
         product.setCost(productDto.getCost());
         product.setAmount(productDto.getAmount());
@@ -47,6 +48,7 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         productDto.setCost(product.getCost());
         productDto.setTitle(product.getTitle());
         productDto.setAuthor(product.getAuthor());
+        productDto.setYear(product.getYear());
         productDto.setAmount(product.getAmount());
         productDto.setDescription(product.getDescription());
         productDto.setDate(product.getDate());
@@ -199,6 +201,7 @@ public class DTOMappingServiceImpl implements DTOMappingService {
     public CartDto convertToCartDto(Cart cart) {
         CartDto cartDto = new CartDto();
         cartDto.setId(cart.getId());
+        cartDto.setUser(convertToUserDto(cart.getUser()));
         cartDto.setCartProducts(convertToCartProductDtoList(cart.getCartProducts()));
         return cartDto;
     }

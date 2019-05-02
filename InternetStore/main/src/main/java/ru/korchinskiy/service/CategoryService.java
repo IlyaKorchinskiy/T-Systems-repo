@@ -17,14 +17,14 @@ public interface CategoryService {
     CategoryDto getCategoryById(Long id);
 
     /**
-     * Returns category with list of products filtered by cost
+     * Returns category with list of products filtered by params
      *
      * @param id      Long category id
      * @param minCost Double
      * @param maxCost Double
      * @return CategoryWithProductsDto object
      */
-    CategoryWithProductsDto getCategoryWithProductsByCost(Long id, Double minCost, Double maxCost);
+    CategoryWithProductsDto getCategoryWithProductsByParams(Long id, Double minCost, Double maxCost, String year);
 
     /**
      * Returns List of subcategories by parent category id

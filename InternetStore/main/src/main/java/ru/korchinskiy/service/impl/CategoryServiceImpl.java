@@ -35,11 +35,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public CategoryWithProductsDto getCategoryWithProductsByCost(Long id, Double minCost, Double maxCost) {
+    public CategoryWithProductsDto getCategoryWithProductsByParams(Long id, Double minCost, Double maxCost, String year) {
         Category category = categoryDAO.getCategoryById(id);
         if (minCost == null) minCost = 0.0;
         if (maxCost == null) maxCost = Double.MAX_VALUE;
-        List<Product> products = productDAO.getProductsByCategoryAndCost(id, minCost, maxCost);
+        if (year == null) year = "____";
+        List<Product> products = productDAO.getProductsByCategoryAndParams(id, minCost, maxCost, year);
         List<ProductDto> productDtos = dtoMappingService.convertToProductDtoList(products);
         return dtoMappingService.convertToCategoryWithProductsDto(category, productDtos);
     }
@@ -126,6 +127,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     private Message removeCategory(Category category) {
         Message message = new Message();
+        if (category.getProducts().size() != 0) {
+            message.getErrors().add(Message.CATEGORY_DELETE_FAIL);
+            logger.info(Message.CATEGORY_DELETE_FAIL);
+            return message;
+        }
         categoryDAO.removeCategory(category);
         message.getConfirms().add(Message.CATEGORY_DELETE_SUCCESS);
         logger.info(Message.CATEGORY_DELETE_SUCCESS);

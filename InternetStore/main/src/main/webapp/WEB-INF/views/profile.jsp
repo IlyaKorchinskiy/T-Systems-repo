@@ -117,7 +117,7 @@
                 </div>
                 <form id="addAddressForm" action="${contextPath}/profile/addAddress" method="post" hidden>
                     <div class="form-group">
-                        <label for="newAddressInput" class="form-label">Новый адрес</label>
+                        <label for="newAddressInput" class="form-label">New address</label>
                         <input type="text" class="form-control" id="newAddressInput" name="address"
                                placeholder="Address" required autofocus>
                     </div>

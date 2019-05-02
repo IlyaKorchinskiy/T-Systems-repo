@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "product")
@@ -19,6 +18,7 @@ public class Product {
 
     private String title;
     private String author;
+    private String year;
     private Double cost;
     private Integer amount;
     private String description;

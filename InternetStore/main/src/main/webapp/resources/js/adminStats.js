@@ -5,7 +5,7 @@ window.onload = function () {
     getCart(contextPath);
 
     selectCurrentDates();
-}
+};
 
 function selectCurrentDates() {
     var productsMonthOptions = document.getElementById('productsMonthInput').getElementsByTagName('option');

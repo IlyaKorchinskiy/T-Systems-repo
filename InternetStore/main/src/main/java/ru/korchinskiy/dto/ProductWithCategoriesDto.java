@@ -10,6 +10,7 @@ public class ProductWithCategoriesDto {
     private Long id;
     private String title;
     private String author;
+    private String year;
     private Double cost;
     private Integer amount;
     private String description;

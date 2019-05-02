@@ -32,6 +32,7 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
     private static final int COOKIE_MAX_AGE = 24 * 60 * 60;
     private static Logger logger = Logger.getLogger(CartServiceImpl.class);
+
     private CartDAO cartDAO;
     private ProductDAO productDAO;
     private CartProductDAO cartProductDAO;
@@ -93,6 +94,33 @@ public class CartServiceImpl implements CartService {
         return message;
     }
 
+    @Override
+    @Transactional
+    public void removeProductFromCart(HttpServletRequest request, HttpServletResponse response, Long productId) throws UnsupportedEncodingException {
+        Cookie cookieCart = WebUtils.getCookie(request, "cart");
+        Gson gson = new Gson();
+        CartDto cartDto = gson.fromJson(URLDecoder.decode(cookieCart.getValue(), "UTF-8"), CartDto.class);
+        List<CartProductDto> cartProductDtoList = cartDto.getCartProducts();
+        for (CartProductDto cartProductDto : cartProductDtoList) {
+            if (cartProductDto.getProduct().getId().equals(productId)) {
+                cartProductDtoList.remove(cartProductDto);
+                break;
+            }
+        }
+        logger.info(Message.PRODUCT_REMOVE_FROM_COOKIE_CART_SUCCESS);
+        cartDto.setCartProducts(cartProductDtoList);
+        cookieCart.setValue(URLEncoder.encode(gson.toJson(cartDto), "UTF-8"));
+        cookieCart.setMaxAge(COOKIE_MAX_AGE);
+        cookieCart.setPath("/");
+        response.addCookie(cookieCart);
+        UserDto userDto = (UserDto) request.getSession().getAttribute("user");
+        if (userDto != null) {
+            Cart cart = cartDAO.getCartByUserId(userDto.getId());
+            cartProductDAO.removerCartProductByCartIdAndProductId(cart.getId(), productId);
+            logger.info(Message.PRODUCT_REMOVE_FROM_DB_CART_SUCCESS);
+        }
+    }
+
     private CartDto addProductToCartDto(CartDto cartDto, Product product) {
         List<CartProductDto> cartProductDtoList = cartDto.getCartProducts();
         for (CartProductDto cartProductDto : cartProductDtoList) {
@@ -149,9 +177,13 @@ public class CartServiceImpl implements CartService {
 
     @Override
     @Transactional
-    public void cleanCarts(HttpServletResponse response, Long userId) {
-        Cookie cookieCart = new Cookie("cart", null);
-        cookieCart.setMaxAge(0);
+    public void cleanCarts(HttpServletRequest request, HttpServletResponse response, Long userId) throws UnsupportedEncodingException {
+        Cookie cookieCart = WebUtils.getCookie(request, "cart");
+        Gson gson = new Gson();
+        CartDto cartDto = gson.fromJson(URLDecoder.decode(cookieCart.getValue(),"UTF-8"), CartDto.class);
+        cartDto.getCartProducts().clear();
+        cookieCart.setValue(URLEncoder.encode(gson.toJson(cartDto), "UTF-8"));
+        cookieCart.setMaxAge(COOKIE_MAX_AGE);
         cookieCart.setPath("/");
         response.addCookie(cookieCart);
         Cart cart = cartDAO.getCartByUserId(userId);

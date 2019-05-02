@@ -16,3 +16,8 @@ function showAddressInput() {
     var pickupDiv = document.getElementById('pickupDiv');
     pickupDiv.classList.toggle('hidden');
 }
+
+function showAddressForm() {
+    document.getElementById('addAddressForm').hidden = false;
+    document.getElementById('addAddressBtn').hidden = true;
+}

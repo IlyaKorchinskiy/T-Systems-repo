@@ -63,24 +63,37 @@ function sendAjaxRequestPost(url, params, func) {
     xhr.send(body);
 }
 
-function sendAjaxRequest(url, method, data) {
-    if (method === 'POST') {
-        var body = '';
-        for (var key in data) {
-            body += key + '=' + encodeURIComponent(data[key]) + '&';
-        }
-    }
+function sendAjaxRequest(url, method, contentType, data) {
     return fetch(url, {
         method: method,
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': contentType
         },
-        body: body
+        body: JSON.stringify(data)
     })
         .then(function (response) {
             console.log(response);
             return response.json();
         });
+}
+
+function addToCart(id) {
+    var params = {
+        id: id
+    };
+    sendAjaxRequestPost('/cart/addToCart', params, function () {
+        if (xhr.responseText === '') return;
+        var message = JSON.parse(xhr.responseText);
+        var messageP = document.getElementById('addProductMessage');
+        if (message.errors.length !== 0) {
+            for (var i = 0; i < message.errors.length; i++) {
+                messageP.innerText += messageP.innerText + message.errors[i] + '\n';
+            }
+        } else {
+            messageP.innerText = message.confirms[0];
+            getCart(contextPath);
+        }
+    });
 }
 
 

@@ -95,9 +95,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Message addUserAddress(String addressString, UserDto userDto) {
+    public Message addUserAddress(String addressString, Long userId) {
         Message message = new Message();
-        User user = userDAO.getUserById(userDto.getId());
+        User user = userDAO.getUserById(userId);
         Address address = addressDAO.getAddressByNameAndType(addressString, AddressType.CLIENT);
         if (address == null) {
             address = new Address(addressString, AddressType.CLIENT);

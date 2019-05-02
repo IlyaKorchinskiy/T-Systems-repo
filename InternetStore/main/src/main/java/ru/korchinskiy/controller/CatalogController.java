@@ -25,15 +25,19 @@ public class CatalogController {
     public String showCatalog(@RequestParam(name = "id") Long id,
                               @RequestParam(name = "minCost", required = false) Double minCost,
                               @RequestParam(name = "maxCost", required = false) Double maxCost,
+                              @RequestParam(name = "year", required = false) String year,
                               Model model) {
-        CategoryWithProductsDto category = categoryService.getCategoryWithProductsByCost(id, minCost, maxCost);
+        CategoryWithProductsDto category = categoryService.getCategoryWithProductsByParams(id, minCost, maxCost, year);
         List<CategoryDto> mainCategories = categoryService.getCategoriesByParentId(CategoryServiceImpl.ROOT_CATEGORY);
         List<CategoryDto> subCategories = categoryService.getCategoriesByParentId(id);
+        List<Integer> years = productService.getProductYears();
         model.addAttribute("category", category);
         model.addAttribute("mainCategories", mainCategories);
         model.addAttribute("subCategories", subCategories);
         model.addAttribute("minCost", minCost);
         model.addAttribute("maxCost", maxCost);
+        model.addAttribute("years", years);
+        model.addAttribute("chosenYear", year);
         return "catalog";
     }
 

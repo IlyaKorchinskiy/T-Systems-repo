@@ -14,4 +14,6 @@ public interface CartProductDAO {
     void saveCartProduct(CartProduct cartProduct);
 
     void removeCartProductById(Long id);
+
+    void removerCartProductByCartIdAndProductId(Long cartId, Long productId);
 }

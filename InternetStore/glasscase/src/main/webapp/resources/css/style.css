@@ -30,8 +30,7 @@ html, body {
 }
 
 .card {
-    width: 150px;
-    height: 330px;
+    width: 200px;
     border: none;
     margin-bottom: 30px;
 }
@@ -41,7 +40,7 @@ html, body {
 }
 
 .card-title {
-    height: 40px;
+    height: 35px;
     overflow: hidden;
     text-overflow: ellipsis;
     color: #646464;

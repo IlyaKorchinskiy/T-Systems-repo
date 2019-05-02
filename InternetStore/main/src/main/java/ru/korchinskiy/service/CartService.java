@@ -35,6 +35,8 @@ public interface CartService {
      */
     Message addProductToCart(HttpServletRequest request, HttpServletResponse response, Long productId, int amount) throws UnsupportedEncodingException;
 
+    void removeProductFromCart(HttpServletRequest request, HttpServletResponse response, Long productId) throws UnsupportedEncodingException;
+
     /**
      * Merges cookie cart and database cart of the user.
      * Writes products from cookie cart to database cart and after writes cookie cart from db cart
@@ -53,7 +55,7 @@ public interface CartService {
      * @param response HttpServletResponse
      * @param userId   Long of the user
      */
-    void cleanCarts(HttpServletResponse response, Long userId);
+    void cleanCarts(HttpServletRequest request, HttpServletResponse response, Long userId) throws UnsupportedEncodingException;
 
     /**
      * creates cart for new user

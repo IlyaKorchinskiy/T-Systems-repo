@@ -36,6 +36,15 @@ public class AddressDAOImpl implements AddressDAO {
     }
 
     @Override
+    public List<Address> getAddressListByType(AddressType type) {
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Address> query = builder.createQuery(Address.class);
+        Root<Address> root = query.from(Address.class);
+        query.select(root).where(builder.equal(root.get("addressType"), type));
+        return entityManager.createQuery(query).getResultList();
+    }
+
+    @Override
     public void saveAddress(Address address) {
         this.entityManager.persist(address);
     }

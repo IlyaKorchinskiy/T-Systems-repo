@@ -17,6 +17,7 @@ import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.DTOMappingService;
 import ru.korchinskiy.service.OrderService;
+import ru.korchinskiy.service.UserService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -42,6 +43,7 @@ public class OrderServiceImpl implements OrderService {
     private ProductStatsDAO productStatsDAO;
     private UserStatsDAO userStatsDAO;
     private CartService cartService;
+    private UserService userService;
     private MessageSender messageSender;
 
     @Override
@@ -112,7 +114,7 @@ public class OrderServiceImpl implements OrderService {
             OrderProduct orderProduct = createOrderProduct(cartProducts.get(i), products.get(i), order);
             orderProductDAO.saveOrderProduct(orderProduct);
         }
-        cartService.cleanCarts(response, user.getId());
+        cartService.cleanCarts(request, response, user.getId());
         message.getConfirms().add(Message.ORDER_SAVE_SUCCESS + " ID " + order.getId());
         logger.info(Message.ORDER_SAVE_SUCCESS);
         return message;
@@ -169,7 +171,13 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public Message updateOrderStatus(Long orderId, OrderStatus orderStatus) {
+        Message message = new Message();
         Order order = orderDAO.getOrderById(orderId);
+        if (order.getOrderStatus().equals(orderStatus)) {
+            message.getErrors().add(Message.ORDER_STATUS_UPDATE_FAIL);
+            logger.info(Message.ORDER_STATUS_UPDATE_FAIL);
+            return message;
+        }
         order.setOrderStatus(orderStatus);
         OrderHistory orderHistory = createOrderHistory(order);
         orderHistoryDAO.saveOrderHistory(orderHistory);
@@ -179,7 +187,6 @@ public class OrderServiceImpl implements OrderService {
             saveUserStats(order);
             messageSender.sendMessage(Message.UPDATE);
         }
-        Message message = new Message();
         message.getConfirms().add(Message.ORDER_STATUS_UPDATE_SUCCESS);
         logger.info(Message.ORDER_STATUS_UPDATE_SUCCESS);
         return message;
@@ -262,6 +269,11 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     public void setCartService(CartService cartService) {
         this.cartService = cartService;
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @Autowired

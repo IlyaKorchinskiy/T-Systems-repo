@@ -10,6 +10,7 @@ import ru.korchinskiy.dto.UserDto;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -47,12 +48,16 @@ public class ProfileController {
     @PostMapping("/addAddress")
     public String addAddress(Model model,
                              @RequestParam(name = "address") String address,
-                             HttpSession session) {
-        Message message = userService.addUserAddress(address, (UserDto) session.getAttribute("user"));
-        UserDto user = userService.getUserById(((UserDto) session.getAttribute("user")).getId());
-        model.addAttribute("addressMessage", message);
-        model.addAttribute("user", user);
-        return "profile";
+                             HttpServletRequest request) {
+        Message message = userService.addUserAddress(address, ((UserDto) request.getSession().getAttribute("user")).getId());
+        if (request.getHeader("referer").contains("cart")) {
+            return "redirect:/cart";
+        } else {
+            UserDto user = userService.getUserById(((UserDto) request.getSession().getAttribute("user")).getId());
+            model.addAttribute("addressMessage", message);
+            model.addAttribute("user", user);
+            return "profile";
+        }
     }
 
     @PostMapping("/deleteAddress")

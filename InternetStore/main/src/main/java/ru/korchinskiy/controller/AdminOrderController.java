@@ -1,5 +1,7 @@
 package ru.korchinskiy.controller;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,7 +50,7 @@ public class AdminOrderController {
 
     @PostMapping("/{id}/updateOrderStatus")
     @ResponseBody
-    public Message updateOrderStatus(@RequestParam(name = "value") OrderStatus orderStatus,
+    public Message updateOrderStatus(@RequestBody OrderStatus orderStatus,
                                      @PathVariable("id") Long orderId) {
         return orderService.updateOrderStatus(orderId, orderStatus);
     }

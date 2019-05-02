@@ -21,7 +21,7 @@
         <jsp:include page="header.jsp"/>
         <div class="row site-padding">
             <div class="col-auto product-photo">
-                <a href="#"><img src="${contextPath}/resources/img/${product.photoMd}" alt="product_photo"></a>
+                <a href="#"><img src="http://192.168.99.100:8190/${product.photoMd}" alt="product_photo"></a>
             </div>
             <div class="col product-info">
                 <h2>${product.title}</h2>
@@ -35,6 +35,7 @@
                     </c:forEach>
                 </ul>
                 <p>Author: ${product.author}</p>
+                <p>Published: ${product.year}</p>
                 <p>Stock amount: ${product.amount}</p>
                 <div class="row price-buy">
                     <div class="col-lg-6 price">Price: <span>${product.cost} <i class="fas fa-ruble-sign"></i></span>

@@ -20,7 +20,8 @@ public class PersistenceJpaConfig {
     public BasicDataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://db:3306/shop?serverTimezone=UTC");
+        dataSource.setUrl("jdbc:mysql://192.168.99.100:3306/shop?serverTimezone=UTC");
+//        dataSource.setUrl("jdbc:mysql://db:3306/shop?serverTimezone=UTC");
         dataSource.setUsername("user");
         dataSource.setPassword("123123");
         return dataSource;
@@ -48,7 +49,7 @@ public class PersistenceJpaConfig {
     }
 
     @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 }
