@@ -1,6 +1,7 @@
 package ru.korchinskiy.service;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,14 +20,14 @@ import java.util.List;
 @WebAppConfiguration
 public class UtilsServiceTest {
 
-    private static CartDto cartDto;
-    private static List<CartProductDto> cartProducts;
-    private static CartProductDto cartProductDto1;
-    private static CartProductDto cartProductDto2;
-    private static CartProductDto cartProductDto3;
+    private CartDto cartDto;
+    private List<CartProductDto> cartProducts;
+    private CartProductDto cartProductDto1;
+    private CartProductDto cartProductDto2;
+    private CartProductDto cartProductDto3;
 
-    @BeforeClass
-    public static void setUp() {
+    @Before
+    public void setUp() {
         cartDto = new CartDto();
         cartProducts = new ArrayList<>();
         cartProductDto1 = new CartProductDto();
@@ -35,7 +36,7 @@ public class UtilsServiceTest {
     }
 
     @Test
-    public void getCartSum1() {
+    public void getCartSumOneProduct() {
         cartProductDto1.setSum(429.0);
         cartProducts.add(cartProductDto1);
         cartDto.setCartProducts(cartProducts);
@@ -44,7 +45,7 @@ public class UtilsServiceTest {
     }
 
     @Test
-    public void getCartSum2() {
+    public void getCartSumTwoProducts() {
         cartProducts.clear();
         cartProductDto1.setSum(429.0);
         cartProductDto2.setSum(449.0);
@@ -56,7 +57,7 @@ public class UtilsServiceTest {
     }
 
     @Test
-    public void getCartSum3() {
+    public void getCartSumEmpty() {
         cartDto = null;
         Double expectedSum = UtilsService.getCartSum(cartDto);
         Assert.assertNull(expectedSum);

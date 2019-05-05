@@ -64,7 +64,7 @@
                 <div class="row site-padding auth justify-content-center">
                     <div class="col-md-6">
                         Please
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModalForm">
+                        <button id="login-btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModalForm">
                             Log in
                         </button>
                         to place order
@@ -93,7 +93,7 @@
                                             </div>
                                             <div id="addressDiv" class="form-group">
                                                 <legend class="col-form-label">Your addresses:</legend>
-                                                <c:forEach items="${userAddresses}" var="address">
+                                                <c:forEach items="${cart.user.addresses}" var="address">
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="address"
                                                                id="addressInput${address.id}" value="${address.address}"
@@ -103,7 +103,7 @@
                                                         </label>
                                                     </div>
                                                 </c:forEach>
-                                                <c:if test="${empty userAddresses}">
+                                                <c:if test="${empty cart.user.addresses}">
                                                     <p class="error">You don't have any addresses</p>
                                                     <button id="addAddressBtn" type="button" class="btn btn-primary"
                                                             onclick="showAddressForm()">

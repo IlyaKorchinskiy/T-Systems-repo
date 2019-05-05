@@ -1,6 +1,7 @@
 package ru.korchinskiy.service.impl;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,18 +20,18 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {WebConfig.class})
 public class CategoryServiceImplTest {
-    private static CategoryTreeDto categoryTreeDto1;
-    private static CategoryTreeDto categoryTreeDto2;
-    private static CategoryTreeDto categoryTreeDto3;
-    private static CategoryTreeDto categoryTreeDto4;
-    private static CategoryTreeDto categoryTreeDto5;
-    private static List<CategoryTreeDto> categoryTreeDtoList;
+    private CategoryTreeDto categoryTreeDto1;
+    private CategoryTreeDto categoryTreeDto2;
+    private CategoryTreeDto categoryTreeDto3;
+    private CategoryTreeDto categoryTreeDto4;
+    private CategoryTreeDto categoryTreeDto5;
+    private List<CategoryTreeDto> categoryTreeDtoList;
 
     @Autowired
     private CategoryService categoryService;
 
-    @BeforeClass
-    public static void setUp() {
+    @Before
+    public void setUp() {
         categoryTreeDto1 = new CategoryTreeDto(1L, "title", 0L, new ArrayList<>());
         categoryTreeDto2 = new CategoryTreeDto(2L, "title", 0L, new ArrayList<>());
         categoryTreeDto3 = new CategoryTreeDto(3L, "title", 0L, new ArrayList<>());
@@ -45,14 +46,14 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void buildCategoryTree1() {
+    public void buildCategoryTreeOneLevel() {
         List<CategoryTreeDto> expectedCategoryTree = categoryService.buildCategoryTree(categoryTreeDtoList);
         List<CategoryTreeDto> categoryTree = categoryTreeDtoList;
         Assert.assertEquals(expectedCategoryTree, categoryTree);
     }
 
     @Test
-    public void buildCategoryTree2() {
+    public void buildCategoryTreeTwoLevels() {
         categoryTreeDto3.setParentId(1L);
         categoryTreeDto4.setParentId(2L);
         List<CategoryTreeDto> expectedCategoryTree = categoryService.buildCategoryTree(categoryTreeDtoList);
@@ -72,7 +73,7 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void buildCategoryTree3() {
+    public void buildCategoryTreeThreeLevels() {
         categoryTreeDto3.setParentId(1L);
         categoryTreeDto4.setParentId(2L);
         categoryTreeDto5.setParentId(3L);
@@ -95,7 +96,7 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void buildCategoryTree4() {
+    public void buildCategoryTreeThreeLevelsTwoChildren() {
         categoryTreeDto3.setParentId(1L);
         categoryTreeDto4.setParentId(3L);
         categoryTreeDto5.setParentId(3L);

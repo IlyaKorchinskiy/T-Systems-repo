@@ -1,6 +1,7 @@
 package ru.korchinskiy.service.impl;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,24 +29,24 @@ import java.util.List;
 @ContextConfiguration(classes = {WebConfig.class})
 public class OrderServiceImplTest {
 
-    private static User user;
-    private static Role role;
-    private static List<Role> roles;
-    private static Order order;
-    private static OrderHistory orderHistory;
-    private static NewOrderDto newOrderDto;
-    private static List<CartProductDto> cartProducts;
-    private static List<Product> products;
-    private static Product product;
-    private static CartDto cartDto;
-    private static ProductDto productDto;
-    private static CartProductDto cartProductDto;
-    private static OrderProduct orderProduct;
+    private User user;
+    private Role role;
+    private List<Role> roles;
+    private Order order;
+    private OrderHistory orderHistory;
+    private NewOrderDto newOrderDto;
+    private List<CartProductDto> cartProducts;
+    private List<Product> products;
+    private Product product;
+    private CartDto cartDto;
+    private ProductDto productDto;
+    private CartProductDto cartProductDto;
+    private OrderProduct orderProduct;
     @Autowired
     private OrderService orderService;
 
-    @BeforeClass
-    public static void setUp() {
+    @Before
+    public void setUp() {
         role = new Role(1L, "ROLE_CLIENT");
         roles = new ArrayList<>();
         roles.add(role);
@@ -82,7 +83,7 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void checkForAmounts1() {
+    public void checkForAmountsSuccess() {
         cartProducts.get(0).setAmount(2);
         cartProducts.get(1).setAmount(1);
         products.get(0).setAmount(3);
@@ -91,7 +92,7 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void checkForAmounts2() {
+    public void checkForAmountsFailBoth() {
         cartProducts.get(0).setAmount(3);
         cartProducts.get(1).setAmount(3);
         products.get(0).setAmount(2);
@@ -100,7 +101,7 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void checkForAmounts3() {
+    public void checkForAmountsFailOne() {
         cartProducts.get(0).setAmount(3);
         cartProducts.get(1).setAmount(1);
         products.get(0).setAmount(2);
@@ -109,7 +110,7 @@ public class OrderServiceImplTest {
     }
 
     @Test
-    public void checkForAmounts4() {
+    public void checkForAmountsFailOneAnother() {
         cartProducts.get(0).setAmount(1);
         cartProducts.get(1).setAmount(3);
         products.get(0).setAmount(2);

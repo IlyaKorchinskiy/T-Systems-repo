@@ -63,7 +63,9 @@
                         <p id="addProductMessage"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue shopping</button>
+                        <button id="continueShoppingBtn" type="button" class="btn btn-secondary" data-dismiss="modal">
+                            Continue shopping
+                        </button>
                         <a type="button" class="btn btn-primary" href="${contextPath}/cart" role="button">Go to cart</a>
                     </div>
                 </div>

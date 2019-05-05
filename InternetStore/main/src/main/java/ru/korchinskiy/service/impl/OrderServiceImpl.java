@@ -12,12 +12,10 @@ import ru.korchinskiy.entity.*;
 import ru.korchinskiy.enums.DeliveryType;
 import ru.korchinskiy.enums.OrderStatus;
 import ru.korchinskiy.enums.PaymentStatus;
-import ru.korchinskiy.jms.MessageSender;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.DTOMappingService;
 import ru.korchinskiy.service.OrderService;
-import ru.korchinskiy.service.UserService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -43,8 +41,6 @@ public class OrderServiceImpl implements OrderService {
     private ProductStatsDAO productStatsDAO;
     private UserStatsDAO userStatsDAO;
     private CartService cartService;
-    private UserService userService;
-    private MessageSender messageSender;
 
     @Override
     @Transactional
@@ -185,7 +181,11 @@ public class OrderServiceImpl implements OrderService {
             List<OrderProduct> orderProducts = orderProductDAO.getOrderProductsByOrderId(orderId);
             saveProductStats(orderProducts);
             saveUserStats(order);
-            messageSender.sendMessage(Message.UPDATE);
+//            try {
+//                Thread.sleep(2000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
         }
         message.getConfirms().add(Message.ORDER_STATUS_UPDATE_SUCCESS);
         logger.info(Message.ORDER_STATUS_UPDATE_SUCCESS);
@@ -269,15 +269,5 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     public void setCartService(CartService cartService) {
         this.cartService = cartService;
-    }
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    @Autowired
-    public void setMessageSender(MessageSender messageSender) {
-        this.messageSender = messageSender;
     }
 }

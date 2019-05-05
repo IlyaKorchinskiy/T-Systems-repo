@@ -28,7 +28,7 @@
                     </sec:authorize>
                     <sec:authorize access="isAuthenticated()">
                         <li class="nav-item">
-                            <a class="nav-link ${fn:contains(currentPath, 'profile') ? 'active' : ''}"
+                            <a id="profile-link" class="nav-link ${fn:contains(currentPath, 'profile') ? 'active' : ''}"
                                href="${contextPath}/profile">Profile ${sessionScope.get("user").getName()}</a>
                         </li>
                         <li class="nav-item">
@@ -55,7 +55,7 @@
 
             </div>
             <div class="col-sm-2 cart">
-                <a href="${contextPath}/cart">
+                <a href="${contextPath}/cart" id="cart-link">
                     <i class="fas fa-shopping-cart"></i>
                     <span id="cart-badge" class="badge badge-primary"></span>
                     <div id="cart-content" class="cart-content"></div>

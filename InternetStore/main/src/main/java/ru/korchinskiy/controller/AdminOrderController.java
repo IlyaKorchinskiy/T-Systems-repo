@@ -1,7 +1,5 @@
 package ru.korchinskiy.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +12,7 @@ import ru.korchinskiy.enums.OrderStatus;
 import ru.korchinskiy.enums.PaymentStatus;
 import ru.korchinskiy.enums.PaymentType;
 import ru.korchinskiy.message.Message;
-import ru.korchinskiy.service.CartService;
+import ru.korchinskiy.service.AdminOrderService;
 import ru.korchinskiy.service.OrderService;
 
 import java.util.List;
@@ -23,7 +21,7 @@ import java.util.List;
 @RequestMapping("/admin/orders")
 public class AdminOrderController {
     private OrderService orderService;
-    private CartService cartService;
+    private AdminOrderService adminOrderService;
 
     @GetMapping
     public String orderList(Model model) {
@@ -52,7 +50,7 @@ public class AdminOrderController {
     @ResponseBody
     public Message updateOrderStatus(@RequestBody OrderStatus orderStatus,
                                      @PathVariable("id") Long orderId) {
-        return orderService.updateOrderStatus(orderId, orderStatus);
+        return adminOrderService.updateOrderStatus(orderId, orderStatus);
     }
 
     @Autowired
@@ -61,7 +59,7 @@ public class AdminOrderController {
     }
 
     @Autowired
-    public void setCartService(CartService cartService) {
-        this.cartService = cartService;
+    public void setAdminOrderService(AdminOrderService adminOrderService) {
+        this.adminOrderService = adminOrderService;
     }
 }

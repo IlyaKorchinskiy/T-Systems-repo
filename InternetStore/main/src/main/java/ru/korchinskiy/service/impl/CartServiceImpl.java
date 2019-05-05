@@ -16,6 +16,7 @@ import ru.korchinskiy.dto.UserDto;
 import ru.korchinskiy.entity.Cart;
 import ru.korchinskiy.entity.CartProduct;
 import ru.korchinskiy.entity.Product;
+import ru.korchinskiy.entity.User;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CartService;
 import ru.korchinskiy.service.DTOMappingService;
@@ -53,10 +54,16 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional
     public CartDto getCookieCart(Cookie cookieCart) throws UnsupportedEncodingException {
         if (cookieCart == null) return null;
         Gson gson = new Gson();
-        return gson.fromJson(URLDecoder.decode(cookieCart.getValue(), "UTF-8"), CartDto.class);
+        CartDto cartDto = gson.fromJson(URLDecoder.decode(cookieCart.getValue(), "UTF-8"), CartDto.class);
+        if (cartDto.getUser() != null) {
+            User user = userDAO.getUserById(cartDto.getUser().getId());
+            cartDto.setUser(dtoMappingService.convertToUserDto(user));
+        }
+        return cartDto;
     }
 
     @Override
@@ -180,7 +187,7 @@ public class CartServiceImpl implements CartService {
     public void cleanCarts(HttpServletRequest request, HttpServletResponse response, Long userId) throws UnsupportedEncodingException {
         Cookie cookieCart = WebUtils.getCookie(request, "cart");
         Gson gson = new Gson();
-        CartDto cartDto = gson.fromJson(URLDecoder.decode(cookieCart.getValue(),"UTF-8"), CartDto.class);
+        CartDto cartDto = gson.fromJson(URLDecoder.decode(cookieCart.getValue(), "UTF-8"), CartDto.class);
         cartDto.getCartProducts().clear();
         cookieCart.setValue(URLEncoder.encode(gson.toJson(cartDto), "UTF-8"));
         cookieCart.setMaxAge(COOKIE_MAX_AGE);

@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,600,700&subset=cyrillic');
+
+html, body {
+    height: 100%;
+    font-family: Montserrat, sans-serif;
+}
+
+.site-padding {
+    padding: 0 5%;
+}
+
+@media (min-width: 1200px) {
+    .site-padding {
+        padding: 0 10%;
+    }
+}
+
+.container-fluid .nav {
+    margin-bottom: 20px;
+}
+
+.content {
+    padding: 25px;
+    border: 1px solid #dddddd;
+    margin: 0 15px;
+}
+
+.product-list .col {
+    flex-grow: 0;
+}
+
+.card {
+    width: 200px;
+    border: none;
+    margin-bottom: 30px;
+}
+
+.card-body {
+    padding: 0.5rem 0.25rem;
+}
+
+.card-title {
+    height: 35px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #646464;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 18px;
+    text-align: center;
+}
+
+.card-text {
+    color: #f05356;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+}

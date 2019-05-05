@@ -3,7 +3,7 @@
 
 <html>
 <head>
-    <title>Catalog</title>
+    <title>Catalog category ${category.title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <c:set var="contextPath" value="${pageContext.request.getContextPath()}"/>
@@ -85,7 +85,7 @@
                         <c:forEach items="${category.products}" var="product">
                             <div class="col items">
                                 <div class="card">
-                                    <a href="${contextPath}/catalog/product/${product.id}">
+                                    <a id="productLink${product.id}" href="${contextPath}/catalog/product/${product.id}">
                                         <img src="http://192.168.99.100:8190/${product.photoSm}" class="card-img-top"
                                              alt="product_photo">
                                         <div class="card-body">

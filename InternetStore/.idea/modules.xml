@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/InternetStore.iml" filepath="$PROJECT_DIR$/.idea/InternetStore.iml" />
       <module fileurl="file://$PROJECT_DIR$/glasscase/glasscase.iml" filepath="$PROJECT_DIR$/glasscase/glasscase.iml" />
       <module fileurl="file://$PROJECT_DIR$/main/main.iml" filepath="$PROJECT_DIR$/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/selenium/selenium.iml" filepath="$PROJECT_DIR$/selenium/selenium.iml" />
     </modules>
   </component>
 </project>

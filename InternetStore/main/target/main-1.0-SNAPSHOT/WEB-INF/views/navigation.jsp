@@ -9,7 +9,7 @@
         </li>
         <c:forEach items="${mainCategories}" var="mainCategory">
             <li class="nav-item">
-                <a class="nav-link ${(mainCategory.id == category.id || mainCategory.id == category.parentId) ? 'active' : ''}"
+                <a class="nav-link category ${(mainCategory.id == category.id || mainCategory.id == category.parentId) ? 'active' : ''}"
                    href="${contextPath}/catalog?id=${mainCategory.id}">${mainCategory.title}</a>
                 <c:if test="${mainCategory.id == category.id || mainCategory.id == category.parentId}">
                     <ul class="nav flex-column subMenu">

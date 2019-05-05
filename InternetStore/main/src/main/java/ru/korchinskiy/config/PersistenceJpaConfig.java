@@ -20,8 +20,8 @@ public class PersistenceJpaConfig {
     public BasicDataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://192.168.99.100:3306/shop?serverTimezone=UTC");
-//        dataSource.setUrl("jdbc:mysql://db:3306/shop?serverTimezone=UTC");
+//        dataSource.setUrl("jdbc:mysql://192.168.99.100:3306/shop?serverTimezone=UTC");
+        dataSource.setUrl("jdbc:mysql://db:3306/shop?serverTimezone=UTC");
         dataSource.setUsername("user");
         dataSource.setPassword("123123");
         return dataSource;
@@ -36,7 +36,7 @@ public class PersistenceJpaConfig {
         emf.setJpaVendorAdapter(vendorAdapter);
         Properties properties = new Properties();
         properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        properties.put("hibernate.show_sql", "true");
+//        properties.put("hibernate.show_sql", "true");
         emf.setJpaProperties(properties);
         return emf;
     }

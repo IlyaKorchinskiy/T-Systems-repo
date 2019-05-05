@@ -11,6 +11,7 @@
     <modules>
         <module>main</module>
         <module>glasscase</module>
+        <module>selenium</module>
     </modules>
 
 
