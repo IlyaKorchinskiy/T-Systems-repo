@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.service.impl</a> &gt; <span class="el_source">UserServiceImpl.java</span></div><h1>UserServiceImpl.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.service.impl;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.korchinskiy.dao.AddressDAO;
+import ru.korchinskiy.dao.RoleDAO;
+import ru.korchinskiy.dao.UserDAO;
+import ru.korchinskiy.dto.OrderDto;
+import ru.korchinskiy.dto.UserDto;
+import ru.korchinskiy.entity.Address;
+import ru.korchinskiy.entity.Role;
+import ru.korchinskiy.entity.User;
+import ru.korchinskiy.enums.AddressType;
+import ru.korchinskiy.message.Message;
+import ru.korchinskiy.service.CartService;
+import ru.korchinskiy.service.DTOMappingService;
+import ru.korchinskiy.service.OrderService;
+import ru.korchinskiy.service.UserService;
+
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+<span class="fc" id="L28">public class UserServiceImpl implements UserService {</span>
+<span class="fc" id="L29">    private static final Long ROLE_CLIENT = 1L;</span>
+<span class="fc" id="L30">    private static Logger logger = Logger.getLogger(UserServiceImpl.class);</span>
+    private BCryptPasswordEncoder passwordEncoder;
+
+    private UserDAO userDAO;
+    private RoleDAO roleDAO;
+    private AddressDAO addressDAO;
+
+    private DTOMappingService dtoMappingService;
+    private OrderService orderService;
+    private CartService cartService;
+
+    @Override
+    @Transactional
+    public UserDto getUserById(Long id) {
+<span class="nc" id="L44">        User user = userDAO.getUserById(id);</span>
+<span class="nc" id="L45">        UserDto userDto = dtoMappingService.convertToUserDto(user);</span>
+<span class="nc" id="L46">        List&lt;OrderDto&gt; orderDtos = orderService.getOrdersByUser(userDto);</span>
+<span class="nc" id="L47">        userDto.setOrders(orderDtos);</span>
+<span class="nc" id="L48">        return userDto;</span>
+    }
+
+    @Override
+    @Transactional
+    public UserDto getUserByEmail(String email) {
+<span class="nc" id="L54">        User user = userDAO.getUserByEmail(email);</span>
+<span class="nc" id="L55">        return dtoMappingService.convertToUserDto(user);</span>
+    }
+
+    @Override
+    @Transactional
+    public Message addUser(UserDto userDto) {
+<span class="nc" id="L61">        Message message = new Message();</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        if (userDAO.getUserByEmail(userDto.getEmail()) != null) {</span>
+<span class="nc" id="L63">            message.getErrors().add(Message.USER_ALREADY_EXISTS);</span>
+<span class="nc" id="L64">            logger.info(Message.USER_ALREADY_EXISTS);</span>
+<span class="nc" id="L65">            return message;</span>
+        }
+<span class="nc" id="L67">        User user = dtoMappingService.convertToUser(userDto);</span>
+<span class="nc" id="L68">        user.setPassword(passwordEncoder.encode(userDto.getPassword()));</span>
+<span class="nc" id="L69">        List&lt;Role&gt; roles = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L70">        roles.add(roleDAO.getRoleById(ROLE_CLIENT));</span>
+<span class="nc" id="L71">        user.setRoles(roles);</span>
+<span class="nc" id="L72">        userDAO.saveUser(user);</span>
+<span class="nc" id="L73">        cartService.addNewCart(user.getId());</span>
+<span class="nc" id="L74">        message.getConfirms().add(Message.USER_ADD_SUCCESS);</span>
+<span class="nc" id="L75">        logger.info(Message.USER_ADD_SUCCESS);</span>
+<span class="nc" id="L76">        return message;</span>
+    }
+
+    @Override
+    @Transactional
+    public Message updateUser(UserDto userDto, HttpSession session) {
+<span class="nc" id="L82">        Message message = new Message();</span>
+<span class="nc" id="L83">        User user = userDAO.getUserById(userDto.getId());</span>
+<span class="nc" id="L84">        user.setName(userDto.getName());</span>
+<span class="nc" id="L85">        user.setLastname(userDto.getLastname());</span>
+<span class="nc" id="L86">        user.setEmail(userDto.getEmail());</span>
+<span class="nc" id="L87">        user.setBirthday(userDto.getBirthday());</span>
+<span class="nc" id="L88">        user.setPhoneNumber(userDto.getPhoneNumber());</span>
+<span class="nc bnc" id="L89" title="All 2 branches missed.">        if (!user.getPassword().equals(userDto.getPassword()))</span>
+<span class="nc" id="L90">            user.setPassword(passwordEncoder.encode(userDto.getPassword()));</span>
+<span class="nc" id="L91">        message.getConfirms().add(Message.USER_UPDATE_SUCCESS);</span>
+<span class="nc" id="L92">        logger.info(Message.USER_UPDATE_SUCCESS);</span>
+<span class="nc" id="L93">        return message;</span>
+    }
+
+    @Override
+    @Transactional
+    public Message addUserAddress(String addressString, Long userId) {
+<span class="nc" id="L99">        Message message = new Message();</span>
+<span class="nc" id="L100">        User user = userDAO.getUserById(userId);</span>
+<span class="nc" id="L101">        Address address = addressDAO.getAddressByNameAndType(addressString, AddressType.CLIENT);</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (address == null) {</span>
+<span class="nc" id="L103">            address = new Address(addressString, AddressType.CLIENT);</span>
+<span class="nc" id="L104">            addressDAO.saveAddress(address);</span>
+        }
+<span class="nc" id="L106">        List&lt;Address&gt; addresses = user.getAddresses();</span>
+<span class="nc" id="L107">        addresses.add(address);</span>
+<span class="nc" id="L108">        user.setAddresses(addresses);</span>
+<span class="nc" id="L109">        message.getConfirms().add(Message.USER_ADDRESS_ADD_SUCCESS);</span>
+<span class="nc" id="L110">        logger.info(Message.USER_ADDRESS_ADD_SUCCESS);</span>
+<span class="nc" id="L111">        return message;</span>
+    }
+
+    @Override
+    @Transactional
+    public Message deleteUserAddress(Long addressId, UserDto userDto) {
+<span class="nc" id="L117">        User user = userDAO.getUserById(userDto.getId());</span>
+<span class="nc" id="L118">        List&lt;Address&gt; addresses = user.getAddresses();</span>
+<span class="nc bnc" id="L119" title="All 2 branches missed.">        for (Address address : addresses) {</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">            if (address.getId().equals(addressId)) {</span>
+<span class="nc" id="L121">                addresses.remove(address);</span>
+<span class="nc" id="L122">                break;</span>
+            }
+<span class="nc" id="L124">        }</span>
+<span class="nc" id="L125">        user.setAddresses(addresses);</span>
+<span class="nc" id="L126">        Message message = new Message();</span>
+<span class="nc" id="L127">        message.getConfirms().add(Message.USER_ADDRESS_DELETE_SUCCESS);</span>
+<span class="nc" id="L128">        logger.info(Message.USER_ADDRESS_DELETE_SUCCESS);</span>
+<span class="nc" id="L129">        return message;</span>
+    }
+
+    @Override
+    @Transactional
+    public Message updateUserAddress(Long addressId, String newAddressString, UserDto userDto) {
+<span class="nc" id="L135">        Address newAddress = addressDAO.getAddressByNameAndType(newAddressString, AddressType.CLIENT);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        if (newAddress == null) {</span>
+<span class="nc" id="L137">            newAddress = new Address(newAddressString, AddressType.CLIENT);</span>
+<span class="nc" id="L138">            addressDAO.saveAddress(newAddress);</span>
+        }
+<span class="nc" id="L140">        User user = userDAO.getUserById(userDto.getId());</span>
+<span class="nc" id="L141">        List&lt;Address&gt; addresses = user.getAddresses();</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        for (Address address : addresses) {</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">            if (address.getId().equals(addressId)) {</span>
+<span class="nc" id="L144">                addresses.remove(address);</span>
+<span class="nc" id="L145">                break;</span>
+            }
+<span class="nc" id="L147">        }</span>
+<span class="nc" id="L148">        addresses.add(newAddress);</span>
+<span class="nc" id="L149">        user.setAddresses(addresses);</span>
+<span class="nc" id="L150">        Message message = new Message();</span>
+<span class="nc" id="L151">        message.getConfirms().add(Message.USER_ADDRESS_UPDATE_SUCCESS);</span>
+<span class="nc" id="L152">        logger.info(Message.USER_ADDRESS_UPDATE_SUCCESS);</span>
+<span class="nc" id="L153">        return message;</span>
+    }
+
+    @Autowired
+    public void setDtoMappingService(DTOMappingService dtoMappingService) {
+<span class="fc" id="L158">        this.dtoMappingService = dtoMappingService;</span>
+<span class="fc" id="L159">    }</span>
+
+    @Autowired
+    public void setOrderService(OrderService orderService) {
+<span class="fc" id="L163">        this.orderService = orderService;</span>
+<span class="fc" id="L164">    }</span>
+
+    @Autowired
+    public void setCartService(CartService cartService) {
+<span class="fc" id="L168">        this.cartService = cartService;</span>
+<span class="fc" id="L169">    }</span>
+
+    @Autowired
+    public void setUserDAO(UserDAO userDAO) {
+<span class="fc" id="L173">        this.userDAO = userDAO;</span>
+<span class="fc" id="L174">    }</span>
+
+    @Autowired
+    public void setRoleDAO(RoleDAO roleDAO) {
+<span class="fc" id="L178">        this.roleDAO = roleDAO;</span>
+<span class="fc" id="L179">    }</span>
+
+    @Autowired
+    public void setAddressDAO(AddressDAO addressDAO) {
+<span class="fc" id="L183">        this.addressDAO = addressDAO;</span>
+<span class="fc" id="L184">    }</span>
+
+    @Autowired
+    public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
+<span class="fc" id="L188">        this.passwordEncoder = passwordEncoder;</span>
+<span class="fc" id="L189">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

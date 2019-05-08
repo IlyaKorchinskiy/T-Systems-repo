@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Message.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.message</a> &gt; <span class="el_source">Message.java</span></div><h1>Message.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.message;
+
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="nc bnc" id="L8" title="All 30 branches missed.">@Data</span>
+public class Message {
+    public static final String PRODUCT_NOT_ENOUGH = &quot;Not enough product&quot;;
+    public static final String PRODUCT_ADD_SUCCESS = &quot;Product successfully added&quot;;
+    public static final String PRODUCT_ADD_TO_CART_SUCCESS = &quot;Product successfully added to cart&quot;;
+    public static final String PRODUCT_ADD_TO_DB_CART_SUCCESS = &quot;Product successfully added to database cart&quot;;
+    public static final String PRODUCT_REMOVE_FROM_COOKIE_CART_SUCCESS = &quot;Product successfully removed from cookie cart&quot;;
+    public static final String PRODUCT_REMOVE_FROM_DB_CART_SUCCESS = &quot;Product successfully removed from database cart&quot;;
+    public static final String PRODUCT_ALREADY_EXISTS = &quot;Product with this title already exists&quot;;
+    public static final String PRODUCT_UPDATE_TITLE_SUCCESS = &quot;Product title updated successfully&quot;;
+    public static final String PRODUCT_UPDATE_TITLE_FAIL = &quot;Product title should be 2-45 characters&quot;;
+    public static final String PRODUCT_UPDATE_AUTHOR_SUCCESS = &quot;Product author updated successfully&quot;;
+    public static final String PRODUCT_UPDATE_AUTHOR_FAIL = &quot;Product author should be 5-100 symbols&quot;;
+    public static final String PRODUCT_UPDATE_YEAR_SUCCESS = &quot;Product year updated successfully&quot;;
+    public static final String PRODUCT_UPDATE_YEAR_FAIL = &quot;Product year is not correct&quot;;
+    public static final String PRODUCT_UPDATE_DESCRIPTION_SUCCESS = &quot;Product description updated successfully&quot;;
+    public static final String PRODUCT_UPDATE_DESCRIPTION_FAIL = &quot;Product description should be 10-1500 symbols&quot;;
+    public static final String PRODUCT_UPDATE_CATEGORIES_SUCCESS = &quot;Product categories updated successfully&quot;;
+    public static final String PRODUCT_UPDATE_CATEGORIES_FAIL = &quot;Product categories could not be empty&quot;;
+    public static final String ORDER_SAVE_SUCCESS = &quot;Order successfully saved&quot;;
+    public static final String ORDER_STATUS_UPDATE_SUCCESS = &quot;Order status successfully updated&quot;;
+    public static final String ORDER_STATUS_UPDATE_FAIL = &quot;Order status can't be the same&quot;;
+    public static final String CART_IS_EMPTY = &quot;Cart is empty&quot;;
+    public static final String FILE_SAVE_FAIL = &quot;Couldn't save file&quot;;
+    public static final String FILE_SAVE_SUCCESS = &quot;File successfully saved&quot;;
+    public static final String USER_ALREADY_EXISTS = &quot;User with this e-mail already exists&quot;;
+    public static final String USER_ADD_SUCCESS = &quot;User successfully registered&quot;;
+    public static final String USER_UPDATE_SUCCESS = &quot;Info successfully updated&quot;;
+    public static final String USER_ADDRESS_DELETE_SUCCESS = &quot;Address deleted successfully&quot;;
+    public static final String USER_ADDRESS_UPDATE_SUCCESS = &quot;Address updated successfully&quot;;
+    public static final String USER_ADDRESS_ADD_SUCCESS = &quot;Address added successfully&quot;;
+    public static final String CATEGORY_UPDATE_SUCCESS = &quot;Category successfully updated&quot;;
+    public static final String CATEGORY_ALREADY_EXISTS = &quot;Category with the name already exists&quot;;
+    public static final String CATEGORY_ADD_SUCCESS = &quot;Category successfully added&quot;;
+    public static final String CATEGORY_DELETE_SUCCESS = &quot;Category successfully removed&quot;;
+    public static final String CATEGORY_DELETE_FAIL = &quot;There are products in the category. Can't remove&quot;;
+    public static final String VALIDATION_REGISTER_FAIL = &quot;Registration validation failed&quot;;
+    public static final String VALIDATION_EDIT_USER_FAIL = &quot;Edit user validation failed&quot;;
+    public static final String VALIDATION_ADD_PRODUCT_FAIL = &quot;Add product validation failed&quot;;
+    public static final String UPDATE = &quot;Update&quot;;
+    public static final String EMAIL_SEND_FAIL = &quot;Could not send e-mail&quot;;
+    public static final String EMAIL_SEND_SUCCESS = &quot;E-mail was sent successfully&quot;;
+
+<span class="nc" id="L51">    List&lt;String&gt; errors;</span>
+<span class="nc" id="L52">    List&lt;String&gt; warnings;</span>
+<span class="nc" id="L53">    List&lt;String&gt; confirms;</span>
+
+<span class="nc" id="L55">    public Message() {</span>
+<span class="nc" id="L56">        errors = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L57">        warnings = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L58">        confirms = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L59">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

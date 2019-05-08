@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CategoryServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.service.impl</a> &gt; <span class="el_source">CategoryServiceImpl.java</span></div><h1>CategoryServiceImpl.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.service.impl;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.korchinskiy.dao.CategoryDAO;
+import ru.korchinskiy.dao.ProductDAO;
+import ru.korchinskiy.dto.CategoryDto;
+import ru.korchinskiy.dto.CategoryTreeDto;
+import ru.korchinskiy.dto.CategoryWithProductsDto;
+import ru.korchinskiy.dto.ProductDto;
+import ru.korchinskiy.entity.Category;
+import ru.korchinskiy.entity.Product;
+import ru.korchinskiy.message.Message;
+import ru.korchinskiy.service.CategoryService;
+import ru.korchinskiy.service.DTOMappingService;
+
+import java.util.List;
+
+@Service
+<span class="fc" id="L22">public class CategoryServiceImpl implements CategoryService {</span>
+<span class="fc" id="L23">    public static final Long ROOT_CATEGORY = 0L;</span>
+<span class="fc" id="L24">    private static Logger logger = Logger.getLogger(CategoryServiceImpl.class);</span>
+    private CategoryDAO categoryDAO;
+    private ProductDAO productDAO;
+    private DTOMappingService dtoMappingService;
+
+    @Override
+    @Transactional
+    public CategoryDto getCategoryById(Long id) {
+<span class="nc" id="L32">        Category category = categoryDAO.getCategoryById(id);</span>
+<span class="nc" id="L33">        return dtoMappingService.convertToCategoryDto(category);</span>
+    }
+
+    @Override
+    @Transactional
+    public CategoryWithProductsDto getCategoryWithProductsByParams(Long id, Double minCost, Double maxCost, String year) {
+<span class="nc" id="L39">        Category category = categoryDAO.getCategoryById(id);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">        if (minCost == null) minCost = 0.0;</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">        if (maxCost == null) maxCost = Double.MAX_VALUE;</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (year == null) year = &quot;____&quot;;</span>
+<span class="nc" id="L43">        List&lt;Product&gt; products = productDAO.getProductsByCategoryAndParams(id, minCost, maxCost, year);</span>
+<span class="nc" id="L44">        List&lt;ProductDto&gt; productDtos = dtoMappingService.convertToProductDtoList(products);</span>
+<span class="nc" id="L45">        return dtoMappingService.convertToCategoryWithProductsDto(category, productDtos);</span>
+    }
+
+    @Override
+    @Transactional
+    public List&lt;CategoryDto&gt; getCategoriesByParentId(Long id) {
+<span class="nc" id="L51">        List&lt;Category&gt; categories = categoryDAO.getCategoriesByParentId(id);</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">        if (categories.size() == 0) {</span>
+<span class="nc" id="L53">            Category category = categoryDAO.getCategoryById(id);</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">            if (!category.getParentId().equals(ROOT_CATEGORY))</span>
+<span class="nc" id="L55">                categories.addAll(categoryDAO.getCategoriesByParentId(category.getParentId()));</span>
+        }
+<span class="nc" id="L57">        return dtoMappingService.convertToCategoryDtoList(categories);</span>
+    }
+
+    @Override
+    @Transactional
+    public List&lt;CategoryTreeDto&gt; getCategoryTree() {
+<span class="nc" id="L63">        List&lt;Category&gt; categories = categoryDAO.getAllCategories();</span>
+<span class="nc" id="L64">        List&lt;CategoryTreeDto&gt; categoryTreeDtoList = dtoMappingService.convertToCategoryTreeDtoList(categories);</span>
+<span class="nc" id="L65">        return buildCategoryTree(categoryTreeDtoList);</span>
+    }
+
+    public List&lt;CategoryTreeDto&gt; buildCategoryTree(List&lt;CategoryTreeDto&gt; categoryDtos) {
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        for (int i = 0; i &lt; categoryDtos.size(); i++) {</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">            if (!categoryDtos.get(i).getParentId().equals(ROOT_CATEGORY)) {</span>
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">                for (int j = 0; j &lt; categoryDtos.size(); j++) {</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">                    if (categoryDtos.get(i).getParentId().equals(categoryDtos.get(j).getId())) {</span>
+<span class="fc" id="L73">                        categoryDtos.get(j).getSubcategories().add(categoryDtos.get(i));</span>
+<span class="fc" id="L74">                        break;</span>
+                    }
+                }
+            }
+        }
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        for (int i = 0; i &lt; categoryDtos.size(); i++) {</span>
+<span class="fc bfc" id="L80" title="All 2 branches covered.">            if (!categoryDtos.get(i).getParentId().equals(ROOT_CATEGORY)) categoryDtos.remove(i--);</span>
+        }
+<span class="fc" id="L82">        return categoryDtos;</span>
+    }
+
+    @Override
+    @Transactional
+    public List&lt;CategoryDto&gt; getAllCategories() {
+<span class="nc" id="L88">        List&lt;Category&gt; categories = categoryDAO.getAllCategories();</span>
+<span class="nc" id="L89">        return dtoMappingService.convertToCategoryDtoList(categories);</span>
+    }
+
+    @Override
+    @Transactional
+    public Message updateCategory(CategoryDto categoryDto) {
+<span class="nc" id="L95">        Category category = categoryDAO.getCategoryById(categoryDto.getId());</span>
+<span class="nc" id="L96">        category.setTitle(categoryDto.getTitle());</span>
+<span class="nc" id="L97">        category.setParentId(categoryDto.getParentId());</span>
+<span class="nc" id="L98">        Message message = new Message();</span>
+<span class="nc" id="L99">        message.getConfirms().add(Message.CATEGORY_UPDATE_SUCCESS);</span>
+<span class="nc" id="L100">        logger.info(Message.CATEGORY_UPDATE_SUCCESS);</span>
+<span class="nc" id="L101">        return message;</span>
+    }
+
+    @Override
+    @Transactional
+    public Message saveCategory(CategoryDto categoryDto) {
+<span class="nc" id="L107">        Message message = new Message();</span>
+<span class="nc" id="L108">        Category category = categoryDAO.getCategoryByTitle(categoryDto.getTitle());</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        if (category != null) {</span>
+<span class="nc" id="L110">            message.getErrors().add(Message.CATEGORY_ALREADY_EXISTS);</span>
+<span class="nc" id="L111">            logger.info(Message.CATEGORY_ALREADY_EXISTS);</span>
+<span class="nc" id="L112">            return message;</span>
+        }
+<span class="nc" id="L114">        category = dtoMappingService.convertToCategory(categoryDto);</span>
+<span class="nc" id="L115">        categoryDAO.saveCategory(category);</span>
+<span class="nc" id="L116">        message.getConfirms().add(Message.CATEGORY_ADD_SUCCESS);</span>
+<span class="nc" id="L117">        logger.info(Message.CATEGORY_ADD_SUCCESS);</span>
+<span class="nc" id="L118">        return message;</span>
+    }
+
+    @Override
+    @Transactional
+    public Message removeCategory(Long categoryId) {
+<span class="nc" id="L124">        Category category = categoryDAO.getCategoryById(categoryId);</span>
+<span class="nc" id="L125">        return removeCategory(category);</span>
+    }
+
+    private Message removeCategory(Category category) {
+<span class="nc" id="L129">        Message message = new Message();</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        if (category.getProducts().size() != 0) {</span>
+<span class="nc" id="L131">            message.getErrors().add(Message.CATEGORY_DELETE_FAIL);</span>
+<span class="nc" id="L132">            logger.info(Message.CATEGORY_DELETE_FAIL);</span>
+<span class="nc" id="L133">            return message;</span>
+        }
+<span class="nc" id="L135">        categoryDAO.removeCategory(category);</span>
+<span class="nc" id="L136">        message.getConfirms().add(Message.CATEGORY_DELETE_SUCCESS);</span>
+<span class="nc" id="L137">        logger.info(Message.CATEGORY_DELETE_SUCCESS);</span>
+<span class="nc" id="L138">        return message;</span>
+    }
+
+    @Autowired
+    public void setCategoryDAO(CategoryDAO categoryDAO) {
+<span class="fc" id="L143">        this.categoryDAO = categoryDAO;</span>
+<span class="fc" id="L144">    }</span>
+
+    @Autowired
+    public void setProductDAO(ProductDAO productDAO) {
+<span class="fc" id="L148">        this.productDAO = productDAO;</span>
+<span class="fc" id="L149">    }</span>
+
+    @Autowired
+    public void setDtoMappingService(DTOMappingService dtoMappingService) {
+<span class="fc" id="L153">        this.dtoMappingService = dtoMappingService;</span>
+<span class="fc" id="L154">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

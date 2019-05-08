@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CartDAOImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.dao.impl</a> &gt; <span class="el_source">CartDAOImpl.java</span></div><h1>CartDAOImpl.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.dao.impl;
+
+import org.springframework.stereotype.Repository;
+import ru.korchinskiy.dao.CartDAO;
+import ru.korchinskiy.entity.Cart;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+@Repository
+<span class="fc" id="L14">public class CartDAOImpl implements CartDAO {</span>
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public Cart getCartById(Long id) {
+<span class="nc" id="L20">        return this.entityManager.find(Cart.class, id);</span>
+    }
+
+    @Override
+    public Cart getCartByUserId(Long userId) {
+<span class="nc" id="L25">        CriteriaBuilder builder = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L26">        CriteriaQuery&lt;Cart&gt; query = builder.createQuery(Cart.class);</span>
+<span class="nc" id="L27">        Root&lt;Cart&gt; root = query.from(Cart.class);</span>
+<span class="nc" id="L28">        query.select(root).where(builder.equal(root.get(&quot;user&quot;).get(&quot;id&quot;), userId));</span>
+<span class="nc" id="L29">        return entityManager.createQuery(query).getSingleResult();</span>
+    }
+
+    @Override
+    public void saveCart(Cart cart) {
+<span class="nc" id="L34">        this.entityManager.persist(cart);</span>
+<span class="nc" id="L35">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

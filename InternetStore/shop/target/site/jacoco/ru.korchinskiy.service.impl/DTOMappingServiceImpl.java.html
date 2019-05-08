@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DTOMappingServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.service.impl</a> &gt; <span class="el_source">DTOMappingServiceImpl.java</span></div><h1>DTOMappingServiceImpl.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.service.impl;
+
+import org.springframework.stereotype.Service;
+import ru.korchinskiy.dto.*;
+import ru.korchinskiy.entity.*;
+import ru.korchinskiy.service.DTOMappingService;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+@Service
+<span class="fc" id="L13">public class DTOMappingServiceImpl implements DTOMappingService {</span>
+
+    @Override
+    public ProductDto convertToProductDto(Product product) {
+<span class="nc" id="L17">        ProductDto productDto = new ProductDto();</span>
+<span class="nc" id="L18">        productDto.setId(product.getId());</span>
+<span class="nc" id="L19">        productDto.setCost(product.getCost());</span>
+<span class="nc" id="L20">        productDto.setTitle(product.getTitle());</span>
+<span class="nc" id="L21">        productDto.setAuthor(product.getAuthor());</span>
+<span class="nc" id="L22">        productDto.setYear(product.getYear());</span>
+<span class="nc" id="L23">        productDto.setAmount(product.getAmount());</span>
+<span class="nc" id="L24">        productDto.setDescription(product.getDescription());</span>
+<span class="nc" id="L25">        productDto.setDate(product.getDate());</span>
+<span class="nc" id="L26">        productDto.setPhotoMd(product.getPhotoMd());</span>
+<span class="nc" id="L27">        productDto.setPhotoSm(product.getPhotoSm());</span>
+<span class="nc" id="L28">        return productDto;</span>
+    }
+
+    @Override
+    public Product convertToProduct(NewProductDto productDto) {
+<span class="nc" id="L33">        Product product = new Product();</span>
+<span class="nc" id="L34">        product.setTitle(productDto.getTitle());</span>
+<span class="nc" id="L35">        product.setAuthor(productDto.getAuthor());</span>
+<span class="nc" id="L36">        product.setYear(productDto.getYear().toString());</span>
+<span class="nc" id="L37">        product.setDescription(productDto.getDescription());</span>
+<span class="nc" id="L38">        product.setCost(productDto.getCost());</span>
+<span class="nc" id="L39">        product.setAmount(productDto.getAmount());</span>
+<span class="nc" id="L40">        product.setDate(new Date());</span>
+<span class="nc" id="L41">        return product;</span>
+    }
+
+    @Override
+    public ProductWithCategoriesDto convertToProductWithCategoriesDto(Product product) {
+<span class="nc" id="L46">        ProductWithCategoriesDto productDto = new ProductWithCategoriesDto();</span>
+<span class="nc" id="L47">        productDto.setId(product.getId());</span>
+<span class="nc" id="L48">        productDto.setCost(product.getCost());</span>
+<span class="nc" id="L49">        productDto.setTitle(product.getTitle());</span>
+<span class="nc" id="L50">        productDto.setAuthor(product.getAuthor());</span>
+<span class="nc" id="L51">        productDto.setYear(product.getYear());</span>
+<span class="nc" id="L52">        productDto.setAmount(product.getAmount());</span>
+<span class="nc" id="L53">        productDto.setDescription(product.getDescription());</span>
+<span class="nc" id="L54">        productDto.setDate(product.getDate());</span>
+<span class="nc" id="L55">        productDto.setPhotoMd(product.getPhotoMd());</span>
+<span class="nc" id="L56">        productDto.setPhotoSm(product.getPhotoSm());</span>
+<span class="nc" id="L57">        productDto.setCategories(convertToCategoryDtoList(product.getCategories()));</span>
+<span class="nc" id="L58">        return productDto;</span>
+    }
+
+    @Override
+    public List&lt;ProductDto&gt; convertToProductDtoList(List&lt;Product&gt; products) {
+<span class="nc" id="L63">        List&lt;ProductDto&gt; productDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        for (Product product : products) {</span>
+<span class="nc" id="L65">            ProductDto productDto = convertToProductDto(product);</span>
+<span class="nc" id="L66">            productDtos.add(productDto);</span>
+<span class="nc" id="L67">        }</span>
+<span class="nc" id="L68">        return productDtos;</span>
+    }
+
+    @Override
+    public CategoryDto convertToCategoryDto(Category category) {
+<span class="nc" id="L73">        CategoryDto categoryDto = new CategoryDto();</span>
+<span class="nc" id="L74">        categoryDto.setId(category.getId());</span>
+<span class="nc" id="L75">        categoryDto.setTitle(category.getTitle());</span>
+<span class="nc" id="L76">        categoryDto.setParentId(category.getParentId());</span>
+<span class="nc" id="L77">        return categoryDto;</span>
+    }
+
+    @Override
+    public Category convertToCategory(CategoryDto categoryDto) {
+<span class="nc" id="L82">        Category category = new Category();</span>
+<span class="nc" id="L83">        category.setTitle(categoryDto.getTitle());</span>
+<span class="nc" id="L84">        category.setParentId(categoryDto.getParentId());</span>
+<span class="nc" id="L85">        return category;</span>
+    }
+
+    @Override
+    public CategoryWithProductsDto convertToCategoryWithProductsDto(Category category) {
+<span class="nc" id="L90">        CategoryWithProductsDto categoryDto = new CategoryWithProductsDto();</span>
+<span class="nc" id="L91">        categoryDto.setId(category.getId());</span>
+<span class="nc" id="L92">        categoryDto.setTitle(category.getTitle());</span>
+<span class="nc" id="L93">        categoryDto.setParentId(category.getParentId());</span>
+<span class="nc" id="L94">        categoryDto.setProducts(convertToProductDtoList(category.getProducts()));</span>
+<span class="nc" id="L95">        return categoryDto;</span>
+    }
+
+    @Override
+    public CategoryWithProductsDto convertToCategoryWithProductsDto(Category category, List&lt;ProductDto&gt; products) {
+<span class="nc" id="L100">        CategoryWithProductsDto categoryDto = new CategoryWithProductsDto();</span>
+<span class="nc" id="L101">        categoryDto.setId(category.getId());</span>
+<span class="nc" id="L102">        categoryDto.setTitle(category.getTitle());</span>
+<span class="nc" id="L103">        categoryDto.setParentId(category.getParentId());</span>
+<span class="nc" id="L104">        categoryDto.setProducts(products);</span>
+<span class="nc" id="L105">        return categoryDto;</span>
+    }
+
+    @Override
+    public List&lt;CategoryDto&gt; convertToCategoryDtoList(List&lt;Category&gt; categories) {
+<span class="nc" id="L110">        List&lt;CategoryDto&gt; categoryDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        for (Category category : categories) {</span>
+<span class="nc" id="L112">            CategoryDto categoryDto = convertToCategoryDto(category);</span>
+<span class="nc" id="L113">            categoryDtos.add(categoryDto);</span>
+<span class="nc" id="L114">        }</span>
+<span class="nc" id="L115">        return categoryDtos;</span>
+    }
+
+    @Override
+    public CategoryTreeDto convertToCategoryTreeDto(Category category) {
+<span class="nc" id="L120">        CategoryTreeDto categoryDto = new CategoryTreeDto();</span>
+<span class="nc" id="L121">        categoryDto.setId(category.getId());</span>
+<span class="nc" id="L122">        categoryDto.setTitle(category.getTitle());</span>
+<span class="nc" id="L123">        categoryDto.setParentId(category.getParentId());</span>
+<span class="nc" id="L124">        categoryDto.setSubcategories(new ArrayList&lt;&gt;());</span>
+<span class="nc" id="L125">        return categoryDto;</span>
+    }
+
+    @Override
+    public List&lt;CategoryTreeDto&gt; convertToCategoryTreeDtoList(List&lt;Category&gt; categories) {
+<span class="nc" id="L130">        List&lt;CategoryTreeDto&gt; categoryDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L131" title="All 2 branches missed.">        for (Category category : categories) {</span>
+<span class="nc" id="L132">            CategoryTreeDto categoryDto = convertToCategoryTreeDto(category);</span>
+<span class="nc" id="L133">            categoryDtos.add(categoryDto);</span>
+<span class="nc" id="L134">        }</span>
+<span class="nc" id="L135">        return categoryDtos;</span>
+    }
+
+    @Override
+    public UserDto convertToUserDto(User user) {
+<span class="nc" id="L140">        UserDto userDto = new UserDto();</span>
+<span class="nc" id="L141">        userDto.setId(user.getId());</span>
+<span class="nc" id="L142">        userDto.setName(user.getName());</span>
+<span class="nc" id="L143">        userDto.setLastname(user.getLastname());</span>
+<span class="nc" id="L144">        userDto.setBirthday(user.getBirthday());</span>
+<span class="nc" id="L145">        userDto.setEmail(user.getEmail());</span>
+<span class="nc" id="L146">        userDto.setPassword(user.getPassword());</span>
+<span class="nc" id="L147">        userDto.setPhoneNumber(user.getPhoneNumber());</span>
+<span class="nc" id="L148">        userDto.setAddresses(convertToAddressDtoList(user.getAddresses()));</span>
+<span class="nc" id="L149">        userDto.setRoles(convertToRoleDtoList(user.getRoles()));</span>
+<span class="nc" id="L150">        return userDto;</span>
+    }
+
+    @Override
+    public User convertToUser(UserDto userDto) {
+<span class="nc" id="L155">        User user = new User();</span>
+<span class="nc" id="L156">        user.setName(userDto.getName());</span>
+<span class="nc" id="L157">        user.setLastname(userDto.getLastname());</span>
+<span class="nc" id="L158">        user.setBirthday(userDto.getBirthday());</span>
+<span class="nc" id="L159">        user.setEmail(userDto.getEmail());</span>
+<span class="nc" id="L160">        user.setPhoneNumber(userDto.getPhoneNumber());</span>
+<span class="nc" id="L161">        return user;</span>
+    }
+
+    @Override
+    public AddressDto convertToAddressDto(Address address) {
+<span class="nc" id="L166">        AddressDto addressDto = new AddressDto();</span>
+<span class="nc" id="L167">        addressDto.setId(address.getId());</span>
+<span class="nc" id="L168">        addressDto.setAddress(address.getAddress());</span>
+<span class="nc" id="L169">        addressDto.setAddressType(address.getAddressType());</span>
+<span class="nc" id="L170">        return addressDto;</span>
+    }
+
+    @Override
+    public List&lt;AddressDto&gt; convertToAddressDtoList(List&lt;Address&gt; addresses) {
+<span class="nc" id="L175">        List&lt;AddressDto&gt; addressDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L176" title="All 2 branches missed.">        for (Address address : addresses) {</span>
+<span class="nc" id="L177">            addressDtos.add(convertToAddressDto(address));</span>
+<span class="nc" id="L178">        }</span>
+<span class="nc" id="L179">        return addressDtos;</span>
+    }
+
+    @Override
+    public RoleDto convertToRoleDto(Role role) {
+<span class="nc" id="L184">        RoleDto roleDto = new RoleDto();</span>
+<span class="nc" id="L185">        roleDto.setId(role.getId());</span>
+<span class="nc" id="L186">        roleDto.setRole(role.getRole());</span>
+<span class="nc" id="L187">        return roleDto;</span>
+    }
+
+    @Override
+    public List&lt;RoleDto&gt; convertToRoleDtoList(List&lt;Role&gt; roles) {
+<span class="nc" id="L192">        List&lt;RoleDto&gt; roleDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L193" title="All 2 branches missed.">        for (Role role : roles) {</span>
+<span class="nc" id="L194">            RoleDto roleDto = convertToRoleDto(role);</span>
+<span class="nc" id="L195">            roleDtos.add(roleDto);</span>
+<span class="nc" id="L196">        }</span>
+<span class="nc" id="L197">        return roleDtos;</span>
+    }
+
+    @Override
+    public CartDto convertToCartDto(Cart cart) {
+<span class="nc" id="L202">        CartDto cartDto = new CartDto();</span>
+<span class="nc" id="L203">        cartDto.setId(cart.getId());</span>
+<span class="nc" id="L204">        cartDto.setUser(convertToUserDto(cart.getUser()));</span>
+<span class="nc" id="L205">        cartDto.setCartProducts(convertToCartProductDtoList(cart.getCartProducts()));</span>
+<span class="nc" id="L206">        return cartDto;</span>
+    }
+
+    @Override
+    public CartProductDto convertToCartProductDto(CartProduct cartProduct) {
+<span class="nc" id="L211">        CartProductDto cartProductDto = new CartProductDto();</span>
+<span class="nc" id="L212">        cartProductDto.setId(cartProduct.getId());</span>
+<span class="nc" id="L213">        cartProductDto.setProduct(convertToProductDto(cartProduct.getProduct()));</span>
+<span class="nc" id="L214">        cartProductDto.setAmount(cartProduct.getAmount());</span>
+<span class="nc" id="L215">        cartProductDto.setSum(cartProductDto.getAmount() * cartProductDto.getProduct().getCost());</span>
+<span class="nc" id="L216">        return cartProductDto;</span>
+    }
+
+    @Override
+    public List&lt;CartProductDto&gt; convertToCartProductDtoList(List&lt;CartProduct&gt; cartProducts) {
+<span class="nc" id="L221">        List&lt;CartProductDto&gt; cartProductDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L222" title="All 2 branches missed.">        for (CartProduct cartProduct : cartProducts) {</span>
+<span class="nc" id="L223">            cartProductDtos.add(convertToCartProductDto(cartProduct));</span>
+<span class="nc" id="L224">        }</span>
+<span class="nc" id="L225">        return cartProductDtos;</span>
+    }
+
+    @Override
+    public OrderDto convertToOrderDto(Order order) {
+<span class="nc" id="L230">        OrderDto orderDto = new OrderDto();</span>
+<span class="nc" id="L231">        orderDto.setId(order.getId());</span>
+<span class="nc" id="L232">        orderDto.setUser(convertToUserDto(order.getUser()));</span>
+<span class="nc" id="L233">        orderDto.setPaymentType(order.getPaymentType());</span>
+<span class="nc" id="L234">        orderDto.setDeliveryType(order.getDeliveryType());</span>
+<span class="nc" id="L235">        orderDto.setPaymentStatus(order.getPaymentStatus());</span>
+<span class="nc" id="L236">        orderDto.setOrderStatus(order.getOrderStatus());</span>
+<span class="nc" id="L237">        orderDto.setAddress(order.getAddress());</span>
+<span class="nc" id="L238">        orderDto.setSum(order.getSum());</span>
+<span class="nc" id="L239">        orderDto.setDate(order.getDate());</span>
+<span class="nc" id="L240">        return orderDto;</span>
+    }
+
+    @Override
+    public List&lt;OrderDto&gt; convertToOrderDtoList(List&lt;Order&gt; orders) {
+<span class="nc" id="L245">        List&lt;OrderDto&gt; orderDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L246" title="All 2 branches missed.">        for (Order order : orders) {</span>
+<span class="nc" id="L247">            orderDtos.add(convertToOrderDto(order));</span>
+<span class="nc" id="L248">        }</span>
+<span class="nc" id="L249">        return orderDtos;</span>
+    }
+
+    @Override
+    public OrderProductDto convertToOrderProductDto(OrderProduct orderProduct) {
+<span class="nc" id="L254">        OrderProductDto orderProductDto = new OrderProductDto();</span>
+<span class="nc" id="L255">        orderProductDto.setId(orderProduct.getId());</span>
+<span class="nc" id="L256">        orderProductDto.setProduct(convertToProductDto(orderProduct.getProduct()));</span>
+<span class="nc" id="L257">        orderProductDto.setAmount(orderProduct.getAmount());</span>
+<span class="nc" id="L258">        orderProductDto.setCost(orderProduct.getCost());</span>
+<span class="nc" id="L259">        return orderProductDto;</span>
+    }
+
+    @Override
+    public List&lt;OrderProductDto&gt; convertToOrderProductDtoList(List&lt;OrderProduct&gt; orderProducts) {
+<span class="nc" id="L264">        List&lt;OrderProductDto&gt; orderProductDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L265" title="All 2 branches missed.">        for (OrderProduct orderProduct : orderProducts) {</span>
+<span class="nc" id="L266">            orderProductDtos.add(convertToOrderProductDto(orderProduct));</span>
+<span class="nc" id="L267">        }</span>
+<span class="nc" id="L268">        return orderProductDtos;</span>
+    }
+
+    @Override
+    public OrderHistoryDto convertToOrderHistoryDto(OrderHistory orderHistory) {
+<span class="nc" id="L273">        OrderHistoryDto orderHistoryDto = new OrderHistoryDto();</span>
+<span class="nc" id="L274">        orderHistoryDto.setId(orderHistory.getId());</span>
+<span class="nc" id="L275">        orderHistoryDto.setPaymentType(orderHistory.getPaymentType());</span>
+<span class="nc" id="L276">        orderHistoryDto.setDeliveryType(orderHistory.getDeliveryType());</span>
+<span class="nc" id="L277">        orderHistoryDto.setPaymentStatus(orderHistory.getPaymentStatus());</span>
+<span class="nc" id="L278">        orderHistoryDto.setOrderStatus(orderHistory.getOrderStatus());</span>
+<span class="nc" id="L279">        orderHistoryDto.setAddress(orderHistory.getAddress());</span>
+<span class="nc" id="L280">        orderHistoryDto.setSum(orderHistory.getSum());</span>
+<span class="nc" id="L281">        orderHistoryDto.setDate(orderHistory.getDate());</span>
+<span class="nc" id="L282">        return orderHistoryDto;</span>
+    }
+
+    @Override
+    public List&lt;OrderHistoryDto&gt; convertToOrderHistoryDtoList(List&lt;OrderHistory&gt; orderHistories) {
+<span class="nc" id="L287">        List&lt;OrderHistoryDto&gt; orderHistoryDtos = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L288" title="All 2 branches missed.">        for (OrderHistory orderHistory : orderHistories) {</span>
+<span class="nc" id="L289">            orderHistoryDtos.add(convertToOrderHistoryDto(orderHistory));</span>
+<span class="nc" id="L290">        }</span>
+<span class="nc" id="L291">        return orderHistoryDtos;</span>
+    }
+
+    @Override
+    public ProductStatsDto convertToProductStatsDto(ProductStats productStats) {
+<span class="nc" id="L296">        ProductStatsDto productStatsDto = new ProductStatsDto();</span>
+<span class="nc" id="L297">        productStatsDto.setId(productStats.getId());</span>
+<span class="nc" id="L298">        productStatsDto.setProduct(convertToProductDto(productStats.getProduct()));</span>
+<span class="nc" id="L299">        productStatsDto.setAmount(productStats.getAmount());</span>
+<span class="nc" id="L300">        productStatsDto.setMonth(productStats.getMonth());</span>
+<span class="nc" id="L301">        productStatsDto.setYear(productStats.getYear());</span>
+<span class="nc" id="L302">        return productStatsDto;</span>
+    }
+
+    @Override
+    public List&lt;ProductStatsDto&gt; convertToProductStatsDtoList(List&lt;ProductStats&gt; productStatsList) {
+<span class="nc" id="L307">        List&lt;ProductStatsDto&gt; productStatsDtoList = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L308" title="All 2 branches missed.">        for (ProductStats productStats : productStatsList) {</span>
+<span class="nc" id="L309">            productStatsDtoList.add(convertToProductStatsDto(productStats));</span>
+<span class="nc" id="L310">        }</span>
+<span class="nc" id="L311">        return productStatsDtoList;</span>
+    }
+
+    @Override
+    public UserStatsDto convertToUserStatsDto(UserStats userStats) {
+<span class="nc" id="L316">        UserStatsDto userStatsDto = new UserStatsDto();</span>
+<span class="nc" id="L317">        userStatsDto.setId(userStats.getId());</span>
+<span class="nc" id="L318">        userStatsDto.setUser(convertToUserDto(userStats.getUser()));</span>
+<span class="nc" id="L319">        userStatsDto.setSum(userStats.getSum());</span>
+<span class="nc" id="L320">        userStatsDto.setMonth(userStats.getMonth());</span>
+<span class="nc" id="L321">        userStatsDto.setYear(userStats.getYear());</span>
+<span class="nc" id="L322">        return userStatsDto;</span>
+    }
+
+    @Override
+    public List&lt;UserStatsDto&gt; convertToUserStatsDtoList(List&lt;UserStats&gt; userStatsList) {
+<span class="nc" id="L327">        List&lt;UserStatsDto&gt; userStatsDtoList = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L328" title="All 2 branches missed.">        for (UserStats userStats : userStatsList) {</span>
+<span class="nc" id="L329">            userStatsDtoList.add(convertToUserStatsDto(userStats));</span>
+<span class="nc" id="L330">        }</span>
+<span class="nc" id="L331">        return userStatsDtoList;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

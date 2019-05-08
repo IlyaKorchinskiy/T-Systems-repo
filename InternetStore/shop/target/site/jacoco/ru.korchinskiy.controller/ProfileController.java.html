@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfileController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.controller</a> &gt; <span class="el_source">ProfileController.java</span></div><h1>ProfileController.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.controller;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import ru.korchinskiy.dto.UserDto;
+import ru.korchinskiy.message.Message;
+import ru.korchinskiy.service.UserService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
+@Controller
+@RequestMapping(&quot;/profile&quot;)
+<span class="fc" id="L19">public class ProfileController {</span>
+<span class="fc" id="L20">    private static final Logger logger = Logger.getLogger(ProfileController.class);</span>
+
+    private UserService userService;
+
+    @GetMapping
+    public String profile(Model model,
+                          HttpSession session) {
+<span class="nc" id="L27">        UserDto user = userService.getUserById(((UserDto) session.getAttribute(&quot;user&quot;)).getId());</span>
+<span class="nc" id="L28">        model.addAttribute(&quot;user&quot;, user);</span>
+<span class="nc" id="L29">        return &quot;profile&quot;;</span>
+    }
+
+    @PostMapping(&quot;/editUserInfo&quot;)
+    public String editUserInfo(@Valid @ModelAttribute(&quot;user&quot;) UserDto userDto,
+                               BindingResult result,
+                               Model model,
+                               HttpSession session) {
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L38">            logger.info(Message.VALIDATION_EDIT_USER_FAIL);</span>
+<span class="nc" id="L39">            return &quot;profile&quot;;</span>
+        }
+<span class="nc" id="L41">        Message message = userService.updateUser(userDto, session);</span>
+<span class="nc" id="L42">        UserDto user = userService.getUserById(userDto.getId());</span>
+<span class="nc" id="L43">        model.addAttribute(&quot;infoMessage&quot;, message);</span>
+<span class="nc" id="L44">        model.addAttribute(&quot;user&quot;, user);</span>
+<span class="nc" id="L45">        return &quot;profile&quot;;</span>
+    }
+
+    @PostMapping(&quot;/addAddress&quot;)
+    public String addAddress(Model model,
+                             @RequestParam(name = &quot;address&quot;) String address,
+                             HttpServletRequest request) {
+<span class="nc" id="L52">        Message message = userService.addUserAddress(address, ((UserDto) request.getSession().getAttribute(&quot;user&quot;)).getId());</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        if (request.getHeader(&quot;referer&quot;).contains(&quot;cart&quot;)) {</span>
+<span class="nc" id="L54">            return &quot;redirect:/cart&quot;;</span>
+        } else {
+<span class="nc" id="L56">            UserDto user = userService.getUserById(((UserDto) request.getSession().getAttribute(&quot;user&quot;)).getId());</span>
+<span class="nc" id="L57">            model.addAttribute(&quot;addressMessage&quot;, message);</span>
+<span class="nc" id="L58">            model.addAttribute(&quot;user&quot;, user);</span>
+<span class="nc" id="L59">            return &quot;profile&quot;;</span>
+        }
+    }
+
+    @PostMapping(&quot;/deleteAddress&quot;)
+    @ResponseBody
+    public Message deleteAddress(@RequestParam(name = &quot;addressId&quot;) Long addressId,
+                                 HttpSession session) {
+<span class="nc" id="L67">        return userService.deleteUserAddress(addressId, (UserDto) session.getAttribute(&quot;user&quot;));</span>
+    }
+
+    @PostMapping(&quot;/editAddress&quot;)
+    @ResponseBody
+    public Message editAddress(@RequestParam(name = &quot;addressId&quot;) Long addressId,
+                               @RequestParam(name = &quot;address&quot;) String address,
+                               HttpSession session) {
+<span class="nc" id="L75">        return userService.updateUserAddress(addressId, address, (UserDto) session.getAttribute(&quot;user&quot;));</span>
+    }
+
+    @Autowired
+    public void setUserService(UserService userService) {
+<span class="fc" id="L80">        this.userService = userService;</span>
+<span class="fc" id="L81">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

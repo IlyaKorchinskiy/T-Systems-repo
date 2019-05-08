@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminOrderController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.controller</a> &gt; <span class="el_source">AdminOrderController.java</span></div><h1>AdminOrderController.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import ru.korchinskiy.dto.OrderDto;
+import ru.korchinskiy.dto.OrderHistoryDto;
+import ru.korchinskiy.dto.OrderProductDto;
+import ru.korchinskiy.enums.DeliveryType;
+import ru.korchinskiy.enums.OrderStatus;
+import ru.korchinskiy.enums.PaymentStatus;
+import ru.korchinskiy.enums.PaymentType;
+import ru.korchinskiy.message.Message;
+import ru.korchinskiy.service.AdminOrderService;
+import ru.korchinskiy.service.OrderService;
+
+import java.util.List;
+
+@Controller
+@RequestMapping(&quot;/admin/orders&quot;)
+<span class="fc" id="L22">public class AdminOrderController {</span>
+    private OrderService orderService;
+    private AdminOrderService adminOrderService;
+
+    @GetMapping
+    public String orderList(Model model) {
+<span class="nc" id="L28">        List&lt;OrderDto&gt; orders = orderService.getAllOrders();</span>
+<span class="nc" id="L29">        model.addAttribute(&quot;orders&quot;, orders);</span>
+<span class="nc" id="L30">        return &quot;adminOrders&quot;;</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public String orderInfo(Model model,
+                            @PathVariable(&quot;id&quot;) Long orderId) {
+<span class="nc" id="L36">        OrderDto order = orderService.getOrderById(orderId);</span>
+<span class="nc" id="L37">        List&lt;OrderProductDto&gt; orderProducts = orderService.getOrderProductsByOrderId(orderId);</span>
+<span class="nc" id="L38">        List&lt;OrderHistoryDto&gt; orderHistories = orderService.getOrderHistoriesByOrderId(orderId);</span>
+<span class="nc" id="L39">        model.addAttribute(&quot;order&quot;, order);</span>
+<span class="nc" id="L40">        model.addAttribute(&quot;orderProducts&quot;, orderProducts);</span>
+<span class="nc" id="L41">        model.addAttribute(&quot;orderHistories&quot;, orderHistories);</span>
+<span class="nc" id="L42">        model.addAttribute(&quot;paymentTypes&quot;, PaymentType.values());</span>
+<span class="nc" id="L43">        model.addAttribute(&quot;deliveryTypes&quot;, DeliveryType.values());</span>
+<span class="nc" id="L44">        model.addAttribute(&quot;paymentStatuses&quot;, PaymentStatus.values());</span>
+<span class="nc" id="L45">        model.addAttribute(&quot;orderStatuses&quot;, OrderStatus.values());</span>
+<span class="nc" id="L46">        return &quot;adminOrderPage&quot;;</span>
+    }
+
+    @PostMapping(&quot;/{id}/updateOrderStatus&quot;)
+    @ResponseBody
+    public Message updateOrderStatus(@RequestBody OrderStatus orderStatus,
+                                     @PathVariable(&quot;id&quot;) Long orderId) {
+<span class="nc" id="L53">        return adminOrderService.updateOrderStatus(orderId, orderStatus);</span>
+    }
+
+    @Autowired
+    public void setOrderService(OrderService orderService) {
+<span class="fc" id="L58">        this.orderService = orderService;</span>
+<span class="fc" id="L59">    }</span>
+
+    @Autowired
+    public void setAdminOrderService(AdminOrderService adminOrderService) {
+<span class="fc" id="L63">        this.adminOrderService = adminOrderService;</span>
+<span class="fc" id="L64">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

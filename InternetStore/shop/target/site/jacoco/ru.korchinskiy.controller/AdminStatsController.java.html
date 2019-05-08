@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminStatsController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.controller</a> &gt; <span class="el_source">AdminStatsController.java</span></div><h1>AdminStatsController.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import ru.korchinskiy.dto.IndicatorDto;
+import ru.korchinskiy.dto.ProductStatsDto;
+import ru.korchinskiy.dto.UserStatsDto;
+import ru.korchinskiy.enums.Month;
+import ru.korchinskiy.service.StatsService;
+
+import java.util.List;
+
+@Controller
+@RequestMapping(&quot;/admin/stats&quot;)
+<span class="fc" id="L20">public class AdminStatsController {</span>
+    private StatsService statsService;
+
+    @GetMapping
+    public String showStats(Model model) {
+<span class="nc" id="L25">        List&lt;ProductStatsDto&gt; productStatsList = statsService.getTopTenProducts(null, null);</span>
+<span class="nc" id="L26">        List&lt;UserStatsDto&gt; userStatsList = statsService.getTopTenUsers(null, null);</span>
+<span class="nc" id="L27">        List&lt;IndicatorDto&gt; indicators = statsService.getMainStats(null, null);</span>
+<span class="nc" id="L28">        Month[] months = Month.values();</span>
+<span class="nc" id="L29">        Integer[] years = {2017, 2018, 2019};</span>
+<span class="nc" id="L30">        model.addAttribute(&quot;productStatsList&quot;, productStatsList);</span>
+<span class="nc" id="L31">        model.addAttribute(&quot;userStatsList&quot;, userStatsList);</span>
+<span class="nc" id="L32">        model.addAttribute(&quot;indicators&quot;, indicators);</span>
+<span class="nc" id="L33">        model.addAttribute(&quot;months&quot;, months);</span>
+<span class="nc" id="L34">        model.addAttribute(&quot;years&quot;, years);</span>
+<span class="nc" id="L35">        return &quot;adminStats&quot;;</span>
+    }
+
+    @GetMapping(&quot;/products&quot;)
+    @ResponseBody
+    public List&lt;ProductStatsDto&gt; getProductStatsList(@RequestParam(name = &quot;month&quot;) Integer month,
+                                                     @RequestParam(name = &quot;year&quot;) Integer year) {
+<span class="nc" id="L42">        return statsService.getTopTenProducts(month, year);</span>
+    }
+
+    @GetMapping(&quot;/users&quot;)
+    @ResponseBody
+    public List&lt;UserStatsDto&gt; getUserStatsList(@RequestParam(name = &quot;month&quot;) Integer month,
+                                               @RequestParam(name = &quot;year&quot;) Integer year) {
+<span class="nc" id="L49">        return statsService.getTopTenUsers(month, year);</span>
+    }
+
+    @GetMapping(&quot;/total&quot;)
+    @ResponseBody
+    public List&lt;IndicatorDto&gt; getMainStats(@RequestParam(name = &quot;month&quot;) Integer month,
+                                           @RequestParam(name = &quot;year&quot;) Integer year) {
+<span class="nc" id="L56">        return statsService.getMainStats(month, year);</span>
+    }
+
+    @Autowired
+    public void setStatsService(StatsService statsService) {
+<span class="fc" id="L61">        this.statsService = statsService;</span>
+<span class="fc" id="L62">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

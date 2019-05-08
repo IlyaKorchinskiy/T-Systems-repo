@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>OrderServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.service.impl</a> &gt; <span class="el_source">OrderServiceImpl.java</span></div><h1>OrderServiceImpl.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.service.impl;
+
+import com.google.gson.Gson;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.WebUtils;
+import ru.korchinskiy.dao.*;
+import ru.korchinskiy.dto.*;
+import ru.korchinskiy.entity.*;
+import ru.korchinskiy.enums.DeliveryType;
+import ru.korchinskiy.enums.OrderStatus;
+import ru.korchinskiy.enums.PaymentStatus;
+import ru.korchinskiy.message.Message;
+import ru.korchinskiy.service.CartService;
+import ru.korchinskiy.service.DTOMappingService;
+import ru.korchinskiy.service.MailService;
+import ru.korchinskiy.service.OrderService;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.time.Clock;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+@Service
+<span class="fc" id="L33">public class OrderServiceImpl implements OrderService {</span>
+<span class="fc" id="L34">    private static Logger logger = Logger.getLogger(OrderServiceImpl.class);</span>
+
+    private ProductDAO productDAO;
+    private OrderDAO orderDAO;
+    private DTOMappingService dtoMappingService;
+    private UserDAO userDAO;
+    private OrderProductDAO orderProductDAO;
+    private OrderHistoryDAO orderHistoryDAO;
+    private ProductStatsDAO productStatsDAO;
+    private UserStatsDAO userStatsDAO;
+    private CartService cartService;
+    private MailService mailService;
+
+    @Override
+    @Transactional
+    public OrderDto getOrderById(Long id) {
+<span class="nc" id="L50">        Order order = orderDAO.getOrderById(id);</span>
+<span class="nc" id="L51">        return dtoMappingService.convertToOrderDto(order);</span>
+    }
+
+    @Override
+    @Transactional
+    public List&lt;OrderDto&gt; getAllOrders() {
+<span class="nc" id="L57">        List&lt;Order&gt; orders = orderDAO.getAllOrders();</span>
+<span class="nc" id="L58">        return dtoMappingService.convertToOrderDtoList(orders);</span>
+    }
+
+    @Override
+    @Transactional
+    public List&lt;OrderDto&gt; getOrdersByUser(UserDto userDto) {
+<span class="nc" id="L64">        List&lt;Order&gt; orders = orderDAO.getOrdersByUserId(userDto.getId());</span>
+<span class="nc" id="L65">        return dtoMappingService.convertToOrderDtoList(orders);</span>
+    }
+
+    @Override
+    @Transactional
+    public List&lt;OrderProductDto&gt; getOrderProductsByOrderId(Long id) {
+<span class="nc" id="L71">        List&lt;OrderProduct&gt; orderProducts = orderProductDAO.getOrderProductsByOrderId(id);</span>
+<span class="nc" id="L72">        return dtoMappingService.convertToOrderProductDtoList(orderProducts);</span>
+    }
+
+    @Override
+    @Transactional
+    public List&lt;OrderHistoryDto&gt; getOrderHistoriesByOrderId(Long id) {
+<span class="nc" id="L78">        List&lt;OrderHistory&gt; orderHistories = orderHistoryDAO.getOrderHistoriesByOrderId(id);</span>
+<span class="nc" id="L79">        return dtoMappingService.convertToOrderHistoryDtoList(orderHistories);</span>
+    }
+
+    @Override
+    @Transactional
+    public Message saveOrder(NewOrderDto orderDto, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+<span class="nc" id="L85">        Message message = new Message();</span>
+<span class="nc" id="L86">        Gson gson = new Gson();</span>
+<span class="nc" id="L87">        Cookie cookieCart = WebUtils.getCookie(request, &quot;cart&quot;);</span>
+<span class="nc" id="L88">        CartDto cartDto = gson.fromJson(URLDecoder.decode(cookieCart.getValue(), &quot;UTF-8&quot;), CartDto.class);</span>
+<span class="nc" id="L89">        List&lt;CartProductDto&gt; cartProducts = cartDto.getCartProducts();</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if (cartProducts.size() == 0) {</span>
+<span class="nc" id="L91">            message.getErrors().add(Message.CART_IS_EMPTY);</span>
+<span class="nc" id="L92">            logger.info(Message.CART_IS_EMPTY);</span>
+<span class="nc" id="L93">            return message;</span>
+        }
+<span class="nc" id="L95">        List&lt;Product&gt; products = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        for (CartProductDto cartProductDto : cartProducts) {</span>
+<span class="nc" id="L97">            Product product = productDAO.getProductForUpdate(cartProductDto.getProduct().getId());</span>
+<span class="nc" id="L98">            products.add(product);</span>
+<span class="nc" id="L99">        }</span>
+<span class="nc bnc" id="L100" title="All 2 branches missed.">        if (!checkForAmounts(cartProducts, products)) {</span>
+<span class="nc" id="L101">            message.getErrors().add(Message.PRODUCT_NOT_ENOUGH);</span>
+<span class="nc" id="L102">            logger.info(Message.PRODUCT_NOT_ENOUGH);</span>
+<span class="nc" id="L103">            return message;</span>
+        }
+<span class="nc" id="L105">        reduceProductAmounts(cartProducts, products);</span>
+<span class="nc" id="L106">        User user = userDAO.getUserById(((UserDto) request.getSession().getAttribute(&quot;user&quot;)).getId());</span>
+<span class="nc" id="L107">        Order order = createNewOrder(orderDto, user);</span>
+<span class="nc" id="L108">        orderDAO.saveOrder(order);</span>
+<span class="nc" id="L109">        OrderHistory orderHistory = createOrderHistory(order);</span>
+<span class="nc" id="L110">        orderHistoryDAO.saveOrderHistory(orderHistory);</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">        for (int i = 0; i &lt; cartProducts.size(); i++) {</span>
+<span class="nc" id="L112">            OrderProduct orderProduct = createOrderProduct(cartProducts.get(i), products.get(i), order);</span>
+<span class="nc" id="L113">            orderProductDAO.saveOrderProduct(orderProduct);</span>
+        }
+<span class="nc" id="L115">        cartService.cleanCarts(request, response, user.getId());</span>
+<span class="nc" id="L116">        mailService.sendEmail((UserDto) request.getSession().getAttribute(&quot;user&quot;), order.getId());</span>
+<span class="nc" id="L117">        message.getConfirms().add(Message.ORDER_SAVE_SUCCESS + &quot; ID &quot; + order.getId());</span>
+<span class="nc" id="L118">        logger.info(Message.ORDER_SAVE_SUCCESS);</span>
+<span class="nc" id="L119">        return message;</span>
+    }
+
+    private void reduceProductAmounts(List&lt;CartProductDto&gt; cartProducts, List&lt;Product&gt; products) {
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        for (int i = 0; i &lt; cartProducts.size(); i++) {</span>
+<span class="nc" id="L124">            products.get(i).setAmount(products.get(i).getAmount() - cartProducts.get(i).getAmount());</span>
+        }
+<span class="nc" id="L126">    }</span>
+
+    public boolean checkForAmounts(List&lt;CartProductDto&gt; cartProducts, List&lt;Product&gt; products) {
+<span class="fc bfc" id="L129" title="All 2 branches covered.">        for (int i = 0; i &lt; cartProducts.size(); i++) {</span>
+<span class="fc bfc" id="L130" title="All 2 branches covered.">            if (cartProducts.get(i).getAmount() &gt; products.get(i).getAmount()) return false;</span>
+        }
+<span class="fc" id="L132">        return true;</span>
+    }
+
+    public Order createNewOrder(NewOrderDto orderDto, User user) {
+<span class="fc" id="L136">        Order order = new Order();</span>
+<span class="fc" id="L137">        order.setUser(user);</span>
+<span class="fc" id="L138">        order.setPaymentType(orderDto.getPaymentType());</span>
+<span class="fc" id="L139">        order.setDeliveryType(orderDto.getDeliveryType());</span>
+<span class="fc" id="L140">        order.setPaymentStatus(PaymentStatus.WAITING_FOR_PAYMENT);</span>
+<span class="fc" id="L141">        order.setOrderStatus(OrderStatus.NEW);</span>
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">        order.setAddress((orderDto.getDeliveryType() == DeliveryType.DELIVERY) ? orderDto.getAddress() : orderDto.getPickupAddress());</span>
+<span class="fc" id="L143">        order.setDate(Clock.systemUTC().instant());</span>
+<span class="fc" id="L144">        order.setSum(orderDto.getSum());</span>
+<span class="fc" id="L145">        return order;</span>
+    }
+
+    public OrderProduct createOrderProduct(CartProductDto cartProduct, Product product, Order order) {
+<span class="fc" id="L149">        OrderProduct orderProduct = new OrderProduct();</span>
+<span class="fc" id="L150">        orderProduct.setOrder(order);</span>
+<span class="fc" id="L151">        orderProduct.setProduct(product);</span>
+<span class="fc" id="L152">        orderProduct.setCost(cartProduct.getProduct().getCost());</span>
+<span class="fc" id="L153">        orderProduct.setAmount(cartProduct.getAmount());</span>
+<span class="fc" id="L154">        return orderProduct;</span>
+    }
+
+    public OrderHistory createOrderHistory(Order order) {
+<span class="fc" id="L158">        OrderHistory orderHistory = new OrderHistory();</span>
+<span class="fc" id="L159">        orderHistory.setOrder(order);</span>
+<span class="fc" id="L160">        orderHistory.setPaymentType(order.getPaymentType());</span>
+<span class="fc" id="L161">        orderHistory.setDeliveryType(order.getDeliveryType());</span>
+<span class="fc" id="L162">        orderHistory.setPaymentStatus(order.getPaymentStatus());</span>
+<span class="fc" id="L163">        orderHistory.setOrderStatus(order.getOrderStatus());</span>
+<span class="fc" id="L164">        orderHistory.setAddress(order.getAddress());</span>
+<span class="fc" id="L165">        orderHistory.setDate(Clock.systemUTC().instant());</span>
+<span class="fc" id="L166">        orderHistory.setSum(order.getSum());</span>
+<span class="fc" id="L167">        return orderHistory;</span>
+    }
+
+    @Override
+    @Transactional
+    public Message updateOrderStatus(Long orderId, OrderStatus orderStatus) {
+<span class="nc" id="L173">        Message message = new Message();</span>
+<span class="nc" id="L174">        Order order = orderDAO.getOrderById(orderId);</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">        if (order.getOrderStatus().equals(orderStatus)) {</span>
+<span class="nc" id="L176">            message.getErrors().add(Message.ORDER_STATUS_UPDATE_FAIL);</span>
+<span class="nc" id="L177">            logger.info(Message.ORDER_STATUS_UPDATE_FAIL);</span>
+<span class="nc" id="L178">            return message;</span>
+        }
+<span class="nc" id="L180">        order.setOrderStatus(orderStatus);</span>
+<span class="nc" id="L181">        OrderHistory orderHistory = createOrderHistory(order);</span>
+<span class="nc" id="L182">        orderHistoryDAO.saveOrderHistory(orderHistory);</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">        if (orderStatus.equals(OrderStatus.DELIVERED)) {</span>
+<span class="nc" id="L184">            List&lt;OrderProduct&gt; orderProducts = orderProductDAO.getOrderProductsByOrderId(orderId);</span>
+<span class="nc" id="L185">            saveProductStats(orderProducts);</span>
+<span class="nc" id="L186">            saveUserStats(order);</span>
+        }
+<span class="nc" id="L188">        message.getConfirms().add(Message.ORDER_STATUS_UPDATE_SUCCESS);</span>
+<span class="nc" id="L189">        logger.info(Message.ORDER_STATUS_UPDATE_SUCCESS);</span>
+<span class="nc" id="L190">        return message;</span>
+    }
+
+    private void saveUserStats(Order order) {
+<span class="nc" id="L194">        Calendar calendar = Calendar.getInstance();</span>
+<span class="nc" id="L195">        calendar.setTime(new Date());</span>
+<span class="nc" id="L196">        UserStats userStats = userStatsDAO.getUserStatsByUserIdAndDate(order.getUser().getId(), calendar);</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">        if (userStats == null) {</span>
+<span class="nc" id="L198">            userStats = new UserStats();</span>
+<span class="nc" id="L199">            userStats.setUser(order.getUser());</span>
+<span class="nc" id="L200">            userStats.setSum(order.getSum());</span>
+<span class="nc" id="L201">            userStats.setMonth(calendar.get(Calendar.MONTH) + 1);</span>
+<span class="nc" id="L202">            userStats.setYear(calendar.get(Calendar.YEAR));</span>
+<span class="nc" id="L203">            userStatsDAO.saveUserStats(userStats);</span>
+        } else {
+<span class="nc" id="L205">            userStats.setSum(userStats.getSum() + order.getSum());</span>
+        }
+<span class="nc" id="L207">    }</span>
+
+    private void saveProductStats(List&lt;OrderProduct&gt; orderProducts) {
+<span class="nc" id="L210">        Calendar calendar = Calendar.getInstance();</span>
+<span class="nc" id="L211">        calendar.setTime(new Date());</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">        for (OrderProduct orderProduct : orderProducts) {</span>
+<span class="nc" id="L213">            ProductStats productStats = productStatsDAO.getProductStatsByProductIdAndDate(orderProduct.getProduct().getId(), calendar);</span>
+<span class="nc bnc" id="L214" title="All 2 branches missed.">            if (productStats == null) {</span>
+<span class="nc" id="L215">                productStats = new ProductStats();</span>
+<span class="nc" id="L216">                productStats.setProduct(orderProduct.getProduct());</span>
+<span class="nc" id="L217">                productStats.setAmount(orderProduct.getAmount());</span>
+<span class="nc" id="L218">                productStats.setMonth(calendar.get(Calendar.MONTH) + 1);</span>
+<span class="nc" id="L219">                productStats.setYear(calendar.get(Calendar.YEAR));</span>
+<span class="nc" id="L220">                productStatsDAO.saveProductStats(productStats);</span>
+            } else {
+<span class="nc" id="L222">                productStats.setAmount(productStats.getAmount() + orderProduct.getAmount());</span>
+            }
+<span class="nc" id="L224">        }</span>
+<span class="nc" id="L225">    }</span>
+
+    @Autowired
+    public void setOrderDAO(OrderDAO orderDAO) {
+<span class="fc" id="L229">        this.orderDAO = orderDAO;</span>
+<span class="fc" id="L230">    }</span>
+
+    @Autowired
+    public void setProductDAO(ProductDAO productDAO) {
+<span class="fc" id="L234">        this.productDAO = productDAO;</span>
+<span class="fc" id="L235">    }</span>
+
+    @Autowired
+    public void setDtoMappingService(DTOMappingService dtoMappingService) {
+<span class="fc" id="L239">        this.dtoMappingService = dtoMappingService;</span>
+<span class="fc" id="L240">    }</span>
+
+    @Autowired
+    public void setUserDAO(UserDAO userDAO) {
+<span class="fc" id="L244">        this.userDAO = userDAO;</span>
+<span class="fc" id="L245">    }</span>
+
+    @Autowired
+    public void setOrderProductDAO(OrderProductDAO orderProductDAO) {
+<span class="fc" id="L249">        this.orderProductDAO = orderProductDAO;</span>
+<span class="fc" id="L250">    }</span>
+
+    @Autowired
+    public void setOrderHistoryDAO(OrderHistoryDAO orderHistoryDAO) {
+<span class="fc" id="L254">        this.orderHistoryDAO = orderHistoryDAO;</span>
+<span class="fc" id="L255">    }</span>
+
+    @Autowired
+    public void setProductStatsDAO(ProductStatsDAO productStatsDAO) {
+<span class="fc" id="L259">        this.productStatsDAO = productStatsDAO;</span>
+<span class="fc" id="L260">    }</span>
+
+    @Autowired
+    public void setUserStatsDAO(UserStatsDAO userStatsDAO) {
+<span class="fc" id="L264">        this.userStatsDAO = userStatsDAO;</span>
+<span class="fc" id="L265">    }</span>
+
+    @Autowired
+    public void setCartService(CartService cartService) {
+<span class="fc" id="L269">        this.cartService = cartService;</span>
+<span class="fc" id="L270">    }</span>
+
+    @Autowired
+    public void setMailService(MailService mailService) {
+<span class="fc" id="L274">        this.mailService = mailService;</span>
+<span class="fc" id="L275">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

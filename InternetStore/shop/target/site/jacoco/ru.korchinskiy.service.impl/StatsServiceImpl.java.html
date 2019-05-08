@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StatsServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.service.impl</a> &gt; <span class="el_source">StatsServiceImpl.java</span></div><h1>StatsServiceImpl.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import ru.korchinskiy.dao.ProductStatsDAO;
+import ru.korchinskiy.dao.UserStatsDAO;
+import ru.korchinskiy.dto.IndicatorDto;
+import ru.korchinskiy.dto.ProductStatsDto;
+import ru.korchinskiy.dto.UserStatsDto;
+import ru.korchinskiy.entity.ProductStats;
+import ru.korchinskiy.entity.UserStats;
+import ru.korchinskiy.service.DTOMappingService;
+import ru.korchinskiy.service.StatsService;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+@Service
+<span class="fc" id="L22">public class StatsServiceImpl implements StatsService {</span>
+    private ProductStatsDAO productStatsDAO;
+    private UserStatsDAO userStatsDAO;
+    private DTOMappingService dtoMappingService;
+
+    @Override
+    @Transactional
+    public List&lt;ProductStatsDto&gt; getTopTenProducts(Integer month, Integer year) {
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        if (month == null) {</span>
+<span class="nc" id="L31">            Calendar calendar = Calendar.getInstance();</span>
+<span class="nc" id="L32">            calendar.setTime(new Date());</span>
+<span class="nc" id="L33">            month = calendar.get(Calendar.MONTH);</span>
+<span class="nc" id="L34">            year = calendar.get(Calendar.YEAR);</span>
+        }
+<span class="nc" id="L36">        List&lt;ProductStats&gt; productStatsList = productStatsDAO.getTopTenProductStatsByAmount(month + 1, year);</span>
+<span class="nc" id="L37">        return dtoMappingService.convertToProductStatsDtoList(productStatsList);</span>
+    }
+
+    @Override
+    @Transactional
+    public List&lt;UserStatsDto&gt; getTopTenUsers(Integer month, Integer year) {
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        if (month == null) {</span>
+<span class="nc" id="L44">            Calendar calendar = Calendar.getInstance();</span>
+<span class="nc" id="L45">            calendar.setTime(new Date());</span>
+<span class="nc" id="L46">            month = calendar.get(Calendar.MONTH);</span>
+<span class="nc" id="L47">            year = calendar.get(Calendar.YEAR);</span>
+        }
+<span class="nc" id="L49">        List&lt;UserStats&gt; userStatsList = userStatsDAO.getTopTenUserStatsBySum(month + 1, year);</span>
+<span class="nc" id="L50">        return dtoMappingService.convertToUserStatsDtoList(userStatsList);</span>
+    }
+
+    @Override
+    @Transactional
+    public List&lt;IndicatorDto&gt; getMainStats(Integer month, Integer year) {
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (month == null) {</span>
+<span class="nc" id="L57">            Calendar calendar = Calendar.getInstance();</span>
+<span class="nc" id="L58">            calendar.setTime(new Date());</span>
+<span class="nc" id="L59">            month = calendar.get(Calendar.MONTH);</span>
+<span class="nc" id="L60">            year = calendar.get(Calendar.YEAR);</span>
+        }
+<span class="nc" id="L62">        List&lt;IndicatorDto&gt; indicators = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L63">        IndicatorDto revenue = new IndicatorDto();</span>
+<span class="nc" id="L64">        revenue.setName(&quot;Revenue&quot;);</span>
+<span class="nc" id="L65">        revenue.setValue(userStatsDAO.getRevenueByMonth(month + 1, year));</span>
+<span class="nc" id="L66">        indicators.add(revenue);</span>
+<span class="nc" id="L67">        return indicators;</span>
+    }
+
+    @Autowired
+    public void setProductStatsDAO(ProductStatsDAO productStatsDAO) {
+<span class="fc" id="L72">        this.productStatsDAO = productStatsDAO;</span>
+<span class="fc" id="L73">    }</span>
+
+    @Autowired
+    public void setUserStatsDAO(UserStatsDAO userStatsDAO) {
+<span class="fc" id="L77">        this.userStatsDAO = userStatsDAO;</span>
+<span class="fc" id="L78">    }</span>
+
+    @Autowired
+    public void setDtoMappingService(DTOMappingService dtoMappingService) {
+<span class="fc" id="L82">        this.dtoMappingService = dtoMappingService;</span>
+<span class="fc" id="L83">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

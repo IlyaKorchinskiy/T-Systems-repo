@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CartController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.controller</a> &gt; <span class="el_source">CartController.java</span></div><h1>CartController.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import ru.korchinskiy.dto.AddressDto;
+import ru.korchinskiy.dto.CartDto;
+import ru.korchinskiy.dto.NewOrderDto;
+import ru.korchinskiy.enums.DeliveryType;
+import ru.korchinskiy.enums.PaymentType;
+import ru.korchinskiy.message.Message;
+import ru.korchinskiy.service.AddressService;
+import ru.korchinskiy.service.CartService;
+import ru.korchinskiy.service.UtilsService;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.util.List;
+
+@Controller
+@RequestMapping(&quot;/cart&quot;)
+<span class="fc" id="L25">public class CartController {</span>
+    private CartService cartService;
+    private AddressService addressService;
+
+    @GetMapping
+    public String showCartPage(@CookieValue(value = &quot;cart&quot;, required = false) Cookie cookieCart,
+                               Model model) throws UnsupportedEncodingException {
+<span class="nc" id="L32">        CartDto cart = cartService.getCookieCart(cookieCart);</span>
+<span class="nc" id="L33">        List&lt;AddressDto&gt; pickupAddressList = addressService.getPickupAddressList();</span>
+<span class="nc" id="L34">        model.addAttribute(&quot;cart&quot;, cart);</span>
+<span class="nc" id="L35">        model.addAttribute(&quot;paymentTypes&quot;, PaymentType.values());</span>
+<span class="nc" id="L36">        model.addAttribute(&quot;deliveryTypes&quot;, DeliveryType.values());</span>
+<span class="nc" id="L37">        model.addAttribute(&quot;pickupAddresses&quot;, pickupAddressList);</span>
+<span class="nc" id="L38">        model.addAttribute(&quot;sum&quot;, UtilsService.getCartSum(cart));</span>
+<span class="nc" id="L39">        model.addAttribute(&quot;order&quot;, new NewOrderDto());</span>
+<span class="nc" id="L40">        return &quot;cart&quot;;</span>
+    }
+
+    @GetMapping(&quot;/getCart&quot;)
+    @ResponseBody
+    public CartDto getCart(@CookieValue(value = &quot;cart&quot;, required = false) Cookie cookieCart) throws UnsupportedEncodingException {
+<span class="nc" id="L46">        return cartService.getCookieCart(cookieCart);</span>
+    }
+
+    @PostMapping(&quot;/addToCart&quot;)
+    @ResponseBody
+    public Message addToCart(@RequestParam(name = &quot;id&quot;) Long productId,
+                             HttpServletRequest request,
+                             HttpServletResponse response) throws UnsupportedEncodingException {
+<span class="nc" id="L54">        return cartService.addProductToCart(request, response, productId, 1);</span>
+    }
+
+    @GetMapping(&quot;/removeFromCart&quot;)
+    public String removeFromCart(@RequestParam(name = &quot;id&quot;) Long productId,
+                                 HttpServletRequest request,
+                                 HttpServletResponse response) throws UnsupportedEncodingException {
+<span class="nc" id="L61">        cartService.removeProductFromCart(request, response, productId);</span>
+<span class="nc" id="L62">        return &quot;redirect:/cart&quot;;</span>
+    }
+
+    @Autowired
+    public void setCartService(CartService cartService) {
+<span class="fc" id="L67">        this.cartService = cartService;</span>
+<span class="fc" id="L68">    }</span>
+
+    @Autowired
+    public void setAddressService(AddressService addressService) {
+<span class="fc" id="L72">        this.addressService = addressService;</span>
+<span class="fc" id="L73">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

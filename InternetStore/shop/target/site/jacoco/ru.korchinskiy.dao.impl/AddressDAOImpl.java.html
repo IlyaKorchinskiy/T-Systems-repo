@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddressDAOImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.dao.impl</a> &gt; <span class="el_source">AddressDAOImpl.java</span></div><h1>AddressDAOImpl.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.dao.impl;
+
+import org.springframework.stereotype.Repository;
+import ru.korchinskiy.dao.AddressDAO;
+import ru.korchinskiy.entity.Address;
+import ru.korchinskiy.enums.AddressType;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
+
+@Repository
+<span class="fc" id="L16">public class AddressDAOImpl implements AddressDAO {</span>
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public Address getAddressById(Long id) {
+<span class="nc" id="L22">        return this.entityManager.find(Address.class, id);</span>
+    }
+
+    @Override
+    public Address getAddressByNameAndType(String address, AddressType type) {
+<span class="nc" id="L27">        CriteriaBuilder builder = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L28">        CriteriaQuery&lt;Address&gt; query = builder.createQuery(Address.class);</span>
+<span class="nc" id="L29">        Root&lt;Address&gt; root = query.from(Address.class);</span>
+<span class="nc" id="L30">        query.select(root)</span>
+<span class="nc" id="L31">                .where(builder.equal(root.get(&quot;address&quot;), address),</span>
+<span class="nc" id="L32">                        builder.equal(root.get(&quot;addressType&quot;), type));</span>
+<span class="nc" id="L33">        List&lt;Address&gt; addresses = entityManager.createQuery(query).getResultList();</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">        if (addresses.size() == 0) return null;</span>
+<span class="nc" id="L35">        return addresses.get(0);</span>
+    }
+
+    @Override
+    public List&lt;Address&gt; getAddressListByType(AddressType type) {
+<span class="nc" id="L40">        CriteriaBuilder builder = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L41">        CriteriaQuery&lt;Address&gt; query = builder.createQuery(Address.class);</span>
+<span class="nc" id="L42">        Root&lt;Address&gt; root = query.from(Address.class);</span>
+<span class="nc" id="L43">        query.select(root).where(builder.equal(root.get(&quot;addressType&quot;), type));</span>
+<span class="nc" id="L44">        return entityManager.createQuery(query).getResultList();</span>
+    }
+
+    @Override
+    public void saveAddress(Address address) {
+<span class="nc" id="L49">        this.entityManager.persist(address);</span>
+<span class="nc" id="L50">    }</span>
+
+    @Override
+    public void removeAddress(Address address) {
+<span class="nc" id="L54">        this.entityManager.remove(address);</span>
+<span class="nc" id="L55">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

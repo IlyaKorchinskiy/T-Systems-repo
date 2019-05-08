@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-import ru.korchinskiy.dto.ProductStatsDto;
 import ru.korchinskiy.bean.ProductEJB;
+import ru.korchinskiy.dto.ProductStatsDto;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.core.GenericType;
@@ -25,8 +25,12 @@ public class ProductEJBImpl implements ProductEJB {
         Response response = target.request(MediaType.APPLICATION_JSON_TYPE).get();
         logger.info(response.getStatusInfo());
         if (response.getStatus() != 200) {
+            logger.warn(response.getStatusInfo());
             return null;
         }
-        return response.readEntity(new GenericType<List<ProductStatsDto>>(){});
+        List<ProductStatsDto> productStatsDtoList = response.readEntity(new GenericType<List<ProductStatsDto>>() {
+        });
+        response.close();
+        return productStatsDtoList;
     }
 }

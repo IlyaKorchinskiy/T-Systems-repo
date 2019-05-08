@@ -1,6 +1,8 @@
 package ru.korchinskiy.bean.impl;
 
 
+import org.apache.log4j.Logger;
+
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
@@ -15,6 +17,8 @@ import javax.jms.TextMessage;
         @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/queue/ProductQueue")
 })
 public class MessageEJB implements MessageListener {
+    private static Logger logger = Logger.getLogger(ProductEJBImpl.class);
+
     @Inject
     private PushBean pushBean;
 
@@ -30,7 +34,7 @@ public class MessageEJB implements MessageListener {
                 }
             }
         } catch(JMSException e){
-            e.printStackTrace();
+            logger.info("getMessageError", e);
         }
     }
 }

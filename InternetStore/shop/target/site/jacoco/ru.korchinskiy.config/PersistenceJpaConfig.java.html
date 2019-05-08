@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PersistenceJpaConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.config</a> &gt; <span class="el_source">PersistenceJpaConfig.java</span></div><h1>PersistenceJpaConfig.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.config;
+
+import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import java.util.Properties;
+
+@Configuration
+@EnableTransactionManagement
+<span class="fc" id="L18">public class PersistenceJpaConfig {</span>
+    @Bean
+    public BasicDataSource dataSource() {
+<span class="fc" id="L21">        BasicDataSource dataSource = new BasicDataSource();</span>
+<span class="fc" id="L22">        dataSource.setDriverClassName(&quot;com.mysql.cj.jdbc.Driver&quot;);</span>
+//        dataSource.setUrl(&quot;jdbc:mysql://192.168.99.100:3306/shop?serverTimezone=UTC&quot;);
+<span class="fc" id="L24">        dataSource.setUrl(&quot;jdbc:mysql://db:3306/shop?serverTimezone=UTC&quot;);</span>
+<span class="fc" id="L25">        dataSource.setUsername(&quot;user&quot;);</span>
+<span class="fc" id="L26">        dataSource.setPassword(&quot;123123&quot;);</span>
+<span class="fc" id="L27">        return dataSource;</span>
+    }
+
+    @Bean
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+<span class="fc" id="L32">        LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();</span>
+<span class="fc" id="L33">        emf.setDataSource(dataSource());</span>
+<span class="fc" id="L34">        emf.setPackagesToScan(&quot;ru.korchinskiy.entity&quot;);</span>
+<span class="fc" id="L35">        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();</span>
+<span class="fc" id="L36">        emf.setJpaVendorAdapter(vendorAdapter);</span>
+<span class="fc" id="L37">        Properties properties = new Properties();</span>
+<span class="fc" id="L38">        properties.put(&quot;hibernate.dialect&quot;, &quot;org.hibernate.dialect.MySQL5Dialect&quot;);</span>
+//        properties.put(&quot;hibernate.show_sql&quot;, &quot;true&quot;);
+<span class="fc" id="L40">        emf.setJpaProperties(properties);</span>
+<span class="fc" id="L41">        return emf;</span>
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+<span class="fc" id="L46">        JpaTransactionManager transactionManager = new JpaTransactionManager();</span>
+<span class="fc" id="L47">        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());</span>
+<span class="fc" id="L48">        return transactionManager;</span>
+    }
+
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+<span class="fc" id="L53">        return new PersistenceExceptionTranslationPostProcessor();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.config</a> &gt; <span class="el_source">SecurityConfig.java</span></div><h1>SecurityConfig.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
+<span class="fc" id="L17">public class SecurityConfig extends WebSecurityConfigurerAdapter {</span>
+    private DaoAuthenticationProvider authenticationProvider;
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private LogoutSuccessHandler logoutSuccessHandler;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+<span class="fc" id="L24">        auth.authenticationProvider(authenticationProvider);</span>
+<span class="fc" id="L25">    }</span>
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+<span class="fc" id="L29">        http.csrf().disable();</span>
+
+<span class="fc" id="L31">        http.authorizeRequests()</span>
+//                .antMatchers(&quot;/admin/**&quot;).hasAnyRole(&quot;ADMIN&quot;, &quot;SUPER_ADMIN&quot;)
+<span class="fc" id="L33">                .antMatchers(&quot;/profile/**&quot;).authenticated()</span>
+<span class="fc" id="L34">                .anyRequest().permitAll();</span>
+<span class="fc" id="L35">        http.formLogin()</span>
+<span class="fc" id="L36">                .loginProcessingUrl(&quot;/j_spring_security_check&quot;)</span>
+<span class="fc" id="L37">                .loginPage(&quot;/login&quot;)</span>
+<span class="fc" id="L38">                .failureUrl(&quot;/login?error=true&quot;)</span>
+<span class="fc" id="L39">                .usernameParameter(&quot;j_username&quot;)</span>
+<span class="fc" id="L40">                .passwordParameter(&quot;j_password&quot;)</span>
+<span class="fc" id="L41">                .successHandler(authenticationSuccessHandler)</span>
+<span class="fc" id="L42">                .permitAll();</span>
+<span class="fc" id="L43">        http.logout()</span>
+<span class="fc" id="L44">                .logoutUrl(&quot;/logout&quot;)</span>
+<span class="fc" id="L45">                .logoutSuccessHandler(logoutSuccessHandler)</span>
+<span class="fc" id="L46">                .permitAll()</span>
+<span class="fc" id="L47">                .invalidateHttpSession(true);</span>
+<span class="fc" id="L48">    }</span>
+
+    @Autowired
+    public void setAuthenticationProvider(DaoAuthenticationProvider authenticationProvider) {
+<span class="fc" id="L52">        this.authenticationProvider = authenticationProvider;</span>
+<span class="fc" id="L53">    }</span>
+
+    @Autowired
+    public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler authenticationSuccessHandler) {
+<span class="fc" id="L57">        this.authenticationSuccessHandler = authenticationSuccessHandler;</span>
+<span class="fc" id="L58">    }</span>
+
+    @Autowired
+    public void setLogoutSuccessHandler(LogoutSuccessHandler logoutSuccessHandler) {
+<span class="fc" id="L62">        this.logoutSuccessHandler = logoutSuccessHandler;</span>
+<span class="fc" id="L63">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

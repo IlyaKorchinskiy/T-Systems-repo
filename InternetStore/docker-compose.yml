@@ -4,7 +4,7 @@ services:
   shop:
     container_name: "shop"
     build:
-      context: ./main
+      context: ./shop
       dockerfile: Dockerfile
     environment:
       - DB_NAME=shop
@@ -16,7 +16,6 @@ services:
       - db
     ports:
       - "8189:8080"
-      - "8000:8000"
     volumes:
       - image-vol:/usr/local/tomcat/webapps/images
 
@@ -35,12 +34,18 @@ services:
     build:
       context: ./glasscase
       dockerfile: Dockerfile
-    depends_on:
-      - shop
     ports:
       - "8080:8080" # application
       - "9990:9990" # admin console
       - "61616:61616" # mq
+
+  email:
+    container_name: "email"
+    build:
+      context: ./emailservice
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
 
   static:
     container_name: "static"

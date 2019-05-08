@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CategoryDAOImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.dao.impl</a> &gt; <span class="el_source">CategoryDAOImpl.java</span></div><h1>CategoryDAOImpl.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.dao.impl;
+
+import org.springframework.stereotype.Repository;
+import ru.korchinskiy.dao.CategoryDAO;
+import ru.korchinskiy.entity.Category;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.List;
+
+@Repository
+<span class="fc" id="L15">public class CategoryDAOImpl implements CategoryDAO {</span>
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public Category getCategoryById(Long id) {
+<span class="nc" id="L21">        return this.entityManager.find(Category.class, id);</span>
+    }
+
+    @Override
+    public Category getCategoryByTitle(String title) {
+<span class="nc" id="L26">        CriteriaBuilder builder = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L27">        CriteriaQuery&lt;Category&gt; query = builder.createQuery(Category.class);</span>
+<span class="nc" id="L28">        Root&lt;Category&gt; root = query.from(Category.class);</span>
+<span class="nc" id="L29">        query.select(root).where(builder.equal(root.get(&quot;title&quot;), title));</span>
+<span class="nc" id="L30">        List&lt;Category&gt; categories = entityManager.createQuery(query).getResultList();</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if (categories.size() == 0) return null;</span>
+<span class="nc" id="L32">        return categories.get(0);</span>
+    }
+
+    @Override
+    public List&lt;Category&gt; getCategoriesByParentId(Long id) {
+<span class="nc" id="L37">        CriteriaBuilder builder = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L38">        CriteriaQuery&lt;Category&gt; query = builder.createQuery(Category.class);</span>
+<span class="nc" id="L39">        Root&lt;Category&gt; root = query.from(Category.class);</span>
+<span class="nc" id="L40">        query.select(root).where(builder.equal(root.get(&quot;parentId&quot;), id));</span>
+<span class="nc" id="L41">        return entityManager.createQuery(query).getResultList();</span>
+    }
+
+    @Override
+    public List&lt;Category&gt; getAllCategories() {
+<span class="nc" id="L46">        CriteriaBuilder builder = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L47">        CriteriaQuery&lt;Category&gt; query = builder.createQuery(Category.class);</span>
+<span class="nc" id="L48">        Root&lt;Category&gt; root = query.from(Category.class);</span>
+<span class="nc" id="L49">        query.select(root);</span>
+<span class="nc" id="L50">        return entityManager.createQuery(query).getResultList();</span>
+    }
+
+    @Override
+    public void saveCategory(Category category) {
+<span class="nc" id="L55">        this.entityManager.persist(category);</span>
+<span class="nc" id="L56">    }</span>
+
+    @Override
+    public void removeCategory(Category category) {
+<span class="nc" id="L60">        this.entityManager.remove(category);</span>
+<span class="nc" id="L61">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

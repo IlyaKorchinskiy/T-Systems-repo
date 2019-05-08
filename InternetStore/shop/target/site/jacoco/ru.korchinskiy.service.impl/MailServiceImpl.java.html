@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MailServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.service.impl</a> &gt; <span class="el_source">MailServiceImpl.java</span></div><h1>MailServiceImpl.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.service.impl;
+
+import org.apache.log4j.Logger;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+import ru.korchinskiy.dto.MailDto;
+import ru.korchinskiy.dto.UserDto;
+import ru.korchinskiy.message.Message;
+import ru.korchinskiy.service.MailService;
+
+@Service
+<span class="fc" id="L15">public class MailServiceImpl implements MailService {</span>
+<span class="fc" id="L16">    private static final Logger logger = Logger.getLogger(MailServiceImpl.class);</span>
+    private static final String EMAIL_URL = &quot;http://email:3000/send-email&quot;;
+
+    @Override
+    public void sendEmail(UserDto userDto, Long orderId) {
+<span class="nc" id="L21">        MailDto mail = new MailDto(userDto.getName() + &quot; &quot; + userDto.getLastname(), orderId);</span>
+<span class="nc" id="L22">        RestTemplate restTemplate = new RestTemplate();</span>
+<span class="nc" id="L23">        HttpEntity&lt;MailDto&gt; request = new HttpEntity&lt;&gt;(mail);</span>
+<span class="nc" id="L24">        ResponseEntity&lt;String&gt; response = restTemplate.exchange(EMAIL_URL, HttpMethod.POST, request, String.class);</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">        if (response.getStatusCodeValue() != 200) {</span>
+<span class="nc" id="L26">            logger.warn(response.getStatusCode());</span>
+        }
+<span class="nc" id="L28">        String message = response.getBody();</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if (message.equals(&quot;error&quot;)) logger.warn(Message.EMAIL_SEND_FAIL);</span>
+<span class="nc" id="L30">        else logger.info(Message.EMAIL_SEND_SUCCESS);</span>
+
+<span class="nc" id="L32">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

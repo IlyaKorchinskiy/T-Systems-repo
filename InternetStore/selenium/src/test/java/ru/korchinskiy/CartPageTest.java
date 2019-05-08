@@ -13,4 +13,6 @@ public class CartPageTest extends WebTestBase {
         String profileLink = cartPage.login(webDriver);
         Assert.assertEquals("Profile John", profileLink);
     }
+
+
 }

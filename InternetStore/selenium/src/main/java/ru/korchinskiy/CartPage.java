@@ -15,6 +15,9 @@ public class CartPage {
     private static final String PASSWORD = "johnDoe";
     private static final String LOGIN_SUBMIT_BTN_ID = "login-submit-btn";
     private static final String PROFILE_LINK_ID = "profile-link";
+    private static final String DELIVERY_TYPE_DELIVERY_ID = "deliveryType-DELIVERY";
+    private static final String ADDRESS_INPUT_NAME = "address";
+    private static final String CONFIRM_ORDER_BTN_ID = "confirm-order-btn";
 
     public String login(WebDriver webDriver) {
         WebDriverWait wait = new WebDriverWait(webDriver, TIMEOUT_SECONDS);
@@ -22,11 +25,20 @@ public class CartPage {
         loginBtn.click();
         WebElement loginInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(LOGIN_INPUT_ID)));
         loginInput.sendKeys(LOGIN);
-        WebElement passInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(PASSWORD_INPUT_ID)));
+        WebElement passInput = webDriver.findElement(By.id(PASSWORD_INPUT_ID));
         passInput.sendKeys(PASSWORD);
-        WebElement loginSubmitBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id(LOGIN_SUBMIT_BTN_ID)));
+        WebElement loginSubmitBtn = webDriver.findElement(By.id(LOGIN_SUBMIT_BTN_ID));
         loginSubmitBtn.click();
         WebElement profileLink = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(PROFILE_LINK_ID)));
         return profileLink.getText();
+    }
+
+    public String confirmOrderWithDeliveryAndCash(WebDriver webDriver) {
+        WebDriverWait wait = new WebDriverWait(webDriver, TIMEOUT_SECONDS);
+        WebElement addressInput = wait.until(ExpectedConditions.elementToBeClickable(By.name(ADDRESS_INPUT_NAME)));
+        addressInput.click();
+        WebElement confirmBtn = webDriver.findElement(By.id(CONFIRM_ORDER_BTN_ID));
+        confirmBtn.click();
+        return webDriver.getTitle();
     }
 }

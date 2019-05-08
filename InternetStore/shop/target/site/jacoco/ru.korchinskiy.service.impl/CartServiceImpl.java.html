@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CartServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.service.impl</a> &gt; <span class="el_source">CartServiceImpl.java</span></div><h1>CartServiceImpl.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.service.impl;
+
+import com.google.gson.Gson;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.WebUtils;
+import ru.korchinskiy.dao.CartDAO;
+import ru.korchinskiy.dao.CartProductDAO;
+import ru.korchinskiy.dao.ProductDAO;
+import ru.korchinskiy.dao.UserDAO;
+import ru.korchinskiy.dto.CartDto;
+import ru.korchinskiy.dto.CartProductDto;
+import ru.korchinskiy.dto.UserDto;
+import ru.korchinskiy.entity.Cart;
+import ru.korchinskiy.entity.CartProduct;
+import ru.korchinskiy.entity.Product;
+import ru.korchinskiy.entity.User;
+import ru.korchinskiy.message.Message;
+import ru.korchinskiy.service.CartService;
+import ru.korchinskiy.service.DTOMappingService;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.List;
+
+@Service
+<span class="fc" id="L33">public class CartServiceImpl implements CartService {</span>
+    private static final int COOKIE_MAX_AGE = 24 * 60 * 60;
+<span class="fc" id="L35">    private static Logger logger = Logger.getLogger(CartServiceImpl.class);</span>
+
+    private CartDAO cartDAO;
+    private ProductDAO productDAO;
+    private CartProductDAO cartProductDAO;
+    private UserDAO userDAO;
+    private DTOMappingService dtoMappingService;
+
+    @Override
+    @Transactional
+    public CartDto getCartById(Long id) {
+<span class="nc" id="L46">        Cart cart = cartDAO.getCartById(id);</span>
+<span class="nc" id="L47">        return dtoMappingService.convertToCartDto(cart);</span>
+    }
+
+    @Override
+    public CartDto getCartByUserId(Long id) {
+<span class="nc" id="L52">        Cart cart = cartDAO.getCartByUserId(id);</span>
+<span class="nc" id="L53">        return dtoMappingService.convertToCartDto(cart);</span>
+    }
+
+    @Override
+    @Transactional
+    public CartDto getCookieCart(Cookie cookieCart) throws UnsupportedEncodingException {
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (cookieCart == null) return null;</span>
+<span class="nc" id="L60">        Gson gson = new Gson();</span>
+<span class="nc" id="L61">        CartDto cartDto = gson.fromJson(URLDecoder.decode(cookieCart.getValue(), &quot;UTF-8&quot;), CartDto.class);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        if (cartDto.getUser() != null) {</span>
+<span class="nc" id="L63">            User user = userDAO.getUserById(cartDto.getUser().getId());</span>
+<span class="nc" id="L64">            cartDto.setUser(dtoMappingService.convertToUserDto(user));</span>
+        }
+<span class="nc" id="L66">        return cartDto;</span>
+    }
+
+    @Override
+    @Transactional
+    public Message addProductToCart(HttpServletRequest request, HttpServletResponse response, Long productId, int amount) throws UnsupportedEncodingException {
+<span class="nc" id="L72">        Message message = new Message();</span>
+<span class="nc" id="L73">        Product product = productDAO.getProductById(productId);</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (product.getAmount() == 0) {</span>
+<span class="nc" id="L75">            message.getErrors().add(Message.PRODUCT_NOT_ENOUGH);</span>
+<span class="nc" id="L76">            logger.info(Message.PRODUCT_NOT_ENOUGH);</span>
+<span class="nc" id="L77">            return message;</span>
+        }
+<span class="nc" id="L79">        Cookie cookieCart = WebUtils.getCookie(request, &quot;cart&quot;);</span>
+        CartDto cartDto;
+<span class="nc" id="L81">        Gson gson = new Gson();</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        if (cookieCart == null) {</span>
+<span class="nc" id="L83">            cookieCart = new Cookie(&quot;cart&quot;, null);</span>
+<span class="nc" id="L84">            cartDto = new CartDto();</span>
+        } else {
+<span class="nc" id="L86">            cartDto = gson.fromJson(URLDecoder.decode(cookieCart.getValue(), &quot;UTF-8&quot;), CartDto.class);</span>
+        }
+<span class="nc" id="L88">        cartDto = addProductToCartDto(cartDto, product);</span>
+<span class="nc" id="L89">        cookieCart.setValue(URLEncoder.encode(gson.toJson(cartDto), &quot;UTF-8&quot;));</span>
+<span class="nc" id="L90">        cookieCart.setMaxAge(COOKIE_MAX_AGE);</span>
+<span class="nc" id="L91">        cookieCart.setPath(&quot;/&quot;);</span>
+<span class="nc" id="L92">        cookieCart.setHttpOnly(true);</span>
+<span class="nc" id="L93">        response.addCookie(cookieCart);</span>
+
+<span class="nc" id="L95">        UserDto userDto = (UserDto) request.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">        if (userDto != null) {</span>
+<span class="nc" id="L97">            Cart cart = cartDAO.getCartByUserId(userDto.getId());</span>
+<span class="nc" id="L98">            addProductToDbCart(cart, product, amount);</span>
+        }
+<span class="nc" id="L100">        message.getConfirms().add(Message.PRODUCT_ADD_TO_CART_SUCCESS);</span>
+<span class="nc" id="L101">        logger.info(Message.PRODUCT_ADD_TO_CART_SUCCESS);</span>
+<span class="nc" id="L102">        return message;</span>
+    }
+
+    @Override
+    @Transactional
+    public void removeProductFromCart(HttpServletRequest request, HttpServletResponse response, Long productId) throws UnsupportedEncodingException {
+<span class="nc" id="L108">        Cookie cookieCart = WebUtils.getCookie(request, &quot;cart&quot;);</span>
+<span class="nc" id="L109">        Gson gson = new Gson();</span>
+<span class="nc" id="L110">        CartDto cartDto = gson.fromJson(URLDecoder.decode(cookieCart.getValue(), &quot;UTF-8&quot;), CartDto.class);</span>
+<span class="nc" id="L111">        List&lt;CartProductDto&gt; cartProductDtoList = cartDto.getCartProducts();</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        for (CartProductDto cartProductDto : cartProductDtoList) {</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">            if (cartProductDto.getProduct().getId().equals(productId)) {</span>
+<span class="nc" id="L114">                cartProductDtoList.remove(cartProductDto);</span>
+<span class="nc" id="L115">                break;</span>
+            }
+<span class="nc" id="L117">        }</span>
+<span class="nc" id="L118">        logger.info(Message.PRODUCT_REMOVE_FROM_COOKIE_CART_SUCCESS);</span>
+<span class="nc" id="L119">        cartDto.setCartProducts(cartProductDtoList);</span>
+<span class="nc" id="L120">        cookieCart.setValue(URLEncoder.encode(gson.toJson(cartDto), &quot;UTF-8&quot;));</span>
+<span class="nc" id="L121">        cookieCart.setMaxAge(COOKIE_MAX_AGE);</span>
+<span class="nc" id="L122">        cookieCart.setPath(&quot;/&quot;);</span>
+<span class="nc" id="L123">        cookieCart.setHttpOnly(true);</span>
+<span class="nc" id="L124">        response.addCookie(cookieCart);</span>
+<span class="nc" id="L125">        UserDto userDto = (UserDto) request.getSession().getAttribute(&quot;user&quot;);</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">        if (userDto != null) {</span>
+<span class="nc" id="L127">            Cart cart = cartDAO.getCartByUserId(userDto.getId());</span>
+<span class="nc" id="L128">            cartProductDAO.removerCartProductByCartIdAndProductId(cart.getId(), productId);</span>
+<span class="nc" id="L129">            logger.info(Message.PRODUCT_REMOVE_FROM_DB_CART_SUCCESS);</span>
+        }
+<span class="nc" id="L131">    }</span>
+
+    private CartDto addProductToCartDto(CartDto cartDto, Product product) {
+<span class="nc" id="L134">        List&lt;CartProductDto&gt; cartProductDtoList = cartDto.getCartProducts();</span>
+<span class="nc bnc" id="L135" title="All 2 branches missed.">        for (CartProductDto cartProductDto : cartProductDtoList) {</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">            if (cartProductDto.getProduct().getId().equals(product.getId())) {</span>
+<span class="nc" id="L137">                cartProductDto.setAmount(cartProductDto.getAmount() + 1);</span>
+<span class="nc" id="L138">                cartProductDto.setSum(cartProductDto.getSum() + product.getCost());</span>
+<span class="nc" id="L139">                return cartDto;</span>
+            }
+<span class="nc" id="L141">        }</span>
+<span class="nc" id="L142">        CartProductDto cartProductDto = new CartProductDto();</span>
+<span class="nc" id="L143">        cartProductDto.setProduct(dtoMappingService.convertToProductDto(product));</span>
+<span class="nc" id="L144">        cartProductDto.setAmount(1);</span>
+<span class="nc" id="L145">        cartProductDto.setSum(product.getCost());</span>
+<span class="nc" id="L146">        cartDto.getCartProducts().add(cartProductDto);</span>
+<span class="nc" id="L147">        return cartDto;</span>
+    }
+
+    private void addProductToDbCart(Cart cart, Product product, int amount) {
+<span class="nc" id="L151">        CartProduct cartProduct = cartProductDAO.getCartProductByCartIdAndProductId(cart.getId(), product.getId());</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        if (cartProduct != null) {</span>
+<span class="nc" id="L153">            cartProduct.setAmount(cartProduct.getAmount() + amount);</span>
+        } else {
+<span class="nc" id="L155">            cartProduct = new CartProduct();</span>
+<span class="nc" id="L156">            cartProduct.setCart(cart);</span>
+<span class="nc" id="L157">            cartProduct.setProduct(product);</span>
+<span class="nc" id="L158">            cartProduct.setAmount(amount);</span>
+<span class="nc" id="L159">            cartProductDAO.saveCartProduct(cartProduct);</span>
+        }
+<span class="nc" id="L161">        logger.info(Message.PRODUCT_ADD_TO_DB_CART_SUCCESS);</span>
+<span class="nc" id="L162">    }</span>
+
+    @Override
+    @Transactional
+    public void mergeCarts(HttpServletRequest request, HttpServletResponse response, UserDto userDto) throws UnsupportedEncodingException {
+<span class="nc" id="L167">        Gson gson = new Gson();</span>
+<span class="nc" id="L168">        Cart cart = cartDAO.getCartByUserId(userDto.getId());</span>
+<span class="nc" id="L169">        Cookie cookieCart = WebUtils.getCookie(request, &quot;cart&quot;);</span>
+        CartDto mergeCart;
+<span class="nc bnc" id="L171" title="All 2 branches missed.">        if (cookieCart == null) {</span>
+<span class="nc" id="L172">            cookieCart = new Cookie(&quot;cart&quot;, null);</span>
+        } else {
+<span class="nc" id="L174">            CartDto cartFromCookie = gson.fromJson(URLDecoder.decode(cookieCart.getValue(), &quot;UTF-8&quot;), CartDto.class);</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">            for (CartProductDto cartProductDto : cartFromCookie.getCartProducts()) {</span>
+<span class="nc" id="L176">                Product product = productDAO.getProductById(cartProductDto.getProduct().getId());</span>
+<span class="nc" id="L177">                addProductToDbCart(cart, product, cartProductDto.getAmount());</span>
+<span class="nc" id="L178">            }</span>
+        }
+<span class="nc" id="L180">        mergeCart = dtoMappingService.convertToCartDto(cart);</span>
+<span class="nc" id="L181">        cookieCart.setValue(URLEncoder.encode(gson.toJson(mergeCart), &quot;UTF-8&quot;));</span>
+<span class="nc" id="L182">        cookieCart.setMaxAge(COOKIE_MAX_AGE);</span>
+<span class="nc" id="L183">        cookieCart.setPath(&quot;/&quot;);</span>
+<span class="nc" id="L184">        cookieCart.setHttpOnly(true);</span>
+<span class="nc" id="L185">        response.addCookie(cookieCart);</span>
+<span class="nc" id="L186">    }</span>
+
+    @Override
+    @Transactional
+    public void cleanCarts(HttpServletRequest request, HttpServletResponse response, Long userId) throws UnsupportedEncodingException {
+<span class="nc" id="L191">        Cookie cookieCart = WebUtils.getCookie(request, &quot;cart&quot;);</span>
+<span class="nc" id="L192">        Gson gson = new Gson();</span>
+<span class="nc" id="L193">        CartDto cartDto = gson.fromJson(URLDecoder.decode(cookieCart.getValue(), &quot;UTF-8&quot;), CartDto.class);</span>
+<span class="nc" id="L194">        cartDto.getCartProducts().clear();</span>
+<span class="nc" id="L195">        cookieCart.setValue(URLEncoder.encode(gson.toJson(cartDto), &quot;UTF-8&quot;));</span>
+<span class="nc" id="L196">        cookieCart.setMaxAge(COOKIE_MAX_AGE);</span>
+<span class="nc" id="L197">        cookieCart.setPath(&quot;/&quot;);</span>
+<span class="nc" id="L198">        cookieCart.setHttpOnly(true);</span>
+<span class="nc" id="L199">        response.addCookie(cookieCart);</span>
+<span class="nc" id="L200">        Cart cart = cartDAO.getCartByUserId(userId);</span>
+<span class="nc" id="L201">        List&lt;CartProduct&gt; cartProducts = cart.getCartProducts();</span>
+<span class="nc bnc" id="L202" title="All 2 branches missed.">        for (CartProduct cartProduct : cartProducts) {</span>
+<span class="nc" id="L203">            cartProductDAO.removeCartProductById(cartProduct.getId());</span>
+<span class="nc" id="L204">        }</span>
+<span class="nc" id="L205">    }</span>
+
+    @Override
+    @Transactional
+    public void addNewCart(Long userId) {
+<span class="nc" id="L210">        Cart cart = new Cart();</span>
+<span class="nc" id="L211">        cart.setUser(userDAO.getUserById(userId));</span>
+<span class="nc" id="L212">        cartDAO.saveCart(cart);</span>
+<span class="nc" id="L213">    }</span>
+
+    @Autowired
+    public void setCartDAO(CartDAO cartDAO) {
+<span class="fc" id="L217">        this.cartDAO = cartDAO;</span>
+<span class="fc" id="L218">    }</span>
+
+    @Autowired
+    public void setProductDAO(ProductDAO productDAO) {
+<span class="fc" id="L222">        this.productDAO = productDAO;</span>
+<span class="fc" id="L223">    }</span>
+
+    @Autowired
+    public void setCartProductDAO(CartProductDAO cartProductDAO) {
+<span class="fc" id="L227">        this.cartProductDAO = cartProductDAO;</span>
+<span class="fc" id="L228">    }</span>
+
+    @Autowired
+    public void setUserDAO(UserDAO userDAO) {
+<span class="fc" id="L232">        this.userDAO = userDAO;</span>
+<span class="fc" id="L233">    }</span>
+
+    @Autowired
+    public void setDtoMappingService(DTOMappingService dtoMappingService) {
+<span class="fc" id="L237">        this.dtoMappingService = dtoMappingService;</span>
+<span class="fc" id="L238">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

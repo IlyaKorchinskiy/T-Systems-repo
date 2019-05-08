@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MessageConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.config</a> &gt; <span class="el_source">MessageConfig.java</span></div><h1>MessageConfig.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.config;
+
+import org.apache.activemq.spring.ActiveMQConnectionFactory;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jms.core.JmsTemplate;
+
+import java.util.Arrays;
+
+@Configuration
+<span class="fc" id="L11">public class MessageConfig {</span>
+    private static final String DEFAULT_BROKER_URL = &quot;tcp://glasscase:61616&quot;;
+    private static final String PRODUCT_QUEUE = &quot;jms.queue.ProductQueue&quot;;
+
+    @Bean
+    public ActiveMQConnectionFactory connectionFactory() {
+<span class="fc" id="L17">        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();</span>
+<span class="fc" id="L18">        connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);</span>
+<span class="fc" id="L19">        connectionFactory.setTrustedPackages(Arrays.asList(&quot;ru.korchinskiy&quot;));</span>
+<span class="fc" id="L20">        connectionFactory.setUserName(&quot;guest&quot;);</span>
+<span class="fc" id="L21">        connectionFactory.setPassword(&quot;123456&quot;);</span>
+<span class="fc" id="L22">        return connectionFactory;</span>
+    }
+
+    @Bean
+    public JmsTemplate jmsTemplate() {
+<span class="fc" id="L27">        JmsTemplate template = new JmsTemplate();</span>
+<span class="fc" id="L28">        template.setConnectionFactory(connectionFactory());</span>
+<span class="fc" id="L29">        template.setDefaultDestinationName(PRODUCT_QUEUE);</span>
+<span class="fc" id="L30">        return template;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

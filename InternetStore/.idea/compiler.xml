@@ -8,15 +8,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="glasscase" />
-        <module name="main" />
         <module name="selenium" />
+        <module name="shop" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="glasscase" target="1.8" />
       <module name="InternetStore" target="1.5" />
-      <module name="main" target="1.8" />
       <module name="selenium" target="1.8" />
+      <module name="shop" target="1.8" />
       <module name="stand" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductStatsDAOImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.dao.impl</a> &gt; <span class="el_source">ProductStatsDAOImpl.java</span></div><h1>ProductStatsDAOImpl.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.dao.impl;
+
+import org.springframework.stereotype.Repository;
+import ru.korchinskiy.dao.ProductStatsDAO;
+import ru.korchinskiy.entity.ProductStats;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import java.util.Calendar;
+import java.util.List;
+
+@Repository
+<span class="fc" id="L16">public class ProductStatsDAOImpl implements ProductStatsDAO {</span>
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    public ProductStats getProductStatsByProductIdAndDate(Long id, Calendar calendar) {
+<span class="nc" id="L22">        CriteriaBuilder builder = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L23">        CriteriaQuery&lt;ProductStats&gt; query = builder.createQuery(ProductStats.class);</span>
+<span class="nc" id="L24">        Root&lt;ProductStats&gt; root = query.from(ProductStats.class);</span>
+<span class="nc" id="L25">        query.select(root).where(builder.equal(root.get(&quot;product&quot;).get(&quot;id&quot;), id),</span>
+<span class="nc" id="L26">                builder.equal(root.get(&quot;month&quot;), calendar.get(Calendar.MONTH) + 1),</span>
+<span class="nc" id="L27">                builder.equal(root.get(&quot;year&quot;), calendar.get(Calendar.YEAR)));</span>
+<span class="nc" id="L28">        List&lt;ProductStats&gt; productStatsList = entityManager.createQuery(query).getResultList();</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">        if (productStatsList.size() == 0) return null;</span>
+<span class="nc" id="L30">        return productStatsList.get(0);</span>
+    }
+
+    @Override
+    public List&lt;ProductStats&gt; getTopTenProductStatsByAmount(Integer month, Integer year) {
+<span class="nc" id="L35">        CriteriaBuilder builder = entityManager.getCriteriaBuilder();</span>
+<span class="nc" id="L36">        CriteriaQuery&lt;ProductStats&gt; query = builder.createQuery(ProductStats.class);</span>
+<span class="nc" id="L37">        Root&lt;ProductStats&gt; root = query.from(ProductStats.class);</span>
+<span class="nc" id="L38">        query.select(root).where(builder.equal(root.get(&quot;month&quot;), month),</span>
+<span class="nc" id="L39">                builder.equal(root.get(&quot;year&quot;), year));</span>
+<span class="nc" id="L40">        query.orderBy(builder.desc(root.get(&quot;amount&quot;)));</span>
+<span class="nc" id="L41">        List&lt;ProductStats&gt; productStatsList = entityManager.createQuery(query).getResultList();</span>
+<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (productStatsList.size() &gt; 9) productStatsList = productStatsList.subList(0, 10);</span>
+<span class="nc" id="L43">        return productStatsList;</span>
+    }
+
+    @Override
+    public void saveProductStats(ProductStats productStats) {
+<span class="nc" id="L48">        this.entityManager.persist(productStats);</span>
+<span class="nc" id="L49">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

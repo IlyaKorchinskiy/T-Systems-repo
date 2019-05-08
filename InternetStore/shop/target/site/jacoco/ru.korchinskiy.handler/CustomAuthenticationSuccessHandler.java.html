@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CustomAuthenticationSuccessHandler.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.handler</a> &gt; <span class="el_source">CustomAuthenticationSuccessHandler.java</span></div><h1>CustomAuthenticationSuccessHandler.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.handler;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+import ru.korchinskiy.dto.UserDto;
+import ru.korchinskiy.service.CartService;
+import ru.korchinskiy.service.UserService;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+
+@Component
+<span class="fc" id="L18">public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {</span>
+    private UserService userService;
+    private CartService cartService;
+
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
+            throws IOException, ServletException {
+<span class="nc" id="L25">        String email = auth.getName();</span>
+<span class="nc" id="L26">        HttpSession session = request.getSession();</span>
+<span class="nc" id="L27">        UserDto userDto = userService.getUserByEmail(email);</span>
+<span class="nc" id="L28">        session.setAttribute(&quot;user&quot;, userDto);</span>
+<span class="nc" id="L29">        cartService.mergeCarts(request, response, userDto);</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">        if (!request.getHeader(&quot;referer&quot;).contains(&quot;login&quot;)) {</span>
+<span class="nc" id="L31">            response.sendRedirect(request.getHeader(&quot;referer&quot;));</span>
+        } else {
+<span class="nc" id="L33">            response.sendRedirect(request.getContextPath() + &quot;/&quot;);</span>
+        }
+<span class="nc" id="L35">    }</span>
+
+    @Autowired
+    public void setUserService(UserService userService) {
+<span class="fc" id="L39">        this.userService = userService;</span>
+<span class="fc" id="L40">    }</span>
+
+    @Autowired
+    public void setCartService(CartService cartService) {
+<span class="fc" id="L44">        this.cartService = cartService;</span>
+<span class="fc" id="L45">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>
