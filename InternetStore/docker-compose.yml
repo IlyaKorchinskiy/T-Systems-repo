@@ -17,17 +17,22 @@ services:
     ports:
       - "8189:8080"
     volumes:
-      - image-vol:/usr/local/tomcat/webapps/images
+      - type: bind
+        source: /c/InternetStore/static/img
+        target: /usr/local/tomcat/webapps/images
 
   db:
     container_name: "db"
     build:
       context: ./db
       dockerfile: Dockerfile
+    command: --innodb_use_native_aio=0
     ports:
       - "3306:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - type: bind
+        source: /c/InternetStore/db/data
+        target: /var/lib/mysql
 
   glasscase:
     container_name: "glasscase"
@@ -55,8 +60,6 @@ services:
     ports:
       - "8190:8080"
     volumes:
-      - image-vol:/home/node/app/img
-
-volumes:
-  mysql-data:
-  image-vol:
+      - type: bind
+        source: /c/InternetStore/static/img
+        target: /home/node/app/img

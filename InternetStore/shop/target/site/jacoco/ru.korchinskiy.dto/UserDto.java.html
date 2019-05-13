@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserDto.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">shop</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy.dto</a> &gt; <span class="el_source">UserDto.java</span></div><h1>UserDto.java</h1><pre class="source lang-java linenums">package ru.korchinskiy.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.korchinskiy.validation.PasswordMatches;
 import ru.korchinskiy.validation.PhoneNumber;
 
@@ -8,35 +9,40 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.List;
 
-<span class="nc bnc" id="L11" title="All 94 branches missed.">@Data</span>
+<span class="nc bnc" id="L12" title="All 94 branches missed.">@Data</span>
+<span class="fc" id="L13">@NoArgsConstructor</span>
 @PasswordMatches
 public class UserDto {
-<span class="nc" id="L14">    private Long id;</span>
+<span class="fc" id="L16">    private Long id;</span>
 
     @Size(min = 2, message = &quot;name should be min 2 characters&quot;)
-<span class="nc" id="L17">    private String name;</span>
+<span class="nc" id="L19">    private String name;</span>
 
     @Size(min = 2, message = &quot;last name should be min 2 characters&quot;)
-<span class="nc" id="L20">    private String lastname;</span>
+<span class="nc" id="L22">    private String lastname;</span>
 
     @Size(min = 6, message = &quot;should not be empty&quot;)
-<span class="nc" id="L23">    private String birthday;</span>
+<span class="nc" id="L25">    private String birthday;</span>
 
     @Email(message = &quot;incorrect e-mail&quot;)
     @Size(min = 6, message = &quot;should not be empty&quot;)
-<span class="nc" id="L27">    private String email;</span>
+<span class="nc" id="L29">    private String email;</span>
 
     @Size(min = 6, message = &quot;password should be min 6 symbols&quot;)
-<span class="nc" id="L30">    private String password;</span>
+<span class="nc" id="L32">    private String password;</span>
 
     @Size(min = 6, message = &quot;password should be min 6 symbols&quot;)
-<span class="nc" id="L33">    private String matchingPassword;</span>
+<span class="nc" id="L35">    private String matchingPassword;</span>
 
     @PhoneNumber
-<span class="nc" id="L36">    private String phoneNumber;</span>
+<span class="nc" id="L38">    private String phoneNumber;</span>
 
-<span class="nc" id="L38">    private List&lt;AddressDto&gt; addresses;</span>
-<span class="nc" id="L39">    private List&lt;RoleDto&gt; roles;</span>
-<span class="nc" id="L40">    private List&lt;OrderDto&gt; orders;</span>
+<span class="nc" id="L40">    private List&lt;AddressDto&gt; addresses;</span>
+<span class="nc" id="L41">    private List&lt;RoleDto&gt; roles;</span>
+<span class="nc" id="L42">    private List&lt;OrderDto&gt; orders;</span>
+
+<span class="fc" id="L44">    public UserDto(Long id) {</span>
+<span class="fc" id="L45">        this.id = id;</span>
+<span class="fc" id="L46">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

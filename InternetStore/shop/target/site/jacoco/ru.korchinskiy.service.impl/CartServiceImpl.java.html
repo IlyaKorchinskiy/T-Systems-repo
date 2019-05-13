@@ -56,14 +56,14 @@ import java.util.List;
     @Override
     @Transactional
     public CartDto getCookieCart(Cookie cookieCart) throws UnsupportedEncodingException {
-<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (cookieCart == null) return null;</span>
-<span class="nc" id="L60">        Gson gson = new Gson();</span>
-<span class="nc" id="L61">        CartDto cartDto = gson.fromJson(URLDecoder.decode(cookieCart.getValue(), &quot;UTF-8&quot;), CartDto.class);</span>
-<span class="nc bnc" id="L62" title="All 2 branches missed.">        if (cartDto.getUser() != null) {</span>
-<span class="nc" id="L63">            User user = userDAO.getUserById(cartDto.getUser().getId());</span>
-<span class="nc" id="L64">            cartDto.setUser(dtoMappingService.convertToUserDto(user));</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">        if (cookieCart == null) return null;</span>
+<span class="fc" id="L60">        Gson gson = new Gson();</span>
+<span class="fc" id="L61">        CartDto cartDto = gson.fromJson(URLDecoder.decode(cookieCart.getValue(), &quot;UTF-8&quot;), CartDto.class);</span>
+<span class="pc bpc" id="L62" title="1 of 2 branches missed.">        if (cartDto.getUser() != null) {</span>
+<span class="fc" id="L63">            User user = userDAO.getUserById(cartDto.getUser().getId());</span>
+<span class="fc" id="L64">            cartDto.setUser(dtoMappingService.convertToUserDto(user));</span>
         }
-<span class="nc" id="L66">        return cartDto;</span>
+<span class="fc" id="L66">        return cartDto;</span>
     }
 
     @Override

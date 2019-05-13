@@ -61,8 +61,9 @@ import java.util.List;
     public String showProduct(@PathVariable(&quot;id&quot;) Long id,
                               Model model) {
 <span class="nc" id="L63">        model.addAttribute(&quot;product&quot;, productService.getProductById(id));</span>
-<span class="nc" id="L64">        model.addAttribute(&quot;allCategories&quot;, categoryService.getAllCategories());</span>
-<span class="nc" id="L65">        return &quot;adminProduct&quot;;</span>
+<span class="nc" id="L64">        model.addAttribute(&quot;photo&quot;, new PhotoDto());</span>
+<span class="nc" id="L65">        model.addAttribute(&quot;allCategories&quot;, categoryService.getAllCategories());</span>
+<span class="nc" id="L66">        return &quot;adminProduct&quot;;</span>
     }
 
     @PostMapping(&quot;/{id}/updateTitle&quot;)
@@ -70,13 +71,13 @@ import java.util.List;
     public Message updateTitle(@RequestBody @Valid TitleDto titleDto,
                                BindingResult result,
                                @PathVariable(&quot;id&quot;) Long productId) {
-<span class="nc bnc" id="L73" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
-<span class="nc" id="L74">            Message message = new Message();</span>
-<span class="nc" id="L75">            message.getErrors().add(Message.PRODUCT_UPDATE_TITLE_FAIL);</span>
-<span class="nc" id="L76">            logger.info(Message.PRODUCT_UPDATE_TITLE_FAIL);</span>
-<span class="nc" id="L77">            return message;</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L75">            Message message = new Message();</span>
+<span class="nc" id="L76">            message.getErrors().add(Message.PRODUCT_UPDATE_TITLE_FAIL);</span>
+<span class="nc" id="L77">            logger.info(Message.PRODUCT_UPDATE_TITLE_FAIL);</span>
+<span class="nc" id="L78">            return message;</span>
         }
-<span class="nc" id="L79">        return productService.updateProductTitle(titleDto.getTitle(), productId);</span>
+<span class="nc" id="L80">        return productService.updateProductTitle(titleDto.getTitle(), productId);</span>
     }
 
     @PostMapping(&quot;/{id}/updateAuthor&quot;)
@@ -84,13 +85,13 @@ import java.util.List;
     public Message updateAuthor(@RequestBody @Valid AuthorDto authorDto,
                                 BindingResult result,
                                 @PathVariable(&quot;id&quot;) Long productId) {
-<span class="nc bnc" id="L87" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
-<span class="nc" id="L88">            Message message = new Message();</span>
-<span class="nc" id="L89">            message.getErrors().add(Message.PRODUCT_UPDATE_AUTHOR_FAIL);</span>
-<span class="nc" id="L90">            logger.info(Message.PRODUCT_UPDATE_AUTHOR_FAIL);</span>
-<span class="nc" id="L91">            return message;</span>
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L89">            Message message = new Message();</span>
+<span class="nc" id="L90">            message.getErrors().add(Message.PRODUCT_UPDATE_AUTHOR_FAIL);</span>
+<span class="nc" id="L91">            logger.info(Message.PRODUCT_UPDATE_AUTHOR_FAIL);</span>
+<span class="nc" id="L92">            return message;</span>
         }
-<span class="nc" id="L93">        return productService.updateProductAuthor(authorDto.getAuthor(), productId);</span>
+<span class="nc" id="L94">        return productService.updateProductAuthor(authorDto.getAuthor(), productId);</span>
     }
 
     @PostMapping(&quot;/{id}/updateYear&quot;)
@@ -98,13 +99,13 @@ import java.util.List;
     public Message updateYear(@RequestBody @Valid YearDto yearDto,
                               BindingResult result,
                               @PathVariable(&quot;id&quot;) Long productId) {
-<span class="nc bnc" id="L101" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
-<span class="nc" id="L102">            Message message = new Message();</span>
-<span class="nc" id="L103">            message.getErrors().add(Message.PRODUCT_UPDATE_YEAR_FAIL);</span>
-<span class="nc" id="L104">            logger.info(Message.PRODUCT_UPDATE_YEAR_FAIL);</span>
-<span class="nc" id="L105">            return message;</span>
+<span class="nc bnc" id="L102" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L103">            Message message = new Message();</span>
+<span class="nc" id="L104">            message.getErrors().add(Message.PRODUCT_UPDATE_YEAR_FAIL);</span>
+<span class="nc" id="L105">            logger.info(Message.PRODUCT_UPDATE_YEAR_FAIL);</span>
+<span class="nc" id="L106">            return message;</span>
         }
-<span class="nc" id="L107">        return productService.updateProductYear(yearDto.getYear(), productId);</span>
+<span class="nc" id="L108">        return productService.updateProductYear(yearDto.getYear(), productId);</span>
     }
 
     @PostMapping(&quot;/{id}/updateDescription&quot;)
@@ -112,13 +113,13 @@ import java.util.List;
     public Message updateDescription(@RequestBody @Valid DescriptionDto descriptionDto,
                                      BindingResult result,
                                      @PathVariable(&quot;id&quot;) Long productId) {
-<span class="nc bnc" id="L115" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
-<span class="nc" id="L116">            Message message = new Message();</span>
-<span class="nc" id="L117">            message.getErrors().add(Message.PRODUCT_UPDATE_DESCRIPTION_FAIL);</span>
-<span class="nc" id="L118">            logger.info(Message.PRODUCT_UPDATE_DESCRIPTION_FAIL);</span>
-<span class="nc" id="L119">            return message;</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L117">            Message message = new Message();</span>
+<span class="nc" id="L118">            message.getErrors().add(Message.PRODUCT_UPDATE_DESCRIPTION_FAIL);</span>
+<span class="nc" id="L119">            logger.info(Message.PRODUCT_UPDATE_DESCRIPTION_FAIL);</span>
+<span class="nc" id="L120">            return message;</span>
         }
-<span class="nc" id="L121">        return productService.updateProductDescription(descriptionDto.getDescription(), productId);</span>
+<span class="nc" id="L122">        return productService.updateProductDescription(descriptionDto.getDescription(), productId);</span>
     }
 
     @PostMapping(&quot;/{id}/updateCategories&quot;)
@@ -126,43 +127,53 @@ import java.util.List;
     public Message updateProductCategories(@RequestBody CategoryListDto categoryListDto,
                                            BindingResult result,
                                            @PathVariable(&quot;id&quot;) Long productId) {
-<span class="nc bnc" id="L129" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
-<span class="nc" id="L130">            Message message = new Message();</span>
-<span class="nc" id="L131">            message.getErrors().add(Message.PRODUCT_UPDATE_CATEGORIES_FAIL);</span>
-<span class="nc" id="L132">            logger.info(Message.PRODUCT_UPDATE_CATEGORIES_FAIL);</span>
-<span class="nc" id="L133">            return message;</span>
+<span class="nc bnc" id="L130" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L131">            Message message = new Message();</span>
+<span class="nc" id="L132">            message.getErrors().add(Message.PRODUCT_UPDATE_CATEGORIES_FAIL);</span>
+<span class="nc" id="L133">            logger.info(Message.PRODUCT_UPDATE_CATEGORIES_FAIL);</span>
+<span class="nc" id="L134">            return message;</span>
         }
-<span class="nc" id="L135">        return productService.updateProductCategories(categoryListDto.getCategories(), productId);</span>
+<span class="nc" id="L136">        return productService.updateProductCategories(categoryListDto.getCategories(), productId);</span>
     }
 
     @PostMapping(&quot;/{id}/updatePhotoMd&quot;)
-    public String updateProductPhotoMd(@RequestParam(name = &quot;photoMd&quot;) MultipartFile photoMd,
+    public String updateProductPhotoMd(@Valid @ModelAttribute(&quot;photo&quot;) PhotoDto photoMd,
+                                       BindingResult result,
                                        @PathVariable(&quot;id&quot;) Long productId,
                                        Model model) {
-<span class="nc" id="L142">        model.addAttribute(&quot;message&quot;, productService.updateProductPhotoMd(photoMd, productId));</span>
-<span class="nc" id="L143">        model.addAttribute(&quot;product&quot;, productService.getProductById(productId));</span>
-<span class="nc" id="L144">        model.addAttribute(&quot;allCategories&quot;, categoryService.getAllCategories());</span>
-<span class="nc" id="L145">        return &quot;adminProduct&quot;;</span>
+<span class="nc" id="L144">        model.addAttribute(&quot;product&quot;, productService.getProductById(productId));</span>
+<span class="nc" id="L145">        model.addAttribute(&quot;allCategories&quot;, categoryService.getAllCategories());</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L147">            logger.info(Message.PRODUCT_UPDATE_PHOTO_FAIL);</span>
+<span class="nc" id="L148">            return &quot;adminProduct&quot;;</span>
+        }
+<span class="nc" id="L150">        model.addAttribute(&quot;message&quot;, productService.updateProductPhotoMd(photoMd.getPhoto(), productId));</span>
+<span class="nc" id="L151">        return &quot;adminProduct&quot;;</span>
     }
 
     @PostMapping(&quot;/{id}/updatePhotoSm&quot;)
-    public String updateProductPhotoSm(@RequestParam(name = &quot;photoSm&quot;) MultipartFile photoSm,
+    public String updateProductPhotoSm(@Valid @ModelAttribute(&quot;photo&quot;) PhotoDto photoSm,
+                                       BindingResult result,
                                        @PathVariable(&quot;id&quot;) Long productId,
                                        Model model) {
-<span class="nc" id="L152">        model.addAttribute(&quot;message&quot;, productService.updateProductPhotoSm(photoSm, productId));</span>
-<span class="nc" id="L153">        model.addAttribute(&quot;product&quot;, productService.getProductById(productId));</span>
-<span class="nc" id="L154">        model.addAttribute(&quot;allCategories&quot;, categoryService.getAllCategories());</span>
-<span class="nc" id="L155">        return &quot;adminProduct&quot;;</span>
+<span class="nc" id="L159">        model.addAttribute(&quot;product&quot;, productService.getProductById(productId));</span>
+<span class="nc" id="L160">        model.addAttribute(&quot;allCategories&quot;, categoryService.getAllCategories());</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">        if (result.hasErrors()) {</span>
+<span class="nc" id="L162">            logger.info(Message.PRODUCT_UPDATE_PHOTO_FAIL);</span>
+<span class="nc" id="L163">            return &quot;adminProduct&quot;;</span>
+        }
+<span class="nc" id="L165">        model.addAttribute(&quot;message&quot;, productService.updateProductPhotoSm(photoSm.getPhoto(), productId));</span>
+<span class="nc" id="L166">        return &quot;adminProduct&quot;;</span>
     }
 
     @Autowired
     public void setProductService(ProductService productService) {
-<span class="fc" id="L160">        this.productService = productService;</span>
-<span class="fc" id="L161">    }</span>
+<span class="fc" id="L171">        this.productService = productService;</span>
+<span class="fc" id="L172">    }</span>
 
     @Autowired
     public void setCategoryService(CategoryService categoryService) {
-<span class="fc" id="L165">        this.categoryService = categoryService;</span>
-<span class="fc" id="L166">    }</span>
+<span class="fc" id="L176">        this.categoryService = categoryService;</span>
+<span class="fc" id="L177">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

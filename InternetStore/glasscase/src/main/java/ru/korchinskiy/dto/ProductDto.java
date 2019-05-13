@@ -2,9 +2,6 @@ package ru.korchinskiy.dto;
 
 import lombok.Data;
 
-import javax.json.bind.annotation.JsonbDateFormat;
-import java.util.Date;
-
 @Data
 public class ProductDto {
     private Long id;

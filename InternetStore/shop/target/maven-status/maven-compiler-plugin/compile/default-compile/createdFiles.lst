@@ -90,6 +90,7 @@ ru\korchinskiy\service\impl\StatsServiceImpl.class
 ru\korchinskiy\entity\Role.class
 ru\korchinskiy\dto\AuthorDto.class
 ru\korchinskiy\entity\User.class
+ru\korchinskiy\dto\PhotoDto.class
 ru\korchinskiy\enums\DeliveryType.class
 ru\korchinskiy\enums\AddressType.class
 ru\korchinskiy\entity\Address.class

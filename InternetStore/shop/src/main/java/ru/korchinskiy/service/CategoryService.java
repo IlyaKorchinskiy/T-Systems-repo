@@ -22,6 +22,7 @@ public interface CategoryService {
      * @param id      Long category id
      * @param minCost Double
      * @param maxCost Double
+     * @param year    String published book
      * @return CategoryWithProductsDto object
      */
     CategoryWithProductsDto getCategoryWithProductsByParams(Long id, Double minCost, Double maxCost, String year);

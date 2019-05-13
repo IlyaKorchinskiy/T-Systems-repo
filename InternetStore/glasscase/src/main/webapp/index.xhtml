@@ -23,7 +23,7 @@
                         <ui:repeat value="#{glassCaseController.productsTopList}" var="productStats">
                             <div class="col">
                                 <div class="card">
-                                    <img src="http://192.168.99.100:8190/#{productStats.product.photoSm}"
+                                    <img src="#{productStats.product.photoSm}"
                                          class="card-img-top" alt="product_photo"/>
                                     <div class="card-body">
                                         <h5 class="card-title">#{productStats.product.title}</h5>

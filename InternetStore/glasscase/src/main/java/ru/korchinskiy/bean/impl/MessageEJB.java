@@ -4,7 +4,6 @@ package ru.korchinskiy.bean.impl;
 import org.apache.log4j.Logger;
 
 import javax.ejb.ActivationConfigProperty;
-import javax.ejb.EJB;
 import javax.ejb.MessageDriven;
 import javax.inject.Inject;
 import javax.jms.JMSException;
@@ -33,7 +32,7 @@ public class MessageEJB implements MessageListener {
                     pushBean.sendMessage(msg);
                 }
             }
-        } catch(JMSException e){
+        } catch (JMSException e) {
             logger.info("getMessageError", e);
         }
     }

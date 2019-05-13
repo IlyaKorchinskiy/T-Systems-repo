@@ -44,7 +44,6 @@ public interface CartService {
      * @param request  HttpServletRequest
      * @param response HttpServletResponse
      * @param userDto  UserDto of the user
-     * @param amount
      * @throws UnsupportedEncodingException
      */
     void mergeCarts(HttpServletRequest request, HttpServletResponse response, UserDto userDto) throws UnsupportedEncodingException;

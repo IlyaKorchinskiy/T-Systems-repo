@@ -5,17 +5,28 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
-<span class="fc" id="L10">public class FileValidator implements ConstraintValidator&lt;File, MultipartFile&gt; {</span>
+<span class="fc" id="L13">public class FileValidator implements ConstraintValidator&lt;File, MultipartFile&gt; {</span>
+<span class="fc" id="L14">    private static final Long MIN_SIZE = 10 * 1024L;</span>
+<span class="fc" id="L15">    private static final Long MAX_SIZE = 100 * 1024L;</span>
+
+    private List&lt;String&gt; formatList;
+
     @Override
     public void initialize(File constraintAnnotation) {
-
-<span class="nc" id="L14">    }</span>
+<span class="nc" id="L21">        formatList = new ArrayList&lt;&gt;(Arrays.asList(&quot;jpg&quot;, &quot;png&quot;));</span>
+<span class="nc" id="L22">    }</span>
 
     @Override
     public boolean isValid(MultipartFile file, ConstraintValidatorContext context) {
-<span class="nc bnc" id="L18" title="All 2 branches missed.">        return !file.isEmpty();</span>
+<span class="nc" id="L26">        String[] fileName = file.getOriginalFilename().split(&quot;\\.&quot;);</span>
+<span class="nc" id="L27">        String format = fileName[fileName.length - 1];</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">        if (!formatList.contains(format)) return false;</span>
+<span class="nc bnc" id="L29" title="All 4 branches missed.">        return file.getSize() &gt;= MIN_SIZE &amp;&amp; file.getSize() &lt;= MAX_SIZE;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -70,7 +70,7 @@
                     <%--<div class="col items">--%>
                     <%--<div class="card">--%>
                     <%--<a href="${contextPath}/catalog/product/${product.id}">--%>
-                    <%--<img src="http://192.168.99.100:8190/${product.photoSm}" class="card-img-top"--%>
+                    <%--<img src="${product.photoSm}" class="card-img-top"--%>
                     <%--alt="product_photo">--%>
                     <%--<div class="card-body">--%>
                     <%--<h5 class="card-title">${product.title}</h5>--%>
@@ -87,7 +87,7 @@
                                 <div class="card">
                                     <a id="productLink${product.id}"
                                        href="${contextPath}/catalog/product/${product.id}">
-                                        <img src="http://192.168.99.100:8190/${product.photoSm}" class="card-img-top"
+                                        <img src="${product.photoSm}" class="card-img-top"
                                              alt="product_photo">
                                         <div class="card-body">
                                             <h5 class="card-title">${product.title}</h5>

@@ -13,15 +13,17 @@ import java.util.UUID;
 
 @Service
 <span class="fc" id="L15">public class ImageServiceImpl implements ImageService {</span>
-<span class="fc" id="L16">    private static final Logger logger = Logger.getLogger(ImageServiceImpl.class);</span>
+    public static final String IMG_SERVER_ADDRESS = &quot;http://192.168.99.100:8190/&quot;;
+
+<span class="fc" id="L18">    private static final Logger logger = Logger.getLogger(ImageServiceImpl.class);</span>
     private static final String UPLOAD_FOLDER = &quot;webapps/images/&quot;;
 
     public String saveFile(MultipartFile file) throws IOException {
-<span class="nc" id="L20">        String fileName = UUID.randomUUID().toString() + file.getOriginalFilename();</span>
-<span class="nc" id="L21">        Path path = Paths.get(UPLOAD_FOLDER + fileName);</span>
-<span class="nc" id="L22">        file.transferTo(path);</span>
-<span class="nc" id="L23">        logger.info(Message.FILE_SAVE_SUCCESS);</span>
-<span class="nc" id="L24">        return fileName;</span>
+<span class="nc" id="L22">        String fileName = UUID.randomUUID().toString() + file.getOriginalFilename();</span>
+<span class="nc" id="L23">        Path path = Paths.get(UPLOAD_FOLDER + fileName);</span>
+<span class="nc" id="L24">        file.transferTo(path);</span>
+<span class="nc" id="L25">        logger.info(Message.FILE_SAVE_SUCCESS);</span>
+<span class="nc" id="L26">        return fileName;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

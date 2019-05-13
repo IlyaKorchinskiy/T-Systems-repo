@@ -15,7 +15,6 @@ public class CartPage {
     private static final String PASSWORD = "johnDoe";
     private static final String LOGIN_SUBMIT_BTN_ID = "login-submit-btn";
     private static final String PROFILE_LINK_ID = "profile-link";
-    private static final String DELIVERY_TYPE_DELIVERY_ID = "deliveryType-DELIVERY";
     private static final String ADDRESS_INPUT_NAME = "address";
     private static final String CONFIRM_ORDER_BTN_ID = "confirm-order-btn";
 

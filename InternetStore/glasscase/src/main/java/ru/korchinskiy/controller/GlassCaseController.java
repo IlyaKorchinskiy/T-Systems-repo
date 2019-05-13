@@ -1,7 +1,7 @@
 package ru.korchinskiy.controller;
 
-import ru.korchinskiy.dto.ProductStatsDto;
 import ru.korchinskiy.bean.ProductEJB;
+import ru.korchinskiy.dto.ProductStatsDto;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;

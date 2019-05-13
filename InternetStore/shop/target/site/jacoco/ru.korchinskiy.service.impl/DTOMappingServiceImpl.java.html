@@ -23,8 +23,8 @@ import java.util.List;
 <span class="nc" id="L23">        productDto.setAmount(product.getAmount());</span>
 <span class="nc" id="L24">        productDto.setDescription(product.getDescription());</span>
 <span class="nc" id="L25">        productDto.setDate(product.getDate());</span>
-<span class="nc" id="L26">        productDto.setPhotoMd(product.getPhotoMd());</span>
-<span class="nc" id="L27">        productDto.setPhotoSm(product.getPhotoSm());</span>
+<span class="nc" id="L26">        productDto.setPhotoMd(ImageServiceImpl.IMG_SERVER_ADDRESS + product.getPhotoMd());</span>
+<span class="nc" id="L27">        productDto.setPhotoSm(ImageServiceImpl.IMG_SERVER_ADDRESS + product.getPhotoSm());</span>
 <span class="nc" id="L28">        return productDto;</span>
     }
 
@@ -52,8 +52,8 @@ import java.util.List;
 <span class="nc" id="L52">        productDto.setAmount(product.getAmount());</span>
 <span class="nc" id="L53">        productDto.setDescription(product.getDescription());</span>
 <span class="nc" id="L54">        productDto.setDate(product.getDate());</span>
-<span class="nc" id="L55">        productDto.setPhotoMd(product.getPhotoMd());</span>
-<span class="nc" id="L56">        productDto.setPhotoSm(product.getPhotoSm());</span>
+<span class="nc" id="L55">        productDto.setPhotoMd(ImageServiceImpl.IMG_SERVER_ADDRESS + product.getPhotoMd());</span>
+<span class="nc" id="L56">        productDto.setPhotoSm(ImageServiceImpl.IMG_SERVER_ADDRESS + product.getPhotoSm());</span>
 <span class="nc" id="L57">        productDto.setCategories(convertToCategoryDtoList(product.getCategories()));</span>
 <span class="nc" id="L58">        return productDto;</span>
     }

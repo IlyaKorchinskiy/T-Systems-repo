@@ -24,6 +24,7 @@ public class Message {
     public static final String PRODUCT_UPDATE_DESCRIPTION_FAIL = "Product description should be 10-1500 symbols";
     public static final String PRODUCT_UPDATE_CATEGORIES_SUCCESS = "Product categories updated successfully";
     public static final String PRODUCT_UPDATE_CATEGORIES_FAIL = "Product categories could not be empty";
+    public static final String PRODUCT_UPDATE_PHOTO_FAIL = "Photo update fail";
     public static final String ORDER_SAVE_SUCCESS = "Order successfully saved";
     public static final String ORDER_STATUS_UPDATE_SUCCESS = "Order status successfully updated";
     public static final String ORDER_STATUS_UPDATE_FAIL = "Order status can't be the same";

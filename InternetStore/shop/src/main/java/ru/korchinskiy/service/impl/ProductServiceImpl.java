@@ -16,6 +16,7 @@ import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.DTOMappingService;
 import ru.korchinskiy.service.ImageService;
 import ru.korchinskiy.service.ProductService;
+import ru.korchinskiy.validation.FileValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -32,6 +33,7 @@ public class ProductServiceImpl implements ProductService {
     private DTOMappingService dtoMappingService;
     private CategoryDAO categoryDAO;
     private ImageService imageService;
+    private FileValidator fileValidator;
 
     @Override
     @Transactional
@@ -220,5 +222,10 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     public void setImageService(ImageService imageService) {
         this.imageService = imageService;
+    }
+
+    @Autowired
+    public void setFileValidator(FileValidator fileValidator) {
+        this.fileValidator = fileValidator;
     }
 }

@@ -41,6 +41,7 @@ public class OrderServiceImplTest {
     private ProductDto productDto;
     private CartProductDto cartProductDto;
     private OrderProduct orderProduct;
+
     @Autowired
     private OrderService orderService;
 
@@ -59,7 +60,7 @@ public class OrderServiceImplTest {
                 OrderStatus.NEW, "Saint-Petersburg", 1299.0, null);
         product = new Product("title", "authorName", 429.0, 5,
                 "description", null, "photo1", "photo2");
-        cartDto = new CartDto(1L, null);
+        cartDto = new CartDto(1L, null, null);
         productDto = new ProductDto(1L, "title", "authorName", 429.0, 5,
                 "description", null, "photo1", "photo2");
         cartProductDto = new CartProductDto(1L, productDto, 2, 858.0);

@@ -15,10 +15,28 @@ public interface OrderService {
 
     List<OrderDto> getAllOrders();
 
+    /**
+     * Returns list of OrderDto by UserDto
+     *
+     * @param user UserDto current user
+     * @return List<OrderDto> list of OrderDto
+     */
     List<OrderDto> getOrdersByUser(UserDto user);
 
+    /**
+     * Returns list of OrderProductDto by order id
+     *
+     * @param id Long order id
+     * @return List<OrderProductDto> list of OrderProductDto
+     */
     List<OrderProductDto> getOrderProductsByOrderId(Long id);
 
+    /**
+     * Returns list of OrderHistoryDto by order id
+     *
+     * @param id Long order id
+     * @return List<OrderHistoryDto> list of OrderHistoryDto
+     */
     List<OrderHistoryDto> getOrderHistoriesByOrderId(Long id);
 
     Message saveOrder(NewOrderDto order, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException;

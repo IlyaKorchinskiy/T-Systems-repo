@@ -40,7 +40,7 @@ public class UtilsServiceTest {
         cartProducts.add(cartProductDto1);
         cartDto.setCartProducts(cartProducts);
         double expectedSum = UtilsService.getCartSum(cartDto);
-        Assert.assertEquals(expectedSum, 429.0, 0.0000001);
+        Assert.assertEquals(429.0, expectedSum, 0.0000001);
     }
 
     @Test
@@ -52,7 +52,7 @@ public class UtilsServiceTest {
         cartProducts.add(cartProductDto2);
         cartDto.setCartProducts(cartProducts);
         double expectedSum = UtilsService.getCartSum(cartDto);
-        Assert.assertEquals(expectedSum, 878.0, 0.0000001);
+        Assert.assertEquals(878.0, expectedSum, 0.0000001);
     }
 
     @Test

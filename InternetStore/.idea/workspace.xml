@@ -59,10 +59,60 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/MailServiceImpl.java">
+        <entry file="file://$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/CartPageTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/selenium/src/main/java/ru/korchinskiy/CartPage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="260">
+              <caret line="17" selection-start-line="17" selection-end-line="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/docker-compose.yml">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/CartServiceImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="94">
+              <caret line="49" column="4" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/cart.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="220">
-              <caret line="20" column="93" selection-start-line="20" selection-start-column="93" selection-end-line="20" selection-end-column="93" />
+              <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/config/TestConfig.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/impl/CartServiceImplTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="534">
+              <caret line="55" selection-start-line="55" selection-end-line="55" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -70,38 +120,29 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/emailservice/Dockerfile">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/impl/CategoryServiceImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+            <state relative-caret-position="60">
+              <caret line="20" column="48" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.5.RELEASE/spring-web-5.1.5.RELEASE-sources.jar!/org/springframework/web/client/RestTemplate.java">
+        <entry file="file://$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/impl/OrderServiceImplTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1580">
-              <caret line="138" column="11" selection-start-line="138" selection-start-column="11" selection-end-line="138" selection-end-column="11" />
+            <state relative-caret-position="540">
+              <caret line="48" column="25" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shop/pom.xml">
+        <entry file="file://$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/MultiPageTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3440">
-              <caret line="172" selection-start-line="172" selection-end-line="172" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/OrderServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1760">
-              <caret line="115" column="96" selection-start-line="115" selection-start-column="96" selection-end-line="115" selection-end-column="96" />
+            <state relative-caret-position="80">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -113,7 +154,6 @@
       <list>
         <option value="spring-beans.schema" />
         <option value="Enum" />
-        <option value="JUnit4 Test Class" />
         <option value="AnnotationType" />
         <option value="HTML File" />
         <option value="XHTML File" />
@@ -124,6 +164,7 @@
         <option value="JavaScript File" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -145,35 +186,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/main/src/main/java/ru/korchinskiy/selenium/CatalogPage.java" />
-        <option value="$PROJECT_DIR$/main/src/test/java/ru/korchinskiy/selenium/BuyTest.java" />
-        <option value="$PROJECT_DIR$/main/src/main/webapp/WEB-INF/views/product.jsp" />
-        <option value="$PROJECT_DIR$/main/src/test/java/ru/korchinskiy/selenium/CatalogPageTest.java" />
-        <option value="$PROJECT_DIR$/main/src/main/java/ru/korchinskiy/selenium/ProductPage.java" />
-        <option value="$PROJECT_DIR$/main/src/test/java/ru/korchinskiy/selenium/WebTestBase.java" />
-        <option value="$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/selenium/WebTestBase.java" />
-        <option value="$PROJECT_DIR$/main/pom.xml" />
-        <option value="$PROJECT_DIR$/main/src/test/java/ru/korchinskiy/service/impl/OrderServiceImplTest.java" />
-        <option value="$PROJECT_DIR$/main/src/test/java/ru/korchinskiy/service/UtilsServiceTest.java" />
-        <option value="$PROJECT_DIR$/main/src/test/java/ru/korchinskiy/service/impl/CategoryServiceImplTest.java" />
-        <option value="$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/WebTestBase.java" />
-        <option value="$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/CatalogPageTest.java" />
-        <option value="$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/BuyTest.java" />
-        <option value="$PROJECT_DIR$/selenium/pom.xml" />
-        <option value="$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/ProductPageTest.java" />
-        <option value="$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/MultiPageTEst.java" />
-        <option value="$PROJECT_DIR$/selenium/src/main/java/ru/korchinskiy/CatalogPage.java" />
-        <option value="$PROJECT_DIR$/main/src/main/webapp/WEB-INF/views/catalog.jsp" />
-        <option value="$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/IndexPageTest.java" />
-        <option value="$PROJECT_DIR$/main/src/main/webapp/WEB-INF/views/navigation.jsp" />
-        <option value="$PROJECT_DIR$/selenium/src/main/java/ru/korchinskiy/IndexPage.java" />
-        <option value="$PROJECT_DIR$/selenium/src/main/java/ru/korchinskiy/ProductPage.java" />
-        <option value="$PROJECT_DIR$/main/src/main/webapp/WEB-INF/views/loginModalForm.jsp" />
-        <option value="$PROJECT_DIR$/main/src/main/webapp/WEB-INF/views/header.jsp" />
         <option value="$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/CartPageTest.java" />
         <option value="$PROJECT_DIR$/main/src/main/webapp/WEB-INF/views/cart.jsp" />
         <option value="$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/MultiPageTest.java" />
-        <option value="$PROJECT_DIR$/selenium/src/main/java/ru/korchinskiy/CartPage.java" />
         <option value="$PROJECT_DIR$/glasscase/src/main/java/ru/korchinskiy/bean/impl/MessageEJB.java" />
         <option value="$PROJECT_DIR$/main/src/main/java/ru/korchinskiy/handler/CustomLogoutSuccessHandler.java" />
         <option value="$PROJECT_DIR$/main/src/main/java/ru/korchinskiy/service/impl/CartServiceImpl.java" />
@@ -183,19 +198,45 @@
         <option value="$PROJECT_DIR$/shop/target/surefire-reports/TEST-ru.korchinskiy.service.impl.OrderServiceImplTest.xml" />
         <option value="$PROJECT_DIR$/shop/target/surefire-reports/TEST-ru.korchinskiy.service.impl.CategoryServiceImplTest.xml" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/MailService.java" />
         <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/dto/MailDto.java" />
         <option value="$PROJECT_DIR$/glasscase/src/main/java/ru/korchinskiy/bean/impl/ProductEJBImpl.java" />
-        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/message/Message.java" />
         <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/OrderServiceImpl.java" />
         <option value="$PROJECT_DIR$/emailservice/templates/order.hbs" />
         <option value="$PROJECT_DIR$/emailservice/index.js" />
         <option value="$PROJECT_DIR$/emailservice/Dockerfile" />
         <option value="$PROJECT_DIR$/emailservice/app/index.js" />
-        <option value="$PROJECT_DIR$/docker-compose.yml" />
-        <option value="$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/cart.jsp" />
-        <option value="$PROJECT_DIR$/shop/pom.xml" />
         <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/MailServiceImpl.java" />
+        <option value="$PROJECT_DIR$/db/Dockerfile" />
+        <option value="$PROJECT_DIR$/static/Dockerfile" />
+        <option value="$PROJECT_DIR$/docker-compose.yml" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/ImageServiceImpl.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/catalog.jsp" />
+        <option value="$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/product.jsp" />
+        <option value="$PROJECT_DIR$/glasscase/src/main/webapp/index.xhtml" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/DTOMappingServiceImpl.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/ProductServiceImpl.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/message/Message.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/dto/NewProductDto.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/dto/PhotoDto.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/controller/AdminProductController.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/adminProduct.jsp" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/validation/File.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/validation/FileValidator.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/dto/CartDto.java" />
+        <option value="$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/impl/OrderServiceImplTest.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/dto/UserDto.java" />
+        <option value="$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/UtilsServiceTest.java" />
+        <option value="$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/impl/CategoryServiceImplTest.java" />
+        <option value="$PROJECT_DIR$/shop/pom.xml" />
+        <option value="$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/impl/CartServiceImplTest.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/CartService.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/CategoryService.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/ImageService.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/MailService.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/OrderService.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/CartServiceImpl.java" />
+        <option value="$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/cart.jsp" />
+        <option value="$PROJECT_DIR$/selenium/src/main/java/ru/korchinskiy/CartPage.java" />
       </list>
     </option>
   </component>
@@ -269,68 +310,24 @@
               <item name="InternetStore" type="b2602c69:ProjectViewProjectNode" />
               <item name="InternetStore" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="InternetStore" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InternetStore" type="462c0819:PsiDirectoryNode" />
-              <item name="emailservice" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="InternetStore" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InternetStore" type="462c0819:PsiDirectoryNode" />
-              <item name="shop" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="InternetStore" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InternetStore" type="462c0819:PsiDirectoryNode" />
-              <item name="shop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="InternetStore" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InternetStore" type="462c0819:PsiDirectoryNode" />
-              <item name="shop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="InternetStore" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InternetStore" type="462c0819:PsiDirectoryNode" />
-              <item name="shop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="InternetStore" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InternetStore" type="462c0819:PsiDirectoryNode" />
-              <item name="shop" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="InternetStore" type="b2602c69:ProjectViewProjectNode" />
-              <item name="InternetStore" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultHtmlFileTemplate" value="XHTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557224470703" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557658147445" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
     <property name="editorconfig.notification" value="true;" />
     <property name="extract.method.default.visibility" value="private" />
+    <property name="full.screen.before.presentation.mode" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
@@ -338,12 +335,12 @@
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
-      <recent name="ru.korchinskiy.service" />
       <recent name="ru.korchinskiy.service.impl" />
+      <recent name="ru.korchinskiy.service" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Goodwin\Development\Java\Projects\InternetStore\selenium\src\main\java\ru\korchinskiy" />
@@ -356,11 +353,11 @@
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Goodwin\Development\Java\Projects\InternetStore\db\dump" />
+      <recent name="C:\Goodwin\Development\Java\Projects\InternetStore\db" />
       <recent name="C:\Goodwin\Development\Java\Projects\InternetStore\emailservice\app" />
       <recent name="C:\Goodwin\Development\Java\Projects\InternetStore\emailservice" />
       <recent name="C:\Goodwin\Development\Java\Projects\InternetStore\main\src\main\resources" />
-      <recent name="C:\Goodwin\Development\Java\Projects\InternetStore\glasscase\src\main\webapp\resources\css" />
-      <recent name="C:\Goodwin\Development\Java\Projects\InternetStore\glasscase\src\main\webapp" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -375,7 +372,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.CategoryServiceImplTest">
+  <component name="RunManager" selected="JUnit.All in selenium">
     <configuration name="JBoss 15.0.1.Final" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 15.0.1.Final" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
       <option name="OPEN_IN_BROWSER" value="false" />
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/glasscase/" />
@@ -512,23 +509,46 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CartPageTest.login" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in selenium" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="selenium" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CartServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shop" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ru.korchinskiy.*" />
+          <option name="PATTERN" value="ru.korchinskiy.service.impl.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="ru.korchinskiy" />
-      <option name="MAIN_CLASS_NAME" value="ru.korchinskiy.CartPageTest" />
-      <option name="METHOD_NAME" value="login" />
+      <option name="PACKAGE_NAME" value="ru.korchinskiy.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="ru.korchinskiy.service.impl.CartServiceImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CartServiceImplTest.getCookieCart" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shop" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ru.korchinskiy.service.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ru.korchinskiy.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="ru.korchinskiy.service.impl.CartServiceImplTest" />
+      <option name="METHOD_NAME" value="getCookieCart" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CategoryServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CategoryServiceImplTest.buildCategoryTreeOneLevel" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="shop" />
       <extension name="coverage">
         <pattern>
@@ -538,43 +558,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="ru.korchinskiy.service.impl" />
       <option name="MAIN_CLASS_NAME" value="ru.korchinskiy.service.impl.CategoryServiceImplTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MultiPageTest.buySomeProduct" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="selenium" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.korchinskiy.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.korchinskiy" />
-      <option name="MAIN_CLASS_NAME" value="ru.korchinskiy.MultiPageTest" />
-      <option name="METHOD_NAME" value="buySomeProduct" />
+      <option name="METHOD_NAME" value="buildCategoryTreeOneLevel" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="OrderServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shop" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ru.korchinskiy.service.impl.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="ru.korchinskiy.service.impl" />
-      <option name="MAIN_CLASS_NAME" value="ru.korchinskiy.service.impl.OrderServiceImplTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UtilsServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ru.korchinskiy.service in shop" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="shop" />
       <extension name="coverage">
         <pattern>
@@ -583,8 +573,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="ru.korchinskiy.service" />
-      <option name="MAIN_CLASS_NAME" value="ru.korchinskiy.service.UtilsServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -681,21 +670,21 @@
     </configuration>
     <list>
       <item itemvalue="JBoss Server.JBoss 15.0.1.Final" />
-      <item itemvalue="JUnit.CartPageTest.login" />
-      <item itemvalue="JUnit.MultiPageTest.buySomeProduct" />
-      <item itemvalue="JUnit.CategoryServiceImplTest" />
-      <item itemvalue="JUnit.OrderServiceImplTest" />
-      <item itemvalue="JUnit.UtilsServiceTest" />
+      <item itemvalue="JUnit.CartServiceImplTest.getCookieCart" />
+      <item itemvalue="JUnit.CategoryServiceImplTest.buildCategoryTreeOneLevel" />
+      <item itemvalue="JUnit.CartServiceImplTest" />
       <item itemvalue="Remote.tomcat docker" />
       <item itemvalue="Tomcat Server.Local Tomcat" />
+      <item itemvalue="JUnit.ru.korchinskiy.service in shop" />
+      <item itemvalue="JUnit.All in selenium" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.CategoryServiceImplTest" />
-        <item itemvalue="JUnit.CartPageTest.login" />
-        <item itemvalue="JUnit.UtilsServiceTest" />
-        <item itemvalue="JUnit.OrderServiceImplTest" />
-        <item itemvalue="JUnit.MultiPageTest.buySomeProduct" />
+        <item itemvalue="JUnit.All in selenium" />
+        <item itemvalue="JUnit.ru.korchinskiy.service in shop" />
+        <item itemvalue="JUnit.CartServiceImplTest" />
+        <item itemvalue="JUnit.CartServiceImplTest.getCookieCart" />
+        <item itemvalue="JUnit.CategoryServiceImplTest.buildCategoryTreeOneLevel" />
       </list>
     </recent_temporary>
   </component>
@@ -816,44 +805,53 @@
       <workItem from="1557120947987" duration="13943000" />
       <workItem from="1557161404024" duration="3162000" />
       <workItem from="1557208639572" duration="13089000" />
-      <workItem from="1557294339360" duration="439000" />
+      <workItem from="1557294339360" duration="3857000" />
+      <workItem from="1557300677041" duration="4474000" />
+      <workItem from="1557305455242" duration="1979000" />
+      <workItem from="1557307588717" duration="1461000" />
+      <workItem from="1557317251138" duration="2196000" />
+      <workItem from="1557385744483" duration="4040000" />
+      <workItem from="1557390022146" duration="23204000" />
+      <workItem from="1557506377439" duration="4214000" />
+      <workItem from="1557567245994" duration="7234000" />
+      <workItem from="1557652704601" duration="4732000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="MultiPageTest_buySomeProduct - 2019.05.05 at 14h 41m 24s.xml">
-      <configuration name="MultiPageTest.buySomeProduct" configurationId="JUnit" />
+    <history-entry file="CartServiceImplTest_getCookieCart - 2019.05.10 at 20h 33m 59s.xml">
+      <configuration name="CartServiceImplTest.getCookieCart" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MultiPageTest_buySomeProduct - 2019.05.05 at 14h 42m 15s.xml">
-      <configuration name="MultiPageTest.buySomeProduct" configurationId="JUnit" />
+    <history-entry file="CartServiceImplTest_getCookieCart - 2019.05.10 at 20h 35m 58s.xml">
+      <configuration name="CartServiceImplTest.getCookieCart" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MultiPageTest_buySomeProduct - 2019.05.05 at 14h 43m 02s.xml">
-      <configuration name="MultiPageTest.buySomeProduct" configurationId="JUnit" />
+    <history-entry file="CartServiceImplTest_getCookieCart - 2019.05.10 at 20h 37m 02s.xml">
+      <configuration name="CartServiceImplTest.getCookieCart" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="MultiPageTest_buySomeProduct - 2019.05.06 at 09h 32m 30s.xml">
-      <configuration name="MultiPageTest.buySomeProduct" configurationId="JUnit" />
+    <history-entry file="CartServiceImplTest_getCookieCart - 2019.05.10 at 20h 37m 50s.xml">
+      <configuration name="CartServiceImplTest.getCookieCart" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CategoryServiceImplTest - 2019.05.06 at 09h 34m 21s.xml">
-      <configuration name="CategoryServiceImplTest" configurationId="JUnit" />
+    <history-entry file="CartServiceImplTest_getCookieCart - 2019.05.10 at 20h 40m 09s.xml">
+      <configuration name="CartServiceImplTest.getCookieCart" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CategoryServiceImplTest - 2019.05.06 at 09h 36m 43s.xml">
-      <configuration name="CategoryServiceImplTest" configurationId="JUnit" />
+    <history-entry file="CartServiceImplTest_getCookieCart - 2019.05.10 at 20h 43m 12s.xml">
+      <configuration name="CartServiceImplTest.getCookieCart" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="OrderServiceImplTest - 2019.05.06 at 09h 41m 08s.xml">
-      <configuration name="OrderServiceImplTest" configurationId="JUnit" />
+    <history-entry file="CartServiceImplTest - 2019.05.10 at 20h 44m 05s.xml">
+      <configuration name="CartServiceImplTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="UtilsServiceTest - 2019.05.06 at 09h 42m 05s.xml">
-      <configuration name="UtilsServiceTest" configurationId="JUnit" />
+    <history-entry file="ru_korchinskiy_service_in_shop - 2019.05.12 at 13h 22m 55s.xml">
+      <configuration name="ru.korchinskiy.service in shop" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CartPageTest_login - 2019.05.06 at 09h 58m 54s.xml">
-      <configuration name="CartPageTest.login" configurationId="JUnit" />
+    <history-entry file="All_in_selenium - 2019.05.12 at 13h 26m 25s.xml">
+      <configuration name="All in selenium" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="CategoryServiceImplTest - 2019.05.06 at 10h 31m 31s.xml">
-      <configuration name="CategoryServiceImplTest" configurationId="JUnit" />
+    <history-entry file="All_in_selenium - 2019.05.12 at 13h 31m 33s.xml">
+      <configuration name="All in selenium" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1112058000" />
+    <option name="totallyTimeSpent" value="1169010000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -866,9 +864,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4880546" visible="true" weight="0.23843187" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4880546" visible="true" weight="0.26413882" />
       <window_info id="Structure" order="1" sideWeight="0.51194537" side_tool="true" weight="0.26285347" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -888,8 +885,8 @@
       <window_info anchor="bottom" id="Application Servers" order="7" sideWeight="0.4993573" weight="0.48521507" />
       <window_info anchor="bottom" id="Spring" order="8" sideWeight="0.4993573" weight="0.3293011" />
       <window_info anchor="bottom" id="Terminal" order="9" sideWeight="0.4993573" weight="0.3293011" />
-      <window_info anchor="bottom" id="Docker" order="10" sideWeight="0.4974293" weight="0.5658602" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5025707" side_tool="true" weight="0.5658602" />
+      <window_info active="true" anchor="bottom" id="Docker" order="10" sideWeight="0.49678662" visible="true" weight="0.55376345" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50321335" side_tool="true" weight="0.5658602" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Version Control" order="13" />
       <window_info anchor="bottom" id="Duplicate detector" order="14" weight="0.2889785" />
@@ -914,364 +911,337 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/orderSuccess.jsp">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/selenium/src/main/java/ru/korchinskiy/CartPage.java">
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/controller/AdminProductController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="29" column="85" selection-start-line="29" selection-start-column="85" selection-end-line="29" selection-end-column="85" />
+        <state relative-caret-position="336">
+          <caret line="162" selection-start-line="162" selection-end-line="162" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/controller/CartController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="36" column="27" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/controller/OrderController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-204">
+          <caret line="28" column="13" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/controller/CatalogController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-44">
+          <caret line="29" column="68" selection-start-line="29" selection-start-column="68" selection-end-line="29" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-721">
+          <caret line="164" column="11" selection-start-line="164" selection-start-column="11" selection-end-line="164" selection-end-column="11" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#6283#6284#0" expanded="true" />
+            <element signature="e#6351#6352#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/InternetStore.iml">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/validation/File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="11" column="78" selection-start-line="11" selection-start-column="78" selection-end-line="11" selection-end-column="78" />
+        </state>
+      </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/ProductPageTest.java">
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/validation/FileValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+          <folding>
+            <element signature="e#622#623#0" expanded="true" />
+            <element signature="e#697#698#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/OrderServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-421">
+          <caret line="69" column="33" selection-start-line="69" selection-start-column="33" selection-end-line="69" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/dto/CartDto.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="260">
-          <caret line="14" column="5" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/header.jsp">
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/DTOMappingServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="30" column="47" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
+        <state relative-caret-position="145">
+          <caret line="139" column="11" selection-start-line="139" selection-start-column="11" selection-end-line="139" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/glasscase/src/main/java/ru/korchinskiy/bean/impl/MessageEJB.java">
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/controller/IndexController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="44" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/handler/CustomLogoutSuccessHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="20" column="35" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/CartServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1396">
-          <caret line="209" column="31" selection-start-line="209" selection-start-column="31" selection-end-line="209" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/AdminOrderServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1197#1198#0" expanded="true" />
-            <element signature="e#1247#1248#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/impl/OrderServiceImplTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="43" column="11" selection-start-line="43" selection-start-column="11" selection-end-line="43" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="145">
+          <caret line="42" column="35" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/UtilsServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-164">
-          <caret line="28" column="11" selection-start-line="28" selection-start-column="11" selection-end-line="28" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="656">
+          <caret line="54" column="33" selection-start-line="54" selection-start-column="33" selection-end-line="54" selection-end-column="33" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/AddressServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/config/WebConfig.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="24" column="13" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/config/WebApplicationInitializer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shop/target/surefire-reports/ru.korchinskiy.service.impl.CategoryServiceImplTest.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/CartPageTest.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-core/2.27.0/mockito-core-2.27.0.jar!/org/mockito/InjectMocks.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="180">
+          <caret line="16" column="18" selection-start-line="16" selection-start-column="18" selection-end-line="16" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shop/target/surefire-reports/ru.korchinskiy.service.UtilsServiceTest.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/target/surefire-reports/index_SORT_BY_METHOD.html" />
-    <entry file="file://$PROJECT_DIR$/shop/shop.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/target/surefire-reports/TEST-ru.korchinskiy.service.UtilsServiceTest.xml">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-core/2.27.0/mockito-core-2.27.0-sources.jar!/org/mockito/InjectMocks.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
-          <caret line="63" column="15" selection-start-line="63" selection-start-column="15" selection-end-line="63" selection-end-column="15" />
+        <state relative-caret-position="2840">
+          <caret line="164" column="18" selection-start-line="164" selection-start-column="18" selection-end-line="164" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shop/target/surefire-reports/TEST-ru.korchinskiy.service.impl.OrderServiceImplTest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="63" column="15" selection-start-line="63" selection-start-column="15" selection-end-line="63" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/target/surefire-reports/TEST-ru.korchinskiy.service.impl.CategoryServiceImplTest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="63" column="15" selection-start-line="63" selection-start-column="15" selection-end-line="63" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="28" column="52" lean-forward="true" selection-start-line="28" selection-start-column="52" selection-end-line="28" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/impl/CategoryServiceImplTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="36" column="29" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/emailservice/app/package.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/MailService.java">
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/dto/UserDto.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
-          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1060">
+          <caret line="179" selection-start-line="179" selection-end-line="179" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/glasscase/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="48" column="21" selection-start-line="35" selection-start-column="8" selection-end-line="48" selection-end-column="21" />
-        </state>
+        <state relative-caret-position="-240" />
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/jboss/spec/javax/ws/rs/jboss-jaxrs-api_2.1_spec/1.0.2.Final/jboss-jaxrs-api_2.1_spec-1.0.2.Final.jar!/javax/ws/rs/client/SyncInvoker.class">
+    <entry file="file://$PROJECT_DIR$/static/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/emailservice/app/index.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/Dockerfile">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/header.jsp">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/catalog.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        <state relative-caret-position="520">
+          <caret line="26" column="72" selection-start-line="26" selection-start-column="72" selection-end-line="26" selection-end-column="72" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/jboss/spec/javax/ws/rs/jboss-jaxrs-api_2.1_spec/1.0.2.Final/jboss-jaxrs-api_2.1_spec-1.0.2.Final-sources.jar!/javax/ws/rs/client/SyncInvoker.java">
+    <entry file="file://$PROJECT_DIR$/glasscase/src/main/java/ru/korchinskiy/dto/ProductDto.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-220">
-          <caret line="180" column="13" selection-start-line="180" selection-start-column="13" selection-end-line="180" selection-end-column="13" />
+        <state relative-caret-position="100">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/dto/IndicatorDto.java">
+    <entry file="file://$PROJECT_DIR$/glasscase/src/main/webapp/WEB-INF/jboss-deployment-structure.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/glasscase/src/main/webapp/WEB-INF/faces-config.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="com.intellij.jsf.yfilesGraph.editor.FacesNavigationFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/glasscase/src/main/webapp/WEB-INF/jboss-web.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+      <provider editor-type-id="com.intellij.javaee.oss.jboss.editor.JBossWebRootProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/glasscase/src/main/webapp/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/CatalogPageTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/IndexPageTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/ProductPageTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/ImageServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/CartService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/CategoryService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/ImageService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="11" column="34" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/MailService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="75" selection-start-line="6" selection-start-column="75" selection-end-line="6" selection-end-column="75" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/OrderService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/AdminOrderService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/DTOMappingService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/WebTestBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/CartServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="49" column="4" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/cart.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="23" column="25" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/config/TestConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/dto/DescriptionDto.java">
+    <entry file="file://$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/impl/CartServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/jboss/spec/javax/ws/rs/jboss-jaxrs-api_2.1_spec/1.0.2.Final/jboss-jaxrs-api_2.1_spec-1.0.2.Final-sources.jar!/javax/ws/rs/client/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-241">
-          <caret line="72" column="32" selection-start-line="72" selection-start-column="32" selection-end-line="72" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/javax/javaee-api/8.0/javaee-api-8.0-sources.jar!/javax/ws/rs/core/Response.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="599">
-          <caret line="355" column="25" selection-start-line="355" selection-start-column="25" selection-end-line="355" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/glasscase/src/main/java/ru/korchinskiy/bean/impl/ProductEJBImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="33" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/message/Message.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="48" column="83" selection-start-line="48" selection-start-column="83" selection-end-line="48" selection-end-column="83" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/dto/MailDto.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="18" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+        <state relative-caret-position="534">
+          <caret line="55" selection-start-line="55" selection-end-line="55" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/emailservice/app/templates/order.hbs">
+    <entry file="file://$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/impl/CategoryServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+        <state relative-caret-position="60">
+          <caret line="20" column="48" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/config/PersistenceJpaConfig.java">
+    <entry file="file://$PROJECT_DIR$/shop/src/test/java/ru/korchinskiy/service/impl/OrderServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        <state relative-caret-position="540">
+          <caret line="48" column="25" selection-start-line="48" selection-start-column="25" selection-end-line="48" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/Dockerfile">
+    <entry file="file://$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/MultiPageTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        <state relative-caret-position="80">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/emailservice/app/index.js">
+    <entry file="file://$PROJECT_DIR$/selenium/src/test/java/ru/korchinskiy/CartPageTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="16" column="15" selection-start-line="16" selection-start-column="15" selection-end-line="16" selection-end-column="15" />
+        <state relative-caret-position="80">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/config/MessageConfig.java">
+    <entry file="file://$PROJECT_DIR$/selenium/src/main/java/ru/korchinskiy/CartPage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/jboss/resteasy/resteasy-client/3.6.3.Final/resteasy-client-3.6.3.Final.jar!/org/jboss/resteasy/client/jaxrs/ResteasyClientBuilder.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="64" column="11" selection-start-line="64" selection-start-column="11" selection-end-line="64" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/webapp/resources/js/cart.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/cart.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
-          <caret line="99" column="120" selection-start-line="99" selection-start-column="120" selection-end-line="99" selection-end-column="120" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/controller/IndexController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/webapp/WEB-INF/views/index.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="25" column="18" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+        <state relative-caret-position="260">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/docker-compose.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
-          <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/MailServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="20" column="93" selection-start-line="20" selection-start-column="93" selection-end-line="20" selection-end-column="93" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/5.1.5.RELEASE/spring-web-5.1.5.RELEASE-sources.jar!/org/springframework/web/client/RestTemplate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1580">
-          <caret line="138" column="11" selection-start-line="138" selection-start-column="11" selection-end-line="138" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3440">
-          <caret line="172" selection-start-line="172" selection-end-line="172" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shop/src/main/java/ru/korchinskiy/service/impl/OrderServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1760">
-          <caret line="115" column="96" selection-start-line="115" selection-start-column="96" selection-end-line="115" selection-end-column="96" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/emailservice/Dockerfile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
   </component>
   <component name="masterDetails">

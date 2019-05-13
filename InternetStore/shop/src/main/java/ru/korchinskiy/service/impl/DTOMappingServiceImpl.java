@@ -23,8 +23,8 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         productDto.setAmount(product.getAmount());
         productDto.setDescription(product.getDescription());
         productDto.setDate(product.getDate());
-        productDto.setPhotoMd(product.getPhotoMd());
-        productDto.setPhotoSm(product.getPhotoSm());
+        productDto.setPhotoMd(ImageServiceImpl.IMG_SERVER_ADDRESS + product.getPhotoMd());
+        productDto.setPhotoSm(ImageServiceImpl.IMG_SERVER_ADDRESS + product.getPhotoSm());
         return productDto;
     }
 
@@ -52,8 +52,8 @@ public class DTOMappingServiceImpl implements DTOMappingService {
         productDto.setAmount(product.getAmount());
         productDto.setDescription(product.getDescription());
         productDto.setDate(product.getDate());
-        productDto.setPhotoMd(product.getPhotoMd());
-        productDto.setPhotoSm(product.getPhotoSm());
+        productDto.setPhotoMd(ImageServiceImpl.IMG_SERVER_ADDRESS + product.getPhotoMd());
+        productDto.setPhotoSm(ImageServiceImpl.IMG_SERVER_ADDRESS + product.getPhotoSm());
         productDto.setCategories(convertToCategoryDtoList(product.getCategories()));
         return productDto;
     }

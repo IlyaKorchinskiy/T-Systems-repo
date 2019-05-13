@@ -24,6 +24,7 @@ public class Message {
     public static final String PRODUCT_UPDATE_DESCRIPTION_FAIL = &quot;Product description should be 10-1500 symbols&quot;;
     public static final String PRODUCT_UPDATE_CATEGORIES_SUCCESS = &quot;Product categories updated successfully&quot;;
     public static final String PRODUCT_UPDATE_CATEGORIES_FAIL = &quot;Product categories could not be empty&quot;;
+    public static final String PRODUCT_UPDATE_PHOTO_FAIL = &quot;Photo update fail&quot;;
     public static final String ORDER_SAVE_SUCCESS = &quot;Order successfully saved&quot;;
     public static final String ORDER_STATUS_UPDATE_SUCCESS = &quot;Order status successfully updated&quot;;
     public static final String ORDER_STATUS_UPDATE_FAIL = &quot;Order status can't be the same&quot;;
@@ -48,15 +49,15 @@ public class Message {
     public static final String EMAIL_SEND_FAIL = &quot;Could not send e-mail&quot;;
     public static final String EMAIL_SEND_SUCCESS = &quot;E-mail was sent successfully&quot;;
 
-<span class="nc" id="L51">    List&lt;String&gt; errors;</span>
-<span class="nc" id="L52">    List&lt;String&gt; warnings;</span>
-<span class="nc" id="L53">    List&lt;String&gt; confirms;</span>
+<span class="nc" id="L52">    List&lt;String&gt; errors;</span>
+<span class="nc" id="L53">    List&lt;String&gt; warnings;</span>
+<span class="nc" id="L54">    List&lt;String&gt; confirms;</span>
 
-<span class="nc" id="L55">    public Message() {</span>
-<span class="nc" id="L56">        errors = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L57">        warnings = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L58">        confirms = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L59">    }</span>
+<span class="nc" id="L56">    public Message() {</span>
+<span class="nc" id="L57">        errors = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L58">        warnings = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L59">        confirms = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L60">    }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import ru.korchinskiy.dto.*;
 import ru.korchinskiy.message.Message;
 import ru.korchinskiy.service.CategoryService;
@@ -61,6 +60,7 @@ public class AdminProductController {
     public String showProduct(@PathVariable("id") Long id,
                               Model model) {
         model.addAttribute("product", productService.getProductById(id));
+        model.addAttribute("photo", new PhotoDto());
         model.addAttribute("allCategories", categoryService.getAllCategories());
         return "adminProduct";
     }
@@ -136,22 +136,32 @@ public class AdminProductController {
     }
 
     @PostMapping("/{id}/updatePhotoMd")
-    public String updateProductPhotoMd(@RequestParam(name = "photoMd") MultipartFile photoMd,
+    public String updateProductPhotoMd(@Valid @ModelAttribute("photo") PhotoDto photoMd,
+                                       BindingResult result,
                                        @PathVariable("id") Long productId,
                                        Model model) {
-        model.addAttribute("message", productService.updateProductPhotoMd(photoMd, productId));
         model.addAttribute("product", productService.getProductById(productId));
         model.addAttribute("allCategories", categoryService.getAllCategories());
+        if (result.hasErrors()) {
+            logger.info(Message.PRODUCT_UPDATE_PHOTO_FAIL);
+            return "adminProduct";
+        }
+        model.addAttribute("message", productService.updateProductPhotoMd(photoMd.getPhoto(), productId));
         return "adminProduct";
     }
 
     @PostMapping("/{id}/updatePhotoSm")
-    public String updateProductPhotoSm(@RequestParam(name = "photoSm") MultipartFile photoSm,
+    public String updateProductPhotoSm(@Valid @ModelAttribute("photo") PhotoDto photoSm,
+                                       BindingResult result,
                                        @PathVariable("id") Long productId,
                                        Model model) {
-        model.addAttribute("message", productService.updateProductPhotoSm(photoSm, productId));
         model.addAttribute("product", productService.getProductById(productId));
         model.addAttribute("allCategories", categoryService.getAllCategories());
+        if (result.hasErrors()) {
+            logger.info(Message.PRODUCT_UPDATE_PHOTO_FAIL);
+            return "adminProduct";
+        }
+        model.addAttribute("message", productService.updateProductPhotoSm(photoSm.getPhoto(), productId));
         return "adminProduct";
     }
 

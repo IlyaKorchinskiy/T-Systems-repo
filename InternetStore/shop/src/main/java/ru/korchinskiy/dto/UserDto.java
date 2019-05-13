@@ -1,6 +1,7 @@
 package ru.korchinskiy.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.korchinskiy.validation.PasswordMatches;
 import ru.korchinskiy.validation.PhoneNumber;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 @PasswordMatches
 public class UserDto {
     private Long id;
@@ -38,4 +40,8 @@ public class UserDto {
     private List<AddressDto> addresses;
     private List<RoleDto> roles;
     private List<OrderDto> orders;
+
+    public UserDto(Long id) {
+        this.id = id;
+    }
 }

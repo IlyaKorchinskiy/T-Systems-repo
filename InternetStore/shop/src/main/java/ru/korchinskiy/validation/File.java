@@ -9,7 +9,7 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = FileValidator.class)
 @Documented
 public @interface File {
-    String message() default "choose file";
+    String message() default "Photo should be 10-100 kBytes, formats: jpg, png";
 
     Class<?>[] groups() default {};
 

@@ -50,7 +50,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <p id="messageTitle"></p>
+                            <p id="titleMessage"></p>
                         </div>
                         <div class="form-group">
                             <label for="authorInput">Author</label>
@@ -68,7 +68,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <p id="messageAuthor"></p>
+                            <p id="authorMessage"></p>
                         </div>
                         <div class="form-group">
                             <label for="yearInput">Published</label>
@@ -86,7 +86,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <p id="messageYear"></p>
+                            <p id="yearMessage"></p>
                         </div>
                         <div class="form-group">
                             <label for="costInput">Cost</label>
@@ -108,7 +108,7 @@
                             <button id="descriptionBtnEdit" type="button" class="btn btn-secondary edit"
                                     onclick="editField('description')">Edit
                             </button>
-                            <p id="messageDescription"></p>
+                            <p id="descriptionMessage"></p>
                         </div>
                     </div>
                     <div class="col">
@@ -124,7 +124,7 @@
                                 <button id="categoriesBtnEdit" type="button" class="btn btn-secondary edit"
                                         onclick="editField('categories')">Edit
                                 </button>
-                                <p id="messageCategories"></p>
+                                <p id="categoriesMessage"></p>
                             </div>
                         </form:form>
 
@@ -132,14 +132,15 @@
                             <div class="col">
                                 <label for="photoMdInput">Medium photo</label>
                                 <div class="photo">
-                                    <img src="http://192.168.99.100:8190/${product.photoMd}" alt="product_photo">
+                                    <img src="${product.photoMd}" alt="product_photo">
                                 </div>
-                                <form id="photoMdForm" class="photo-form"
+                                <form:form id="photoMdForm" class="photo-form" modelAttribute="photo"
                                       action="${contextPath}/admin/products/${product.id}/updatePhotoMd"
                                       method="post" enctype="multipart/form-data">
                                     <div class="form-group photo-input">
-                                        <input type="file" class="form-control-file" id="photoMdInput"
-                                               name="photoMd" disabled>
+                                        <form:errors path="photo" cssClass="error"/>
+                                        <form:input type="file" class="form-control-file" id="photoMdInput"
+                                               path="photo" disabled="true"/>
                                         <button id="photoMdBtnSave" type="submit" class="btn btn-primary edit"
                                                 hidden>Save
                                         </button>
@@ -148,19 +149,22 @@
                                         </button>
                                     </div>
 
-                                </form>
+                                </form:form>
                             </div>
                             <div class="col">
                                 <label for="photoSmInput">Small photo</label>
                                 <div class="photo">
-                                    <img src="http://192.168.99.100:8190/${product.photoSm}" alt="product_photo">
+                                    <img src="${product.photoSm}" alt="product_photo">
                                 </div>
-                                <form id="photoSmForm" class="photo-form"
+                                <form:form id="photoSmForm" class="photo-form" modelAttribute="photo"
                                       action="${contextPath}/admin/products/${product.id}/updatePhotoSm"
                                       method="post" enctype="multipart/form-data">
+
                                     <div class="form-group photo-input">
-                                        <input type="file" class="form-control-file" id="photoSmInput"
-                                               name="photoSm" disabled>
+                                        <form:errors path="photo" cssClass="error"/>
+
+                                        <form:input type="file" class="form-control-file" id="photoSmInput"
+                                               path="photo" disabled="true"/>
                                         <button id="photoSmBtnSave" type="submit" class="btn btn-primary edit"
                                                 hidden>Save
                                         </button>
@@ -169,7 +173,7 @@
                                         </button>
                                     </div>
 
-                                </form>
+                                </form:form>
                             </div>
                         </div>
                     </div>
