@@ -71,7 +71,7 @@ public class CartServiceImpl implements CartService {
     public Message addProductToCart(HttpServletRequest request, HttpServletResponse response, Long productId, int amount) throws UnsupportedEncodingException {
         Message message = new Message();
         Product product = productDAO.getProductById(productId);
-        if (product.getAmount() == 0) {
+        if (product.getAmount() < amount) {
             message.getErrors().add(Message.PRODUCT_NOT_ENOUGH);
             logger.info(Message.PRODUCT_NOT_ENOUGH);
             return message;
@@ -130,7 +130,7 @@ public class CartServiceImpl implements CartService {
         }
     }
 
-    private CartDto addProductToCartDto(CartDto cartDto, Product product) {
+    CartDto addProductToCartDto(CartDto cartDto, Product product) {
         List<CartProductDto> cartProductDtoList = cartDto.getCartProducts();
         for (CartProductDto cartProductDto : cartProductDtoList) {
             if (cartProductDto.getProduct().getId().equals(product.getId())) {

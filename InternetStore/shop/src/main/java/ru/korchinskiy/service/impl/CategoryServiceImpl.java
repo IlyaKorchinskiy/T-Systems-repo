@@ -39,7 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryDAO.getCategoryById(id);
         if (minCost == null) minCost = 0.0;
         if (maxCost == null) maxCost = Double.MAX_VALUE;
-        if (year == null) year = "____";
+        if (year == null || year.equals("...")) year = "____";
         List<Product> products = productDAO.getProductsByCategoryAndParams(id, minCost, maxCost, year);
         List<ProductDto> productDtos = dtoMappingService.convertToProductDtoList(products);
         return dtoMappingService.convertToCategoryWithProductsDto(category, productDtos);
@@ -65,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
         return buildCategoryTree(categoryTreeDtoList);
     }
 
-    public List<CategoryTreeDto> buildCategoryTree(List<CategoryTreeDto> categoryDtos) {
+    List<CategoryTreeDto> buildCategoryTree(List<CategoryTreeDto> categoryDtos) {
         for (int i = 0; i < categoryDtos.size(); i++) {
             if (!categoryDtos.get(i).getParentId().equals(ROOT_CATEGORY)) {
                 for (int j = 0; j < categoryDtos.size(); j++) {

@@ -3,20 +3,15 @@ package ru.korchinskiy.service;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import ru.korchinskiy.config.WebConfig;
 import ru.korchinskiy.dto.CartDto;
 import ru.korchinskiy.dto.CartProductDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WebConfig.class})
-@WebAppConfiguration
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(classes = {WebConfig.class})
+//@WebAppConfiguration
 public class UtilsServiceTest {
 
     private CartDto cartDto;

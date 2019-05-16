@@ -18,7 +18,6 @@ import ru.korchinskiy.service.ImageService;
 import ru.korchinskiy.service.ProductService;
 import ru.korchinskiy.validation.FileValidator;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,207 +25,203 @@ import java.util.List;
 import java.util.Set;
 
 @Service(&quot;productService&quot;)
-<span class="fc" id="L29">public class ProductServiceImpl implements ProductService {</span>
-<span class="fc" id="L30">    private static Logger logger = Logger.getLogger(ProductServiceImpl.class);</span>
+<span class="fc" id="L28">public class ProductServiceImpl implements ProductService {</span>
+<span class="fc" id="L29">    private static Logger logger = Logger.getLogger(ProductServiceImpl.class);</span>
 
     private ProductDAO productDAO;
     private DTOMappingService dtoMappingService;
     private CategoryDAO categoryDAO;
     private ImageService imageService;
-    private FileValidator fileValidator;
 
     @Override
     @Transactional
     public ProductWithCategoriesDto getProductById(Long id) {
-<span class="nc" id="L41">        Product product = productDAO.getProductById(id);</span>
-<span class="nc" id="L42">        return dtoMappingService.convertToProductWithCategoriesDto(product);</span>
+<span class="nc" id="L39">        Product product = productDAO.getProductById(id);</span>
+<span class="nc" id="L40">        return dtoMappingService.convertToProductWithCategoriesDto(product);</span>
     }
 
     @Override
     @Transactional
     public List&lt;ProductDto&gt; getAllProducts() {
-<span class="nc" id="L48">        List&lt;Product&gt; products = productDAO.getAllProducts();</span>
-<span class="nc" id="L49">        return dtoMappingService.convertToProductDtoList(products);</span>
+<span class="nc" id="L46">        List&lt;Product&gt; products = productDAO.getAllProducts();</span>
+<span class="nc" id="L47">        return dtoMappingService.convertToProductDtoList(products);</span>
     }
 
     @Override
     @Transactional
     public List&lt;ProductDto&gt; getProductsByCategory(Long categoryId) {
-<span class="nc" id="L55">        List&lt;Product&gt; products = productDAO.getProductsByCategory(categoryId);</span>
-<span class="nc" id="L56">        return dtoMappingService.convertToProductDtoList(products);</span>
+<span class="nc" id="L53">        List&lt;Product&gt; products = productDAO.getProductsByCategory(categoryId);</span>
+<span class="nc" id="L54">        return dtoMappingService.convertToProductDtoList(products);</span>
     }
 
     @Override
     @Transactional
     public List&lt;ProductDto&gt; findProductsBySearch(String search) {
-<span class="nc" id="L62">        Set&lt;Product&gt; products = new HashSet&lt;&gt;(productDAO.findProductsBySearch(search));</span>
-<span class="nc" id="L63">        String[] searchWords = search.split(&quot;\\s&quot;);</span>
-<span class="nc bnc" id="L64" title="All 2 branches missed.">        if (searchWords.length != 1) {</span>
-<span class="nc bnc" id="L65" title="All 2 branches missed.">            for (String word : searchWords) {</span>
-<span class="nc" id="L66">                products.addAll(productDAO.findProductsBySearch(word));</span>
+<span class="nc" id="L60">        Set&lt;Product&gt; products = new HashSet&lt;&gt;(productDAO.findProductsBySearch(search));</span>
+<span class="nc" id="L61">        String[] searchWords = search.split(&quot;\\s&quot;);</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">        if (searchWords.length != 1) {</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            for (String word : searchWords) {</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">                if (word.length() &lt; 4) break;</span>
+<span class="nc" id="L65">                products.addAll(productDAO.findProductsBySearch(word));</span>
             }
         }
-<span class="nc" id="L69">        return dtoMappingService.convertToProductDtoList(new ArrayList&lt;&gt;(products));</span>
+<span class="nc" id="L68">        return dtoMappingService.convertToProductDtoList(new ArrayList&lt;&gt;(products));</span>
     }
 
     @Override
     @Transactional
     public List&lt;Integer&gt; getProductYears() {
-<span class="nc" id="L75">        return productDAO.getProductYears();</span>
+<span class="nc" id="L74">        return productDAO.getProductYears();</span>
     }
 
     @Override
     @Transactional
-    public Message saveProduct(NewProductDto productDto, HttpServletRequest request) {
-<span class="nc" id="L81">        Message message = new Message();</span>
-<span class="nc" id="L82">        Product product = productDAO.getProductByTitle(productDto.getTitle());</span>
-<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (product != null) {</span>
-<span class="nc" id="L84">            message.getErrors().add(Message.PRODUCT_ALREADY_EXISTS);</span>
-<span class="nc" id="L85">            logger.info(Message.PRODUCT_ALREADY_EXISTS);</span>
-<span class="nc" id="L86">            return message;</span>
+    public Message saveProduct(NewProductDto productDto) {
+<span class="fc" id="L80">        Message message = new Message();</span>
+<span class="fc" id="L81">        Product product = productDAO.getProductByTitle(productDto.getTitle());</span>
+<span class="pc bpc" id="L82" title="1 of 2 branches missed.">        if (product != null) {</span>
+<span class="nc" id="L83">            message.getErrors().add(Message.PRODUCT_ALREADY_EXISTS);</span>
+<span class="nc" id="L84">            logger.info(Message.PRODUCT_ALREADY_EXISTS);</span>
+<span class="nc" id="L85">            return message;</span>
         }
-<span class="nc" id="L88">        product = dtoMappingService.convertToProduct(productDto);</span>
+<span class="fc" id="L87">        product = dtoMappingService.convertToProduct(productDto);</span>
         try {
-<span class="nc" id="L90">            product.setPhotoMd(imageService.saveFile(productDto.getPhotoMd()));</span>
-<span class="nc" id="L91">            product.setPhotoSm(imageService.saveFile(productDto.getPhotoSm()));</span>
-<span class="nc" id="L92">        } catch (IOException ex) {</span>
-<span class="nc" id="L93">            message.getErrors().add(Message.FILE_SAVE_FAIL);</span>
-<span class="nc" id="L94">            logger.error(Message.FILE_SAVE_FAIL, ex);</span>
-<span class="nc" id="L95">            return message;</span>
-<span class="nc" id="L96">        }</span>
-<span class="nc" id="L97">        productDAO.saveProduct(product);</span>
-<span class="nc" id="L98">        List&lt;Category&gt; categories = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L99" title="All 2 branches missed.">        for (Long categoryId : productDto.getCategories()) {</span>
-<span class="nc" id="L100">            categories.add(categoryDAO.getCategoryById(categoryId));</span>
-<span class="nc" id="L101">        }</span>
-<span class="nc" id="L102">        product.setCategories(categories);</span>
-<span class="nc" id="L103">        message.getConfirms().add(Message.PRODUCT_ADD_SUCCESS);</span>
-<span class="nc" id="L104">        logger.info(Message.PRODUCT_ADD_SUCCESS);</span>
-<span class="nc" id="L105">        return message;</span>
+<span class="fc" id="L89">            product.setPhotoMd(imageService.saveFile(productDto.getPhotoMd()));</span>
+<span class="fc" id="L90">            product.setPhotoSm(imageService.saveFile(productDto.getPhotoSm()));</span>
+<span class="nc" id="L91">        } catch (IOException ex) {</span>
+<span class="nc" id="L92">            message.getErrors().add(Message.FILE_SAVE_FAIL);</span>
+<span class="nc" id="L93">            logger.error(Message.FILE_SAVE_FAIL, ex);</span>
+<span class="nc" id="L94">            return message;</span>
+<span class="fc" id="L95">        }</span>
+<span class="fc" id="L96">        productDAO.saveProduct(product);</span>
+<span class="fc" id="L97">        List&lt;Category&gt; categories = new ArrayList&lt;&gt;();</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">        for (Long categoryId : productDto.getCategories()) {</span>
+<span class="nc" id="L99">            categories.add(categoryDAO.getCategoryById(categoryId));</span>
+<span class="nc" id="L100">        }</span>
+<span class="fc" id="L101">        product.setCategories(categories);</span>
+<span class="fc" id="L102">        message.getConfirms().add(Message.PRODUCT_ADD_SUCCESS);</span>
+<span class="fc" id="L103">        logger.info(Message.PRODUCT_ADD_SUCCESS);</span>
+<span class="fc" id="L104">        return message;</span>
     }
 
     @Override
     @Transactional
     public Message updateProductTitle(String title, Long productId) {
-<span class="nc" id="L111">        Message message = new Message();</span>
-<span class="nc" id="L112">        Product product = productDAO.getProductByTitle(title);</span>
-<span class="nc bnc" id="L113" title="All 2 branches missed.">        if (product != null) {</span>
-<span class="nc" id="L114">            message.getErrors().add(Message.PRODUCT_ALREADY_EXISTS);</span>
-<span class="nc" id="L115">            logger.info(Message.PRODUCT_ALREADY_EXISTS);</span>
-<span class="nc" id="L116">            return message;</span>
+<span class="fc" id="L110">        Message message = new Message();</span>
+<span class="fc" id="L111">        Product product = productDAO.getProductByTitle(title);</span>
+<span class="pc bpc" id="L112" title="1 of 2 branches missed.">        if (product != null) {</span>
+<span class="nc" id="L113">            message.getErrors().add(Message.PRODUCT_ALREADY_EXISTS);</span>
+<span class="nc" id="L114">            logger.info(Message.PRODUCT_ALREADY_EXISTS);</span>
+<span class="nc" id="L115">            return message;</span>
         }
-<span class="nc" id="L118">        product = productDAO.getProductById(productId);</span>
-<span class="nc" id="L119">        product.setTitle(title);</span>
-<span class="nc" id="L120">        message.getConfirms().add(Message.PRODUCT_UPDATE_TITLE_SUCCESS);</span>
-<span class="nc" id="L121">        logger.info(Message.PRODUCT_UPDATE_TITLE_SUCCESS);</span>
-<span class="nc" id="L122">        return message;</span>
+<span class="fc" id="L117">        product = productDAO.getProductById(productId);</span>
+<span class="fc" id="L118">        product.setTitle(title);</span>
+<span class="fc" id="L119">        message.getConfirms().add(Message.PRODUCT_UPDATE_TITLE_SUCCESS);</span>
+<span class="fc" id="L120">        logger.info(Message.PRODUCT_UPDATE_TITLE_SUCCESS);</span>
+<span class="fc" id="L121">        return message;</span>
     }
 
     @Override
     @Transactional
     public Message updateProductAuthor(String author, Long productId) {
-<span class="nc" id="L128">        Message message = new Message();</span>
-<span class="nc" id="L129">        Product product = productDAO.getProductById(productId);</span>
-<span class="nc" id="L130">        product.setAuthor(author);</span>
-<span class="nc" id="L131">        message.getConfirms().add(Message.PRODUCT_UPDATE_AUTHOR_SUCCESS);</span>
-<span class="nc" id="L132">        logger.info(Message.PRODUCT_UPDATE_AUTHOR_SUCCESS);</span>
-<span class="nc" id="L133">        return message;</span>
+<span class="fc" id="L127">        Message message = new Message();</span>
+<span class="fc" id="L128">        Product product = productDAO.getProductById(productId);</span>
+<span class="fc" id="L129">        product.setAuthor(author);</span>
+<span class="fc" id="L130">        message.getConfirms().add(Message.PRODUCT_UPDATE_AUTHOR_SUCCESS);</span>
+<span class="fc" id="L131">        logger.info(Message.PRODUCT_UPDATE_AUTHOR_SUCCESS);</span>
+<span class="fc" id="L132">        return message;</span>
     }
 
     @Override
     @Transactional
     public Message updateProductYear(Integer year, Long productId) {
-<span class="nc" id="L139">        Message message = new Message();</span>
-<span class="nc" id="L140">        Product product = productDAO.getProductById(productId);</span>
-<span class="nc" id="L141">        product.setYear(year.toString());</span>
-<span class="nc" id="L142">        message.getConfirms().add(Message.PRODUCT_UPDATE_YEAR_SUCCESS);</span>
-<span class="nc" id="L143">        logger.info(Message.PRODUCT_UPDATE_YEAR_SUCCESS);</span>
-<span class="nc" id="L144">        return message;</span>
+<span class="fc" id="L138">        Message message = new Message();</span>
+<span class="fc" id="L139">        Product product = productDAO.getProductById(productId);</span>
+<span class="fc" id="L140">        product.setYear(year.toString());</span>
+<span class="fc" id="L141">        message.getConfirms().add(Message.PRODUCT_UPDATE_YEAR_SUCCESS);</span>
+<span class="fc" id="L142">        logger.info(Message.PRODUCT_UPDATE_YEAR_SUCCESS);</span>
+<span class="fc" id="L143">        return message;</span>
     }
 
     @Override
     @Transactional
     public Message updateProductDescription(String description, Long productId) {
-<span class="nc" id="L150">        Message message = new Message();</span>
-<span class="nc" id="L151">        Product product = productDAO.getProductById(productId);</span>
-<span class="nc" id="L152">        product.setDescription(description);</span>
-<span class="nc" id="L153">        message.getConfirms().add(Message.PRODUCT_UPDATE_DESCRIPTION_SUCCESS);</span>
-<span class="nc" id="L154">        logger.info(Message.PRODUCT_UPDATE_DESCRIPTION_SUCCESS);</span>
-<span class="nc" id="L155">        return message;</span>
+<span class="fc" id="L149">        Message message = new Message();</span>
+<span class="fc" id="L150">        Product product = productDAO.getProductById(productId);</span>
+<span class="fc" id="L151">        product.setDescription(description);</span>
+<span class="fc" id="L152">        message.getConfirms().add(Message.PRODUCT_UPDATE_DESCRIPTION_SUCCESS);</span>
+<span class="fc" id="L153">        logger.info(Message.PRODUCT_UPDATE_DESCRIPTION_SUCCESS);</span>
+<span class="fc" id="L154">        return message;</span>
     }
 
     @Override
     @Transactional
     public Message updateProductCategories(List&lt;Long&gt; ids, Long productId) {
-<span class="nc" id="L161">        Message message = new Message();</span>
-<span class="nc" id="L162">        Product product = productDAO.getProductById(productId);</span>
-<span class="nc" id="L163">        List&lt;Category&gt; categories = new ArrayList&lt;&gt;();</span>
-<span class="nc bnc" id="L164" title="All 2 branches missed.">        for (Long id : ids) {</span>
-<span class="nc" id="L165">            categories.add(categoryDAO.getCategoryById(id));</span>
-<span class="nc" id="L166">        }</span>
-<span class="nc" id="L167">        product.setCategories(categories);</span>
-<span class="nc" id="L168">        message.getConfirms().add(Message.PRODUCT_UPDATE_CATEGORIES_SUCCESS);</span>
-<span class="nc" id="L169">        logger.info(Message.PRODUCT_UPDATE_CATEGORIES_SUCCESS);</span>
-<span class="nc" id="L170">        return message;</span>
+<span class="fc" id="L160">        Message message = new Message();</span>
+<span class="fc" id="L161">        Product product = productDAO.getProductById(productId);</span>
+<span class="fc" id="L162">        List&lt;Category&gt; categories = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L163" title="All 2 branches covered.">        for (Long id : ids) {</span>
+<span class="fc" id="L164">            categories.add(categoryDAO.getCategoryById(id));</span>
+<span class="fc" id="L165">        }</span>
+<span class="fc" id="L166">        product.setCategories(categories);</span>
+<span class="fc" id="L167">        message.getConfirms().add(Message.PRODUCT_UPDATE_CATEGORIES_SUCCESS);</span>
+<span class="fc" id="L168">        logger.info(Message.PRODUCT_UPDATE_CATEGORIES_SUCCESS);</span>
+<span class="fc" id="L169">        return message;</span>
     }
 
     @Override
     @Transactional
     public Message updateProductPhotoMd(MultipartFile photoMd, Long productId) {
-<span class="nc" id="L176">        Message message = new Message();</span>
-<span class="nc" id="L177">        Product product = productDAO.getProductById(productId);</span>
+<span class="fc" id="L175">        Message message = new Message();</span>
+<span class="fc" id="L176">        Product product = productDAO.getProductById(productId);</span>
         try {
-<span class="nc" id="L179">            product.setPhotoMd(imageService.saveFile(photoMd));</span>
-<span class="nc" id="L180">        } catch (IOException ex) {</span>
-<span class="nc" id="L181">            message.getErrors().add(Message.FILE_SAVE_FAIL);</span>
-<span class="nc" id="L182">            logger.error(Message.FILE_SAVE_FAIL, ex);</span>
-<span class="nc" id="L183">            return message;</span>
-<span class="nc" id="L184">        }</span>
-<span class="nc" id="L185">        message.getConfirms().add(Message.FILE_SAVE_SUCCESS);</span>
-<span class="nc" id="L186">        logger.info(Message.FILE_SAVE_SUCCESS);</span>
-<span class="nc" id="L187">        return message;</span>
+<span class="fc" id="L178">            product.setPhotoMd(imageService.saveFile(photoMd));</span>
+<span class="nc" id="L179">        } catch (IOException ex) {</span>
+<span class="nc" id="L180">            message.getErrors().add(Message.FILE_SAVE_FAIL);</span>
+<span class="nc" id="L181">            logger.error(Message.FILE_SAVE_FAIL, ex);</span>
+<span class="nc" id="L182">            return message;</span>
+<span class="fc" id="L183">        }</span>
+<span class="fc" id="L184">        message.getConfirms().add(Message.FILE_SAVE_SUCCESS);</span>
+<span class="fc" id="L185">        logger.info(Message.FILE_SAVE_SUCCESS);</span>
+<span class="fc" id="L186">        return message;</span>
     }
 
     @Override
     @Transactional
     public Message updateProductPhotoSm(MultipartFile photoSm, Long productId) {
-<span class="nc" id="L193">        Message message = new Message();</span>
-<span class="nc" id="L194">        Product product = productDAO.getProductById(productId);</span>
+<span class="fc" id="L192">        Message message = new Message();</span>
+<span class="fc" id="L193">        Product product = productDAO.getProductById(productId);</span>
         try {
-<span class="nc" id="L196">            product.setPhotoSm(imageService.saveFile(photoSm));</span>
-<span class="nc" id="L197">        } catch (IOException ex) {</span>
-<span class="nc" id="L198">            message.getErrors().add(Message.FILE_SAVE_FAIL);</span>
-<span class="nc" id="L199">            logger.error(Message.FILE_SAVE_FAIL, ex);</span>
-<span class="nc" id="L200">            return message;</span>
-<span class="nc" id="L201">        }</span>
-<span class="nc" id="L202">        message.getConfirms().add(Message.FILE_SAVE_SUCCESS);</span>
-<span class="nc" id="L203">        logger.info(Message.FILE_SAVE_SUCCESS);</span>
-<span class="nc" id="L204">        return message;</span>
+<span class="fc" id="L195">            product.setPhotoSm(imageService.saveFile(photoSm));</span>
+<span class="nc" id="L196">        } catch (IOException ex) {</span>
+<span class="nc" id="L197">            message.getErrors().add(Message.FILE_SAVE_FAIL);</span>
+<span class="nc" id="L198">            logger.error(Message.FILE_SAVE_FAIL, ex);</span>
+<span class="nc" id="L199">            return message;</span>
+<span class="fc" id="L200">        }</span>
+<span class="fc" id="L201">        message.getConfirms().add(Message.FILE_SAVE_SUCCESS);</span>
+<span class="fc" id="L202">        logger.info(Message.FILE_SAVE_SUCCESS);</span>
+<span class="fc" id="L203">        return message;</span>
     }
 
     @Autowired
     public void setProductDAO(ProductDAO productDAO) {
-<span class="fc" id="L209">        this.productDAO = productDAO;</span>
-<span class="fc" id="L210">    }</span>
+<span class="fc" id="L208">        this.productDAO = productDAO;</span>
+<span class="fc" id="L209">    }</span>
 
     @Autowired
     public void setDtoMappingService(DTOMappingService dtoMappingService) {
-<span class="fc" id="L214">        this.dtoMappingService = dtoMappingService;</span>
-<span class="fc" id="L215">    }</span>
+<span class="fc" id="L213">        this.dtoMappingService = dtoMappingService;</span>
+<span class="fc" id="L214">    }</span>
 
     @Autowired
     public void setCategoryDAO(CategoryDAO categoryDAO) {
-<span class="fc" id="L219">        this.categoryDAO = categoryDAO;</span>
-<span class="fc" id="L220">    }</span>
+<span class="fc" id="L218">        this.categoryDAO = categoryDAO;</span>
+<span class="fc" id="L219">    }</span>
 
     @Autowired
     public void setImageService(ImageService imageService) {
-<span class="fc" id="L224">        this.imageService = imageService;</span>
-<span class="fc" id="L225">    }</span>
+<span class="fc" id="L223">        this.imageService = imageService;</span>
+<span class="fc" id="L224">    }</span>
 
-    @Autowired
-    public void setFileValidator(FileValidator fileValidator) {
-<span class="fc" id="L229">        this.fileValidator = fileValidator;</span>
-<span class="fc" id="L230">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

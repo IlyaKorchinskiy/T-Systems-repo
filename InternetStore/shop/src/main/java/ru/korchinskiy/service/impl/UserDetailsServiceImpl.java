@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
         UserDto userDto = userService.getUserByEmail(email);
         List<RoleDto> roles = userDto.getRoles();
         List<GrantedAuthority> grantList = new ArrayList<>();

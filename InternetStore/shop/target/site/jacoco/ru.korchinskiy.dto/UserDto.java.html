@@ -7,42 +7,43 @@ import ru.korchinskiy.validation.PhoneNumber;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.List;
 
-<span class="nc bnc" id="L12" title="All 94 branches missed.">@Data</span>
-<span class="fc" id="L13">@NoArgsConstructor</span>
+<span class="nc bnc" id="L13" title="All 94 branches missed.">@Data</span>
+<span class="fc" id="L14">@NoArgsConstructor</span>
 @PasswordMatches
-public class UserDto {
-<span class="fc" id="L16">    private Long id;</span>
+public class UserDto implements Serializable {
+<span class="fc" id="L17">    private Long id;</span>
 
     @Size(min = 2, message = &quot;name should be min 2 characters&quot;)
-<span class="nc" id="L19">    private String name;</span>
+<span class="nc" id="L20">    private String name;</span>
 
     @Size(min = 2, message = &quot;last name should be min 2 characters&quot;)
-<span class="nc" id="L22">    private String lastname;</span>
+<span class="nc" id="L23">    private String lastname;</span>
 
     @Size(min = 6, message = &quot;should not be empty&quot;)
-<span class="nc" id="L25">    private String birthday;</span>
+<span class="nc" id="L26">    private String birthday;</span>
 
     @Email(message = &quot;incorrect e-mail&quot;)
     @Size(min = 6, message = &quot;should not be empty&quot;)
-<span class="nc" id="L29">    private String email;</span>
+<span class="nc" id="L30">    private String email;</span>
 
     @Size(min = 6, message = &quot;password should be min 6 symbols&quot;)
-<span class="nc" id="L32">    private String password;</span>
+<span class="nc" id="L33">    private String password;</span>
 
     @Size(min = 6, message = &quot;password should be min 6 symbols&quot;)
-<span class="nc" id="L35">    private String matchingPassword;</span>
+<span class="nc" id="L36">    private String matchingPassword;</span>
 
     @PhoneNumber
-<span class="nc" id="L38">    private String phoneNumber;</span>
+<span class="nc" id="L39">    private String phoneNumber;</span>
 
-<span class="nc" id="L40">    private List&lt;AddressDto&gt; addresses;</span>
-<span class="nc" id="L41">    private List&lt;RoleDto&gt; roles;</span>
-<span class="nc" id="L42">    private List&lt;OrderDto&gt; orders;</span>
+<span class="nc" id="L41">    private List&lt;AddressDto&gt; addresses;</span>
+<span class="nc" id="L42">    private List&lt;RoleDto&gt; roles;</span>
+<span class="nc" id="L43">    private List&lt;OrderDto&gt; orders;</span>
 
-<span class="fc" id="L44">    public UserDto(Long id) {</span>
-<span class="fc" id="L45">        this.id = id;</span>
-<span class="fc" id="L46">    }</span>
+<span class="fc" id="L45">    public UserDto(Long id) {</span>
+<span class="fc" id="L46">        this.id = id;</span>
+<span class="fc" id="L47">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

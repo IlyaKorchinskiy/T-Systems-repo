@@ -3,22 +3,11 @@ package ru.korchinskiy.service.impl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import ru.korchinskiy.config.PersistenceJpaConfig;
-import ru.korchinskiy.config.WebConfig;
 import ru.korchinskiy.dto.CategoryTreeDto;
-import ru.korchinskiy.service.CategoryService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@WebAppConfiguration
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {WebConfig.class})
 public class CategoryServiceImplTest {
     private CategoryTreeDto categoryTreeDto1;
     private CategoryTreeDto categoryTreeDto2;
@@ -27,8 +16,7 @@ public class CategoryServiceImplTest {
     private CategoryTreeDto categoryTreeDto5;
     private List<CategoryTreeDto> categoryTreeDtoList;
 
-    @Autowired
-    private CategoryService categoryService;
+    private CategoryServiceImpl categoryService = new CategoryServiceImpl();
 
     @Before
     public void setUp() {

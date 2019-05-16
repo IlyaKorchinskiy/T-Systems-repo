@@ -3,12 +3,6 @@ package ru.korchinskiy.service.impl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import ru.korchinskiy.config.WebConfig;
 import ru.korchinskiy.dto.CartDto;
 import ru.korchinskiy.dto.CartProductDto;
 import ru.korchinskiy.dto.NewOrderDto;
@@ -18,14 +12,10 @@ import ru.korchinskiy.enums.DeliveryType;
 import ru.korchinskiy.enums.OrderStatus;
 import ru.korchinskiy.enums.PaymentStatus;
 import ru.korchinskiy.enums.PaymentType;
-import ru.korchinskiy.service.OrderService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@WebAppConfiguration
-@RunWith(SpringRunner.class)
-@ContextConfiguration(classes = {WebConfig.class})
 public class OrderServiceImplTest {
 
     private User user;
@@ -42,11 +32,11 @@ public class OrderServiceImplTest {
     private CartProductDto cartProductDto;
     private OrderProduct orderProduct;
 
-    @Autowired
-    private OrderService orderService;
+    private OrderServiceImpl orderService = new OrderServiceImpl();
 
     @Before
     public void setUp() {
+
         role = new Role(1L, "ROLE_CLIENT");
         roles = new ArrayList<>();
         roles.add(role);
@@ -58,13 +48,11 @@ public class OrderServiceImplTest {
                 null, 1299.0);
         orderHistory = new OrderHistory(order, PaymentType.CASH, DeliveryType.DELIVERY, PaymentStatus.WAITING_FOR_PAYMENT,
                 OrderStatus.NEW, "Saint-Petersburg", 1299.0, null);
-        product = new Product("title", "authorName", 429.0, 5,
-                "description", null, "photo1", "photo2");
+        product = new Product(1L, "title1");
         cartDto = new CartDto(1L, null, null);
-        productDto = new ProductDto(1L, "title", "authorName", 429.0, 5,
-                "description", null, "photo1", "photo2");
+        productDto = new ProductDto(1L);
         cartProductDto = new CartProductDto(1L, productDto, 2, 858.0);
-        orderProduct = new OrderProduct(order, product, 429.0, 2);
+        orderProduct = new OrderProduct(order, product, null, 2);
 
         cartProducts = new ArrayList<>();
         cartProducts.add(cartProductDto);
@@ -72,7 +60,7 @@ public class OrderServiceImplTest {
 
         products = new ArrayList<>();
         products.add(product);
-        products.add(new Product());
+        products.add(new Product(2L, "title2"));
     }
 
     @Test
@@ -120,14 +108,14 @@ public class OrderServiceImplTest {
 
     @Test
     public void createOrderHistory() {
-        OrderHistory expectedOrderHistory = orderService.createOrderHistory(order);
-        orderHistory.setDate(expectedOrderHistory.getDate());
-        Assert.assertEquals(expectedOrderHistory, orderHistory);
+        OrderHistory actualOrderHistory = orderService.createOrderHistory(order);
+        orderHistory.setDate(actualOrderHistory.getDate());
+        Assert.assertEquals(orderHistory, actualOrderHistory);
     }
 
     @Test
     public void createOrderProduct() {
-        OrderProduct expectedOrderProduct = orderService.createOrderProduct(cartProductDto, product, order);
-        Assert.assertEquals(expectedOrderProduct, orderProduct);
+        OrderProduct actualOrderProduct = orderService.createOrderProduct(cartProductDto, product, order);
+        Assert.assertEquals(orderProduct, actualOrderProduct);
     }
 }

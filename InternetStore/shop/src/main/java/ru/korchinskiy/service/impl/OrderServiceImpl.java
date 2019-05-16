@@ -125,14 +125,14 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public boolean checkForAmounts(List<CartProductDto> cartProducts, List<Product> products) {
+    boolean checkForAmounts(List<CartProductDto> cartProducts, List<Product> products) {
         for (int i = 0; i < cartProducts.size(); i++) {
             if (cartProducts.get(i).getAmount() > products.get(i).getAmount()) return false;
         }
         return true;
     }
 
-    public Order createNewOrder(NewOrderDto orderDto, User user) {
+    Order createNewOrder(NewOrderDto orderDto, User user) {
         Order order = new Order();
         order.setUser(user);
         order.setPaymentType(orderDto.getPaymentType());
@@ -145,7 +145,7 @@ public class OrderServiceImpl implements OrderService {
         return order;
     }
 
-    public OrderProduct createOrderProduct(CartProductDto cartProduct, Product product, Order order) {
+    OrderProduct createOrderProduct(CartProductDto cartProduct, Product product, Order order) {
         OrderProduct orderProduct = new OrderProduct();
         orderProduct.setOrder(order);
         orderProduct.setProduct(product);
@@ -154,7 +154,7 @@ public class OrderServiceImpl implements OrderService {
         return orderProduct;
     }
 
-    public OrderHistory createOrderHistory(Order order) {
+    OrderHistory createOrderHistory(Order order) {
         OrderHistory orderHistory = new OrderHistory();
         orderHistory.setOrder(order);
         orderHistory.setPaymentType(order.getPaymentType());

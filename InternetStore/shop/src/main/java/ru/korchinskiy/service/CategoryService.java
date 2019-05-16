@@ -77,12 +77,4 @@ public interface CategoryService {
      */
     Message removeCategory(Long categoryId);
 
-    /**
-     * Builds category tree from list of categories
-     * Every CategoryTreeDto can have subcategories of CategoryTreeDto
-     *
-     * @param categoryTreeDtoList List<CategoryTreeDto>
-     * @return List<CategoryTreeDto> list of categories
-     */
-    List<CategoryTreeDto> buildCategoryTree(List<CategoryTreeDto> categoryTreeDtoList);
 }

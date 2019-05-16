@@ -125,14 +125,14 @@ import java.util.List;
         }
 <span class="nc" id="L126">    }</span>
 
-    public boolean checkForAmounts(List&lt;CartProductDto&gt; cartProducts, List&lt;Product&gt; products) {
+    boolean checkForAmounts(List&lt;CartProductDto&gt; cartProducts, List&lt;Product&gt; products) {
 <span class="fc bfc" id="L129" title="All 2 branches covered.">        for (int i = 0; i &lt; cartProducts.size(); i++) {</span>
 <span class="fc bfc" id="L130" title="All 2 branches covered.">            if (cartProducts.get(i).getAmount() &gt; products.get(i).getAmount()) return false;</span>
         }
 <span class="fc" id="L132">        return true;</span>
     }
 
-    public Order createNewOrder(NewOrderDto orderDto, User user) {
+    Order createNewOrder(NewOrderDto orderDto, User user) {
 <span class="fc" id="L136">        Order order = new Order();</span>
 <span class="fc" id="L137">        order.setUser(user);</span>
 <span class="fc" id="L138">        order.setPaymentType(orderDto.getPaymentType());</span>
@@ -145,7 +145,7 @@ import java.util.List;
 <span class="fc" id="L145">        return order;</span>
     }
 
-    public OrderProduct createOrderProduct(CartProductDto cartProduct, Product product, Order order) {
+    OrderProduct createOrderProduct(CartProductDto cartProduct, Product product, Order order) {
 <span class="fc" id="L149">        OrderProduct orderProduct = new OrderProduct();</span>
 <span class="fc" id="L150">        orderProduct.setOrder(order);</span>
 <span class="fc" id="L151">        orderProduct.setProduct(product);</span>
@@ -154,7 +154,7 @@ import java.util.List;
 <span class="fc" id="L154">        return orderProduct;</span>
     }
 
-    public OrderHistory createOrderHistory(Order order) {
+    OrderHistory createOrderHistory(Order order) {
 <span class="fc" id="L158">        OrderHistory orderHistory = new OrderHistory();</span>
 <span class="fc" id="L159">        orderHistory.setOrder(order);</span>
 <span class="fc" id="L160">        orderHistory.setPaymentType(order.getPaymentType());</span>
@@ -226,52 +226,52 @@ import java.util.List;
 
     @Autowired
     public void setOrderDAO(OrderDAO orderDAO) {
-<span class="fc" id="L229">        this.orderDAO = orderDAO;</span>
-<span class="fc" id="L230">    }</span>
+<span class="nc" id="L229">        this.orderDAO = orderDAO;</span>
+<span class="nc" id="L230">    }</span>
 
     @Autowired
     public void setProductDAO(ProductDAO productDAO) {
-<span class="fc" id="L234">        this.productDAO = productDAO;</span>
-<span class="fc" id="L235">    }</span>
+<span class="nc" id="L234">        this.productDAO = productDAO;</span>
+<span class="nc" id="L235">    }</span>
 
     @Autowired
     public void setDtoMappingService(DTOMappingService dtoMappingService) {
-<span class="fc" id="L239">        this.dtoMappingService = dtoMappingService;</span>
-<span class="fc" id="L240">    }</span>
+<span class="nc" id="L239">        this.dtoMappingService = dtoMappingService;</span>
+<span class="nc" id="L240">    }</span>
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
-<span class="fc" id="L244">        this.userDAO = userDAO;</span>
-<span class="fc" id="L245">    }</span>
+<span class="nc" id="L244">        this.userDAO = userDAO;</span>
+<span class="nc" id="L245">    }</span>
 
     @Autowired
     public void setOrderProductDAO(OrderProductDAO orderProductDAO) {
-<span class="fc" id="L249">        this.orderProductDAO = orderProductDAO;</span>
-<span class="fc" id="L250">    }</span>
+<span class="nc" id="L249">        this.orderProductDAO = orderProductDAO;</span>
+<span class="nc" id="L250">    }</span>
 
     @Autowired
     public void setOrderHistoryDAO(OrderHistoryDAO orderHistoryDAO) {
-<span class="fc" id="L254">        this.orderHistoryDAO = orderHistoryDAO;</span>
-<span class="fc" id="L255">    }</span>
+<span class="nc" id="L254">        this.orderHistoryDAO = orderHistoryDAO;</span>
+<span class="nc" id="L255">    }</span>
 
     @Autowired
     public void setProductStatsDAO(ProductStatsDAO productStatsDAO) {
-<span class="fc" id="L259">        this.productStatsDAO = productStatsDAO;</span>
-<span class="fc" id="L260">    }</span>
+<span class="nc" id="L259">        this.productStatsDAO = productStatsDAO;</span>
+<span class="nc" id="L260">    }</span>
 
     @Autowired
     public void setUserStatsDAO(UserStatsDAO userStatsDAO) {
-<span class="fc" id="L264">        this.userStatsDAO = userStatsDAO;</span>
-<span class="fc" id="L265">    }</span>
+<span class="nc" id="L264">        this.userStatsDAO = userStatsDAO;</span>
+<span class="nc" id="L265">    }</span>
 
     @Autowired
     public void setCartService(CartService cartService) {
-<span class="fc" id="L269">        this.cartService = cartService;</span>
-<span class="fc" id="L270">    }</span>
+<span class="nc" id="L269">        this.cartService = cartService;</span>
+<span class="nc" id="L270">    }</span>
 
     @Autowired
     public void setMailService(MailService mailService) {
-<span class="fc" id="L274">        this.mailService = mailService;</span>
-<span class="fc" id="L275">    }</span>
+<span class="nc" id="L274">        this.mailService = mailService;</span>
+<span class="nc" id="L275">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

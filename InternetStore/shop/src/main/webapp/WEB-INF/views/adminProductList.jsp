@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
+<!DOCTYPE html>
 <html>
 <head>
     <title>Product list</title>
@@ -36,6 +37,8 @@
                     <tr>
                         <th scope="col">Product ID</th>
                         <th scope="col">Title</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Published</th>
                         <th scope="col">Price</th>
                         <th scope="col">Stock amount</th>
                         <th scope="col">Arrival date</th>
@@ -47,6 +50,8 @@
                         <tr>
                             <td>${product.id}</td>
                             <td class="title">${product.title}</td>
+                            <td>${product.author}</td>
+                            <td>${product.year}</td>
                             <td>${product.cost}</td>
                             <td>${product.amount}</td>
                             <td>${product.date}</td>

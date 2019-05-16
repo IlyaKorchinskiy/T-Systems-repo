@@ -7,9 +7,9 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 <span class="nc bnc" id="L9" title="All 86 branches missed.">@Data</span>
-<span class="nc" id="L10">@NoArgsConstructor</span>
+<span class="fc" id="L10">@NoArgsConstructor</span>
 public class ProductDto {
-<span class="nc" id="L12">    private Long id;</span>
+<span class="fc" id="L12">    private Long id;</span>
 <span class="nc" id="L13">    private String title;</span>
 <span class="nc" id="L14">    private String author;</span>
 <span class="nc" id="L15">    private String year;</span>
@@ -22,16 +22,8 @@ public class ProductDto {
 <span class="nc" id="L22">    private String photoMd;</span>
 <span class="nc" id="L23">    private String photoSm;</span>
 
-<span class="fc" id="L25">    public ProductDto(Long id, String title, String author, Double cost, Integer amount, String description, Date date, String photoMd, String photoSm) {</span>
+<span class="fc" id="L25">    public ProductDto(Long id) {</span>
 <span class="fc" id="L26">        this.id = id;</span>
-<span class="fc" id="L27">        this.title = title;</span>
-<span class="fc" id="L28">        this.author = author;</span>
-<span class="fc" id="L29">        this.cost = cost;</span>
-<span class="fc" id="L30">        this.amount = amount;</span>
-<span class="fc" id="L31">        this.description = description;</span>
-<span class="fc" id="L32">        this.date = date;</span>
-<span class="fc" id="L33">        this.photoMd = photoMd;</span>
-<span class="fc" id="L34">        this.photoSm = photoSm;</span>
-<span class="fc" id="L35">    }</span>
+<span class="fc" id="L27">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

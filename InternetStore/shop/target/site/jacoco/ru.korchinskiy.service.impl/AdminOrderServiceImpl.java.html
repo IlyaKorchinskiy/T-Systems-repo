@@ -10,8 +10,8 @@ import ru.korchinskiy.service.AdminOrderService;
 import ru.korchinskiy.service.OrderService;
 
 @Service
-<span class="fc" id="L13">public class AdminOrderServiceImpl implements AdminOrderService {</span>
-<span class="fc" id="L14">    private static Logger logger = Logger.getLogger(AdminOrderServiceImpl.class);</span>
+<span class="nc" id="L13">public class AdminOrderServiceImpl implements AdminOrderService {</span>
+<span class="nc" id="L14">    private static Logger logger = Logger.getLogger(AdminOrderServiceImpl.class);</span>
 
     private OrderService orderService;
     private MessageSender messageSender;
@@ -28,12 +28,12 @@ import ru.korchinskiy.service.OrderService;
 
     @Autowired
     public void setOrderService(OrderService orderService) {
-<span class="fc" id="L31">        this.orderService = orderService;</span>
-<span class="fc" id="L32">    }</span>
+<span class="nc" id="L31">        this.orderService = orderService;</span>
+<span class="nc" id="L32">    }</span>
 
     @Autowired
     public void setMessageSender(MessageSender messageSender) {
-<span class="fc" id="L36">        this.messageSender = messageSender;</span>
-<span class="fc" id="L37">    }</span>
+<span class="nc" id="L36">        this.messageSender = messageSender;</span>
+<span class="nc" id="L37">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

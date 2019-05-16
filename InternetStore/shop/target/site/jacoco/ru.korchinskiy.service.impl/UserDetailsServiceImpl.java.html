@@ -16,11 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-<span class="fc" id="L19">public class UserDetailsServiceImpl implements UserDetailsService {</span>
+<span class="nc" id="L19">public class UserDetailsServiceImpl implements UserDetailsService {</span>
     private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) {
 <span class="nc" id="L24">        UserDto userDto = userService.getUserByEmail(email);</span>
 <span class="nc" id="L25">        List&lt;RoleDto&gt; roles = userDto.getRoles();</span>
 <span class="nc" id="L26">        List&lt;GrantedAuthority&gt; grantList = new ArrayList&lt;&gt;();</span>
@@ -34,7 +34,7 @@ import java.util.List;
 
     @Autowired
     public void setUserService(UserService userService) {
-<span class="fc" id="L37">        this.userService = userService;</span>
-<span class="fc" id="L38">    }</span>
+<span class="nc" id="L37">        this.userService = userService;</span>
+<span class="nc" id="L38">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

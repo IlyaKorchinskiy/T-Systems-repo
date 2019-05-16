@@ -1,6 +1,7 @@
 package ru.korchinskiy.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 import ru.korchinskiy.validation.File;
 
@@ -11,10 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class NewProductDto {
     private Long id;
 
-    @Size(min = 2, max = 45, message = "title should be 2-45 characters")
+    @Size(min = 2, max = 60, message = "title should be 2-60 characters")
     private String title;
 
     @Size(min = 5, max = 100, message = "author name should be 5-100 symbols")
@@ -42,4 +44,9 @@ public class NewProductDto {
 
     @Size(min = 1, message = "choose categories")
     private List<Long> categories = new ArrayList<>();
+
+    public NewProductDto(Long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
 }

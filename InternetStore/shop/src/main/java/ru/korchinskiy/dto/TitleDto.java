@@ -7,6 +7,6 @@ import javax.validation.constraints.Size;
 @Data
 public class TitleDto {
 
-    @Size(min = 2, max = 45, message = "title should be 2-45 characters")
+    @Size(min = 2, max = 60, message = "title should be 2-60 characters")
     private String title;
 }

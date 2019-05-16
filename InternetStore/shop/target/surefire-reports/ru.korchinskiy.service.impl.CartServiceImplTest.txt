@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: ru.korchinskiy.service.impl.CartServiceImplTest
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.205 sec
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.305 sec

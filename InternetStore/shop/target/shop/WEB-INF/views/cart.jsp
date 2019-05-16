@@ -3,6 +3,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<!DOCTYPE html>
 <html>
 <head>
     <title>Cart</title>
@@ -21,7 +22,6 @@
     <div class="site-content">
         <jsp:include page="header.jsp"/>
         <div class="row cart-products site-padding justify-content-center">
-            <h2>Your cart</h2>
             <div class="col">
                 <c:if test="${message.errors.size() != 0}">
                     <c:forEach items="${message.errors}" var="error">

@@ -14,9 +14,9 @@ public class ProductRestController {
 
     private StatsService statsService;
 
-<span class="fc" id="L17">    public ProductRestController(StatsService statsService) {</span>
-<span class="fc" id="L18">        this.statsService = statsService;</span>
-<span class="fc" id="L19">    }</span>
+<span class="nc" id="L17">    public ProductRestController(StatsService statsService) {</span>
+<span class="nc" id="L18">        this.statsService = statsService;</span>
+<span class="nc" id="L19">    }</span>
 
     @GetMapping(&quot;/top&quot;)
     public List&lt;ProductStatsDto&gt; getProductsTop() {

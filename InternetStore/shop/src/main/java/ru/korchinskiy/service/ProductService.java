@@ -6,7 +6,6 @@ import ru.korchinskiy.dto.ProductDto;
 import ru.korchinskiy.dto.ProductWithCategoriesDto;
 import ru.korchinskiy.message.Message;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface ProductService {
@@ -16,11 +15,19 @@ public interface ProductService {
 
     List<ProductDto> getProductsByCategory(Long categoryId);
 
+    /**
+     * Searches products in DB by "search" String. Firstly searches full "search",
+     * then splits "search" to array of String words and searches vy every word.
+     * Returns list of products
+     *
+     * @param search String user request
+     * @return List<ProductDto> list of ProductDto
+     */
     List<ProductDto> findProductsBySearch(String search);
 
     List<Integer> getProductYears();
 
-    Message saveProduct(NewProductDto productDto, HttpServletRequest request);
+    Message saveProduct(NewProductDto productDto);
 
     Message updateProductTitle(String title, Long productId);
 

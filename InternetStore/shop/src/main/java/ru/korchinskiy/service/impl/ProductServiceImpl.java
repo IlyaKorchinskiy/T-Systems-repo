@@ -18,7 +18,6 @@ import ru.korchinskiy.service.ImageService;
 import ru.korchinskiy.service.ProductService;
 import ru.korchinskiy.validation.FileValidator;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -33,7 +32,6 @@ public class ProductServiceImpl implements ProductService {
     private DTOMappingService dtoMappingService;
     private CategoryDAO categoryDAO;
     private ImageService imageService;
-    private FileValidator fileValidator;
 
     @Override
     @Transactional
@@ -63,6 +61,7 @@ public class ProductServiceImpl implements ProductService {
         String[] searchWords = search.split("\\s");
         if (searchWords.length != 1) {
             for (String word : searchWords) {
+                if (word.length() < 4) break;
                 products.addAll(productDAO.findProductsBySearch(word));
             }
         }
@@ -77,7 +76,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public Message saveProduct(NewProductDto productDto, HttpServletRequest request) {
+    public Message saveProduct(NewProductDto productDto) {
         Message message = new Message();
         Product product = productDAO.getProductByTitle(productDto.getTitle());
         if (product != null) {
@@ -224,8 +223,4 @@ public class ProductServiceImpl implements ProductService {
         this.imageService = imageService;
     }
 
-    @Autowired
-    public void setFileValidator(FileValidator fileValidator) {
-        this.fileValidator = fileValidator;
-    }
 }

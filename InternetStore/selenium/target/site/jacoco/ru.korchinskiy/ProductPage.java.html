@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductPage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">selenium</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy</a> &gt; <span class="el_source">ProductPage.java</span></div><h1>ProductPage.java</h1><pre class="source lang-java linenums">package ru.korchinskiy;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+<span class="fc" id="L9">public class ProductPage {</span>
+    private static final int TIMEOUT_SECONDS = 10;
+    private static final String ADD_PRODUCT_BTN_ID = &quot;add-product-btn&quot;;
+    private static final String CONTINUE_SHOPPING_BTN_ID = &quot;continueShoppingBtn&quot;;
+    private static final String CART_BADGE_ID = &quot;cart-badge&quot;;
+    private static final String CART_LINK_ID = &quot;cart-link&quot;;
+
+    public String addProductToCart(WebDriver webDriver) {
+<span class="fc" id="L17">        WebDriverWait wait = new WebDriverWait(webDriver, TIMEOUT_SECONDS);</span>
+<span class="fc" id="L18">        WebElement addProductBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id(ADD_PRODUCT_BTN_ID)));</span>
+<span class="fc" id="L19">        addProductBtn.click();</span>
+<span class="fc" id="L20">        WebElement continueShoppingBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id(CONTINUE_SHOPPING_BTN_ID)));</span>
+<span class="fc" id="L21">        continueShoppingBtn.click();</span>
+<span class="fc" id="L22">        wait.until(ExpectedConditions.textToBe(By.id(CART_BADGE_ID), &quot;1&quot;));</span>
+<span class="fc" id="L23">        return webDriver.findElement(By.id(CART_BADGE_ID)).getText();</span>
+    }
+
+    public String goToCartPage(WebDriver webDriver) {
+<span class="fc" id="L27">        WebDriverWait wait = new WebDriverWait(webDriver, TIMEOUT_SECONDS);</span>
+<span class="fc" id="L28">        WebElement cartLink = wait.until(ExpectedConditions.elementToBeClickable(By.id(CART_LINK_ID)));</span>
+<span class="fc" id="L29">        cartLink.click();</span>
+<span class="fc" id="L30">        return webDriver.getTitle();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

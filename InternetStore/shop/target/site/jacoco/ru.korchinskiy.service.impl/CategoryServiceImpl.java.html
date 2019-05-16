@@ -39,7 +39,7 @@ import java.util.List;
 <span class="nc" id="L39">        Category category = categoryDAO.getCategoryById(id);</span>
 <span class="nc bnc" id="L40" title="All 2 branches missed.">        if (minCost == null) minCost = 0.0;</span>
 <span class="nc bnc" id="L41" title="All 2 branches missed.">        if (maxCost == null) maxCost = Double.MAX_VALUE;</span>
-<span class="nc bnc" id="L42" title="All 2 branches missed.">        if (year == null) year = &quot;____&quot;;</span>
+<span class="nc bnc" id="L42" title="All 4 branches missed.">        if (year == null || year.equals(&quot;...&quot;)) year = &quot;____&quot;;</span>
 <span class="nc" id="L43">        List&lt;Product&gt; products = productDAO.getProductsByCategoryAndParams(id, minCost, maxCost, year);</span>
 <span class="nc" id="L44">        List&lt;ProductDto&gt; productDtos = dtoMappingService.convertToProductDtoList(products);</span>
 <span class="nc" id="L45">        return dtoMappingService.convertToCategoryWithProductsDto(category, productDtos);</span>
@@ -65,7 +65,7 @@ import java.util.List;
 <span class="nc" id="L65">        return buildCategoryTree(categoryTreeDtoList);</span>
     }
 
-    public List&lt;CategoryTreeDto&gt; buildCategoryTree(List&lt;CategoryTreeDto&gt; categoryDtos) {
+    List&lt;CategoryTreeDto&gt; buildCategoryTree(List&lt;CategoryTreeDto&gt; categoryDtos) {
 <span class="fc bfc" id="L69" title="All 2 branches covered.">        for (int i = 0; i &lt; categoryDtos.size(); i++) {</span>
 <span class="fc bfc" id="L70" title="All 2 branches covered.">            if (!categoryDtos.get(i).getParentId().equals(ROOT_CATEGORY)) {</span>
 <span class="pc bpc" id="L71" title="1 of 2 branches missed.">                for (int j = 0; j &lt; categoryDtos.size(); j++) {</span>
@@ -140,17 +140,17 @@ import java.util.List;
 
     @Autowired
     public void setCategoryDAO(CategoryDAO categoryDAO) {
-<span class="fc" id="L143">        this.categoryDAO = categoryDAO;</span>
-<span class="fc" id="L144">    }</span>
+<span class="nc" id="L143">        this.categoryDAO = categoryDAO;</span>
+<span class="nc" id="L144">    }</span>
 
     @Autowired
     public void setProductDAO(ProductDAO productDAO) {
-<span class="fc" id="L148">        this.productDAO = productDAO;</span>
-<span class="fc" id="L149">    }</span>
+<span class="nc" id="L148">        this.productDAO = productDAO;</span>
+<span class="nc" id="L149">    }</span>
 
     @Autowired
     public void setDtoMappingService(DTOMappingService dtoMappingService) {
-<span class="fc" id="L153">        this.dtoMappingService = dtoMappingService;</span>
-<span class="fc" id="L154">    }</span>
+<span class="nc" id="L153">        this.dtoMappingService = dtoMappingService;</span>
+<span class="nc" id="L154">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

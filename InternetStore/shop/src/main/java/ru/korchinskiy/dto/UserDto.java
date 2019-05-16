@@ -7,12 +7,13 @@ import ru.korchinskiy.validation.PhoneNumber;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @NoArgsConstructor
 @PasswordMatches
-public class UserDto {
+public class UserDto implements Serializable {
     private Long id;
 
     @Size(min = 2, message = "name should be min 2 characters")

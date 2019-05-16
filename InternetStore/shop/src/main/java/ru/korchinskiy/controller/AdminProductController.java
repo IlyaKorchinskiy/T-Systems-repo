@@ -49,7 +49,7 @@ public class AdminProductController {
             model.addAttribute("allCategories", categories);
             return "adminProductForm";
         }
-        Message message = productService.saveProduct(productDto, request);
+        Message message = productService.saveProduct(productDto);
         List<ProductDto> products = productService.getAllProducts();
         model.addAttribute("products", products);
         model.addAttribute("message", message);

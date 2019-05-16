@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<!DOCTYPE html>
 <html>
 <head>
     <title>Catalog category ${category.title}</title>
@@ -65,52 +66,34 @@
                     </div>
                 </div>
                 <div class="row justify-content-start product-list">
-                    <%--<c:if test="${empty category}">--%>
-                    <%--<c:forEach items="${products}" var="product">--%>
-                    <%--<div class="col items">--%>
-                    <%--<div class="card">--%>
-                    <%--<a href="${contextPath}/catalog/product/${product.id}">--%>
-                    <%--<img src="${product.photoSm}" class="card-img-top"--%>
-                    <%--alt="product_photo">--%>
-                    <%--<div class="card-body">--%>
-                    <%--<h5 class="card-title">${product.title}</h5>--%>
-                    <%--<p class="card-text">${product.cost} <i class="fas fa-ruble-sign"></i></p>--%>
-                    <%--</div>--%>
-                    <%--</a>--%>
-                    <%--</div>--%>
-                    <%--</div>--%>
-                    <%--</c:forEach>--%>
-                    <%--</c:if>--%>
-                    <c:if test="${not empty category}">
-                        <c:forEach items="${category.products}" var="product">
-                            <div class="col items">
-                                <div class="card">
-                                    <a id="productLink${product.id}"
-                                       href="${contextPath}/catalog/product/${product.id}">
-                                        <img src="${product.photoSm}" class="card-img-top"
-                                             alt="product_photo">
-                                        <div class="card-body">
-                                            <h5 class="card-title">${product.title}</h5>
+                    <c:forEach items="${(not empty category) ? category.products : products}" var="product">
+                        <div class="col items">
+                            <div class="card">
+                                <a id="productLink${product.id}"
+                                   href="${contextPath}/catalog/product/${product.id}">
+                                    <img src="${product.photoSm}" class="card-img-top"
+                                         alt="product_photo">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${product.title}</h5>
 
-                                        </div>
-                                    </a>
-                                    <div class="row">
-                                        <div class="col price">
-                                            <p class="card-text">${product.cost}
-                                                <i class="fas fa-ruble-sign"></i></p>
-                                        </div>
-                                        <div class="col add-product-div">
-                                            <button id="add-product-btn" type="button" class="btn"
-                                                    data-toggle="modal" data-target="#addProductModal"
-                                                    onclick="addToCart('${product.id}')">
-                                                <i class="fas fa-cart-plus"></i>
-                                            </button>
-                                        </div>
+                                    </div>
+                                </a>
+                                <div class="row">
+                                    <div class="col price">
+                                        <p class="card-text">${product.cost}
+                                            <i class="fas fa-ruble-sign"></i></p>
+                                    </div>
+                                    <div class="col add-product-div">
+                                        <button id="add-product-btn" type="button" class="btn"
+                                                data-toggle="modal" data-target="#addProductModal"
+                                                onclick="addToCart('${product.id}')">
+                                            <i class="fas fa-cart-plus"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                        </c:forEach>
-                    </c:if>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>

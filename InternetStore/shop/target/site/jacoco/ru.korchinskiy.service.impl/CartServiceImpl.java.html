@@ -71,7 +71,7 @@ import java.util.List;
     public Message addProductToCart(HttpServletRequest request, HttpServletResponse response, Long productId, int amount) throws UnsupportedEncodingException {
 <span class="nc" id="L72">        Message message = new Message();</span>
 <span class="nc" id="L73">        Product product = productDAO.getProductById(productId);</span>
-<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (product.getAmount() == 0) {</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">        if (product.getAmount() &lt; amount) {</span>
 <span class="nc" id="L75">            message.getErrors().add(Message.PRODUCT_NOT_ENOUGH);</span>
 <span class="nc" id="L76">            logger.info(Message.PRODUCT_NOT_ENOUGH);</span>
 <span class="nc" id="L77">            return message;</span>
@@ -130,21 +130,21 @@ import java.util.List;
         }
 <span class="nc" id="L131">    }</span>
 
-    private CartDto addProductToCartDto(CartDto cartDto, Product product) {
-<span class="nc" id="L134">        List&lt;CartProductDto&gt; cartProductDtoList = cartDto.getCartProducts();</span>
-<span class="nc bnc" id="L135" title="All 2 branches missed.">        for (CartProductDto cartProductDto : cartProductDtoList) {</span>
-<span class="nc bnc" id="L136" title="All 2 branches missed.">            if (cartProductDto.getProduct().getId().equals(product.getId())) {</span>
+    CartDto addProductToCartDto(CartDto cartDto, Product product) {
+<span class="fc" id="L134">        List&lt;CartProductDto&gt; cartProductDtoList = cartDto.getCartProducts();</span>
+<span class="fc bfc" id="L135" title="All 2 branches covered.">        for (CartProductDto cartProductDto : cartProductDtoList) {</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">            if (cartProductDto.getProduct().getId().equals(product.getId())) {</span>
 <span class="nc" id="L137">                cartProductDto.setAmount(cartProductDto.getAmount() + 1);</span>
 <span class="nc" id="L138">                cartProductDto.setSum(cartProductDto.getSum() + product.getCost());</span>
 <span class="nc" id="L139">                return cartDto;</span>
             }
-<span class="nc" id="L141">        }</span>
-<span class="nc" id="L142">        CartProductDto cartProductDto = new CartProductDto();</span>
-<span class="nc" id="L143">        cartProductDto.setProduct(dtoMappingService.convertToProductDto(product));</span>
-<span class="nc" id="L144">        cartProductDto.setAmount(1);</span>
-<span class="nc" id="L145">        cartProductDto.setSum(product.getCost());</span>
-<span class="nc" id="L146">        cartDto.getCartProducts().add(cartProductDto);</span>
-<span class="nc" id="L147">        return cartDto;</span>
+<span class="fc" id="L141">        }</span>
+<span class="fc" id="L142">        CartProductDto cartProductDto = new CartProductDto();</span>
+<span class="fc" id="L143">        cartProductDto.setProduct(dtoMappingService.convertToProductDto(product));</span>
+<span class="fc" id="L144">        cartProductDto.setAmount(1);</span>
+<span class="fc" id="L145">        cartProductDto.setSum(product.getCost());</span>
+<span class="fc" id="L146">        cartDto.getCartProducts().add(cartProductDto);</span>
+<span class="fc" id="L147">        return cartDto;</span>
     }
 
     private void addProductToDbCart(Cart cart, Product product, int amount) {
@@ -214,18 +214,18 @@ import java.util.List;
 
     @Autowired
     public void setCartDAO(CartDAO cartDAO) {
-<span class="fc" id="L217">        this.cartDAO = cartDAO;</span>
-<span class="fc" id="L218">    }</span>
+<span class="nc" id="L217">        this.cartDAO = cartDAO;</span>
+<span class="nc" id="L218">    }</span>
 
     @Autowired
     public void setProductDAO(ProductDAO productDAO) {
-<span class="fc" id="L222">        this.productDAO = productDAO;</span>
-<span class="fc" id="L223">    }</span>
+<span class="nc" id="L222">        this.productDAO = productDAO;</span>
+<span class="nc" id="L223">    }</span>
 
     @Autowired
     public void setCartProductDAO(CartProductDAO cartProductDAO) {
-<span class="fc" id="L227">        this.cartProductDAO = cartProductDAO;</span>
-<span class="fc" id="L228">    }</span>
+<span class="nc" id="L227">        this.cartProductDAO = cartProductDAO;</span>
+<span class="nc" id="L228">    }</span>
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {

@@ -2,5 +2,5 @@ projectKey=ru.korchinskiy:InternetStore
 serverUrl=http://localhost:9000
 serverVersion=7.7.0.23042
 dashboardUrl=http://localhost:9000/dashboard?id=ru.korchinskiy%3AInternetStore
-ceTaskId=AWqrhDvn26gDo8ZYDYHa
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AWqrhDvn26gDo8ZYDYHa
+ceTaskId=AWq7jeK2-EpZ9ZGkYeq9
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AWq7jeK2-EpZ9ZGkYeq9

@@ -1,6 +1,7 @@
 package ru.korchinskiy.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "category")
 @Data
+@NoArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +27,11 @@ public class Category {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> products;
+
+    public Category(Long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
 
     @Override
     public String toString() {

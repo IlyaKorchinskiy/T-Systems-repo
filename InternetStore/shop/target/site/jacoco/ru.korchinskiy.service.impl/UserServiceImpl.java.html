@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-<span class="fc" id="L28">public class UserServiceImpl implements UserService {</span>
-<span class="fc" id="L29">    private static final Long ROLE_CLIENT = 1L;</span>
-<span class="fc" id="L30">    private static Logger logger = Logger.getLogger(UserServiceImpl.class);</span>
+<span class="nc" id="L28">public class UserServiceImpl implements UserService {</span>
+<span class="nc" id="L29">    private static final Long ROLE_CLIENT = 1L;</span>
+<span class="nc" id="L30">    private static Logger logger = Logger.getLogger(UserServiceImpl.class);</span>
     private BCryptPasswordEncoder passwordEncoder;
 
     private UserDAO userDAO;
@@ -155,37 +155,37 @@ import java.util.List;
 
     @Autowired
     public void setDtoMappingService(DTOMappingService dtoMappingService) {
-<span class="fc" id="L158">        this.dtoMappingService = dtoMappingService;</span>
-<span class="fc" id="L159">    }</span>
+<span class="nc" id="L158">        this.dtoMappingService = dtoMappingService;</span>
+<span class="nc" id="L159">    }</span>
 
     @Autowired
     public void setOrderService(OrderService orderService) {
-<span class="fc" id="L163">        this.orderService = orderService;</span>
-<span class="fc" id="L164">    }</span>
+<span class="nc" id="L163">        this.orderService = orderService;</span>
+<span class="nc" id="L164">    }</span>
 
     @Autowired
     public void setCartService(CartService cartService) {
-<span class="fc" id="L168">        this.cartService = cartService;</span>
-<span class="fc" id="L169">    }</span>
+<span class="nc" id="L168">        this.cartService = cartService;</span>
+<span class="nc" id="L169">    }</span>
 
     @Autowired
     public void setUserDAO(UserDAO userDAO) {
-<span class="fc" id="L173">        this.userDAO = userDAO;</span>
-<span class="fc" id="L174">    }</span>
+<span class="nc" id="L173">        this.userDAO = userDAO;</span>
+<span class="nc" id="L174">    }</span>
 
     @Autowired
     public void setRoleDAO(RoleDAO roleDAO) {
-<span class="fc" id="L178">        this.roleDAO = roleDAO;</span>
-<span class="fc" id="L179">    }</span>
+<span class="nc" id="L178">        this.roleDAO = roleDAO;</span>
+<span class="nc" id="L179">    }</span>
 
     @Autowired
     public void setAddressDAO(AddressDAO addressDAO) {
-<span class="fc" id="L183">        this.addressDAO = addressDAO;</span>
-<span class="fc" id="L184">    }</span>
+<span class="nc" id="L183">        this.addressDAO = addressDAO;</span>
+<span class="nc" id="L184">    }</span>
 
     @Autowired
     public void setPasswordEncoder(BCryptPasswordEncoder passwordEncoder) {
-<span class="fc" id="L188">        this.passwordEncoder = passwordEncoder;</span>
-<span class="fc" id="L189">    }</span>
+<span class="nc" id="L188">        this.passwordEncoder = passwordEncoder;</span>
+<span class="nc" id="L189">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

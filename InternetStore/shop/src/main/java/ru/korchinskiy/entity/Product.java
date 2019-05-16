@@ -38,15 +38,9 @@ public class Product {
     )
     private List<Category> categories;
 
-    public Product(String title, String author, Double cost, Integer amount, String description, Date date, String photoMd, String photoSm) {
+    public Product(Long id, String title) {
+        this.id = id;
         this.title = title;
-        this.author = author;
-        this.cost = cost;
-        this.amount = amount;
-        this.description = description;
-        this.date = date;
-        this.photoMd = photoMd;
-        this.photoSm = photoSm;
     }
 
     @Override

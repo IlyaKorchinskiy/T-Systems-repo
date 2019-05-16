@@ -10,16 +10,16 @@ import java.util.List;
 @Entity
 @Table(name = &quot;product&quot;)
 <span class="pc bpc" id="L12" title="93 of 94 branches missed.">@Data</span>
-<span class="fc" id="L13">@NoArgsConstructor</span>
+<span class="nc" id="L13">@NoArgsConstructor</span>
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-<span class="nc" id="L17">    private Long id;</span>
+<span class="fc" id="L17">    private Long id;</span>
 
 <span class="nc" id="L19">    private String title;</span>
 <span class="nc" id="L20">    private String author;</span>
 <span class="nc" id="L21">    private String year;</span>
-<span class="nc" id="L22">    private Double cost;</span>
+<span class="fc" id="L22">    private Double cost;</span>
 <span class="fc" id="L23">    private Integer amount;</span>
 <span class="nc" id="L24">    private String description;</span>
 <span class="nc" id="L25">    private Date date;</span>
@@ -38,20 +38,14 @@ public class Product {
     )
 <span class="nc" id="L39">    private List&lt;Category&gt; categories;</span>
 
-<span class="fc" id="L41">    public Product(String title, String author, Double cost, Integer amount, String description, Date date, String photoMd, String photoSm) {</span>
-<span class="fc" id="L42">        this.title = title;</span>
-<span class="fc" id="L43">        this.author = author;</span>
-<span class="fc" id="L44">        this.cost = cost;</span>
-<span class="fc" id="L45">        this.amount = amount;</span>
-<span class="fc" id="L46">        this.description = description;</span>
-<span class="fc" id="L47">        this.date = date;</span>
-<span class="fc" id="L48">        this.photoMd = photoMd;</span>
-<span class="fc" id="L49">        this.photoSm = photoSm;</span>
-<span class="fc" id="L50">    }</span>
+<span class="fc" id="L41">    public Product(Long id, String title) {</span>
+<span class="fc" id="L42">        this.id = id;</span>
+<span class="fc" id="L43">        this.title = title;</span>
+<span class="fc" id="L44">    }</span>
 
     @Override
     public String toString() {
-<span class="nc" id="L54">        return &quot;Product{&quot; +</span>
+<span class="nc" id="L48">        return &quot;Product{&quot; +</span>
                 &quot;id=&quot; + id +
                 &quot;, title='&quot; + title + '\'' +
                 &quot;, cost=&quot; + cost +

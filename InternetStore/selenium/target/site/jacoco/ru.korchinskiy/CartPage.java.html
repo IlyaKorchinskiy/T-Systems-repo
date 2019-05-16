@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CartPage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">selenium</a> &gt; <a href="index.source.html" class="el_package">ru.korchinskiy</a> &gt; <span class="el_source">CartPage.java</span></div><h1>CartPage.java</h1><pre class="source lang-java linenums">package ru.korchinskiy;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+<span class="fc" id="L9">public class CartPage {</span>
+    private static final int TIMEOUT_SECONDS = 10;
+    private static final String LOGIN_BTN_ID = &quot;login-btn&quot;;
+    private static final String LOGIN_INPUT_ID = &quot;modalLoginInput&quot;;
+    private static final String PASSWORD_INPUT_ID = &quot;modalPasswordInput&quot;;
+    private static final String LOGIN = &quot;johnDoe@gmail.com&quot;;
+    private static final String PASSWORD = &quot;johnDoe&quot;;
+    private static final String LOGIN_SUBMIT_BTN_ID = &quot;login-submit-btn&quot;;
+    private static final String PROFILE_LINK_ID = &quot;profile-link&quot;;
+    private static final String ADDRESS_INPUT_NAME = &quot;address&quot;;
+    private static final String CONFIRM_ORDER_BTN_ID = &quot;confirm-order-btn&quot;;
+
+    public String login(WebDriver webDriver) {
+<span class="fc" id="L22">        WebDriverWait wait = new WebDriverWait(webDriver, TIMEOUT_SECONDS);</span>
+<span class="fc" id="L23">        WebElement loginBtn = wait.until(ExpectedConditions.elementToBeClickable(By.id(LOGIN_BTN_ID)));</span>
+<span class="fc" id="L24">        loginBtn.click();</span>
+<span class="fc" id="L25">        WebElement loginInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(LOGIN_INPUT_ID)));</span>
+<span class="fc" id="L26">        loginInput.sendKeys(LOGIN);</span>
+<span class="fc" id="L27">        WebElement passInput = webDriver.findElement(By.id(PASSWORD_INPUT_ID));</span>
+<span class="fc" id="L28">        passInput.sendKeys(PASSWORD);</span>
+<span class="fc" id="L29">        WebElement loginSubmitBtn = webDriver.findElement(By.id(LOGIN_SUBMIT_BTN_ID));</span>
+<span class="fc" id="L30">        loginSubmitBtn.click();</span>
+<span class="fc" id="L31">        WebElement profileLink = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(PROFILE_LINK_ID)));</span>
+<span class="fc" id="L32">        return profileLink.getText();</span>
+    }
+
+    public String confirmOrderWithDeliveryAndCash(WebDriver webDriver) {
+<span class="fc" id="L36">        WebDriverWait wait = new WebDriverWait(webDriver, TIMEOUT_SECONDS);</span>
+<span class="fc" id="L37">        WebElement addressInput = wait.until(ExpectedConditions.elementToBeClickable(By.name(ADDRESS_INPUT_NAME)));</span>
+<span class="fc" id="L38">        addressInput.click();</span>
+<span class="fc" id="L39">        WebElement confirmBtn = webDriver.findElement(By.id(CONFIRM_ORDER_BTN_ID));</span>
+<span class="fc" id="L40">        confirmBtn.click();</span>
+<span class="fc" id="L41">        return webDriver.getTitle();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.3.201901230119</span></div></body></html>

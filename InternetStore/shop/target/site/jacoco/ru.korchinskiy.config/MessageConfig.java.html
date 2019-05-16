@@ -8,26 +8,26 @@ import org.springframework.jms.core.JmsTemplate;
 import java.util.Arrays;
 
 @Configuration
-<span class="fc" id="L11">public class MessageConfig {</span>
+<span class="nc" id="L11">public class MessageConfig {</span>
     private static final String DEFAULT_BROKER_URL = &quot;tcp://glasscase:61616&quot;;
     private static final String PRODUCT_QUEUE = &quot;jms.queue.ProductQueue&quot;;
 
     @Bean
     public ActiveMQConnectionFactory connectionFactory() {
-<span class="fc" id="L17">        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();</span>
-<span class="fc" id="L18">        connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);</span>
-<span class="fc" id="L19">        connectionFactory.setTrustedPackages(Arrays.asList(&quot;ru.korchinskiy&quot;));</span>
-<span class="fc" id="L20">        connectionFactory.setUserName(&quot;guest&quot;);</span>
-<span class="fc" id="L21">        connectionFactory.setPassword(&quot;123456&quot;);</span>
-<span class="fc" id="L22">        return connectionFactory;</span>
+<span class="nc" id="L17">        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory();</span>
+<span class="nc" id="L18">        connectionFactory.setBrokerURL(DEFAULT_BROKER_URL);</span>
+<span class="nc" id="L19">        connectionFactory.setTrustedPackages(Arrays.asList(&quot;ru.korchinskiy&quot;));</span>
+<span class="nc" id="L20">        connectionFactory.setUserName(&quot;guest&quot;);</span>
+<span class="nc" id="L21">        connectionFactory.setPassword(&quot;123456&quot;);</span>
+<span class="nc" id="L22">        return connectionFactory;</span>
     }
 
     @Bean
     public JmsTemplate jmsTemplate() {
-<span class="fc" id="L27">        JmsTemplate template = new JmsTemplate();</span>
-<span class="fc" id="L28">        template.setConnectionFactory(connectionFactory());</span>
-<span class="fc" id="L29">        template.setDefaultDestinationName(PRODUCT_QUEUE);</span>
-<span class="fc" id="L30">        return template;</span>
+<span class="nc" id="L27">        JmsTemplate template = new JmsTemplate();</span>
+<span class="nc" id="L28">        template.setConnectionFactory(connectionFactory());</span>
+<span class="nc" id="L29">        template.setDefaultDestinationName(PRODUCT_QUEUE);</span>
+<span class="nc" id="L30">        return template;</span>
     }
 
 }

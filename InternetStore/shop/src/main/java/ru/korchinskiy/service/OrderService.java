@@ -1,7 +1,6 @@
 package ru.korchinskiy.service;
 
 import ru.korchinskiy.dto.*;
-import ru.korchinskiy.entity.*;
 import ru.korchinskiy.enums.OrderStatus;
 import ru.korchinskiy.message.Message;
 
@@ -39,15 +38,25 @@ public interface OrderService {
      */
     List<OrderHistoryDto> getOrderHistoriesByOrderId(Long id);
 
+    /**
+     * Checks for amounts of cartProducts. If amounts are ok creates new order, returns object Message confirm.
+     * If amounts are not ok or cart is empty, returns object Message error.
+     *
+     * @param order    NewOrderDto from UI
+     * @param request  HttpServletRequest
+     * @param response HttpServletResponse
+     * @return Message message with confirm or errors lists
+     * @throws UnsupportedEncodingException
+     */
     Message saveOrder(NewOrderDto order, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException;
 
+    /**
+     * Updates order status and returns Message object.
+     *
+     * @param orderId     Long order id
+     * @param orderStatus OrderStatus
+     * @return Message message with confirm or errors list
+     */
     Message updateOrderStatus(Long orderId, OrderStatus orderStatus);
 
-    Order createNewOrder(NewOrderDto newOrderDto, User user);
-
-    boolean checkForAmounts(List<CartProductDto> cartProducts, List<Product> products);
-
-    OrderHistory createOrderHistory(Order order);
-
-    OrderProduct createOrderProduct(CartProductDto cartProductDto, Product product, Order order);
 }
