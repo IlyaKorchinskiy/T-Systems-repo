@@ -29,7 +29,7 @@
                     <div class="col-sm-3">
                         <select id="productsMonthInput" class="form-control" onchange="changePeriod('products')">
                             <c:forEach items="${months}" var="month">
-                                <option value="${month.id}">${month}</option>
+                                <option value="${month.value}">${month}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -68,7 +68,7 @@
                     <div class="col-sm-3">
                         <select id="usersMonthInput" class="form-control" onchange="changePeriod('users')">
                             <c:forEach items="${months}" var="month">
-                                <option value="${month.id}">${month}</option>
+                                <option value="${month.value}">${month}</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -110,7 +110,7 @@
                 <div class="col-sm-3">
                     <select id="totalMonthInput" class="form-control" onchange="changePeriod('total')">
                         <c:forEach items="${months}" var="month">
-                            <option value="${month.id}">${month}</option>
+                            <option value="${month.value}">${month}</option>
                         </c:forEach>
                     </select>
                 </div>

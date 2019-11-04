@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ru.korchinskiy.dto.IndicatorDto;
 import ru.korchinskiy.dto.ProductStatsDto;
 import ru.korchinskiy.dto.UserStatsDto;
-import ru.korchinskiy.enums.Month;
 import ru.korchinskiy.service.StatsService;
 
+import java.time.Month;
 import java.util.List;
 
 @Controller
