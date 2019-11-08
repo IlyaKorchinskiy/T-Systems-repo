@@ -18,7 +18,7 @@ services:
       - "8189:8080"
     volumes:
       - type: bind
-        source: /c/InternetStore/static/img
+        source: ./static/img
         target: /usr/local/tomcat/webapps/images
 
   db:
@@ -31,7 +31,7 @@ services:
       - "3306:3306"
     volumes:
       - type: bind
-        source: /c/InternetStore/db/data
+        source: ./db/data
         target: /var/lib/mysql
 
   glasscase:
@@ -61,5 +61,5 @@ services:
       - "8190:8080"
     volumes:
       - type: bind
-        source: /c/InternetStore/static/img
+        source: ./static/img
         target: /home/node/app/img

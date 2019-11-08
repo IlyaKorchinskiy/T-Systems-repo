@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Service
 public class ImageServiceImpl implements ImageService {
-    public static final String IMG_SERVER_ADDRESS = "http://192.168.99.100:8190/";
+    public static final String IMG_SERVER_ADDRESS = "http://localhost:8190/";
 
     private static final Logger logger = Logger.getLogger(ImageServiceImpl.class);
     private static final String UPLOAD_FOLDER = "webapps/images/";
