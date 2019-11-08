@@ -40,7 +40,7 @@
         </div>
         <div class="row align-items-center header-content site-padding">
             <div class="col-sm-3 logo">
-                <a href="${contextPath}"><img src="${contextPath}/resources/img/logo.png" alt="logo"></a>
+                <a href="${contextPath}"><img src="http://localhost:8190/logo.png" alt="logo"></a>
             </div>
             <div class="col search">
                 <form action="${contextPath}/catalog/search" method="get">
