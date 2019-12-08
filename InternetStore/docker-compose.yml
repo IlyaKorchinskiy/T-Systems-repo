@@ -30,9 +30,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - type: bind
-        source: ./db/data
-        target: /var/lib/mysql
+      - ./db/data:/docker-entrypoint-initdb.d
 
   glasscase:
     container_name: "glasscase"
