@@ -61,3 +61,11 @@ services:
       - type: bind
         source: ./static/img
         target: /home/node/app/img
+
+  orderservice:
+    container_name: "order-service"
+    build:
+      context: ./orderservice
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
