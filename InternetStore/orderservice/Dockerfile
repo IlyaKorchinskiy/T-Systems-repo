@@ -1,7 +1,7 @@
-FROM tomcat:latest
+FROM openjdk:8-jdk-alpine
 
-ADD target/orderservice.war /usr/local/tomcat/webapps/orderservice.war
+ARG JAR_FILE=target/*.jar
 
-WORKDIR /usr/local/tomcat
+COPY ${JAR_FILE} app.jar
 
-EXPOSE 8080
+ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
