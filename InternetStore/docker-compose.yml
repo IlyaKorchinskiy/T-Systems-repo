@@ -5,7 +5,6 @@ services:
     container_name: "shop"
     build:
       context: ./shop
-      dockerfile: Dockerfile
     environment:
       - DB_NAME=shop
       - DB_USER=user
@@ -25,7 +24,6 @@ services:
     container_name: "db"
     build:
       context: ./db
-      dockerfile: Dockerfile
     command: --innodb_use_native_aio=0
     ports:
       - "3306:3306"
@@ -36,7 +34,6 @@ services:
     container_name: "glasscase"
     build:
       context: ./glasscase
-      dockerfile: Dockerfile
     ports:
       - "8080:8080" # application
       - "9990:9990" # admin console
@@ -46,7 +43,6 @@ services:
     container_name: "email"
     build:
       context: ./emailservice
-      dockerfile: Dockerfile
     ports:
       - "3000:3000"
 
@@ -54,7 +50,6 @@ services:
     container_name: "static"
     build:
       context: ./static
-      dockerfile: Dockerfile
     ports:
       - "8190:8080"
     volumes:
@@ -66,6 +61,14 @@ services:
     container_name: "order-service"
     build:
       context: ./orderservice
-      dockerfile: Dockerfile
     ports:
       - "8081:8080"
+
+  discoveryservice:
+    container_name: "discovery-service"
+    build:
+      context: ./discoveryservice
+    ports:
+      - "7777:8080"
+    depends_on:
+      - orderservice
