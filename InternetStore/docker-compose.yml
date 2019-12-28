@@ -56,19 +56,3 @@ services:
       - type: bind
         source: ./static/img
         target: /home/node/app/img
-
-  orderservice:
-    container_name: "order-service"
-    build:
-      context: ./orderservice
-    ports:
-      - "8081:8080"
-
-  discoveryservice:
-    container_name: "discovery-service"
-    build:
-      context: ./discoveryservice
-    ports:
-      - "7777:8080"
-    depends_on:
-      - orderservice
